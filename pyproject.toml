@@ -1,0 +1,21 @@
+[project]
+name = "qoe-educational-assistant"
+version = "0.1.0"
+description = "Phase 1 foundation for a QoE-aware educational assistant."
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115,<1.0",
+    "pydantic>=2.8,<3.0",
+    "pydantic-settings>=2.4,<3.0",
+    "sqlalchemy>=2.0,<3.0",
+    "uvicorn>=0.30,<1.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0,<9.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
