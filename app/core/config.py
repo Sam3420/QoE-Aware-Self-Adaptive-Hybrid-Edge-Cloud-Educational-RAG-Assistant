@@ -1,7 +1,7 @@
 from functools import lru_cache
 from pathlib import Path
 
-from pydantic import Field, computed_field
+from pydantic import Field, SecretStr, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -17,6 +17,13 @@ class Settings(BaseSettings):
     vector_index_storage_path: Path = Field(default=Path("data/vector_indexes"))
     metrics_storage_path: Path = Field(default=Path("data/metrics"))
     experience_storage_path: Path = Field(default=Path("data/experiences"))
+    hf_token: SecretStr | None = None
+    llm_model_id: str = "Qwen/Qwen2.5-1.5B-Instruct"
+    hf_inference_url: str = "https://router.huggingface.co/v1/chat/completions"
+    llm_timeout_seconds: float = Field(default=30.0, gt=0)
+    llm_max_tokens: int = Field(default=512, gt=0)
+    llm_temperature: float = Field(default=0.2, ge=0)
+    default_runtime_configuration_name: str = "huggingface-qwen-text"
 
     model_config = SettingsConfigDict(
         env_file=".env",

@@ -1,15 +1,33 @@
 from app.domain.models.core import (
     EducationalResourceCreate,
+    AssessmentResultCreate,
+    AssessmentResultResponse,
     InteractionCreate,
+    LearnerPersonalizationProfile,
+    LearnerPersonalizationUpdate,
     LearnerProfileCreate,
     LearningSessionCreate,
+    LearningPreferences,
+    PersonalizationContext,
     RuntimeConfigurationCreate,
+    TextQuestionRequest,
+    TextQuestionResponse,
+    TopicCompetency,
 )
 
 __all__ = [
     "EducationalResourceCreate",
+    "AssessmentResultCreate",
+    "AssessmentResultResponse",
     "InteractionCreate",
+    "LearnerPersonalizationProfile",
+    "LearnerPersonalizationUpdate",
     "LearnerProfileCreate",
     "LearningSessionCreate",
+    "LearningPreferences",
+    "PersonalizationContext",
     "RuntimeConfigurationCreate",
+    "TextQuestionRequest",
+    "TextQuestionResponse",
+    "TopicCompetency",
 ]

@@ -3,8 +3,8 @@ from pathlib import Path
 from app.core.config import Settings
 
 
-def test_resolves_local_edge_storage_paths_from_environment(monkeypatch, tmp_path):
-    monkeypatch.chdir(tmp_path)
+def test_resolves_local_edge_storage_paths_from_environment(monkeypatch):
+    project_root = Path.cwd()
 
     settings = Settings(
         data_root=Path("edge-data"),
@@ -15,15 +15,15 @@ def test_resolves_local_edge_storage_paths_from_environment(monkeypatch, tmp_pat
         experience_storage_path=Path("edge-data/experiences"),
     )
 
-    assert settings.resolved_database_url == f"sqlite:///{(tmp_path / 'edge-data/app.db').as_posix()}"
-    assert settings.resolved_storage_paths()["data_root"] == tmp_path / "edge-data"
-    assert settings.resolved_storage_paths()["vector_indexes"] == tmp_path / "edge-data/vector-indexes"
+    assert settings.resolved_database_url == f"sqlite:///{(project_root / 'edge-data/app.db').as_posix()}"
+    assert settings.resolved_storage_paths()["data_root"] == project_root / "edge-data"
+    assert settings.resolved_storage_paths()["vector_indexes"] == project_root / "edge-data/vector-indexes"
 
 
-def test_database_url_overrides_database_path(tmp_path):
+def test_database_url_overrides_database_path():
     settings = Settings(
         database_url="sqlite:///:memory:",
-        database_path=tmp_path / "ignored.db",
+        database_path=Path("ignored.db"),
     )
 
     assert settings.resolved_database_url == "sqlite:///:memory:"

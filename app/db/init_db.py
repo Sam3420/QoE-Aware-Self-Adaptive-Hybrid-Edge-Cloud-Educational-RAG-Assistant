@@ -1,6 +1,7 @@
 from app.db.base import Base
 from app.db.models import (
     EducationalResource,
+    AssessmentResult,
     Interaction,
     LearnerProfile,
     LearningSession,
@@ -9,6 +10,7 @@ from app.db.models import (
 
 __all__ = [
     "EducationalResource",
+    "AssessmentResult",
     "Interaction",
     "LearnerProfile",
     "LearningSession",

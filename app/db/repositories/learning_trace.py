@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session, joinedload
 
 from app.db.models import (
     EducationalResource,
+    AssessmentResult,
     Interaction,
     LearnerProfile,
     LearningSession,
@@ -14,6 +15,8 @@ from app.domain.models import (
     LearnerProfileCreate,
     LearningSessionCreate,
     RuntimeConfigurationCreate,
+    LearnerPersonalizationUpdate,
+    AssessmentResultCreate,
 )
 
 
@@ -32,6 +35,51 @@ class LearningTraceRepository:
 
     def get_learner(self, learner_id: str) -> LearnerProfile | None:
         return self.session.get(LearnerProfile, learner_id)
+
+    def update_learner_personalization(
+        self,
+        learner_id: str,
+        data: LearnerPersonalizationUpdate,
+    ) -> LearnerProfile | None:
+        learner = self.get_learner(learner_id)
+        if learner is None:
+            return None
+        learner.preferred_language = (
+            data.preferred_language.value if data.preferred_language else None
+        )
+        learner.competency_level = (
+            data.competency_level.value if data.competency_level else None
+        )
+        learner.interests = data.interests
+        learner.learning_preferences = data.learning_preferences.model_dump(
+            exclude_none=True
+        )
+        self.session.flush()
+        return learner
+
+    def create_assessment_result(
+        self,
+        learner_id: str,
+        data: AssessmentResultCreate,
+    ) -> AssessmentResult:
+        result = AssessmentResult(
+            learner_id=learner_id,
+            topic=data.topic,
+            competency_level=data.competency_level.value,
+            score=data.score,
+            assessment_data=data.assessment_data,
+        )
+        self.session.add(result)
+        self.session.flush()
+        return result
+
+    def list_assessment_results(self, learner_id: str) -> list[AssessmentResult]:
+        statement = (
+            select(AssessmentResult)
+            .where(AssessmentResult.learner_id == learner_id)
+            .order_by(AssessmentResult.created_at.desc())
+        )
+        return list(self.session.scalars(statement))
 
     def create_learning_session(self, data: LearningSessionCreate) -> LearningSession:
         learning_session = LearningSession(
@@ -80,6 +128,24 @@ class LearningTraceRepository:
         self.session.flush()
         return runtime_configuration
 
+    def get_runtime_configuration(
+        self,
+        runtime_configuration_id: str,
+    ) -> RuntimeConfiguration | None:
+        return self.session.get(RuntimeConfiguration, runtime_configuration_id)
+
+    def get_latest_runtime_configuration_by_name(
+        self,
+        name: str,
+    ) -> RuntimeConfiguration | None:
+        statement = (
+            select(RuntimeConfiguration)
+            .where(RuntimeConfiguration.name == name)
+            .order_by(RuntimeConfiguration.version.desc())
+            .limit(1)
+        )
+        return self.session.scalars(statement).first()
+
     def create_runtime_configuration_version(
         self,
         *,
@@ -95,6 +161,27 @@ class LearningTraceRepository:
                 description=description,
                 configuration_data=configuration_data,
             )
+        )
+
+    def get_or_create_runtime_configuration_snapshot(
+        self,
+        *,
+        name: str,
+        description: str | None,
+        configuration_data: dict,
+    ) -> RuntimeConfiguration:
+        latest = self.get_latest_runtime_configuration_by_name(name)
+        if (
+            latest is not None
+            and latest.description == description
+            and latest.configuration_data == configuration_data
+        ):
+            return latest
+
+        return self.create_runtime_configuration_version(
+            name=name,
+            description=description,
+            configuration_data=configuration_data,
         )
 
     def create_interaction(self, data: InteractionCreate) -> Interaction:
