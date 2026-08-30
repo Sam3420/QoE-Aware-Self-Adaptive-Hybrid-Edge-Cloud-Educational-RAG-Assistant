@@ -6,12 +6,17 @@ from app.core.config import Settings
 from app.db.base import Base
 from app.db.models import Interaction
 from app.db.repositories import LearningTraceRepository
-from app.domain.enums import InteractionStatus
-from app.domain.models import LearnerProfileCreate, LearningSessionCreate
+from app.domain.enums import CompetencyLevel, InteractionStatus, PreferredLanguage
+from app.domain.models import (
+    LearnerPersonalizationUpdate,
+    LearnerProfileCreate,
+    LearningSessionCreate,
+)
 from app.llm.types import LLMGenerateRequest, LLMGenerateResult, LLMProviderError
 from app.services.assistant_service import AssistantService
 from app.services.errors import AssistantProviderUnavailableError, LearningSessionNotFoundError
 from app.services.learning_trace_service import LearningTraceService
+from app.services.personalization_service import LearnerPersonalizationService
 
 
 class FakeLLMProvider:
@@ -70,6 +75,54 @@ def test_assistant_records_successful_text_question(db_session):
     assert stored.response_latency_ms is not None
     assert stored.status == InteractionStatus.COMPLETED.value
     assert provider.requests[0].prompt == "What is a variable?"
+
+
+def test_assistant_uses_personalization_context_in_prompt(db_session):
+    learning_session = create_learning_session(db_session)
+    learner_id = learning_session.learner_id
+    personalization_service = LearnerPersonalizationService(LearningTraceRepository(db_session))
+    personalization_service.update_learner_personalization(
+        learner_id,
+        LearnerPersonalizationUpdate(
+            preferred_language=PreferredLanguage.HINDI,
+            competency_level=CompetencyLevel.BEGINNER,
+            interests=["biology"],
+        ),
+    )
+    provider = FakeLLMProvider()
+    service = AssistantService(
+        repository=LearningTraceRepository(db_session),
+        llm_provider=provider,
+        settings=Settings(database_url="sqlite:///:memory:"),
+        personalization_service=personalization_service,
+    )
+
+    service.answer_text_question(session_id=learning_session.id, question="What is a variable?")
+
+    prompt = provider.requests[0]
+    assert "Hindi" in prompt.system_prompt
+    assert "simple" in prompt.system_prompt.lower()
+
+
+def test_learner_personalization_service_builds_context(db_session):
+    trace_service = LearningTraceService(LearningTraceRepository(db_session))
+    learner = trace_service.create_learner(LearnerProfileCreate(display_name="Sam"))
+    personalization_service = LearnerPersonalizationService(LearningTraceRepository(db_session))
+
+    personalization_service.update_learner_personalization(
+        learner.id,
+        LearnerPersonalizationUpdate(
+            preferred_language=PreferredLanguage.ENGLISH,
+            competency_level=CompetencyLevel.INTERMEDIATE,
+            interests=["mathematics", "science"],
+        ),
+    )
+
+    context = personalization_service.get_context_for_learner(learner.id)
+    assert context.learner_id == learner.id
+    assert context.preferred_language == PreferredLanguage.ENGLISH
+    assert context.competency_level == CompetencyLevel.INTERMEDIATE
+    assert context.interests == ["mathematics", "science"]
 
 
 def test_assistant_rejects_unknown_session(db_session):

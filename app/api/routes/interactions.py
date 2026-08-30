@@ -29,6 +29,7 @@ def submit_text_question(
             session_id=session_id,
             question=request.question,
             runtime_configuration_id=request.runtime_configuration_id,
+            resource_id=request.resource_id,
         )
         db_session.commit()
         return TextQuestionResponse(**result.__dict__)

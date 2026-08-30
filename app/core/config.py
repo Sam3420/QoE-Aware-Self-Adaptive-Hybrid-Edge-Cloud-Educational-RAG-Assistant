@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     vector_index_storage_path: Path = Field(default=Path("data/vector_indexes"))
     metrics_storage_path: Path = Field(default=Path("data/metrics"))
     experience_storage_path: Path = Field(default=Path("data/experiences"))
+    knowledge_storage_path: Path = Field(default=Path("data/knowledge"))
+    faiss_storage_path: Path = Field(default=Path("data/faiss"))
     hf_token: SecretStr | None = None
     llm_model_id: str = "Qwen/Qwen2.5-1.5B-Instruct"
     hf_inference_url: str = "https://router.huggingface.co/v1/chat/completions"
@@ -24,6 +26,15 @@ class Settings(BaseSettings):
     llm_max_tokens: int = Field(default=512, gt=0)
     llm_temperature: float = Field(default=0.2, ge=0)
     default_runtime_configuration_name: str = "huggingface-qwen-text"
+    youtube_api_key: SecretStr | None = None
+    youtube_api_base_url: str = "https://www.googleapis.com/youtube/v3/search"
+    youtube_default_language: str = "en"
+    youtube_max_results: int = Field(default=5, gt=0, le=20)
+    youtube_timeout_seconds: float = Field(default=20.0, gt=0)
+    knowledge_chunk_size: int = Field(default=500, gt=0)
+    knowledge_chunk_overlap: int = Field(default=80, ge=0)
+    knowledge_embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+    knowledge_retrieval_top_k: int = Field(default=3, gt=0, le=10)
 
     model_config = SettingsConfigDict(
         env_file=".env",

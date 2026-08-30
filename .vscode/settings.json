@@ -1,0 +1,7 @@
+{
+  "python.defaultInterpreterPath": "d:/clg/final year project/QoE-Aware-Self-Adaptive-Hybrid-Edge-Cloud-Educational-RAG-Assistant/.venv/Scripts/python.exe",
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestArgs": [
+    "tests"
+  ]
+}

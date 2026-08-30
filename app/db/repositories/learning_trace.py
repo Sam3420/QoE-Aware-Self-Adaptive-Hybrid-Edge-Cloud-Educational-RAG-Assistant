@@ -5,6 +5,9 @@ from app.db.models import (
     EducationalResource,
     AssessmentResult,
     Interaction,
+    KnowledgeChunk,
+    KnowledgeDocument,
+    KnowledgeIndex,
     LearnerProfile,
     LearningSession,
     RuntimeConfiguration,
@@ -215,6 +218,106 @@ class LearningTraceRepository:
             )
         )
         return self.session.scalars(statement).first()
+
+    def get_educational_resource_by_source_and_external_id(
+        self,
+        *,
+        source: str,
+        external_resource_id: str,
+    ) -> EducationalResource | None:
+        statement = select(EducationalResource).where(
+            EducationalResource.source == source,
+            EducationalResource.external_resource_id == external_resource_id,
+        )
+        return self.session.scalars(statement).first()
+
+    def get_educational_resource(self, resource_id: str) -> EducationalResource | None:
+        return self.session.get(EducationalResource, resource_id)
+
+    def create_knowledge_document(
+        self,
+        *,
+        resource_id: str,
+        title: str,
+        source: str,
+        transcript_text: str,
+        metadata: dict | None = None,
+    ) -> KnowledgeDocument:
+        document = KnowledgeDocument(
+            resource_id=resource_id,
+            title=title,
+            source=source,
+            transcript_text=transcript_text,
+            metadata=metadata or {},
+            status="ready",
+        )
+        self.session.add(document)
+        self.session.flush()
+        return document
+
+    def get_knowledge_document_for_resource(self, resource_id: str) -> KnowledgeDocument | None:
+        statement = select(KnowledgeDocument).where(KnowledgeDocument.resource_id == resource_id)
+        return self.session.scalars(statement).first()
+
+    def create_knowledge_chunk(
+        self,
+        *,
+        document_id: str | None,
+        chunk_index: int,
+        content: str,
+        metadata: dict | None = None,
+    ) -> KnowledgeChunk:
+        chunk = KnowledgeChunk(
+            document_id=document_id or "",
+            chunk_index=chunk_index,
+            content=content,
+            metadata=metadata or {},
+            status="ready",
+        )
+        self.session.add(chunk)
+        self.session.flush()
+        return chunk
+
+    def attach_document_chunks(self, document_id: str, chunk_ids: list[str]) -> None:
+        for chunk_id in chunk_ids:
+            chunk = self.session.get(KnowledgeChunk, chunk_id)
+            if chunk is not None:
+                chunk.document_id = document_id
+        self.session.flush()
+
+    def get_knowledge_chunk(self, chunk_id: str) -> KnowledgeChunk | None:
+        return self.session.get(KnowledgeChunk, chunk_id)
+
+    def create_knowledge_index(
+        self,
+        *,
+        document_id: str,
+        index_name: str,
+        index_path: str,
+        embedding_model: str,
+        chunk_count: int,
+        metadata: dict | None = None,
+    ) -> KnowledgeIndex:
+        knowledge_index = KnowledgeIndex(
+            document_id=document_id,
+            index_name=index_name,
+            index_path=index_path,
+            embedding_model=embedding_model,
+            chunk_count=chunk_count,
+            status="ready",
+            metadata=metadata or {},
+        )
+        self.session.add(knowledge_index)
+        self.session.flush()
+        return knowledge_index
+
+    def update_knowledge_document_status(self, document_id: str, status: str) -> KnowledgeDocument | None:
+        document = self.session.get(KnowledgeDocument, document_id)
+        if document is None:
+            return None
+        document.status = status
+        self.session.flush()
+        return document
 
     def _next_runtime_configuration_version(self, name: str) -> int:
         current_version = self.session.scalar(

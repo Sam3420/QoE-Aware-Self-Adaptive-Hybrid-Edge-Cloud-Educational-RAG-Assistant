@@ -29,3 +29,7 @@ class EducationalResource(TimestampMixin, Base):
     interactions: Mapped[list["Interaction"]] = relationship(
         back_populates="educational_resource",
     )
+    knowledge_documents: Mapped[list["KnowledgeDocument"]] = relationship(
+        back_populates="resource",
+        cascade="all, delete-orphan",
+    )

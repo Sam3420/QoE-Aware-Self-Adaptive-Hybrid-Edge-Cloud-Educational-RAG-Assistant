@@ -14,6 +14,12 @@ from app.services.errors import (
     LearningSessionNotFoundError,
     RuntimeConfigurationNotFoundError,
 )
+from app.services.personalization_service import LearnerPersonalizationService
+
+
+class KnowledgeRetrievalServiceProtocol:
+    def retrieve_context(self, *, resource_id: str, query: str, top_k: int | None = None):
+        ...
 
 logger = get_logger(__name__)
 
@@ -41,10 +47,16 @@ class AssistantService:
         repository: LearningTraceRepository,
         llm_provider: LLMProvider,
         settings: Settings,
+        personalization_service: LearnerPersonalizationService | None = None,
+        knowledge_retrieval_service: KnowledgeRetrievalServiceProtocol | None = None,
     ) -> None:
         self.repository = repository
         self.llm_provider = llm_provider
         self.settings = settings
+        self.personalization_service = personalization_service or LearnerPersonalizationService(
+            repository
+        )
+        self.knowledge_retrieval_service = knowledge_retrieval_service
 
     def answer_text_question(
         self,
@@ -52,13 +64,21 @@ class AssistantService:
         session_id: str,
         question: str,
         runtime_configuration_id: str | None = None,
+        resource_id: str | None = None,
     ) -> AssistantResponse:
         learning_session = self.repository.get_learning_session(session_id)
         if learning_session is None:
             raise LearningSessionNotFoundError("Learning session was not found.")
 
         runtime_configuration = self._resolve_runtime_configuration(runtime_configuration_id)
-        llm_request = self._build_llm_request(question, runtime_configuration)
+        personalization_context = self._build_personalization_context(learning_session.learner_id)
+        retrieval_context = self._retrieve_context_for_question(question=question, resource_id=resource_id)
+        llm_request = self._build_llm_request(
+            question,
+            runtime_configuration,
+            personalization_context,
+            retrieval_context=retrieval_context,
+        )
 
         started_at = perf_counter()
         try:
@@ -146,19 +166,68 @@ class AssistantService:
             "temperature": self.settings.llm_temperature,
         }
 
+    def _build_personalization_context(self, learner_id: str):
+        return self.personalization_service.get_context_for_learner(learner_id)
+
     def _build_llm_request(
         self,
         question: str,
         runtime_configuration: RuntimeConfiguration,
+        personalization_context=None,
+        retrieval_context: str | None = None,
     ) -> LLMGenerateRequest:
         configuration_data = runtime_configuration.configuration_data
+        system_prompt = self._build_system_prompt(personalization_context, retrieval_context)
         return LLMGenerateRequest(
             prompt=question,
-            system_prompt=SYSTEM_PROMPT,
+            system_prompt=system_prompt,
             model_id=configuration_data.get("model_id", self.settings.llm_model_id),
             max_tokens=configuration_data.get("max_tokens", self.settings.llm_max_tokens),
             temperature=configuration_data.get("temperature", self.settings.llm_temperature),
         )
+
+    def _retrieve_context_for_question(self, *, question: str, resource_id: str | None) -> str | None:
+        if resource_id is None or self.knowledge_retrieval_service is None:
+            return None
+        hits = self.knowledge_retrieval_service.retrieve_context(
+            resource_id=resource_id,
+            query=question,
+            top_k=self.settings.knowledge_retrieval_top_k,
+        )
+        if not hits:
+            return None
+        context = "\n".join(f"- {hit['content']}" for hit in hits[:3])
+        return f"Use the following retrieved educational context to answer the learner: {context}"
+
+    def _build_system_prompt(self, personalization_context=None, retrieval_context: str | None = None) -> str:
+        base_prompt = SYSTEM_PROMPT
+        if personalization_context is None:
+            return base_prompt
+
+        language_instruction = ""
+        if personalization_context.preferred_language is not None:
+            language_name = personalization_context.preferred_language.value.title()
+            language_instruction = f" Respond in {language_name} language."
+
+        competency_instruction = ""
+        if personalization_context.competency_level is not None:
+            competency = personalization_context.competency_level.value
+            if competency == "beginner":
+                competency_instruction = " Explain in a simple, beginner-friendly way with short steps and clear examples."
+            elif competency == "intermediate":
+                competency_instruction = " Explain at an intermediate level with balanced detail and practical examples."
+            else:
+                competency_instruction = " Explain with precise, technical detail suitable for an advanced learner."
+
+        interest_instruction = ""
+        if personalization_context.interests:
+            interest_instruction = (
+                f" Align examples and explanations to the learner's interests: {', '.join(personalization_context.interests)}."
+            )
+
+        if retrieval_context:
+            return f"{base_prompt}{language_instruction}{competency_instruction}{interest_instruction} {retrieval_context}".strip()
+        return f"{base_prompt}{language_instruction}{competency_instruction}{interest_instruction}".strip()
 
     @staticmethod
     def _elapsed_ms(started_at: float) -> int:

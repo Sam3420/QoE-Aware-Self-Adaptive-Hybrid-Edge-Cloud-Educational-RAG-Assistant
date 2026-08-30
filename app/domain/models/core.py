@@ -88,6 +88,67 @@ class PersonalizationContext(BaseModel):
     topic_competencies: list[TopicCompetency] = Field(default_factory=list)
 
 
+class ResourceRecommendationRequest(BaseModel):
+    topic: str = Field(min_length=1)
+    max_results: int = Field(default=5, ge=1, le=20)
+    preferred_language: PreferredLanguage | None = None
+
+
+class ResourceRecommendationItem(BaseModel):
+    resource_id: str
+    provider: str
+    external_id: str
+    title: str
+    url: str
+    channel_title: str | None = None
+    ranking_score: float
+    relevance_reason: str
+
+
+class ResourceRecommendationResponse(BaseModel):
+    session_id: str
+    learner_id: str
+    topic: str
+    recommendations: list[ResourceRecommendationItem] = Field(default_factory=list)
+
+
+class ResourceSelectionResponse(BaseModel):
+    session_id: str
+    learner_id: str
+    resource_id: str
+    title: str
+    url: str
+
+
+class KnowledgePreparationRequest(BaseModel):
+    resource_id: str
+
+
+class KnowledgePreparationResponse(BaseModel):
+    resource_id: str
+    document_id: str
+    chunk_count: int
+    status: str = "ready"
+
+
+class KnowledgeRetrievalRequest(BaseModel):
+    question: str = Field(min_length=1)
+    top_k: int = Field(default=3, ge=1, le=10)
+
+
+class KnowledgeRetrievalItem(BaseModel):
+    chunk_id: str
+    content: str
+    score: float
+    resource_id: str
+
+
+class KnowledgeRetrievalResponse(BaseModel):
+    resource_id: str
+    query: str
+    results: list[KnowledgeRetrievalItem] = Field(default_factory=list)
+
+
 class InteractionCreate(BaseModel):
     session_id: str
     runtime_configuration_id: str
@@ -109,6 +170,7 @@ class OrmModel(BaseModel):
 class TextQuestionRequest(BaseModel):
     question: str = Field(min_length=1)
     runtime_configuration_id: str | None = None
+    resource_id: str | None = None
 
 
 class TextQuestionResponse(BaseModel):
