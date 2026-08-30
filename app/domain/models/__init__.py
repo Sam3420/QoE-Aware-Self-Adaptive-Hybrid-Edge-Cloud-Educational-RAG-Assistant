@@ -1,5 +1,6 @@
 from app.domain.models.core import (
     EducationalResourceCreate,
+    QoEScoreResponse,
     AssessmentResultCreate,
     AssessmentResultResponse,
     InteractionCreate,
@@ -28,6 +29,7 @@ from app.domain.models.core import (
 
 __all__ = [
     "EducationalResourceCreate",
+    "QoEScoreResponse",
     "AssessmentResultCreate",
     "AssessmentResultResponse",
     "InteractionCreate",

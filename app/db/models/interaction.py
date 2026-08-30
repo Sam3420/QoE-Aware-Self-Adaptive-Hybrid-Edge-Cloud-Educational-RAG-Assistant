@@ -47,3 +47,11 @@ class Interaction(TimestampMixin, Base):
     educational_resource: Mapped["EducationalResource | None"] = relationship(
         back_populates="interactions",
     )
+    runtime_metrics: Mapped[list["RuntimeMetric"]] = relationship(
+        back_populates="interaction",
+        cascade="all, delete-orphan",
+    )
+    qoe_scores: Mapped[list["QoEScoreRecord"]] = relationship(
+        back_populates="interaction",
+        cascade="all, delete-orphan",
+    )

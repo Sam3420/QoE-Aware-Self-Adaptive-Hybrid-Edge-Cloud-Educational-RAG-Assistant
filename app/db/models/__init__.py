@@ -6,7 +6,9 @@ from app.db.models.knowledge_document import KnowledgeDocument
 from app.db.models.knowledge_index import KnowledgeIndex
 from app.db.models.learner import LearnerProfile
 from app.db.models.learning_session import LearningSession
+from app.db.models.qoe_score import QoEScoreRecord
 from app.db.models.runtime_configuration import RuntimeConfiguration
+from app.db.models.runtime_metric import RuntimeMetric
 
 __all__ = [
     "EducationalResource",
@@ -17,5 +19,7 @@ __all__ = [
     "KnowledgeIndex",
     "LearnerProfile",
     "LearningSession",
+    "QoEScoreRecord",
     "RuntimeConfiguration",
+    "RuntimeMetric",
 ]

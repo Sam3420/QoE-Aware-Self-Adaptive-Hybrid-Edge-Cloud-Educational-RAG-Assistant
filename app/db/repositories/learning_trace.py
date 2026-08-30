@@ -10,7 +10,9 @@ from app.db.models import (
     KnowledgeIndex,
     LearnerProfile,
     LearningSession,
+    QoEScoreRecord,
     RuntimeConfiguration,
+    RuntimeMetric,
 )
 from app.domain.models import (
     EducationalResourceCreate,
@@ -217,6 +219,59 @@ class LearningTraceRepository:
                 joinedload(Interaction.runtime_configuration),
             )
         )
+        return self.session.scalars(statement).first()
+
+    def create_runtime_metric(
+        self,
+        *,
+        interaction_id: str,
+        session_id: str,
+        metric_name: str,
+        metric_category: str,
+        metric_value: float,
+        unit: str | None = None,
+        observation_data: dict | None = None,
+    ) -> RuntimeMetric:
+        metric = RuntimeMetric(
+            interaction_id=interaction_id,
+            session_id=session_id,
+            metric_name=metric_name,
+            metric_category=metric_category,
+            metric_value=metric_value,
+            unit=unit,
+            observation_data=observation_data or {},
+        )
+        self.session.add(metric)
+        self.session.flush()
+        return metric
+
+    def create_qoe_score(
+        self,
+        *,
+        interaction_id: str,
+        session_id: str,
+        score: float,
+        quality_label: str,
+        latency_ms: int | None = None,
+        model_provider: str | None = None,
+        model_name: str | None = None,
+        details: dict | None = None,
+    ) -> QoEScoreRecord:
+        qoe_score = QoEScoreRecord(
+            interaction_id=interaction_id,
+            session_id=session_id,
+            score=score,
+            quality_label=quality_label,
+            latency_ms=latency_ms,
+            model_provider=model_provider,
+            model_name=model_name,
+        )
+        self.session.add(qoe_score)
+        self.session.flush()
+        return qoe_score
+
+    def get_qoe_score_for_interaction(self, interaction_id: str) -> QoEScoreRecord | None:
+        statement = select(QoEScoreRecord).where(QoEScoreRecord.interaction_id == interaction_id)
         return self.session.scalars(statement).first()
 
     def get_educational_resource_by_source_and_external_id(

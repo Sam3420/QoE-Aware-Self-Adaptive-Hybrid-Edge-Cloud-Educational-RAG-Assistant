@@ -198,3 +198,13 @@ class SpeechQuestionResponse(BaseModel):
     model_provider: str
     model_name: str
     runtime_configuration_id: str
+
+
+class QoEScoreResponse(BaseModel):
+    interaction_id: str
+    session_id: str
+    score: float = Field(ge=0, le=100)
+    quality_label: str
+    latency_ms: int | None = None
+    model_provider: str | None = None
+    model_name: str | None = None

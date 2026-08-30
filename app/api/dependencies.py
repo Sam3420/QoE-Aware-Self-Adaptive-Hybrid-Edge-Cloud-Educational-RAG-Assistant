@@ -20,6 +20,7 @@ from app.services.assistant_service import AssistantService
 from app.services.crag_service import RetrievalQualityService
 from app.services.knowledge_preparation_service import KnowledgePreparationService
 from app.services.knowledge_retrieval_service import KnowledgeRetrievalService
+from app.services.monitoring_service import MonitoringService
 from app.services.resource_recommendation_service import ResourceRecommendationService
 from app.services.speech_service import SpeechService
 from app.youtube.data_api_provider import YouTubeDataAPIProvider
@@ -137,3 +138,9 @@ def get_speech_service(
         stt_provider=stt_provider,
         tts_provider=tts_provider,
     )
+
+
+def get_monitoring_service(
+    db_session: Session = Depends(get_db_session),
+) -> MonitoringService:
+    return MonitoringService(repository=LearningTraceRepository(db_session))

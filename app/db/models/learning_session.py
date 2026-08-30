@@ -30,3 +30,11 @@ class LearningSession(TimestampMixin, Base):
         back_populates="session",
         cascade="all, delete-orphan",
     )
+    runtime_metrics: Mapped[list["RuntimeMetric"]] = relationship(
+        back_populates="session",
+        cascade="all, delete-orphan",
+    )
+    qoe_scores: Mapped[list["QoEScoreRecord"]] = relationship(
+        back_populates="session",
+        cascade="all, delete-orphan",
+    )

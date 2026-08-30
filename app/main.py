@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from app.api.routes.health import router as health_router
 from app.api.routes.interactions import router as interactions_router
 from app.api.routes.knowledge import router as knowledge_router
+from app.api.routes.monitoring import router as monitoring_router
 from app.api.routes.personalization import router as personalization_router
 from app.api.routes.resources import router as resources_router
 from app.api.routes.speech import router as speech_router
@@ -31,6 +32,7 @@ def create_app() -> FastAPI:
     app.include_router(resources_router)
     app.include_router(knowledge_router)
     app.include_router(speech_router)
+    app.include_router(monitoring_router)
     return app
 
 
