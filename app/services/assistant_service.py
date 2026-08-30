@@ -9,6 +9,7 @@ from app.domain.enums import InteractionStatus
 from app.domain.models import InteractionCreate
 from app.llm.provider import LLMProvider
 from app.llm.types import LLMGenerateRequest, LLMProviderError
+from app.services.crag_service import RetrievalQualityService
 from app.services.errors import (
     AssistantProviderUnavailableError,
     LearningSessionNotFoundError,
@@ -49,6 +50,7 @@ class AssistantService:
         settings: Settings,
         personalization_service: LearnerPersonalizationService | None = None,
         knowledge_retrieval_service: KnowledgeRetrievalServiceProtocol | None = None,
+        retrieval_quality_service: RetrievalQualityService | None = None,
     ) -> None:
         self.repository = repository
         self.llm_provider = llm_provider
@@ -57,6 +59,9 @@ class AssistantService:
             repository
         )
         self.knowledge_retrieval_service = knowledge_retrieval_service
+        self.retrieval_quality_service = retrieval_quality_service or RetrievalQualityService(
+            min_score=settings.crag_quality_min_score,
+        )
 
     def answer_text_question(
         self,
@@ -196,8 +201,21 @@ class AssistantService:
         )
         if not hits:
             return None
+
+        decision = self.retrieval_quality_service.evaluate(question=question, hits=hits)
+        if not decision.is_adequate:
+            return (
+                "No sufficiently relevant retrieved context was found for this question. "
+                "Answer using your general knowledge only if it is clearly supported by the learner's context, "
+                "and say when the retrieved material is insufficient."
+            )
+
         context = "\n".join(f"- {hit['content']}" for hit in hits[:3])
-        return f"Use the following retrieved educational context to answer the learner: {context}"
+        return (
+            "Use the following retrieved educational context to answer the learner, "
+            f"and do not invent unsupported facts. If the context does not contain enough information, "
+            f"say so clearly.\n{context}"
+        )
 
     def _build_system_prompt(self, personalization_context=None, retrieval_context: str | None = None) -> str:
         base_prompt = SYSTEM_PROMPT

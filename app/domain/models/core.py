@@ -181,3 +181,20 @@ class TextQuestionResponse(BaseModel):
     model_provider: str
     model_name: str
     runtime_configuration_id: str
+
+
+class SpeechQuestionRequest(BaseModel):
+    runtime_configuration_id: str | None = None
+    resource_id: str | None = None
+
+
+class SpeechQuestionResponse(BaseModel):
+    interaction_id: str
+    session_id: str
+    transcript: str
+    answer: str
+    audio_base64: str
+    response_latency_ms: int
+    model_provider: str
+    model_name: str
+    runtime_configuration_id: str

@@ -21,13 +21,22 @@ class LearningTraceService:
     def __init__(self, repository: LearningTraceRepository) -> None:
         self.repository = repository
 
+    def _coerce_model(self, data, model_type):
+        if isinstance(data, model_type):
+            return data
+        if isinstance(data, dict):
+            return model_type(**data)
+        return data
+
     def create_learner(self, data: LearnerProfileCreate) -> LearnerProfile:
-        learner = self.repository.create_learner(data)
+        coerced = self._coerce_model(data, LearnerProfileCreate)
+        learner = self.repository.create_learner(coerced)
         logger.info("learner_created learner_id=%s", learner.id)
         return learner
 
     def start_session(self, data: LearningSessionCreate) -> LearningSession:
-        learning_session = self.repository.create_learning_session(data)
+        coerced = self._coerce_model(data, LearningSessionCreate)
+        learning_session = self.repository.create_learning_session(coerced)
         logger.info(
             "session_started learner_id=%s session_id=%s",
             learning_session.learner_id,
@@ -36,7 +45,8 @@ class LearningTraceService:
         return learning_session
 
     def create_resource(self, data: EducationalResourceCreate) -> EducationalResource:
-        resource = self.repository.create_educational_resource(data)
+        coerced = self._coerce_model(data, EducationalResourceCreate)
+        resource = self.repository.create_educational_resource(coerced)
         logger.info("resource_created resource_id=%s source=%s", resource.id, resource.source)
         return resource
 

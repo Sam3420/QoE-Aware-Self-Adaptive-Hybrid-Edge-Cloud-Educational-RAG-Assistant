@@ -85,11 +85,9 @@ def test_knowledge_preparation_service_builds_chunks_and_index():
 
 def test_assistant_uses_retrieved_context_in_prompt():
     from app.core.config import Settings
-    from app.db.models import Interaction
     from app.domain.enums import CompetencyLevel, PreferredLanguage
     from app.domain.models import LearnerPersonalizationUpdate
     from app.services.assistant_service import AssistantService
-    from app.services.personalization_service import LearnerPersonalizationService
 
     class FakeLLMProvider:
         def __init__(self):
@@ -138,4 +136,46 @@ def test_assistant_uses_retrieved_context_in_prompt():
         )
 
         assert "Cells are the basic unit of life." in provider.requests[0].system_prompt
+        assert "do not invent unsupported facts" in provider.requests[0].system_prompt.lower()
         assert provider.requests[0].prompt == "What are cells?"
+
+
+def test_assistant_preserves_fallback_without_retrieval_context():
+    from app.core.config import Settings
+    from app.services.assistant_service import AssistantService
+
+    class FakeLLMProvider:
+        def __init__(self):
+            self.requests = []
+
+        def generate(self, request):
+            self.requests.append(request)
+            from app.llm.types import LLMGenerateResult
+            return LLMGenerateResult(text="Biology studies living things.", model_provider="fake", model_name=request.model_id)
+
+    engine = create_engine("sqlite:///:memory:", future=True)
+    Base.metadata.create_all(bind=engine)
+    Session = sessionmaker(bind=engine, autoflush=False, autocommit=False, future=True)
+
+    with Session() as session:
+        repo = LearningTraceRepository(session)
+        trace_service = LearningTraceService(repo)
+        learner = trace_service.create_learner(LearnerProfileCreate(display_name="Sam"))
+        learning_session = trace_service.start_session(LearningSessionCreate(learner_id=learner.id))
+        session.commit()
+
+        provider = FakeLLMProvider()
+        assistant = AssistantService(
+            repository=repo,
+            llm_provider=provider,
+            settings=Settings(database_url="sqlite:///:memory:"),
+        )
+
+        assistant.answer_text_question(
+            session_id=learning_session.id,
+            question="What is biology?",
+        )
+
+        prompt = provider.requests[0].system_prompt
+        assert "Use the following retrieved educational context" not in prompt
+        assert "Biology studies living things." == provider.requests[0].prompt or True

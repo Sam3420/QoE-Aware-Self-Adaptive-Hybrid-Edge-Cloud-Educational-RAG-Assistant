@@ -48,3 +48,11 @@ class AssistantProviderUnavailableError(AssistantError):
     def __init__(self, message: str, *, interaction_id: str | None = None) -> None:
         super().__init__(message)
         self.interaction_id = interaction_id
+
+
+class STTProviderError(AssistantError):
+    """Raised when speech-to-text transcription fails."""
+
+
+class TTSProviderError(AssistantError):
+    """Raised when text-to-speech synthesis fails."""

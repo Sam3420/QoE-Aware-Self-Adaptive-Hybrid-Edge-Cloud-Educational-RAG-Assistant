@@ -1,6 +1,6 @@
 from typing import Any
 
-from sqlalchemy import ForeignKey, String
+from sqlalchemy import JSON, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base, TimestampMixin
@@ -17,7 +17,7 @@ class KnowledgeChunk(TimestampMixin, Base):
     )
     chunk_index: Mapped[int] = mapped_column(nullable=False, default=0)
     content: Mapped[str] = mapped_column(nullable=False)
-    metadata: Mapped[dict[str, Any]] = mapped_column(default=dict, nullable=False)
+    chunk_metadata: Mapped[dict[str, Any]] = mapped_column("metadata", JSON, default=dict, nullable=False)
     status: Mapped[str] = mapped_column(String(32), default="ready", nullable=False)
 
     document: Mapped["KnowledgeDocument"] = relationship(back_populates="chunks")

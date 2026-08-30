@@ -31,10 +31,17 @@ class Settings(BaseSettings):
     youtube_default_language: str = "en"
     youtube_max_results: int = Field(default=5, gt=0, le=20)
     youtube_timeout_seconds: float = Field(default=20.0, gt=0)
-    knowledge_chunk_size: int = Field(default=500, gt=0)
-    knowledge_chunk_overlap: int = Field(default=80, ge=0)
+    knowledge_chunk_size: int = Field(default=120, gt=0)
+    knowledge_chunk_overlap: int = Field(default=25, ge=0)
     knowledge_embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     knowledge_retrieval_top_k: int = Field(default=3, gt=0, le=10)
+    local_llm_enabled: bool = Field(default=False)
+    local_llm_model_id: str = "local-model"
+    crag_quality_min_score: float = Field(default=0.75, ge=0.0, le=1.0)
+    stt_provider_name: str = "passthrough"
+    stt_provider_enabled: bool = Field(default=True)
+    tts_provider_name: str = "passthrough"
+    tts_provider_enabled: bool = Field(default=True)
 
     model_config = SettingsConfigDict(
         env_file=".env",

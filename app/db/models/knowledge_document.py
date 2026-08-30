@@ -1,6 +1,6 @@
 from typing import Any
 
-from sqlalchemy import ForeignKey, String
+from sqlalchemy import JSON, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base, TimestampMixin
@@ -19,7 +19,7 @@ class KnowledgeDocument(TimestampMixin, Base):
     source: Mapped[str] = mapped_column(String(64), default="youtube", nullable=False)
     transcript_text: Mapped[str] = mapped_column(nullable=False)
     status: Mapped[str] = mapped_column(String(32), default="pending", nullable=False)
-    metadata: Mapped[dict[str, Any]] = mapped_column(default=dict, nullable=False)
+    document_metadata: Mapped[dict[str, Any]] = mapped_column("metadata", JSON, default=dict, nullable=False)
 
     resource: Mapped["EducationalResource"] = relationship(back_populates="knowledge_documents")
     chunks: Mapped[list["KnowledgeChunk"]] = relationship(

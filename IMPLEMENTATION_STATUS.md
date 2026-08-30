@@ -8,4 +8,7 @@
 - Implemented: Phase 4 educational resource recommendation flow using personalized queries and ranked YouTube candidates.
 - Implemented: Phase 5 knowledge preparation and retrieval pipeline with transcript abstraction, sentence-aware chunking, configurable embedding provider, FAISS local index persistence, relational knowledge metadata/chunks, typed retrieval results, and optional retrieval-aware assistant context.
 - Implemented: Minimal knowledge prepare/retrieve endpoints and repository support for persisted knowledge documents, chunks, and indexes.
-- Deferred: CRAG, STT, TTS, QoE monitoring and metrics, experience memory, adaptive routing/policies, and local model hosting.
+- Implemented: Phase 6 RAG-based educational question answering with resource-aware retrieval and grounded prompt context.
+- Implemented: Phase 7 CRAG-quality gate and hybrid local/cloud routing boundary using the existing provider interface, with cloud Hugging Face as the active default and a non-functional local routing abstraction only.
+- Implemented: Phase 8 Speech Input and Output with a speech orchestration service, passthrough STT/TTS provider adapters, and a speech question API path for audio-to-answer-to-audio flows.
+- Deferred: QoE monitoring and metrics, experience memory, adaptive routing/policies, and full local model hosting.

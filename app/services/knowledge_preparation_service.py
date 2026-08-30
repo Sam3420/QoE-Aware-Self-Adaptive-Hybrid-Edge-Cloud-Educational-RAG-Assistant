@@ -40,10 +40,13 @@ class KnowledgePreparationService:
         if resource is None:
             raise ResourceNotFoundError("Educational resource was not found.")
 
-        transcript = self.transcript_provider.get_transcript_for_resource(
-            resource_id=resource_id,
-            resource=resource,
-        )
+        try:
+            transcript = self.transcript_provider.get_transcript_for_resource(
+                resource_id=resource_id,
+                resource=resource,
+            )
+        except TypeError:
+            transcript = self.transcript_provider.get_transcript_for_resource(resource)
         cleaned_transcript = self._preprocess_transcript(transcript)
         chunks = self._chunk_text(cleaned_transcript)
         if not chunks:
@@ -98,7 +101,7 @@ class KnowledgePreparationService:
         return text.strip()
 
     @staticmethod
-    def _chunk_text(text: str, *, chunk_size: int = 500, overlap: int = 80) -> list[str]:
+    def _chunk_text(text: str, *, chunk_size: int = 120, overlap: int = 25) -> list[str]:
         if not text:
             return []
 
