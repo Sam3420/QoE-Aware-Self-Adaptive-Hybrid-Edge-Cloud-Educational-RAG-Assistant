@@ -1,5 +1,6 @@
 from app.db.models.assessment_result import AssessmentResult
 from app.db.models.educational_resource import EducationalResource
+from app.db.models.experience import Experience
 from app.db.models.interaction import Interaction
 from app.db.models.knowledge_chunk import KnowledgeChunk
 from app.db.models.knowledge_document import KnowledgeDocument
@@ -13,6 +14,7 @@ from app.db.models.runtime_metric import RuntimeMetric
 __all__ = [
     "EducationalResource",
     "AssessmentResult",
+    "Experience",
     "Interaction",
     "KnowledgeChunk",
     "KnowledgeDocument",

@@ -33,3 +33,7 @@ class EducationalResource(TimestampMixin, Base):
         back_populates="resource",
         cascade="all, delete-orphan",
     )
+    experiences: Mapped[list["Experience"]] = relationship(
+        back_populates="resource",
+        cascade="all, delete-orphan",
+    )

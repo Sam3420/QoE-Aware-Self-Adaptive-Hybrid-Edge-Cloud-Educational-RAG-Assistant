@@ -26,3 +26,7 @@ class LearnerProfile(TimestampMixin, Base):
         back_populates="learner",
         cascade="all, delete-orphan",
     )
+    experiences: Mapped[list["Experience"]] = relationship(
+        back_populates="learner",
+        cascade="all, delete-orphan",
+    )

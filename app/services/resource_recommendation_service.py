@@ -51,6 +51,7 @@ class ResourceRecommendationService:
             language=language,
             max_results=request.max_results,
         )
+        self._persist_candidates(candidates, topic=request.topic)
         ranked_items = self._rank_candidates(
             candidates=candidates,
             topic=request.topic,
@@ -77,6 +78,11 @@ class ResourceRecommendationService:
             raise LearningSessionNotFoundError("Learning session was not found.")
 
         resource = self.repository.get_educational_resource(resource_id)
+        if resource is None and resource_id.startswith("youtube:"):
+            resource = self.repository.get_educational_resource_by_source_and_external_id(
+                source="youtube",
+                external_resource_id=resource_id.removeprefix("youtube:"),
+            )
         if resource is None:
             raise ResourceNotFoundError("Educational resource was not found.")
 
@@ -155,7 +161,7 @@ class ResourceRecommendationService:
             if score <= 0:
                 continue
 
-            resource_id = f"youtube:{candidate['external_id']}"
+            resource_id = candidate.get("resource_id") or f"youtube:{candidate['external_id']}"
             ranked.append(
                 ResourceRecommendationItem(
                     resource_id=resource_id,
@@ -171,6 +177,26 @@ class ResourceRecommendationService:
 
         ranked.sort(key=lambda item: (-item.ranking_score, item.title.lower()))
         return ranked[: max(1, min(len(ranked), 5))]
+
+    def _persist_candidates(self, candidates: list[dict], *, topic: str) -> None:
+        for candidate in candidates:
+            external_id = candidate.get("external_id")
+            if not external_id:
+                continue
+            resource = self.repository.get_or_create_educational_resource(
+                source=candidate.get("provider") or "youtube",
+                external_resource_id=external_id,
+                title=candidate.get("title") or "Untitled video",
+                url=candidate.get("url"),
+                topic=candidate.get("topic") or topic,
+                metadata={
+                    "channel_title": candidate.get("channel_title"),
+                    "description": candidate.get("description") or "",
+                    "language": candidate.get("language"),
+                    "published_at": candidate.get("published_at"),
+                },
+            )
+            candidate["resource_id"] = resource.id
 
     @staticmethod
     def _normalize_language(language: str | None) -> str:

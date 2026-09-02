@@ -55,3 +55,7 @@ class Interaction(TimestampMixin, Base):
         back_populates="interaction",
         cascade="all, delete-orphan",
     )
+    experiences: Mapped[list["Experience"]] = relationship(
+        back_populates="interaction",
+        cascade="all, delete-orphan",
+    )

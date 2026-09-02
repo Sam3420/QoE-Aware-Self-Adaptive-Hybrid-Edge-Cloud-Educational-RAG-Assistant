@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session, joinedload
 from app.db.models import (
     EducationalResource,
     AssessmentResult,
+    Experience,
     Interaction,
     KnowledgeChunk,
     KnowledgeDocument,
@@ -210,6 +211,18 @@ class LearningTraceRepository:
         self.session.flush()
         return interaction
 
+    def get_interaction(self, interaction_id: str) -> Interaction | None:
+        statement = (
+            select(Interaction)
+            .where(Interaction.id == interaction_id)
+            .options(
+                joinedload(Interaction.session),
+                joinedload(Interaction.runtime_configuration),
+                joinedload(Interaction.educational_resource),
+            )
+        )
+        return self.session.scalars(statement).first()
+
     def get_interaction_with_trace(self, interaction_id: str) -> Interaction | None:
         statement = (
             select(Interaction)
@@ -274,6 +287,58 @@ class LearningTraceRepository:
         statement = select(QoEScoreRecord).where(QoEScoreRecord.interaction_id == interaction_id)
         return self.session.scalars(statement).first()
 
+    def create_experience(
+        self,
+        *,
+        learner_id: str,
+        session_id: str,
+        interaction_id: str,
+        runtime_configuration_id: str,
+        qoe_score_id: str | None,
+        resource_id: str | None,
+        topic: str | None,
+        state_snapshot: dict | None,
+        action_snapshot: dict | None,
+        configuration_snapshot: dict | None,
+        qoe_outcome: dict | None,
+        reward_score: float,
+        reward_details: dict | None,
+        outcome_label: str | None,
+        performance_summary: dict | None,
+    ) -> Experience:
+        experience = Experience(
+            learner_id=learner_id,
+            session_id=session_id,
+            interaction_id=interaction_id,
+            runtime_configuration_id=runtime_configuration_id,
+            qoe_score_id=qoe_score_id,
+            resource_id=resource_id,
+            topic=topic,
+            state_snapshot=state_snapshot or {},
+            action_snapshot=action_snapshot or {},
+            configuration_snapshot=configuration_snapshot or {},
+            qoe_outcome=qoe_outcome or {},
+            reward_score=float(reward_score),
+            reward_details=reward_details or {},
+            outcome_label=outcome_label,
+            performance_summary=performance_summary or {},
+        )
+        self.session.add(experience)
+        self.session.flush()
+        return experience
+
+    def get_experience_for_interaction(self, interaction_id: str) -> Experience | None:
+        statement = select(Experience).where(Experience.interaction_id == interaction_id)
+        return self.session.scalars(statement).first()
+
+    def get_experiences_for_session(self, session_id: str) -> list[Experience]:
+        statement = (
+            select(Experience)
+            .where(Experience.session_id == session_id)
+            .order_by(Experience.created_at.desc())
+        )
+        return list(self.session.scalars(statement))
+
     def get_educational_resource_by_source_and_external_id(
         self,
         *,
@@ -285,6 +350,35 @@ class LearningTraceRepository:
             EducationalResource.external_resource_id == external_resource_id,
         )
         return self.session.scalars(statement).first()
+
+    def get_or_create_educational_resource(
+        self,
+        *,
+        source: str,
+        external_resource_id: str,
+        title: str,
+        url: str | None,
+        topic: str | None,
+        metadata: dict | None = None,
+    ) -> EducationalResource:
+        resource = self.get_educational_resource_by_source_and_external_id(
+            source=source,
+            external_resource_id=external_resource_id,
+        )
+        if resource is not None:
+            return resource
+
+        resource = EducationalResource(
+            source=source,
+            external_resource_id=external_resource_id,
+            title=title,
+            url=url,
+            topic=topic,
+            resource_metadata=metadata or {},
+        )
+        self.session.add(resource)
+        self.session.flush()
+        return resource
 
     def get_educational_resource(self, resource_id: str) -> EducationalResource | None:
         return self.session.get(EducationalResource, resource_id)

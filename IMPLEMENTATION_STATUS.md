@@ -12,4 +12,5 @@
 - Implemented: Phase 7 CRAG-quality gate and hybrid local/cloud routing boundary using the existing provider interface, with cloud Hugging Face as the active default and a non-functional local routing abstraction only.
 - Implemented: Phase 8 Speech Input and Output with a speech orchestration service, passthrough STT/TTS provider adapters, and a speech question API path for audio-to-answer-to-audio flows.
 - Implemented: Phase 9 Monitoring and QoE Evaluation with raw interaction metrics capture, aggregated runtime metric persistence, and computed QoE scores for learner-facing interactions.
-- Deferred: Experience memory, adaptive routing/policies, and full local model hosting.
+- Implemented: Phase 10 Experience Memory with persistent experience records capturing state, action, runtime configuration, QoE outcome, and reward for each interaction.
+- Deferred: Adaptive routing/policies and full local model hosting.

@@ -13,6 +13,7 @@ from app.llm.provider import LLMProvider
 from app.llm.types import LLMProviderError
 from app.knowledge.embedding_provider import SentenceTransformerEmbeddingProvider
 from app.knowledge.faiss_index_store import FaissIndexStore
+from app.knowledge.youtube_transcript_provider import YouTubeTranscriptProvider
 from app.llm.hybrid_provider import HybridLLMProvider, LocalLLMProvider
 from app.llm.stt_provider import PassthroughSTTProvider
 from app.llm.tts_provider import PassthroughTTSProvider
@@ -24,17 +25,6 @@ from app.services.monitoring_service import MonitoringService
 from app.services.resource_recommendation_service import ResourceRecommendationService
 from app.services.speech_service import SpeechService
 from app.youtube.data_api_provider import YouTubeDataAPIProvider
-
-
-class StaticTranscriptProvider:
-    def get_transcript_for_resource(
-        self,
-        *,
-        resource_id: str | None = None,
-        resource: object | None = None,
-        **_: object,
-    ) -> str:
-        return ""
 
 
 def get_db_session() -> Generator[Session, None, None]:
@@ -82,7 +72,9 @@ def get_knowledge_preparation_service(
 ) -> KnowledgePreparationService:
     return KnowledgePreparationService(
         repository=LearningTraceRepository(db_session),
-        transcript_provider=StaticTranscriptProvider(),
+        transcript_provider=YouTubeTranscriptProvider(
+            languages=[settings.youtube_default_language],
+        ),
         embedding_provider=SentenceTransformerEmbeddingProvider(
             model_name=settings.knowledge_embedding_model,
         ),

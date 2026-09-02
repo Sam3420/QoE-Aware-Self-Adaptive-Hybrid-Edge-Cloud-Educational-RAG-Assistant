@@ -27,6 +27,10 @@ class RuntimeConfiguration(TimestampMixin, Base):
     interactions: Mapped[list["Interaction"]] = relationship(
         back_populates="runtime_configuration",
     )
+    experiences: Mapped[list["Experience"]] = relationship(
+        back_populates="runtime_configuration",
+        cascade="all, delete-orphan",
+    )
 
 
 @event.listens_for(RuntimeConfiguration, "before_update")

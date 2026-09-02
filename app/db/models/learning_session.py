@@ -38,3 +38,7 @@ class LearningSession(TimestampMixin, Base):
         back_populates="session",
         cascade="all, delete-orphan",
     )
+    experiences: Mapped[list["Experience"]] = relationship(
+        back_populates="session",
+        cascade="all, delete-orphan",
+    )

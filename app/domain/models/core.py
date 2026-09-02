@@ -208,3 +208,22 @@ class QoEScoreResponse(BaseModel):
     latency_ms: int | None = None
     model_provider: str | None = None
     model_name: str | None = None
+
+
+class ExperienceRecordResponse(BaseModel):
+    id: str
+    learner_id: str
+    session_id: str
+    interaction_id: str
+    runtime_configuration_id: str
+    qoe_score_id: str | None = None
+    resource_id: str | None = None
+    topic: str | None = None
+    state_snapshot: dict[str, Any] = Field(default_factory=dict)
+    action_snapshot: dict[str, Any] = Field(default_factory=dict)
+    configuration_snapshot: dict[str, Any] = Field(default_factory=dict)
+    qoe_outcome: dict[str, Any] = Field(default_factory=dict)
+    reward_score: float = 0.0
+    reward_details: dict[str, Any] = Field(default_factory=dict)
+    outcome_label: str | None = None
+    performance_summary: dict[str, Any] = Field(default_factory=dict)

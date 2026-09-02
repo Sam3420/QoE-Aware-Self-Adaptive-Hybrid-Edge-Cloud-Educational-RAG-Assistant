@@ -31,3 +31,8 @@ class QoEScoreRecord(TimestampMixin, Base):
 
     interaction: Mapped["Interaction"] = relationship(back_populates="qoe_scores")
     session: Mapped["LearningSession"] = relationship(back_populates="qoe_scores")
+    experience: Mapped["Experience | None"] = relationship(
+        back_populates="qoe_score",
+        uselist=False,
+        cascade="all, delete-orphan",
+    )

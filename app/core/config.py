@@ -5,6 +5,9 @@ from pydantic import Field, SecretStr, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+
 class Settings(BaseSettings):
     app_name: str = "QoE Educational Assistant"
     app_env: str = "local"
@@ -44,7 +47,7 @@ class Settings(BaseSettings):
     tts_provider_enabled: bool = Field(default=True)
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=PROJECT_ROOT / ".env",
         env_file_encoding="utf-8",
         extra="ignore",
     )
