@@ -305,23 +305,22 @@ class AssistantService:
         if resource_id is None or self.knowledge_retrieval_service is None:
             # This is the normal non-RAG path.
             return None
-        # Search the prepared index belonging to the selected resource.
-        hits = self.knowledge_retrieval_service.retrieve_context(
-            resource_id=resource_id,
-            query=question,
-            top_k=runtime_configuration.configuration_data.get(
-                "knowledge_retrieval_top_k",
-                self.settings.knowledge_retrieval_top_k,
-            ),
+        top_k = runtime_configuration.configuration_data.get(
+            "knowledge_retrieval_top_k",
+            self.settings.knowledge_retrieval_top_k,
         )
-        if not hits:
-            # Do not claim grounding when no evidence was retrieved.
-            return None
-
-        # CRAG decides whether retrieved evidence is strong enough to be trusted in the prompt.
-        decision = self.retrieval_quality_service.evaluate(question=question, hits=hits)
+        query = question
+        hits = self.knowledge_retrieval_service.retrieve_context(
+            resource_id=resource_id, query=query, top_k=top_k
+        )
+        decision = self.retrieval_quality_service.evaluate(question=query, hits=hits)
         if not decision.is_adequate:
-            # Tell the model that retrieved evidence was insufficient rather than trusting it silently.
+            query = self.retrieval_quality_service.corrective_query(question)
+            hits = self.knowledge_retrieval_service.retrieve_context(
+                resource_id=resource_id, query=query, top_k=top_k
+            )
+            decision = self.retrieval_quality_service.evaluate(question=query, hits=hits)
+        if not decision.is_adequate:
             return (
                 "No sufficiently relevant retrieved context was found for this question. "
                 "Answer using your general knowledge only if it is clearly supported by the learner's context, "

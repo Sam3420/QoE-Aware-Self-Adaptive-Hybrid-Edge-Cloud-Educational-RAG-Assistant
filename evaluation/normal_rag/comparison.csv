@@ -1,0 +1,4 @@
+method,count,success_rate,mean_qoe_proxy,mean_latency_ms,mean_top_score,retry_count
+normal_rag,20,0.95,41.53,9247.65,0.0,0
+crag,20,0.95,40.39,10186.1,0.0,20
+crag_minus_normal,20,0.0,-1.14,938.45,0.0,20

@@ -91,6 +91,11 @@ class ResourceRecommendationService:
             raise LearningSessionNotFoundError("Learning session was not found.")
 
         resource = self.repository.get_educational_resource(resource_id)
+        if resource is None and resource_id.startswith("youtube:"):
+            resource = self.repository.get_educational_resource_by_source_and_external_id(
+                source="youtube",
+                external_resource_id=resource_id.split(":", 1)[1],
+            )
         if resource is None:
             raise ResourceNotFoundError("Educational resource was not found.")
         #check provider
@@ -183,11 +188,17 @@ class ResourceRecommendationService:
 
             if score <= 0:
                 continue
-            #construct resource id
-            resource_id = f"youtube:{candidate['external_id']}"
+            resource = self.repository.get_or_create_educational_resource(
+                source=candidate.get("provider") or "youtube",
+                external_resource_id=candidate.get("external_id") or "",
+                title=candidate.get("title") or "Untitled video",
+                url=candidate.get("url") or None,
+                topic=topic,
+                metadata={"channel_title": candidate.get("channel_title")},
+            )
             ranked.append(
                 ResourceRecommendationItem(
-                    resource_id=resource_id,
+                    resource_id=resource.id,
                     provider=candidate.get("provider") or "youtube",
                     external_id=candidate.get("external_id") or "",
                     title=candidate.get("title") or "Untitled video",

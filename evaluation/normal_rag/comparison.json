@@ -1,0 +1,853 @@
+{
+  "summary": [
+    {
+      "method": "normal_rag",
+      "count": 20,
+      "success_rate": 0.95,
+      "mean_qoe_proxy": 41.53,
+      "mean_latency_ms": 9247.65,
+      "mean_top_score": 0.0,
+      "retry_count": 0
+    },
+    {
+      "method": "crag",
+      "count": 20,
+      "success_rate": 0.95,
+      "mean_qoe_proxy": 40.39,
+      "mean_latency_ms": 10186.1,
+      "mean_top_score": 0.0,
+      "retry_count": 20
+    },
+    {
+      "method": "crag_minus_normal",
+      "count": 20,
+      "success_rate": 0.0,
+      "mean_qoe_proxy": -1.14,
+      "mean_latency_ms": 938.45,
+      "mean_top_score": 0.0,
+      "retry_count": 20
+    }
+  ],
+  "records": [
+    {
+      "id": "q01",
+      "question": "What are the three articles used in English grammar?",
+      "difficulty": "easy",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "What are the three articles used in English grammar?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "In English grammar, the three articles used are:\n\n1. The (definite article)\n2. A (indefinite article)\n3. An (indefinite article, used before words that start with a vowel sound)\n\nThese articles are used to modify nouns and indicate whether they are specific or general, and whether they are being referred to for the first time or not.",
+        "error": null,
+        "success": true,
+        "latency_ms": 4010,
+        "top_score": null,
+        "qoe_proxy": 48.68
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "What are the three articles used in English grammar?"
+        },
+        "retry_query": "What are the three articles used in English grammar? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "What are the three articles used in English grammar? key concepts definition explanation evidence"
+        },
+        "prompt": "What are the three articles used in English grammar?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "In English grammar, the three main articles are:\n\n1. **The** (definite article): used before a noun to indicate that the noun is specific or particular, e.g., \"The book on the table is mine.\"\n2. **A** and **An** (indefinite article): used before a noun to indicate that the noun is general or nonspecific, e.g., \"I'm reading a book\" or \"I'm reading an interesting novel.\"\n   - **A** is used before nouns that start with a consonant sound, e.g., \"a cat,\" \"a book.\"\n   - **An** is used before nouns that start with a vowel sound, e.g., \"an apple,\" \"an hour.\"\n\nThese three articles are the basic building blocks of English grammar, and they play a crucial role in expressing meaning and context in sentences.",
+        "error": null,
+        "success": true,
+        "latency_ms": 8688,
+        "top_score": null,
+        "qoe_proxy": 42.62
+      }
+    },
+    {
+      "id": "q02",
+      "question": "When should the article 'a' be used before a noun?",
+      "difficulty": "easy",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "When should the article 'a' be used before a noun?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The article \"a\" (also known as the indefinite article) is used before a noun when:\n\n1. The noun is singular and refers to a non-specific or general thing.\nExample: \"I'm going to the store to buy a book.\"\n2. The noun is singular and refers to a new or unknown thing.\nExample: \"I'm going to meet a friend at the park.\"\n3. The noun is singular and refers to a thing that is considered to be one of a kind or unique.\nExample: \"I'm going to see a movie tonight.\"\n4. The noun is singular and refers to a thing that is being introduced or mentioned for the first time.\nExample: \"I'm going to introduce you to a friend of mine.\"\n\nIn general, the article \"a\" is used when the noun is singular and does not refer to a specific or particular thing. If the noun is plural, the article \"a\" is not used, and instead, the noun is used without an article.\nExample: \"I'm going to the store to buy books.\"\n\nIt's also worth noting that the article \"a\" is used before nouns that start with a vowel sound, even if the noun itself starts with a consonant sound.\nExample: \"I'm going to see an elephant.\"\n\nI hope that helps!",
+        "error": null,
+        "success": true,
+        "latency_ms": 13058,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "When should the article 'a' be used before a noun?"
+        },
+        "retry_query": "When should the article 'a' be used before a noun? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "When should the article 'a' be used before a noun? key concepts definition explanation evidence"
+        },
+        "prompt": "When should the article 'a' be used before a noun?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The article 'a' is used before a noun in the following situations:\n\n1. **Indefinite noun**: When the noun is used to refer to a non-specific or general noun, 'a' is used. For example:\n\t* \"I'm going to the store to buy a book.\"\n\t* \"She's looking for a job.\"\n2. **Singular countable noun**: When the noun is singular and countable, 'a' is used. For example:\n\t* \"I'm reading a book.\"\n\t* \"She's eating an apple.\"\n3. **Unspecified noun**: When the noun is unspecified or unknown, 'a' is used. For example:\n\t* \"I'm looking for a place to live.\"\n\t* \"She's searching for a new phone.\"\n4. **Contrast or emphasis**: When the noun is used to contrast or emphasize a particular noun, 'a' is used. For example:\n\t* \"I'm going to the store to buy a car, not a bike.\"\n\t* \"She's looking for a new job, not a promotion.\"\n\nHowever, if the noun is plural, specific, or has a specific meaning, the article 'a' is not used. For example:\n\n* \"The books on the shelf are interesting.\" (plural)\n* \"The store is open.\" (specific)\n* \"The meaning of life is a mystery.\" (specific)\n\nIt's worth noting that the use of 'a' can vary depending on the context, dialect, and style of writing or speaking.",
+        "error": null,
+        "success": true,
+        "latency_ms": 16283,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      }
+    },
+    {
+      "id": "q03",
+      "question": "When should the article 'an' be used instead of 'a'?",
+      "difficulty": "easy",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "When should the article 'an' be used instead of 'a'?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The article \"an\" is used instead of \"a\" when the word that follows begins with a vowel sound. This is known as the \"an\" rule.\n\nHere are some examples:\n\n* A noun that starts with a vowel sound: \"an apple\", \"an eagle\", \"an orange\"\n* A word that starts with a diphthong (a combination of two vowel sounds): \"an hour\", \"an honest man\"\n* A word that starts with a silent \"h\" sound: \"an honest man\" (because the \"h\" is silent)\n\nOn the other hand, \"a\" is used before words that start with a consonant sound, such as:\n\n* \"a cat\", \"a dog\", \"a house\"\n\nSo, to summarize, use \"an\" before words that start with a vowel sound, and use \"a\" before words that start with a consonant sound.",
+        "error": null,
+        "success": true,
+        "latency_ms": 9633,
+        "top_score": null,
+        "qoe_proxy": 40.73
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "When should the article 'an' be used instead of 'a'?"
+        },
+        "retry_query": "When should the article 'an' be used instead of 'a'? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "When should the article 'an' be used instead of 'a'? key concepts definition explanation evidence"
+        },
+        "prompt": "When should the article 'an' be used instead of 'a'?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "",
+        "error": "LLM provider request failed.",
+        "success": false,
+        "latency_ms": 27091,
+        "top_score": null,
+        "qoe_proxy": 0.0
+      }
+    },
+    {
+      "id": "q04",
+      "question": "What is the difference between the indefinite articles 'a' and 'an'?",
+      "difficulty": "easy",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "What is the difference between the indefinite articles 'a' and 'an'?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The difference between \"a\" and \"an\" lies in the sound that follows them. \"A\" is used before words that start with a consonant sound, while \"an\" is used before words that start with a vowel sound or a silent \"h\".\n\nFor example:\n\n* \"a cat\" (the word \"cat\" starts with a consonant sound /k/)\n* \"an apple\" (the word \"apple\" starts with a vowel sound /\u00e6/)\n* \"an hour\" (the word \"hour\" starts with a vowel sound /a\u028a/)\n* \"a house\" (the word \"house\" starts with a consonant sound /h/)\n\nIn general, if the word starts with a vowel sound (such as \"a\", \"e\", \"i\", \"o\", or \"u\"), use \"an\". If the word starts with a consonant sound, use \"a\".",
+        "error": null,
+        "success": true,
+        "latency_ms": 7921,
+        "top_score": null,
+        "qoe_proxy": 44.16
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "What is the difference between the indefinite articles 'a' and 'an'?"
+        },
+        "retry_query": "What is the difference between the indefinite articles 'a' and 'an'? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "What is the difference between the indefinite articles 'a' and 'an'? key concepts definition explanation evidence"
+        },
+        "prompt": "What is the difference between the indefinite articles 'a' and 'an'?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The indefinite articles \"a\" and \"an\" are used to refer to a non-specific noun or a noun that is not previously known. The main difference between them is that \"a\" is used before nouns that start with a consonant sound, while \"an\" is used before nouns that start with a vowel sound.\n\nFor example:\n\n* \"I'm going to a party tonight.\" (The word \"party\" starts with a consonant sound, so \"a\" is used.)\n* \"I'm going to an apartment tonight.\" (The word \"apartment\" starts with a vowel sound, so \"an\" is used.)\n\nIn general, if the noun starts with a sound that is a vowel (A, E, I, O, U, or sometimes Y), use \"an\". If the noun starts with a consonant sound, use \"a\".\n\nIt's worth noting that the distinction between \"a\" and \"an\" is not always clear-cut, and some words can be tricky to decide on. For example, \"hour\" starts with a vowel sound, but \"heroin\" starts with a consonant sound, so \"an hour\" is correct, but \"a heroin\" is not.\n\nIt's also worth noting that the rule is not absolute, and some words can be exceptions to the rule. However, in general, using \"a\" before consonant sounds and \"an\" before vowel sounds is a good guideline to follow.",
+        "error": null,
+        "success": true,
+        "latency_ms": 13117,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      }
+    },
+    {
+      "id": "q05",
+      "question": "When is the definite article 'the' used in English?",
+      "difficulty": "medium",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "When is the definite article 'the' used in English?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The definite article \"the\" is used in English in the following situations:\n\n1. **Referring to a specific noun**: When you want to refer to a specific noun that has already been mentioned or is known to both the speaker and the listener, \"the\" is used. For example:\n\t* \"I'm going to the store.\" (Here, \"the store\" refers to a specific store that has already been mentioned or is known to both the speaker and the listener.)\n2. **Referring to a noun that is unique or singular**: When the noun is unique or singular, \"the\" is used. For example:\n\t* \"The sun is shining.\" (Here, \"the sun\" refers to the one and only sun in the universe.)\n3. **Referring to a noun that is part of a larger group**: When the noun is part of a larger group or category, \"the\" is used. For example:\n\t* \"The cat is sleeping.\" (Here, \"the cat\" refers to a specific cat that is part of the larger group of cats.)\n4. **In titles and headings**: \"The\" is often used in titles and headings to indicate that the noun is a specific or unique one. For example:\n\t* \"The New York Times\" (Here, \"the\" indicates that the newspaper is a specific and unique one.)\n5. **In idiomatic expressions**: \"The\" is used in various idiomatic expressions to convey a specific meaning or to add emphasis. For example:\n\t* \"The fact is...\" (Here, \"the\" is used to add emphasis and to make the statement more formal.)\n\nThese are some of the main situations where \"the\" is used in English. There are other situations as well, but these are some of the most common ones.",
+        "error": null,
+        "success": true,
+        "latency_ms": 11593,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "When is the definite article 'the' used in English?"
+        },
+        "retry_query": "When is the definite article 'the' used in English? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "When is the definite article 'the' used in English? key concepts definition explanation evidence"
+        },
+        "prompt": "When is the definite article 'the' used in English?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "In English, the definite article \"the\" is used in the following situations:\n\n1. **Referring to a specific noun**: When you're referring to a specific noun or a particular instance of a noun, you use \"the\". For example:\n\t* \"I'm going to the store.\" (Here, \"the store\" refers to a specific store.)\n\t* \"I'm reading the book on the table.\" (Here, \"the book\" refers to a specific book.)\n2. **Indicating a particular instance or example**: When you're referring to a particular instance or example of a noun, you use \"the\". For example:\n\t* \"The sun is shining.\" (Here, \"the sun\" refers to the specific sun we're experiencing.)\n\t* \"The example on the board is interesting.\" (Here, \"the example\" refers to a specific example.)\n3. **Referring to a noun that is already known or implied**: When you're referring to a noun that is already known or implied in the context, you use \"the\". For example:\n\t* \"I'm going to the park.\" (Here, \"the park\" is already known or implied.)\n\t* \"The president is speaking.\" (Here, \"the president\" is already known or implied.)\n4. **Indicating a general or universal concept**: When you're referring to a general or universal concept, you use \"the\" to indicate that it's a specific instance or example of that concept. For example:\n\t* \"The weather is nice today.\" (Here, \"the weather\" refers to a general concept, but it's a specific instance of that concept.)\n\t* \"The beauty of nature is amazing.\" (Here, \"the beauty of nature\" refers to a general concept, but it's a specific instance of that concept.)\n\nThese are some of the main situations where the definite article \"the\" is used in English.",
+        "error": null,
+        "success": true,
+        "latency_ms": 10007,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      }
+    },
+    {
+      "id": "q06",
+      "question": "Why do we say 'an apple' but 'a banana'?",
+      "difficulty": "easy",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "Why do we say 'an apple' but 'a banana'?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "A classic example of a linguistic quirk!\n\nThe reason we say \"an apple\" but \"a banana\" is due to the way we pronounce the words. In English, we use the indefinite article \"a\" before words that start with a vowel sound, and \"an\" before words that start with a consonant sound.\n\nIn the case of \"apple,\" the word starts with a /\u00e6/ sound, which is a vowel sound. So, we use the indefinite article \"an\" before it.\n\nOn the other hand, \"banana\" starts with a /b/ sound, which is a consonant sound. So, we use the indefinite article \"a\" before it.\n\nThis is a general rule in English, and it applies to many other words as well. For example:\n\n* \"an egg\" (starts with a vowel sound /\u025b/)\n* \"a unicorn\" (starts with a consonant sound /\u028c/)\n* \"an orange\" (starts with a vowel sound /\u0254/)\n* \"a kangaroo\" (starts with a consonant sound /k/)\n\nIt's worth noting that this rule can be a bit tricky to apply, especially when dealing with words that start with a diphthong (a combination of vowel sounds, like \"oi\" or \"ou\"). But in general, the rule holds true for most words in English.",
+        "error": null,
+        "success": true,
+        "latency_ms": 8424,
+        "top_score": null,
+        "qoe_proxy": 43.15
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "Why do we say 'an apple' but 'a banana'?"
+        },
+        "retry_query": "Why do we say 'an apple' but 'a banana'? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "Why do we say 'an apple' but 'a banana'? key concepts definition explanation evidence"
+        },
+        "prompt": "Why do we say 'an apple' but 'a banana'?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The reason for this difference lies in the way the words \"apple\" and \"banana\" are pronounced.\n\n\"Apple\" is pronounced with a short \"a\" sound (/\u00e6p\u0259l/), while \"banana\" is pronounced with a long \"a\" sound (/b\u0259\u02c8n\u0251\u02d0n\u0259/).\n\nIn English, when a word starts with a vowel sound (like \"a\" in \"apple\"), the indefinite article \"a\" is used. However, when a word starts with a diphthong (a combination of two vowel sounds, like \"a\" in \"banana\"), the indefinite article \"an\" is used.\n\nSo, the correct usage is:\n\n* \"an apple\" (short \"a\" sound)\n* \"a banana\" (long \"a\" sound)\n\nThis rule applies to other words as well, such as \"an orange\" (short \"a\" sound) and \"a unicorn\" (long \"a\" sound).",
+        "error": null,
+        "success": true,
+        "latency_ms": 8906,
+        "top_score": null,
+        "qoe_proxy": 42.19
+      }
+    },
+    {
+      "id": "q07",
+      "question": "Why is 'an hour' grammatically correct while 'a house' is correct?",
+      "difficulty": "medium",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "Why is 'an hour' grammatically correct while 'a house' is correct?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The reason for this difference lies in the way the indefinite article \"a\" interacts with the noun it precedes.\n\nIn the case of \"an hour\", the noun is a unit of time, which is an uncountable noun (also known as a non-count noun or a mass noun). Uncountable nouns do not have a plural form, and they are typically preceded by the indefinite article \"a\" (or \"an\" before a vowel).\n\nOn the other hand, \"a house\" is a countable noun, which means it can be counted and has a plural form (\"houses\"). Countable nouns are typically preceded by the indefinite article \"a\" (or \"an\" before a vowel), but they can also be preceded by the definite article \"the\" when they are specific or previously mentioned.\n\nSo, the key difference is that \"an hour\" is an uncountable noun, while \"a house\" is a countable noun. This distinction is what allows \"an hour\" to be grammatically correct while \"a house\" is also correct.",
+        "error": null,
+        "success": true,
+        "latency_ms": 8784,
+        "top_score": null,
+        "qoe_proxy": 42.43
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "Why is 'an hour' grammatically correct while 'a house' is correct?"
+        },
+        "retry_query": "Why is 'an hour' grammatically correct while 'a house' is correct? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "Why is 'an hour' grammatically correct while 'a house' is correct? key concepts definition explanation evidence"
+        },
+        "prompt": "Why is 'an hour' grammatically correct while 'a house' is correct?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The reason is that \"an hour\" is an example of a phrase that uses the indefinite article \"an\" before a noun that starts with a vowel sound, even though the word \"hour\" itself starts with the letter \"h\".\n\nIn English, the indefinite article \"a\" is used before nouns that start with a consonant sound, while \"an\" is used before nouns that start with a vowel sound. However, the sound of the word, not its spelling, determines which article to use.\n\nIn the case of \"an hour\", the word \"hour\" is pronounced with a vowel sound (/a\u028a\u0259r/), so the indefinite article \"an\" is used. This is why \"an hour\" is grammatically correct.\n\nOn the other hand, \"a house\" is also grammatically correct because the word \"house\" starts with a consonant sound (/ha\u028as/), so the indefinite article \"a\" is used.\n\nSo, to summarize: the choice of article depends on the sound of the word, not its spelling.",
+        "error": null,
+        "success": true,
+        "latency_ms": 7544,
+        "top_score": null,
+        "qoe_proxy": 44.91
+      }
+    },
+    {
+      "id": "q08",
+      "question": "Why do we use 'a' before 'university' even though it begins with the letter 'u'?",
+      "difficulty": "medium",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "Why do we use 'a' before 'university' even though it begins with the letter 'u'?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "We use \"a\" before \"university\" because it's a noun that refers to an institution of higher learning, and in English, we use the indefinite article \"a\" before nouns that start with a vowel sound, not just the letter \"u\".\n\nIn this case, \"university\" starts with a vowel sound (/\u028cn/), which is a soft, open sound, rather than a sharp, hard sound like /u/. This is why we use \"a\" instead of \"an\" (which is used before nouns that start with a vowel sound, like \"a\", \"e\", \"i\", \"o\", or \"u\").\n\nSo, it's not just about the letter \"u\", but rather the sound that the word starts with. Does that make sense?",
+        "error": null,
+        "success": true,
+        "latency_ms": 6107,
+        "top_score": null,
+        "qoe_proxy": 47.79
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "Why do we use 'a' before 'university' even though it begins with the letter 'u'?"
+        },
+        "retry_query": "Why do we use 'a' before 'university' even though it begins with the letter 'u'? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "Why do we use 'a' before 'university' even though it begins with the letter 'u'? key concepts definition explanation evidence"
+        },
+        "prompt": "Why do we use 'a' before 'university' even though it begins with the letter 'u'?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The reason we use \"a\" before \"university\" is because of a historical and linguistic reason. In English, the indefinite article \"a\" is used before nouns that begin with a vowel sound, not just the letter \"a\". This is because the word \"university\" is derived from the Latin word \"universitas\", which was adopted into Middle English. In Latin, the word begins with a vowel sound, and this sound was retained in the English translation.\n\nIn English, the indefinite article \"a\" is used before nouns that begin with a vowel sound, such as \"a, e, i, o, u\". This is a convention that has been followed for centuries, and it's not just limited to \"university\". Other examples include \"a egg\", \"a urchin\", and \"a ukelele\".\n\nSo, in short, we use \"a\" before \"university\" because of its Latin origin and the way the word was adopted into English, rather than because it begins with the letter \"u\".",
+        "error": null,
+        "success": true,
+        "latency_ms": 8035,
+        "top_score": null,
+        "qoe_proxy": 43.93
+      }
+    },
+    {
+      "id": "q09",
+      "question": "When should a noun be used without an article?",
+      "difficulty": "medium",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "When should a noun be used without an article?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "A noun can be used without an article in several situations:\n\n1. **Proper nouns**: Names of specific people, places, organizations, and institutions are always used without an article. For example: \"John is a great person.\" (Here, \"John\" is a proper noun and doesn't need an article.)\n2. **Abstract nouns**: Abstract concepts like love, happiness, freedom, and time are often used without an article. For example: \"I love my family.\" (Here, \"love\" is an abstract noun and doesn't need an article.)\n3. **Common nouns with a specific meaning**: When a common noun has a specific meaning or is used in a particular way, it can be used without an article. For example: \"I'm going to the store.\" (Here, \"store\" is a common noun, but it's used in a specific way, so it doesn't need an article.)\n4. **Nouns in titles and headings**: Nouns in titles and headings are often used without an article. For example: \"The New York Times\" (Here, \"New York\" is a proper noun, but it's also a common noun used in a specific way, so it doesn't need an article.)\n5. **Nouns in idiomatic expressions**: Nouns in idiomatic expressions are often used without an article. For example: \"I'm going to bed.\" (Here, \"bed\" is a common noun, but it's used in an idiomatic expression, so it doesn't need an article.)\n6. **Nouns in certain grammatical constructions**: In some grammatical constructions, such as in the present participle or in the gerund, a noun can be used without an article. For example: \"I'm studying English.\" (Here, \"English\" is a noun used in the present participle, so it doesn't need an article.)\n\nHowever, there are some exceptions and nuances to consider:\n\n* **Countable and uncountable nouns**: If a noun is countable (e.g., \"book\"), it usually requires an article. If a noun is uncountable (e.g., \"water\"), it usually doesn't require an article.\n* **Generic nouns**: If a noun is used to refer to a general category or class, it often requires an article. For example: \"The cat is a mammal.\" (Here, \"cat\" is a generic noun, so it requires an article.)\n* **Nouns in certain contexts**: In some contexts",
+        "error": null,
+        "success": true,
+        "latency_ms": 14946,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "When should a noun be used without an article?"
+        },
+        "retry_query": "When should a noun be used without an article? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "When should a noun be used without an article? key concepts definition explanation evidence"
+        },
+        "prompt": "When should a noun be used without an article?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "In English, a noun can be used without an article (a, an, the) in certain situations. Here are some examples:\n\n1. **Proper nouns**: Names of specific people, places, organizations, etc. are always used without an article. For example:\n\t* John Smith (not \"the John Smith\")\n\t* New York (not \"the New York\")\n2. **Abstract nouns**: Nouns that refer to concepts, ideas, or feelings are often used without an article. For example:\n\t* Happiness (not \"the happiness\")\n\t* Freedom (not \"the freedom\")\n3. **Common nouns**: When a common noun is used as a general term, it's often used without an article. For example:\n\t* Dog (not \"the dog\")\n\t* City (not \"the city\")\n4. **Collective nouns**: Nouns that refer to groups of people, animals, or things are often used without an article. For example:\n\t* Team (not \"the team\")\n\t* Family (not \"the family\")\n5. **Idiomatic expressions**: Certain idiomatic expressions use a noun without an article. For example:\n\t* In the morning (not \"in the morning\")\n\t* On the phone (not \"on the phone\")\n6. **Plural nouns**: When a noun is used in the plural form, it's often used without an article. For example:\n\t* Cats (not \"the cats\")\n\t* Children (not \"the children\")\n\nThese are just a few examples of when a noun can be used without an article. If you're unsure, it's always a good idea to check the context and the specific usage of the noun in question.",
+        "error": null,
+        "success": true,
+        "latency_ms": 10523,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      }
+    },
+    {
+      "id": "q10",
+      "question": "How are 'a' and 'an' used when introducing something for the first time?",
+      "difficulty": "medium",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "How are 'a' and 'an' used when introducing something for the first time?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "In English, 'a' and 'an' are used as indefinite articles to introduce a noun for the first time. The main difference between 'a' and 'an' is that 'an' is used before nouns that start with a vowel sound, while 'a' is used before nouns that start with a consonant sound.\n\nHere are some examples:\n\n* A cat is a small animal. (Here, 'a' is used because 'cat' starts with a consonant sound /k/.)\n* An elephant is a large animal. (Here, 'an' is used because 'elephant' starts with a vowel sound /\u025b/.)\n* A university is a place of higher learning. (Here, 'a' is used because 'university' starts with a consonant sound /j/.)\n* An orange is a type of fruit. (Here, 'an' is used because 'orange' starts with a vowel sound /\u0254/.)\n\nIn general, if the noun starts with a vowel sound (A, E, I, O, U, or sometimes Y), use 'an'. If the noun starts with a consonant sound, use 'a'.\n\nIt's worth noting that there are some exceptions and nuances to this rule, but in general, this is how 'a' and 'an' are used when introducing something for the first time.",
+        "error": null,
+        "success": true,
+        "latency_ms": 8682,
+        "top_score": null,
+        "qoe_proxy": 42.64
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "How are 'a' and 'an' used when introducing something for the first time?"
+        },
+        "retry_query": "How are 'a' and 'an' used when introducing something for the first time? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "How are 'a' and 'an' used when introducing something for the first time? key concepts definition explanation evidence"
+        },
+        "prompt": "How are 'a' and 'an' used when introducing something for the first time?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "In English, 'a' and 'an' are used as indefinite articles to introduce a noun or a noun phrase for the first time. The choice between 'a' and 'an' depends on the sound that follows.\n\n*   'A' is used before nouns that start with a consonant sound (e.g., \"a cat,\" \"a house,\" \"a book\").\n*   'An' is used before nouns that start with a vowel sound (e.g., \"an apple,\" \"an hour,\" \"an elephant\").\n\nFor example:\n\n*   \"I'm reading a book about history.\" (The noun \"book\" starts with a consonant sound, so 'a' is used.)\n*   \"I'm going to an art museum.\" (The noun \"art\" starts with a vowel sound, so 'an' is used.)\n\nIn general, 'a' and 'an' are used to indicate that the noun or noun phrase is a specific instance of a general category, rather than a particular or specific instance.",
+        "error": null,
+        "success": true,
+        "latency_ms": 6850,
+        "top_score": null,
+        "qoe_proxy": 46.3
+      }
+    },
+    {
+      "id": "q11",
+      "question": "How does the use of 'the' change when referring to something mentioned previously?",
+      "difficulty": "medium",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "How does the use of 'the' change when referring to something mentioned previously?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "When referring to something mentioned previously, the use of \"the\" can change in several ways:\n\n1. **Omission of \"the\"**: When referring back to a noun or a previously mentioned concept, \"the\" is often omitted. This is a common feature of English, known as \"zero article\" or \"definite article omission.\" For example:\n\t* \"I saw a book on the table. I read the book last night.\" (Here, \"the book\" is a new sentence, and \"the\" is used to indicate a specific book.)\n\t* \"I saw a book on the table. I read it last night.\" (Here, \"it\" is a pronoun referring back to the book, and \"the\" is omitted.)\n2. **Use of \"a/an\" instead of \"the\"**: When referring back to a noun or a previously mentioned concept, \"a/an\" (indefinite article) is often used instead of \"the\" (definite article). This is because the speaker is not specifying which one they are referring to. For example:\n\t* \"I saw a book on the table. I read a book last night.\" (Here, \"a book\" is a new sentence, and \"the\" is not used because the speaker is not specifying which book.)\n3. **Use of \"this\" or \"that\"**: When referring back to a noun or a previously mentioned concept, \"this\" or \"that\" (demonstrative adjectives) can be used instead of \"the.\" This is because the speaker is pointing out a specific one. For example:\n\t* \"I saw a book on the table. I read this book last night.\" (Here, \"this book\" is a new sentence, and \"the\" is not used because the speaker is pointing out a specific book.)\n4. **Use of \"that\" with a negative or a question**: When referring back to a noun or a previously mentioned concept, \"that\" can be used with a negative or a question. For example:\n\t* \"I saw a book on the table. I didn't read that book last night.\" (Here, \"that book\" is a new sentence, and \"the\" is not used because the speaker is negating the action.)\n\nIn summary, the use of \"the\" can change when referring to something mentioned previously by omitting it, using \"a/an\" instead, using \"this\" or \"that,\" or using \"that\" with",
+        "error": null,
+        "success": true,
+        "latency_ms": 14874,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "How does the use of 'the' change when referring to something mentioned previously?"
+        },
+        "retry_query": "How does the use of 'the' change when referring to something mentioned previously? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "How does the use of 'the' change when referring to something mentioned previously? key concepts definition explanation evidence"
+        },
+        "prompt": "How does the use of 'the' change when referring to something mentioned previously?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "When referring to something mentioned previously, the use of \"the\" changes in the following ways:\n\n1. **Definite article**: When referring to something mentioned previously, \"the\" becomes a definite article, indicating that the noun is specific and already known to the listener or reader. This is often referred to as \"anaphoric\" use of \"the\".\n2. **Lack of article**: In many cases, when referring to something mentioned previously, the article \"the\" is dropped altogether. This is because the noun is already known to the listener or reader, and the article is not necessary to disambiguate the noun.\n3. **Use of zero article**: In some cases, especially in informal or spoken language, the article \"the\" is not used at all when referring to something mentioned previously. This is often referred to as the \"zero article\" or \"null article\".\n\nExamples:\n\n* \"I saw a book on the table. The book was interesting.\" (Here, \"the\" is used as a definite article to refer to the book mentioned previously.)\n* \"I saw a book on the table. It was interesting.\" (Here, the article \"the\" is dropped altogether.)\n* \"I saw a book on the table. It was interesting, that book.\" (Here, the zero article is used, and \"that\" is used instead of \"the\" to refer to the book mentioned previously.)\n\nIt's worth noting that the use of \"the\" can vary depending on the context, register, and dialect of the language. Additionally, the use of \"the\" can also be influenced by factors such as emphasis, tone, and the relationship between the speaker and the listener.",
+        "error": null,
+        "success": true,
+        "latency_ms": 9928,
+        "top_score": null,
+        "qoe_proxy": 40.14
+      }
+    },
+    {
+      "id": "q12",
+      "question": "Why do we say 'the sun' but usually not 'the sunlight' in the same way?",
+      "difficulty": "medium",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "Why do we say 'the sun' but usually not 'the sunlight' in the same way?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "This is a fascinating example of a linguistic phenomenon called \"definite article omission\" or \"zero article.\" In English, we often omit the definite article \"the\" before nouns that are part of a larger concept or a compound noun. This is especially common with nouns that are modified by an adjective or a phrase.\n\nIn the case of \"the sun,\" we typically use the definite article because \"sun\" is a noun that refers to a specific entity, the star at the center of our solar system. However, when we talk about the light emitted by the sun, we usually use the phrase \"sunlight\" as a single unit, rather than \"the sunlight.\"\n\nThere are a few reasons for this:\n\n1. **Compound noun**: \"Sunlight\" is a compound noun, formed by combining \"sun\" and \"light.\" As a compound noun, it's treated as a single unit, and the definite article is not typically used.\n2. **Idiomatic expression**: \"Sunlight\" is a fixed expression that's deeply ingrained in the language. It's a common way to refer to the light emitted by the sun, and it's often used in idiomatic expressions like \"bask in the sunlight\" or \"shine with sunlight.\"\n3. **Semantic unity**: When we talk about sunlight, we're referring to a specific concept that's closely tied to the sun. Using the definite article would imply that we're talking about a specific instance of sunlight, rather than the general concept.\n\nThat being said, there are some cases where you might see \"the sunlight\" used, such as in formal or poetic language, or when referring to a specific instance of sunlight, like \"the sunlight streaming through the window.\" However, in general, \"sunlight\" is treated as a single unit, and the definite article is not typically used.",
+        "error": null,
+        "success": true,
+        "latency_ms": 12821,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "Why do we say 'the sun' but usually not 'the sunlight' in the same way?"
+        },
+        "retry_query": "Why do we say 'the sun' but usually not 'the sunlight' in the same way? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "Why do we say 'the sun' but usually not 'the sunlight' in the same way? key concepts definition explanation evidence"
+        },
+        "prompt": "Why do we say 'the sun' but usually not 'the sunlight' in the same way?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "A great question about the nuances of language!\n\nThe reason we say \"the sun\" but not typically \"the sunlight\" is due to the way we use definite articles in English.\n\nWhen we refer to a specific, singular entity, we use the definite article \"the\" (e.g., \"the sun\"). This is because \"sun\" is a noun that refers to a single, well-defined entity \u2013 the star at the center of our solar system.\n\nOn the other hand, \"sunlight\" is a noun phrase that refers to the light emitted by the sun. In this case, \"sunlight\" is a mass noun, which is a noun that refers to a substance or a concept that can be considered as a whole, rather than a single entity. Mass nouns often don't take the definite article \"the\" (e.g., \"water\", \"air\", \"light\").\n\nSo, while \"the sun\" is a single entity, \"sunlight\" is a concept or a substance that is often referred to without the definite article. This is why we say \"sunlight\" without \"the\", whereas \"sun\" is always \"the sun\".\n\nDoes this explanation help clarify the difference?",
+        "error": null,
+        "success": true,
+        "latency_ms": 7963,
+        "top_score": null,
+        "qoe_proxy": 44.07
+      }
+    },
+    {
+      "id": "q13",
+      "question": "Which article should be used before a singular countable noun when referring to one non-specific object?",
+      "difficulty": "easy",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "Which article should be used before a singular countable noun when referring to one non-specific object?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The indefinite article \"a\" is used before a singular countable noun when referring to one non-specific object. For example:\n\n* A book is on the table.\n* I'm looking for a pen.\n\nIn this case, \"a\" is used to indicate that the noun is non-specific or generic, rather than referring to a specific object.",
+        "error": null,
+        "success": true,
+        "latency_ms": 3410,
+        "top_score": null,
+        "qoe_proxy": 49.18
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "Which article should be used before a singular countable noun when referring to one non-specific object?"
+        },
+        "retry_query": "Which article should be used before a singular countable noun when referring to one non-specific object? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "Which article should be used before a singular countable noun when referring to one non-specific object? key concepts definition explanation evidence"
+        },
+        "prompt": "Which article should be used before a singular countable noun when referring to one non-specific object?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The indefinite article \"a\" should be used before a singular countable noun when referring to one non-specific object.",
+        "error": null,
+        "success": true,
+        "latency_ms": 2299,
+        "top_score": null,
+        "qoe_proxy": 47.74
+      }
+    },
+    {
+      "id": "q14",
+      "question": "What article should be used before a word beginning with a vowel sound?",
+      "difficulty": "easy",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "What article should be used before a word beginning with a vowel sound?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The article \"an\" should be used before a word beginning with a vowel sound.",
+        "error": null,
+        "success": true,
+        "latency_ms": 2113,
+        "top_score": null,
+        "qoe_proxy": 47.27
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "What article should be used before a word beginning with a vowel sound?"
+        },
+        "retry_query": "What article should be used before a word beginning with a vowel sound? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "What article should be used before a word beginning with a vowel sound? key concepts definition explanation evidence"
+        },
+        "prompt": "What article should be used before a word beginning with a vowel sound?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The article \"an\" should be used before a word beginning with a vowel sound.",
+        "error": null,
+        "success": true,
+        "latency_ms": 5129,
+        "top_score": null,
+        "qoe_proxy": 41.24
+      }
+    },
+    {
+      "id": "q15",
+      "question": "Why is 'the United States' used with 'the' while most country names are used without it?",
+      "difficulty": "difficult",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "Why is 'the United States' used with 'the' while most country names are used without it?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The use of \"the\" with \"United States\" is a historical and linguistic convention that has been adopted in English. There are a few reasons for this:\n\n1. **Historical context**: When the term \"United States\" was first used in the 18th century, it referred to a collection of colonies that had declared independence from Great Britain. The phrase \"United States\" was used to emphasize the unity of these colonies, and the definite article \"the\" was added to indicate that this was a specific, unified entity.\n2. **Formal and official usage**: In official contexts, such as government documents, diplomatic correspondence, and international agreements, \"the United States\" is used to convey a sense of formality and respect. This is partly due to the country's status as a major world power and a global leader.\n3. **Linguistic convention**: In English, it's common to use \"the\" with proper nouns that refer to a specific, well-defined entity, such as a country, a city, or a company. This convention is not unique to \"United States\" and is observed with other country names, like \"the Netherlands\" or \"the Philippines.\"\n4. **Avoiding ambiguity**: Using \"the\" with \"United States\" helps to avoid confusion with other countries or entities that share similar names, such as \"United Kingdom\" or \"United Arab Emirates.\"\n\nWhile most country names are used without \"the,\" there are a few exceptions, such as \"the Netherlands,\" \"the Philippines,\" and \"the Democratic Republic of the Congo.\" These exceptions are largely due to historical, linguistic, or cultural factors.\n\nIn summary, the use of \"the\" with \"United States\" is a combination of historical, formal, and linguistic conventions that have been adopted in English.",
+        "error": null,
+        "success": true,
+        "latency_ms": 15642,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "Why is 'the United States' used with 'the' while most country names are used without it?"
+        },
+        "retry_query": "Why is 'the United States' used with 'the' while most country names are used without it? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "Why is 'the United States' used with 'the' while most country names are used without it? key concepts definition explanation evidence"
+        },
+        "prompt": "Why is 'the United States' used with 'the' while most country names are used without it?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The reason for this difference lies in the historical and linguistic development of the English language.\n\nIn the past, \"the United States\" was a formal and official name for the country, which was a collection of colonies that declared independence from Great Britain in 1776. The phrase \"the United States\" was used to distinguish the newly formed nation from other countries and to emphasize its unity.\n\nOver time, as the country's identity solidified, the definite article \"the\" became an integral part of the country's name. This was partly due to the influence of the British English tradition, where \"the\" is often used with proper nouns, especially those referring to countries, cities, and institutions.\n\nIn contrast, most country names are used without the definite article \"the\" because they were often derived from the names of people, places, or geographical features. For example, \"France\" comes from the name of the Frankish tribe, while \"Japan\" is derived from the name of the Japanese archipelago.\n\nAdditionally, many country names were adopted from other languages, such as Latin or indigenous languages, where the definite article is not used. For instance, \"Mexico\" comes from the Nahuatl language, where the word \"Mexihco\" means \"place of the Mexica people,\" but the definite article \"the\" is not part of the original name.\n\nIn summary, the use of \"the\" with \"the United States\" is a historical and linguistic convention that has been perpetuated through usage and tradition, whereas most country names are used without the definite article due to their etymology, geographical origins, or linguistic influences.",
+        "error": null,
+        "success": true,
+        "latency_ms": 13625,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      }
+    },
+    {
+      "id": "q16",
+      "question": "How are articles used with names of geographical features such as rivers, oceans, and mountains?",
+      "difficulty": "difficult",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "How are articles used with names of geographical features such as rivers, oceans, and mountains?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "",
+        "error": "LLM provider request failed.",
+        "success": false,
+        "latency_ms": 742,
+        "top_score": null,
+        "qoe_proxy": 18.52
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "How are articles used with names of geographical features such as rivers, oceans, and mountains?"
+        },
+        "retry_query": "How are articles used with names of geographical features such as rivers, oceans, and mountains? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "How are articles used with names of geographical features such as rivers, oceans, and mountains? key concepts definition explanation evidence"
+        },
+        "prompt": "How are articles used with names of geographical features such as rivers, oceans, and mountains?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "In English, articles are used with names of geographical features such as rivers, oceans, and mountains to provide more specific information about the location or to indicate the proximity of the feature to a particular place.\n\nHere are some examples:\n\n1. The River Thames (The article \"the\" is used to indicate that the River Thames is a specific and well-known river.)\n2. The Pacific Ocean (The article \"the\" is used to indicate that the Pacific Ocean is one of the world's five oceans.)\n3. Mount Everest (No article is used because Mount Everest is a proper noun and a specific mountain.)\n4. The Grand Canyon (The article \"the\" is used to indicate that the Grand Canyon is a specific and well-known geographical feature.)\n5. The Amazon River (The article \"the\" is used to indicate that the Amazon River is a specific and well-known river.)\n\nIn general, articles are used with geographical features that are:\n\n* Well-known and widely recognized\n* Specific and unique (e.g. a particular river or mountain)\n* Located in a specific region or country (e.g. a river in a particular country or a mountain in a particular region)\n\nHowever, if the geographical feature is a generic term or a common noun, no article is used (e.g. a mountain, a river, an ocean).\n\nIt's worth noting that the use of articles with geographical features can vary depending on the context and the language being used. In some cases, articles may be omitted or used differently to convey a specific meaning or to avoid ambiguity.",
+        "error": null,
+        "success": true,
+        "latency_ms": 10090,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      }
+    },
+    {
+      "id": "q17",
+      "question": "What is the difference between saying 'I went to school' and 'I went to the school'?",
+      "difficulty": "difficult",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "What is the difference between saying 'I went to school' and 'I went to the school'?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The difference between \"I went to school\" and \"I went to the school\" lies in the use of the definite article \"the\" and the presence of a specific school.\n\nWhen you say \"I went to school,\" it implies that you attended a school, but it doesn't specify which one. This phrase is often used in a more general sense, indicating that you attended a school, but not necessarily a particular one.\n\nOn the other hand, when you say \"I went to the school,\" it implies that you attended a specific school, which is being referred to as \"the\" school. This phrase is often used when you're talking about a particular school that you're familiar with, or when you're referring to a school that's been previously mentioned or implied.\n\nTo illustrate the difference, consider the following examples:\n\n* \"I went to school and learned a lot.\" (Here, \"school\" is a general term, and it's not specified which school you attended.)\n* \"I went to the school on Main Street.\" (Here, \"the school\" is a specific school, and it's being referred to as \"the\" school because it's a particular one that's being referred to.)\n\nIn summary, \"I went to school\" is a more general phrase, while \"I went to the school\" is a more specific phrase that implies a particular school is being referred to.",
+        "error": null,
+        "success": true,
+        "latency_ms": 8953,
+        "top_score": null,
+        "qoe_proxy": 42.09
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "What is the difference between saying 'I went to school' and 'I went to the school'?"
+        },
+        "retry_query": "What is the difference between saying 'I went to school' and 'I went to the school'? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "What is the difference between saying 'I went to school' and 'I went to the school'? key concepts definition explanation evidence"
+        },
+        "prompt": "What is the difference between saying 'I went to school' and 'I went to the school'?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "In this case, the context is sufficient.\n\nThe difference between \"I went to school\" and \"I went to the school\" is that the first sentence is a more idiomatic or informal way of saying it, whereas the second sentence is more formal or specific.\n\n\"I went to school\" is a common way to say that you attended classes or went to an educational institution. It's a general statement that implies you went to a school, but it doesn't specify which one.\n\n\"I went to the school\" is a more specific statement that implies you went to a particular school, which is often the one closest to your home or the one you attend regularly. The definite article \"the\" is used to indicate that you're referring to a specific school, rather than a general concept of \"school\".\n\nFor example:\n\n* \"I went to school today\" (general statement)\n* \"I went to the school on Main Street\" (specific statement)\n\nSo, while both sentences convey the same basic idea, the first one is more general and informal, while the second one is more specific and formal.",
+        "error": null,
+        "success": true,
+        "latency_ms": 7723,
+        "top_score": null,
+        "qoe_proxy": 44.55
+      }
+    },
+    {
+      "id": "q18",
+      "question": "When can 'the' be used with a plural noun to refer to a specific group?",
+      "difficulty": "medium",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "When can 'the' be used with a plural noun to refer to a specific group?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "In English, \"the\" can be used with a plural noun to refer to a specific group when the noun is countable and the speaker is referring to a specific subset of the group. This is known as a \"specific noun\" or \"definite noun\".\n\nHere are some examples:\n\n* The students (referring to a specific group of students, e.g. \"the students in my class\")\n* The tourists (referring to a specific group of tourists, e.g. \"the tourists visiting the city today\")\n* The employees (referring to a specific group of employees, e.g. \"the employees in the marketing department\")\n\nIn each of these examples, \"the\" is used to indicate that the speaker is referring to a specific, identifiable group within the larger category of \"students\", \"tourists\", or \"employees\".\n\nHowever, if the noun is uncountable (also known as a mass noun), \"the\" cannot be used with it, even if it's referring to a specific group. For example:\n\n* Water (referring to a specific amount of water, e.g. \"the water in the bottle\")\n* Traffic (referring to a specific amount of traffic, e.g. \"the traffic on the highway\")\n\nIn these cases, \"the\" cannot be used because \"water\" and \"traffic\" are uncountable nouns that refer to a mass or quantity, rather than a countable group.\n\nI hope this helps clarify when \"the\" can be used with a plural noun to refer to a specific group!",
+        "error": null,
+        "success": true,
+        "latency_ms": 8036,
+        "top_score": null,
+        "qoe_proxy": 43.93
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "When can 'the' be used with a plural noun to refer to a specific group?"
+        },
+        "retry_query": "When can 'the' be used with a plural noun to refer to a specific group? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "When can 'the' be used with a plural noun to refer to a specific group? key concepts definition explanation evidence"
+        },
+        "prompt": "When can 'the' be used with a plural noun to refer to a specific group?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "\"The\" can be used with a plural noun to refer to a specific group when the noun is considered a unit or a single entity, even though it consists of multiple individuals. This is often the case with nouns that refer to a collection of people, animals, or things that are considered a single entity.\n\nExamples:\n\n* The team (a specific group of people)\n* The family (a specific group of people related by blood or marriage)\n* The committee (a specific group of people appointed to perform a particular task)\n* The jury (a specific group of people sworn to give a verdict in a court case)\n* The audience (a specific group of people watching a performance or listening to a speaker)\n\nIn these cases, \"the\" is used to refer to a specific, well-defined group, rather than a general or indefinite group.",
+        "error": null,
+        "success": true,
+        "latency_ms": 4945,
+        "top_score": null,
+        "qoe_proxy": 50.11
+      }
+    },
+    {
+      "id": "q19",
+      "question": "What are the most common mistakes learners make when using 'a', 'an', and 'the'?",
+      "difficulty": "difficult",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "What are the most common mistakes learners make when using 'a', 'an', and 'the'?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "When using \"a\", \"an\", and \"the\", learners often make the following common mistakes:\n\n1. **Incorrect use of \"a\" and \"an\"**:\n\t* Using \"a\" before words that start with a vowel sound, but not a vowel letter (e.g., \"a unicorn\" is correct, but \"a hour\" is incorrect; use \"an\" instead).\n\t* Using \"an\" before words that start with a consonant sound, but not a consonant letter (e.g., \"an hour\" is correct, but \"an unicorn\" is incorrect; use \"a\" instead).\n2. **Omitting \"the\"**:\n\t* Failing to use \"the\" before a noun when it refers to a specific, previously mentioned noun (e.g., \"I have a book. The book is on the table.\").\n\t* Using \"the\" before a noun when it's a general noun (e.g., \"I have a book. The book is on the table.\" - here, \"a book\" is a general noun, so \"the\" is not necessary).\n3. **Incorrect use of \"the\"**:\n\t* Using \"the\" before a noun when it's a new, specific noun (e.g., \"I'm going to the store. The store is on Main Street.\" - here, \"the store\" is a new, specific noun, so \"the\" is not necessary).\n\t* Using \"the\" before a noun when it's a general noun, but it's a plural noun (e.g., \"I have books. The books are on the shelf.\" - here, \"books\" is a general noun, so \"the\" is not necessary).\n4. **Incorrect use of \"a\" and \"an\" with plural nouns**:\n\t* Using \"a\" or \"an\" before a plural noun that starts with a vowel sound (e.g., \"a cats\" is incorrect; use \"an\" instead).\n\t* Using \"an\" before a plural noun that starts with a consonant sound, but not a consonant letter (e.g., \"an cats\" is incorrect; use \"a\" instead).\n\nTo avoid these mistakes, learners should:\n\n* Use \"a\" before words that start with a consonant sound, and \"an\" before words that start with a vowel sound.\n* Use \"the\" before a noun when it refers to a specific, previously mentioned noun.\n* Use \"the\"",
+        "error": null,
+        "success": true,
+        "latency_ms": 14557,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "What are the most common mistakes learners make when using 'a', 'an', and 'the'?"
+        },
+        "retry_query": "What are the most common mistakes learners make when using 'a', 'an', and 'the'? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "What are the most common mistakes learners make when using 'a', 'an', and 'the'? key concepts definition explanation evidence"
+        },
+        "prompt": "What are the most common mistakes learners make when using 'a', 'an', and 'the'?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "When using 'a', 'an', and 'the', learners often make the following common mistakes:\n\n1. **Incorrect use of 'a' and 'an'**:\n\t* 'A' is used before words that start with a consonant sound, while 'an' is used before words that start with a vowel sound.\n\t* Example: \"I'm reading a book\" (starts with the consonant sound /b/) vs. \"I'm reading an apple\" (starts with the vowel sound /a/).\n2. **Incorrect use of 'the'**:\n\t* 'The' is used to refer to a specific, previously mentioned noun or a noun that is unique or well-known.\n\t* Example: \"I'm going to the store\" (refers to a specific store) vs. \"I'm going to a store\" (refers to any store).\n3. **Omitting 'a', 'an', or 'the'**:\n\t* Learners may forget to use an article before a noun, especially when the noun is a common one.\n\t* Example: \"I like dog\" (should be \"I like a dog\") vs. \"I like the dog\" (refers to a specific dog).\n4. **Using 'a' instead of 'an'**:\n\t* Learners may use 'a' instead of 'an' before words that start with a vowel sound.\n\t* Example: \"I'm reading a apple\" (should be \"I'm reading an apple\") vs. \"I'm reading an apple\" (correct usage).\n5. **Using 'the' instead of 'a' or 'an'**:\n\t* Learners may use 'the' instead of 'a' or 'an' before a noun, especially when the noun is not specific.\n\t* Example: \"I'm reading the book\" (should be \"I'm reading a book\") vs. \"I'm reading a book\" (correct usage).\n6. **Using 'a' or 'an' with plural nouns**:\n\t* Learners may use 'a' or 'an' with plural nouns, which is incorrect.\n\t* Example: \"I have a cats\" (should be \"I have cats\") vs. \"I have an apple\" (correct usage).\n\nThese are some of the most common mistakes learners make when using 'a', 'an', and 'the'. It's essential to practice and review the correct usage to avoid these errors",
+        "error": null,
+        "success": true,
+        "latency_ms": 14398,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      }
+    },
+    {
+      "id": "q20",
+      "question": "How can the meaning of a sentence change depending on whether 'a', 'an', 'the', or no article is used?",
+      "difficulty": "difficult",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "How can the meaning of a sentence change depending on whether 'a', 'an', 'the', or no article is used?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The meaning of a sentence can change depending on whether an article (\"a\", \"an\", \"the\") is used or not, due to the way articles affect the specificity and definiteness of the noun they modify. Here are some examples:\n\n1. **Specificity**: The use of an article can indicate whether a noun is specific or general. For instance:\n\t* \"I'm going to the store.\" (The store is a specific store, presumably one the speaker is familiar with.)\n\t* \"I'm going to a store.\" (A store is a general term, implying any store will do.)\n2. **Definiteness**: The use of \"the\" can imply that the noun is already known to the listener, whereas \"a\" or no article implies a new or generic noun. For example:\n\t* \"I'm reading the book.\" (The book is a specific book, presumably one the speaker has mentioned before.)\n\t* \"I'm reading a book.\" (A book is a new or generic noun, implying the speaker is starting to read a book.)\n3. **Plurality**: The use of \"a\" or \"an\" can imply that the noun is singular, whereas \"the\" can imply a plural noun. For example:\n\t* \"I'm going to a party.\" (A party is a singular event.)\n\t* \"I'm going to the parties.\" (The parties is a plural noun, implying multiple events.)\n4. **Emphasis**: The use of \"a\" or \"an\" can also affect the emphasis of a sentence. For example:\n\t* \"I'm going to a restaurant.\" (The use of \"a\" implies a casual, non-specific restaurant.)\n\t* \"I'm going to the restaurant.\" (The use of \"the\" implies a specific, perhaps more formal or well-known restaurant.)\n\nIn summary, the meaning of a sentence can change depending on whether an article is used or not, due to the effects on specificity, definiteness, plurality, and emphasis.",
+        "error": null,
+        "success": true,
+        "latency_ms": 10647,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "How can the meaning of a sentence change depending on whether 'a', 'an', 'the', or no article is used?"
+        },
+        "retry_query": "How can the meaning of a sentence change depending on whether 'a', 'an', 'the', or no article is used? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "How can the meaning of a sentence change depending on whether 'a', 'an', 'the', or no article is used? key concepts definition explanation evidence"
+        },
+        "prompt": "How can the meaning of a sentence change depending on whether 'a', 'an', 'the', or no article is used?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "The meaning of a sentence can change depending on whether an article (\"a\", \"an\", \"the\") is used or not, due to the way articles interact with the surrounding context. Here are some examples:\n\n1. **Definiteness vs. indefiniteness**: The presence or absence of an article can indicate whether a noun is specific or general.\n\t* \"I'm reading a book\" (a book, any book)\n\t* \"I'm reading the book\" (the book, a specific book)\n2. **Scope and specificity**: Articles can affect the scope of a noun phrase and its relationship to other elements in the sentence.\n\t* \"I'm looking for a pen\" (any pen will do)\n\t* \"I'm looking for the pen\" (the pen I'm thinking of)\n3. **Plurality and universality**: Articles can imply whether a noun is singular or plural, and whether it's universal or specific.\n\t* \"I'm going to a party\" (any party)\n\t* \"I'm going to the party\" (the specific party I'm attending)\n4. **Idiomatic expressions**: Articles can be used to create idiomatic expressions with specific meanings.\n\t* \"Break a leg\" (good luck, with \"a\" implying any leg)\n\t* \"The sky is the limit\" (with \"the\" implying a specific, universal limit)\n5. **Tone and emphasis**: Articles can influence the tone and emphasis of a sentence.\n\t* \"I'm reading a book\" (a casual, informal tone)\n\t* \"I'm reading the book\" (a more formal, serious tone)\n\nThese are just a few examples of how the meaning of a sentence can change depending on whether an article is used or not. The context and surrounding words can also influence the interpretation of articles, making the meaning of a sentence more nuanced and context-dependent.",
+        "error": null,
+        "success": true,
+        "latency_ms": 10578,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      }
+    }
+  ]
+}

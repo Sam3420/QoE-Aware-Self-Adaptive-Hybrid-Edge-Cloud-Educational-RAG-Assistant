@@ -16,6 +16,14 @@ class LearnerProfileCreate(BaseModel):
     profile_data: dict[str, Any] = Field(default_factory=dict)
 
 
+class LearnerProfileResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: str
+    display_name: str | None = None
+    profile_data: dict[str, Any] = Field(default_factory=dict)
+
+
 class LearningPreferences(BaseModel):
     explanation_style: str | None = None
     detail_level: str | None = None
@@ -39,6 +47,16 @@ class LearnerPersonalizationProfile(BaseModel):
 class LearningSessionCreate(BaseModel):
     learner_id: str
     status: SessionStatus = SessionStatus.ACTIVE
+
+
+class LearningSessionResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: str
+    learner_id: str
+    started_at: datetime
+    ended_at: datetime | None = None
+    status: SessionStatus
 
 
 class EducationalResourceCreate(BaseModel):

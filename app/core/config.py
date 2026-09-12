@@ -75,7 +75,7 @@ class Settings(BaseSettings):
 
     @staticmethod
     def _resolve_path(path: Path) -> Path:
-        return path if path.is_absolute() else Path.cwd() / path
+        return path if path.is_absolute() else PROJECT_ROOT / path
 
 
 @lru_cache

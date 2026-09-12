@@ -1,0 +1,73 @@
+{
+  "summary": [
+    {
+      "method": "normal_rag",
+      "count": 1,
+      "success_rate": 1.0,
+      "mean_qoe_proxy": 40.0,
+      "mean_latency_ms": 12118.0,
+      "mean_top_score": 0.0,
+      "retry_count": 0
+    },
+    {
+      "method": "crag",
+      "count": 1,
+      "success_rate": 1.0,
+      "mean_qoe_proxy": 46.72,
+      "mean_latency_ms": 6642.0,
+      "mean_top_score": 0.0,
+      "retry_count": 1
+    },
+    {
+      "method": "crag_minus_normal",
+      "count": 1,
+      "success_rate": 0.0,
+      "mean_qoe_proxy": 6.72,
+      "mean_latency_ms": -5476.0,
+      "mean_top_score": 0.0,
+      "retry_count": 1
+    }
+  ],
+  "records": [
+    {
+      "id": "q01",
+      "question": "What is photosynthesis?",
+      "normal_rag": {
+        "input_hits": [],
+        "prompt": "What is photosynthesis?",
+        "system_prompt": "Answer using the retrieved context. Say when the context is insufficient.\n",
+        "answer": "Photosynthesis is the process by which plants, algae, and some bacteria convert light energy from the sun into chemical energy in the form of glucose, a type of sugar. This process is essential for life on Earth, as it provides the energy and organic compounds needed to support the food chain.\n\nDuring photosynthesis, plants use energy from sunlight to convert carbon dioxide (CO2) and water (H2O) into glucose (C6H12O6) and oxygen (O2). The overall equation for photosynthesis is:\n\n6 CO2 + 6 H2O + light energy \u2192 C6H12O6 (glucose) + 6 O2\n\nThe light energy is absorbed by pigments such as chlorophyll, which is responsible for the green color of plants. The energy is then used to convert the CO2 and H2O into glucose and O2.\n\nPhotosynthesis occurs in specialized organelles called chloroplasts, which are present in plant cells. Chloroplasts contain pigments such as chlorophyll, which absorbs light energy and transfers it to a molecule called ATP (adenosine triphosphate). ATP is then used to power the conversion of CO2 and H2O into glucose and O2.\n\nIn summary, photosynthesis is the process by which plants, algae, and some bacteria convert light energy from the sun into chemical energy in the form of glucose, releasing oxygen as a byproduct.",
+        "error": null,
+        "success": true,
+        "latency_ms": 12118,
+        "top_score": null,
+        "qoe_proxy": 40.0
+      },
+      "crag": {
+        "initial_hits": [],
+        "initial_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "What is photosynthesis?"
+        },
+        "retry_query": "What is photosynthesis? key concepts definition explanation evidence",
+        "retry_hits": [],
+        "final_decision": {
+          "is_adequate": false,
+          "reason": "retrieval_quality_insufficient",
+          "top_score": null,
+          "query": "What is photosynthesis? key concepts definition explanation evidence"
+        },
+        "prompt": "What is photosynthesis?",
+        "system_prompt": "Use only the retrieved context. Say when the context is insufficient.\n",
+        "answer": "Photosynthesis is the process by which plants, algae, and some bacteria convert light energy from the sun into chemical energy in the form of glucose. This process occurs in specialized organelles called chloroplasts, which contain pigments such as chlorophyll that absorb light energy.\n\nDuring photosynthesis, carbon dioxide (CO2) and water (H2O) are converted into glucose (C6H12O6) and oxygen (O2). The overall equation for photosynthesis is:\n\n6 CO2 + 6 H2O + light energy \u2192 C6H12O6 (glucose) + 6 O2\n\nPhotosynthesis is essential for life on Earth, as it provides the energy and organic compounds needed to support the food chain. It is also the basis for the food production in agriculture, and is a critical component of the Earth's ecosystem.",
+        "error": null,
+        "success": true,
+        "latency_ms": 6642,
+        "top_score": null,
+        "qoe_proxy": 46.72
+      }
+    }
+  ]
+}

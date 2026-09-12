@@ -10,6 +10,7 @@ from app.api.routes.monitoring import router as monitoring_router
 from app.api.routes.personalization import router as personalization_router
 from app.api.routes.resources import router as resources_router
 from app.api.routes.speech import router as speech_router
+from app.api.routes.trace import router as trace_router
 from app.core.config import get_settings
 from app.core.logging import configure_logging
 from app.db.init_db import create_tables
@@ -33,6 +34,7 @@ def create_app() -> FastAPI:
     app.include_router(knowledge_router)
     app.include_router(speech_router)
     app.include_router(monitoring_router)
+    app.include_router(trace_router)
     return app
 
 

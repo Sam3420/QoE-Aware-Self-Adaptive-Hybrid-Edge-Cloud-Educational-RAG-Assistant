@@ -73,9 +73,15 @@ class KnowledgePreparationService:
         # Preparation creates the relational document/chunks and the separate vector index.
         # Look up the resource so its title, source, URL, and external video ID are available.
         resource = self.repository.get_educational_resource(resource_id)
+        if resource is None and resource_id.startswith("youtube:"):
+            resource = self.repository.get_educational_resource_by_source_and_external_id(
+                source="youtube",
+                external_resource_id=resource_id.split(":", 1)[1],
+            )
         # Preparation cannot continue when the caller supplied an unknown resource ID.
         if resource is None:
             raise ResourceNotFoundError("Educational resource was not found.")
+        resource_id = resource.id
 
         # Transcript acquisition is isolated behind an interface so providers can be replaced.
         try:
@@ -87,6 +93,10 @@ class KnowledgePreparationService:
         except TypeError:
             # Preserve compatibility with older providers that accept only the resource object.
             transcript = self.transcript_provider.get_transcript_for_resource(resource)
+        except Exception as exc:
+            raise KnowledgePreparationError(
+                f"Transcript could not be fetched: {exc}"
+            ) from exc
         # Remove formatting noise before splitting the transcript into chunks.
         cleaned_transcript = self._preprocess_transcript(transcript)
         # Split cleaned text into semantically useful pieces for embedding and retrieval.
@@ -106,7 +116,12 @@ class KnowledgePreparationService:
 
         # Store chunk IDs in the database; FAISS stores only vectors and their ID mapping.
         # Generate one vector for every chunk in the same order used below for chunk IDs.
-        embeddings = self.embedding_provider.embed_documents(chunks)
+        try:
+            embeddings = self.embedding_provider.embed_documents(chunks)
+        except Exception as exc:
+            raise KnowledgePreparationError(
+                f"Embeddings could not be generated: {exc}"
+            ) from exc
         # Keep the database IDs that correspond to FAISS vector positions.
         chunk_ids = []
         # Enumerate preserves each chunk's order for later vector-to-record mapping.
@@ -123,11 +138,16 @@ class KnowledgePreparationService:
 
         # Build the index after all chunk IDs are known so search can map hits back to text.
         # The vector store receives matching embeddings and database identifiers.
-        index_state = self.vector_index_store.build_index(
-            resource_id=resource_id,
-            embeddings=embeddings,
-            chunk_ids=chunk_ids,
-        )
+        try:
+            index_state = self.vector_index_store.build_index(
+                resource_id=resource.id,
+                embeddings=embeddings,
+                chunk_ids=chunk_ids,
+            )
+        except Exception as exc:
+            raise KnowledgePreparationError(
+                f"FAISS index could not be built: {exc}"
+            ) from exc
         # Record where the index lives and which embedding model created it.
         self.repository.create_knowledge_index(
             document_id=document.id,
