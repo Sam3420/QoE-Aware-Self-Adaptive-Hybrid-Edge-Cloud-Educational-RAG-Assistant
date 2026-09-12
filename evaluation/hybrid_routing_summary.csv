@@ -1,0 +1,4 @@
+difficulty,scenario_count,passed,failed,pass_rate
+easy,2,2,0,1.0
+medium,2,2,0,1.0
+hard,6,5,1,0.833

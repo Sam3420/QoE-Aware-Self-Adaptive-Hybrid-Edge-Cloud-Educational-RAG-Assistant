@@ -1,0 +1,92 @@
+[
+  {
+    "id": "easy_01_healthy_session",
+    "difficulty": "easy",
+    "description": "Healthy QoE and latency retain the cloud provider.",
+    "strategy": "adaptive_hybrid",
+    "expected_provider": "cloud",
+    "actual_provider": "cloud",
+    "passed": true
+  },
+  {
+    "id": "easy_02_thresholds_are_not_breached",
+    "difficulty": "easy",
+    "description": "The policy uses strict thresholds, so QoE 60 and latency 2000 remain cloud.",
+    "strategy": "adaptive_hybrid",
+    "expected_provider": "cloud",
+    "actual_provider": "cloud",
+    "passed": true
+  },
+  {
+    "id": "medium_01_high_latency",
+    "difficulty": "medium",
+    "description": "Latency above 2000 ms routes the following request to local.",
+    "strategy": "adaptive_hybrid",
+    "expected_provider": "local",
+    "actual_provider": "local",
+    "passed": true
+  },
+  {
+    "id": "medium_02_low_recent_qoe",
+    "difficulty": "medium",
+    "description": "A recent QoE average below 60 routes to local.",
+    "strategy": "adaptive_hybrid",
+    "expected_provider": "local",
+    "actual_provider": "local",
+    "passed": true
+  },
+  {
+    "id": "hard_01_low_current_qoe",
+    "difficulty": "hard",
+    "description": "A current QoE score below 60 routes to local.",
+    "strategy": "adaptive_hybrid",
+    "expected_provider": "local",
+    "actual_provider": "local",
+    "passed": true
+  },
+  {
+    "id": "hard_02_local_unavailable",
+    "difficulty": "hard",
+    "description": "A local-routing trigger falls back to cloud when local is unavailable.",
+    "strategy": "adaptive_hybrid",
+    "expected_provider": "cloud",
+    "actual_provider": "cloud",
+    "passed": true
+  },
+  {
+    "id": "hard_03_cloud_unavailable",
+    "difficulty": "hard",
+    "description": "A healthy session falls back to local when cloud is unavailable.",
+    "strategy": "adaptive_hybrid",
+    "expected_provider": "local",
+    "actual_provider": "local",
+    "passed": true
+  },
+  {
+    "id": "hard_04_no_provider_available",
+    "difficulty": "hard",
+    "description": "No available provider must be reported explicitly.",
+    "strategy": "adaptive_hybrid",
+    "expected_provider": "unavailable",
+    "actual_provider": "unavailable",
+    "passed": true
+  },
+  {
+    "id": "hard_05_static_no_provider_available",
+    "difficulty": "hard",
+    "description": "Static routing must not select an unavailable cloud provider.",
+    "strategy": "static_hybrid",
+    "expected_provider": "unavailable",
+    "actual_provider": "cloud",
+    "passed": false
+  },
+  {
+    "id": "hard_06_configured_provider_unavailable",
+    "difficulty": "hard",
+    "description": "An unknown strategy must fall back when its configured provider is unavailable.",
+    "strategy": "adaptive_hybrid",
+    "expected_provider": "cloud",
+    "actual_provider": "cloud",
+    "passed": true
+  }
+]
