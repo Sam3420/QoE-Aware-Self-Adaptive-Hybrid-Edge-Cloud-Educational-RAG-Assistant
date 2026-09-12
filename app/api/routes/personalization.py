@@ -23,6 +23,7 @@ def get_learner_personalization(
     learner_id: str,
     db_session: Session = Depends(get_db_session),
 ) -> LearnerPersonalizationProfile:
+    # Read-only endpoint for displaying the learner's current preferences.
     service = LearnerPersonalizationService(LearningTraceRepository(db_session))
     try:
         profile = service.get_learner_personalization(learner_id)
@@ -48,6 +49,7 @@ def update_learner_personalization(
     request: LearnerPersonalizationUpdate,
     db_session: Session = Depends(get_db_session),
 ) -> LearnerPersonalizationProfile:
+    # Update preferences before recommendation or assistant requests use them.
     service = LearnerPersonalizationService(LearningTraceRepository(db_session))
     try:
         profile = service.update_learner_personalization(learner_id, request)
@@ -76,6 +78,7 @@ def record_assessment_result(
     request: AssessmentResultCreate,
     db_session: Session = Depends(get_db_session),
 ) -> AssessmentResultResponse:
+    # Assessments remain historical records and are included in future learner context.
     service = LearnerPersonalizationService(LearningTraceRepository(db_session))
     try:
         result = service.record_assessment_result(learner_id, request)

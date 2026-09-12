@@ -19,6 +19,7 @@ from app.llm.stt_provider import PassthroughSTTProvider
 from app.llm.tts_provider import PassthroughTTSProvider
 from app.services.assistant_service import AssistantService
 from app.services.crag_service import RetrievalQualityService
+from app.services.experience_service import ExperienceService
 from app.services.knowledge_preparation_service import KnowledgePreparationService
 from app.services.knowledge_retrieval_service import KnowledgeRetrievalService
 from app.services.monitoring_service import MonitoringService
@@ -103,12 +104,15 @@ def get_assistant_service(
     settings: Settings = Depends(get_settings),
     knowledge_retrieval_service: KnowledgeRetrievalService = Depends(get_knowledge_retrieval_service),
 ) -> AssistantService:
+    repository = LearningTraceRepository(db_session)
     return AssistantService(
-        repository=LearningTraceRepository(db_session),
+        repository=repository,
         llm_provider=llm_provider,
         settings=settings,
         knowledge_retrieval_service=knowledge_retrieval_service,
         retrieval_quality_service=RetrievalQualityService(min_score=settings.crag_quality_min_score),
+        monitoring_service=MonitoringService(repository=repository),
+        experience_service=ExperienceService(repository=repository),
     )
 
 

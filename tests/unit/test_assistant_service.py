@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 from app.core.config import Settings
 from app.db.base import Base
-from app.db.models import Interaction
+from app.db.models import Experience, Interaction
 from app.db.repositories import LearningTraceRepository
 from app.domain.enums import CompetencyLevel, InteractionStatus, PreferredLanguage
 from app.domain.models import (
@@ -71,7 +71,7 @@ def test_assistant_records_successful_text_question(db_session):
     assert stored.session.learner_id == learning_session.learner_id
     assert stored.assistant_output == "A variable is a named value that can change."
     assert stored.model_provider == "fake"
-    assert stored.model_name == "Qwen/Qwen2.5-1.5B-Instruct"
+    assert stored.model_name == service.settings.llm_model_id
     assert stored.response_latency_ms is not None
     assert stored.status == InteractionStatus.COMPLETED.value
     assert provider.requests[0].prompt == "What is a variable?"
@@ -157,4 +157,142 @@ def test_assistant_records_failed_interaction_for_provider_error(db_session):
     assert stored.assistant_output is None
     assert stored.error_message == "LLM provider failed to generate a response."
     assert stored.model_provider == "huggingface"
-    assert stored.model_name == "Qwen/Qwen2.5-1.5B-Instruct"
+    assert stored.model_name == service.settings.llm_model_id
+
+
+def test_assistant_creates_experience_record_automatically(db_session):
+    learning_session = create_learning_session(db_session)
+    provider = FakeLLMProvider()
+    service = AssistantService(
+        repository=LearningTraceRepository(db_session),
+        llm_provider=provider,
+        settings=Settings(database_url="sqlite:///:memory:"),
+    )
+
+    result = service.answer_text_question(
+        session_id=learning_session.id,
+        question="What is a variable?",
+    )
+    db_session.commit()
+
+    stored_experience = (
+        db_session.query(Experience)
+        .filter(Experience.interaction_id == result.interaction_id)
+        .one_or_none()
+    )
+
+    assert stored_experience is not None
+    assert stored_experience.session_id == learning_session.id
+    assert stored_experience.learner_id == learning_session.learner_id
+    assert stored_experience.runtime_configuration_id is not None
+
+
+def test_assistant_marks_retrieval_as_not_applicable_for_non_rag_question(db_session):
+    learning_session = create_learning_session(db_session)
+
+    class RecordingAdaptiveService:
+        def __init__(self):
+            self.retrieval_quality_is_adequate = "not-called"
+
+        def select_action(self, **kwargs):
+            self.retrieval_quality_is_adequate = kwargs["retrieval_quality_is_adequate"]
+            return None
+
+    adaptive_service = RecordingAdaptiveService()
+    service = AssistantService(
+        repository=LearningTraceRepository(db_session),
+        llm_provider=FakeLLMProvider(),
+        settings=Settings(database_url="sqlite:///:memory:"),
+        adaptive_intelligence_service=adaptive_service,
+    )
+
+    service.answer_text_question(
+        session_id=learning_session.id,
+        question="What is a variable?",
+    )
+
+    assert adaptive_service.retrieval_quality_is_adequate is None
+
+
+def test_assistant_resolves_latest_runtime_configuration_snapshot(db_session):
+    trace_service = LearningTraceService(LearningTraceRepository(db_session))
+    trace_service.create_runtime_configuration_snapshot(
+        name="huggingface-qwen-text",
+        description="adaptive runtime configuration",
+        configuration_data={"provider": "local", "model_id": "local-model", "max_tokens": 256},
+    )
+
+    service = AssistantService(
+        repository=LearningTraceRepository(db_session),
+        llm_provider=FakeLLMProvider(),
+        settings=Settings(database_url="sqlite:///:memory:"),
+    )
+
+    runtime_configuration = service._resolve_runtime_configuration(None)
+
+    assert runtime_configuration.configuration_data["provider"] == "local"
+    assert runtime_configuration.configuration_data["model_id"] == "local-model"
+
+
+def test_assistant_uses_runtime_configuration_retrieval_top_k(db_session):
+    learning_session = create_learning_session(db_session)
+    trace_service = LearningTraceService(LearningTraceRepository(db_session))
+    runtime_configuration = trace_service.create_runtime_configuration_snapshot(
+        name="retrieval-depth",
+        description="configured retrieval depth",
+        configuration_data={"provider": "huggingface", "knowledge_retrieval_top_k": 7},
+    )
+
+    class RecordingRetrievalService:
+        def __init__(self):
+            self.top_k = None
+
+        def retrieve_context(self, *, resource_id, query, top_k):
+            self.top_k = top_k
+            return [{"chunk_id": "chunk-1", "content": "Retrieved context.", "score": 0.9}]
+
+    retrieval_service = RecordingRetrievalService()
+    service = AssistantService(
+        repository=LearningTraceRepository(db_session),
+        llm_provider=FakeLLMProvider(),
+        settings=Settings(database_url="sqlite:///:memory:"),
+        knowledge_retrieval_service=retrieval_service,
+    )
+
+    service.answer_text_question(
+        session_id=learning_session.id,
+        question="What is a variable?",
+        resource_id="resource-1",
+        runtime_configuration_id=runtime_configuration.id,
+    )
+
+    assert retrieval_service.top_k == 7
+
+
+def test_assistant_uses_settings_retrieval_top_k_without_runtime_value(db_session):
+    learning_session = create_learning_session(db_session)
+
+    class RecordingRetrievalService:
+        def __init__(self):
+            self.top_k = None
+
+        def retrieve_context(self, *, resource_id, query, top_k):
+            self.top_k = top_k
+            return [{"chunk_id": "chunk-1", "content": "Retrieved context.", "score": 0.9}]
+
+    retrieval_service = RecordingRetrievalService()
+    settings = Settings(database_url="sqlite:///:memory:", knowledge_retrieval_top_k=4)
+    service = AssistantService(
+        repository=LearningTraceRepository(db_session),
+        llm_provider=FakeLLMProvider(),
+        settings=settings,
+        knowledge_retrieval_service=retrieval_service,
+    )
+
+    service.answer_text_question(
+        session_id=learning_session.id,
+        question="What is a variable?",
+        resource_id="resource-1",
+    )
+
+    assert retrieval_service.top_k == settings.knowledge_retrieval_top_k

@@ -1,0 +1,4 @@
+configuration,mean_latency,mean_qoe,success_rate,cloud_usage,local_usage
+adaptive_hybrid,720.05,0.0,0.0,0,0
+cloud_only,751.15,0.0,0.0,0,0
+static_hybrid,329.1,100.0,1.0,0,20

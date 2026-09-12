@@ -1,0 +1,4 @@
+approach,scenario_count,mean_qoe,mean_synthetic_sre,mean_resource_efficiency,mean_latency_ms,mean_learning_gain,adaptation_count,qoe_delta_adaptive_minus_baseline,synthetic_sre_delta_adaptive_minus_baseline,resource_efficiency_delta_adaptive_minus_baseline,latency_delta_ms_adaptive_minus_baseline,learning_gain_delta_adaptive_minus_baseline,qoe_improvement_percent,synthetic_sre_improvement_percent,resource_efficiency_improvement_percent,latency_reduction_percent,learning_gain_improvement_percent,baseline_adaptation_count,adaptive_adaptation_count
+baseline,8,72.1,65.02,65.43,1417,0.526,0,,,,,,,,,,,,
+adaptive,8,72.1,65.02,65.43,1417,0.526,8,,,,,,,,,,,,
+adaptive_minus_baseline,,,,,,,,0.0,0.0,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0,8

@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     knowledge_storage_path: Path = Field(default=Path("data/knowledge"))
     faiss_storage_path: Path = Field(default=Path("data/faiss"))
     hf_token: SecretStr | None = None
-    llm_model_id: str = "Qwen/Qwen2.5-1.5B-Instruct"
+    llm_model_id: str = "meta-llama/Llama-3.1-8B-Instruct"
     hf_inference_url: str = "https://router.huggingface.co/v1/chat/completions"
     llm_timeout_seconds: float = Field(default=30.0, gt=0)
     llm_max_tokens: int = Field(default=512, gt=0)

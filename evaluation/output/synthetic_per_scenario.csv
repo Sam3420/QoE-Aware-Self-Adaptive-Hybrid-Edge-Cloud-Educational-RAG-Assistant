@@ -1,0 +1,9 @@
+scenario_id,baseline_qoe,adaptive_qoe,baseline_synthetic_sre,adaptive_synthetic_sre,baseline_resource_efficiency,adaptive_resource_efficiency,baseline_latency_ms,adaptive_latency_ms,baseline_learning_gain,adaptive_learning_gain,adaptive_action_selected,selected_action
+synthetic-1,70.0,70.0,84.01,84.01,71.85,71.85,2110,2110,0.266,0.266,True,CHANGE_RETRIEVAL_K
+synthetic-2,70.0,70.0,52.53,52.53,55.42,55.42,1641,1641,0.119,0.119,True,CHANGE_RETRIEVAL_K
+synthetic-3,70.0,70.0,87.01,87.01,60.53,60.53,1733,1733,0.831,0.831,True,CHANGE_RESPONSE_DETAIL
+synthetic-4,70.0,70.0,78.04,78.04,66.39,66.39,1019,1019,0.916,0.916,True,CHANGE_RETRIEVAL_K
+synthetic-5,70.0,70.0,63.73,63.73,82.99,82.99,1128,1128,0.327,0.327,True,CHANGE_RETRIEVAL_K
+synthetic-6,70.0,70.0,64.83,64.83,63.0,63.0,2105,2105,0.673,0.673,True,CHANGE_RESPONSE_STYLE
+synthetic-7,70.0,70.0,38.86,38.86,85.55,85.55,1160,1160,0.921,0.921,True,CHANGE_RETRIEVAL_K
+synthetic-8,86.8,86.8,51.11,51.11,37.68,37.68,440,440,0.159,0.159,True,CHANGE_PROVIDER

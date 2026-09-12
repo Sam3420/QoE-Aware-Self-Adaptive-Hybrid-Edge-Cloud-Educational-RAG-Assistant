@@ -19,21 +19,22 @@ from app.services.errors import (
 )
 from app.services.resource_recommendation_service import ResourceRecommendationService
 
-router = APIRouter()
+router = APIRouter()#grp for all api end points
 
 
 @router.post(
     "/sessions/{session_id}/resources/recommendations",
-    response_model=ResourceRecommendationResponse,
+    response_model=ResourceRecommendationResponse,#The successful response from this endpoint must follow the structure defined by ResourceRecommendationResponse
 )
 def get_resource_recommendations(
     session_id: str,
-    request: ResourceRecommendationRequest,
+    request: ResourceRecommendationRequest,#JSON body sent by the frontend.
     db_session: Session = Depends(get_db_session),
     recommendation_service: ResourceRecommendationService = Depends(
         get_resource_recommendation_service,
     ),
 ) -> ResourceRecommendationResponse:
+    # Search and rank provider candidates using the session learner's personalization context.
     try:
         result = recommendation_service.get_recommendations_for_session(
             session_id=session_id,
@@ -91,6 +92,7 @@ def select_resource(
         get_resource_recommendation_service,
     ),
 ) -> ResourceSelectionResponse:
+    # Confirm the chosen resource before knowledge preparation begins.
     try:
         result = recommendation_service.select_resource_for_session(
             session_id=session_id,

@@ -1,0 +1,22 @@
+[
+  {"id": "q01", "question": "What is photosynthesis?", "difficulty": "easy", "topic": "biology"},
+  {"id": "q02", "question": "What is the difference between mitosis and meiosis?", "difficulty": "medium", "topic": "biology"},
+  {"id": "q03", "question": "How does gravity affect falling objects?", "difficulty": "easy", "topic": "physics"},
+  {"id": "q04", "question": "Explain the Pythagorean theorem.", "difficulty": "medium", "topic": "mathematics"},
+  {"id": "q05", "question": "What is the difference between evaporation and boiling?", "difficulty": "medium", "topic": "chemistry"},
+  {"id": "q06", "question": "Why do seasons change on Earth?", "difficulty": "easy", "topic": "earth-science"},
+  {"id": "q07", "question": "What is DNA and why is it important?", "difficulty": "easy", "topic": "biology"},
+  {"id": "q08", "question": "How do supply and demand affect prices in a market?", "difficulty": "medium", "topic": "economics"},
+  {"id": "q09", "question": "What is a variable in programming?", "difficulty": "easy", "topic": "computer-science"},
+  {"id": "q10", "question": "Why is the water cycle important for ecosystems?", "difficulty": "medium", "topic": "earth-science"},
+  {"id": "q11", "question": "What is the difference between an atom and a molecule?", "difficulty": "easy", "topic": "chemistry"},
+  {"id": "q12", "question": "How does electricity flow in a circuit?", "difficulty": "medium", "topic": "physics"},
+  {"id": "q13", "question": "What is a noun and how is it used in a sentence?", "difficulty": "easy", "topic": "language"},
+  {"id": "q14", "question": "What were the main causes of the French Revolution?", "difficulty": "difficult", "topic": "history"},
+  {"id": "q15", "question": "What is the greenhouse effect and why does it matter?", "difficulty": "medium", "topic": "environmental-science"},
+  {"id": "q16", "question": "How does photosynthesis relate to oxygen production in the atmosphere?", "difficulty": "medium", "topic": "biology"},
+  {"id": "q17", "question": "What is a function in mathematics and how is it different from an equation?", "difficulty": "medium", "topic": "mathematics"},
+  {"id": "q18", "question": "Why is biodiversity important for stable ecosystems?", "difficulty": "difficult", "topic": "environmental-science"},
+  {"id": "q19", "question": "How do ecosystems maintain balance between producers, consumers, and decomposers?", "difficulty": "difficult", "topic": "biology"},
+  {"id": "q20", "question": "What role does the sun play in the water cycle?", "difficulty": "medium", "topic": "earth-science"}
+]

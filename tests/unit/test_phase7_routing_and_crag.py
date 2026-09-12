@@ -92,7 +92,25 @@ def test_assistant_uses_fallback_prompt_when_retrieval_is_inadequate():
         assert "No sufficiently relevant retrieved context" in system_prompt
 
 
-def test_hybrid_provider_routes_to_cloud_when_local_unavailable():
+def test_local_provider_generates_a_local_response():
+    provider = LocalLLMProvider(model_id="local-model")
+
+    request = LLMGenerateRequest(
+        prompt="Explain gravity",
+        system_prompt="Be educational.",
+        model_id="Qwen/Qwen2.5-1.5B-Instruct",
+        max_tokens=64,
+        temperature=0.2,
+    )
+
+    result = provider.generate(request)
+
+    assert result.model_provider == "local"
+    assert result.model_name == "local-model"
+    assert "Explain gravity" in result.text
+
+
+def test_hybrid_provider_routes_to_local_when_local_is_enabled():
     cloud = FakeCloudProvider()
     local = LocalLLMProvider(model_id="local-model")
     provider = HybridLLMProvider(cloud_provider=cloud, local_provider=local, settings=Settings(local_llm_enabled=True, database_url="sqlite:///:memory:"))
@@ -107,8 +125,8 @@ def test_hybrid_provider_routes_to_cloud_when_local_unavailable():
 
     result = provider.generate(request)
 
-    assert result.model_provider == "huggingface"
-    assert len(cloud.calls) == 1
+    assert result.model_provider == "local"
+    assert len(cloud.calls) == 0
 
 
 def test_hybrid_provider_uses_cloud_fallback_when_local_provider_fails():

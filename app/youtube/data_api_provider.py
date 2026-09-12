@@ -5,11 +5,26 @@ import httpx
 from app.core.config import Settings
 from app.services.errors import YouTubeProviderConfigurationError, YouTubeProviderError
 
+'''
+calls the YouTube Data API.
+
+It returns metadata such as:
+
+YouTube video ID
+title
+description
+URL
+channel
+language
+publication date
+It does not return transcripts.
+'''
 
 class YouTubeDataAPIProvider:
     provider_name = "youtube"
 
     def __init__(self, *, settings: Settings) -> None:
+        # The API key is kept private and is used only for outbound YouTube requests.
         self.settings = settings
         api_key = settings.youtube_api_key.get_secret_value() if settings.youtube_api_key else ""
         if not api_key:
@@ -23,6 +38,7 @@ class YouTubeDataAPIProvider:
         language: str | None,
         max_results: int,
     ) -> list[dict]:
+        # YouTube Data API returns searchable video metadata, not transcript text.
         params = {
             "part": "snippet",
             "q": query,
@@ -52,6 +68,7 @@ class YouTubeDataAPIProvider:
         if not isinstance(items, list):
             raise YouTubeProviderError("YouTube API returned an invalid response.")
 
+        # Normalize provider-specific JSON into the application’s candidate shape.
         normalized: list[dict] = []
         for item in items:
             snippet = item.get("snippet") or {}

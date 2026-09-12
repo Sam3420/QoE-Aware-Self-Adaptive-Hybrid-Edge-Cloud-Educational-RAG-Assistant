@@ -42,7 +42,14 @@ class ExperienceService:
             "latency_ms": qoe.latency_ms if qoe else interaction.response_latency_ms,
         }
         reward_score = float(qoe.score if qoe else 0.0)
-        reward_details = {"reward_basis": "qoe_score"}
+        reward_details = {
+            "reward_basis": "qoe_score",
+            "qoe_score": reward_score,
+            "sre_fallback": (
+                "SRE parts (CPU, MEM, EN, NE) are not currently collected in this runtime, "
+                "so reward is recorded from the observed QoE score only."
+            ),
+        }
         outcome_label = qoe.quality_label if qoe else "poor"
         performance_summary = {
             "status": interaction.status,

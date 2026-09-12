@@ -1,0 +1,602 @@
+[
+  {
+    "question_id": "q01",
+    "configuration": "cloud_only",
+    "latency_ms": 6539,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q02",
+    "configuration": "cloud_only",
+    "latency_ms": 429,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q03",
+    "configuration": "cloud_only",
+    "latency_ms": 444,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q04",
+    "configuration": "cloud_only",
+    "latency_ms": 427,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q05",
+    "configuration": "cloud_only",
+    "latency_ms": 362,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q06",
+    "configuration": "cloud_only",
+    "latency_ms": 506,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q07",
+    "configuration": "cloud_only",
+    "latency_ms": 448,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q08",
+    "configuration": "cloud_only",
+    "latency_ms": 483,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q09",
+    "configuration": "cloud_only",
+    "latency_ms": 466,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q10",
+    "configuration": "cloud_only",
+    "latency_ms": 450,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q11",
+    "configuration": "cloud_only",
+    "latency_ms": 429,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q12",
+    "configuration": "cloud_only",
+    "latency_ms": 443,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q13",
+    "configuration": "cloud_only",
+    "latency_ms": 455,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q14",
+    "configuration": "cloud_only",
+    "latency_ms": 500,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q15",
+    "configuration": "cloud_only",
+    "latency_ms": 448,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q16",
+    "configuration": "cloud_only",
+    "latency_ms": 470,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q17",
+    "configuration": "cloud_only",
+    "latency_ms": 477,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q18",
+    "configuration": "cloud_only",
+    "latency_ms": 459,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q19",
+    "configuration": "cloud_only",
+    "latency_ms": 388,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q20",
+    "configuration": "cloud_only",
+    "latency_ms": 400,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q01",
+    "configuration": "static_hybrid",
+    "latency_ms": 6074,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q02",
+    "configuration": "static_hybrid",
+    "latency_ms": 44,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q03",
+    "configuration": "static_hybrid",
+    "latency_ms": 27,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q04",
+    "configuration": "static_hybrid",
+    "latency_ms": 23,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q05",
+    "configuration": "static_hybrid",
+    "latency_ms": 24,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q06",
+    "configuration": "static_hybrid",
+    "latency_ms": 29,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q07",
+    "configuration": "static_hybrid",
+    "latency_ms": 29,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q08",
+    "configuration": "static_hybrid",
+    "latency_ms": 27,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q09",
+    "configuration": "static_hybrid",
+    "latency_ms": 24,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q10",
+    "configuration": "static_hybrid",
+    "latency_ms": 21,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q11",
+    "configuration": "static_hybrid",
+    "latency_ms": 26,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q12",
+    "configuration": "static_hybrid",
+    "latency_ms": 21,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q13",
+    "configuration": "static_hybrid",
+    "latency_ms": 28,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q14",
+    "configuration": "static_hybrid",
+    "latency_ms": 24,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q15",
+    "configuration": "static_hybrid",
+    "latency_ms": 26,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q16",
+    "configuration": "static_hybrid",
+    "latency_ms": 26,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q17",
+    "configuration": "static_hybrid",
+    "latency_ms": 27,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q18",
+    "configuration": "static_hybrid",
+    "latency_ms": 26,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q19",
+    "configuration": "static_hybrid",
+    "latency_ms": 29,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q20",
+    "configuration": "static_hybrid",
+    "latency_ms": 27,
+    "qoe_score": 100.0,
+    "quality_label": "excellent",
+    "provider": "local",
+    "adaptive_action": "CHANGE_RETRIEVAL_K",
+    "success": true
+  },
+  {
+    "question_id": "q01",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 6444,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q02",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 399,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q03",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 368,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q04",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 452,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q05",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 434,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q06",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 416,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q07",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 433,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q08",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 407,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q09",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 387,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q10",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 450,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q11",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 492,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q12",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 416,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q13",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 421,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q14",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 449,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q15",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 445,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q16",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 425,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q17",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 372,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q18",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 371,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q19",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 373,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  },
+  {
+    "question_id": "q20",
+    "configuration": "adaptive_hybrid",
+    "latency_ms": 447,
+    "qoe_score": 0.0,
+    "quality_label": "failure",
+    "provider": "unavailable",
+    "adaptive_action": "none",
+    "success": false
+  }
+]

@@ -13,12 +13,14 @@ from app.domain.models import (
 
 class LearnerPersonalizationService:
     def __init__(self, repository: LearningTraceRepository) -> None:
+        # The repository owns database access; this service owns personalization rules.
         self.repository = repository
 
     def get_learner_personalization(
         self,
         learner_id: str,
     ) -> LearnerPersonalizationProfile | None:
+        # Convert the stored learner fields into the typed API/domain profile.
         learner = self.repository.get_learner(learner_id)
         if learner is None:
             return None
@@ -43,6 +45,7 @@ class LearnerPersonalizationService:
         learner_id: str,
         data: LearnerPersonalizationUpdate,
     ) -> LearnerPersonalizationProfile:
+        # Persist the complete preference snapshot, then return the updated profile.
         learner = self.repository.update_learner_personalization(learner_id, data)
         if learner is None:
             raise ValueError("Learner not found.")
@@ -55,10 +58,12 @@ class LearnerPersonalizationService:
         )
 
     def get_context_for_learner(self, learner_id: str) -> PersonalizationContext:
+        # This context is consumed by recommendation ranking and assistant prompting.
         learner = self.repository.get_learner(learner_id)
         if learner is None:
             raise ValueError("Learner not found.")
 
+        # Assessment history contributes topic-specific competency information.
         topic_competencies = [
             TopicCompetency(
                 topic=result.topic,
@@ -90,6 +95,7 @@ class LearnerPersonalizationService:
         learner_id: str,
         data: AssessmentResultCreate,
     ) -> AssessmentResultResponse:
+        # Keep assessment results as historical records instead of overwriting the learner profile.
         result = self.repository.create_assessment_result(learner_id, data)
         return AssessmentResultResponse(
             id=result.id,

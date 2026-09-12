@@ -5,6 +5,7 @@ class LLMGenerateRequest(BaseModel):
     prompt: str = Field(min_length=1)
     system_prompt: str | None = None
     model_id: str
+    provider: str | None = None
     max_tokens: int = Field(gt=0)
     temperature: float = Field(ge=0)
 

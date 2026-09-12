@@ -20,6 +20,7 @@ def prepare_knowledge(
     db_session: Session = Depends(get_db_session),
     preparation_service: KnowledgePreparationService = Depends(get_knowledge_preparation_service),
 ) -> KnowledgePreparationResponse:
+    # Build transcript chunks, embeddings, and the resource-specific FAISS index.
     try:
         result = preparation_service.prepare_resource(resource_id)
         db_session.commit()
@@ -59,6 +60,7 @@ def retrieve_knowledge(
     db_session: Session = Depends(get_db_session),
     retrieval_service: KnowledgeRetrievalService = Depends(get_knowledge_retrieval_service),
 ) -> KnowledgeRetrievalResponse:
+    # Search prepared chunks and return database-backed text with similarity scores.
     try:
         hits = retrieval_service.retrieve_context(
             resource_id=resource_id,
