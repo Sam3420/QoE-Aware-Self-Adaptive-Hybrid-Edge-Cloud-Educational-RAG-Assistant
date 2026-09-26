@@ -1,6 +1,6 @@
 from typing import Any
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, StrictInt, field_validator
 
 from app.domain.enums import AssessmentType, CompetencyLevel
 
@@ -55,3 +55,10 @@ class ExperienceCreate(BaseModel):
     sre_before: float | None = None
     sre_after: float | None = None
     reward: float | None = None
+
+
+class SessionFeedbackCreate(BaseModel):
+    session_id: str
+    student_id: str
+    rating: StrictInt | None = Field(default=None, ge=1, le=5)
+    comment: str | None = None

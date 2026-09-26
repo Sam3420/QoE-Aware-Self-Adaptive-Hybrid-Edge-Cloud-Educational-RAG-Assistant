@@ -10,6 +10,7 @@ from app.db.models import (
     Policy,
     Experience,
     TopicQuestionBank,
+    SessionFeedback,
 )
 
 __all__ = [
@@ -23,6 +24,7 @@ __all__ = [
     "Policy",
     "Experience",
     "TopicQuestionBank",
+    "SessionFeedback",
     "create_tables",
 ]
 

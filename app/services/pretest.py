@@ -1,4 +1,7 @@
-"""Pre-test service: what the agent's pre_test node calls. Pre-test only."""
+"""Pre-test service: what the agent's pre_test node calls.
+
+The helpers below the public functions are shared with the post-test service.
+"""
 
 from collections.abc import Sequence
 from typing import Any
@@ -42,15 +45,7 @@ def prepare_pretest(
     """
     items = get_or_create_topic_items(topic_id, db=db, retriever=retriever, llm=llm)
     logger.info("pretest_prepared student_id=%s topic_id=%s n_items=%s", student_id, topic_id, len(items))
-    return [
-        {
-            "question_no": number,
-            "question": item["question"],
-            "options": list(item["options"]),
-            "concept": item["concept"],
-        }
-        for number, item in enumerate(items, start=1)
-    ]
+    return strip_answers(items)
 
 
 def submit_pretest(
@@ -68,19 +63,10 @@ def submit_pretest(
     does not exist (or the session belongs to another learner), and
     QuestionBankNotFoundError if prepare_pretest was never run for the topic.
     """
-    if isinstance(answers, (str, bytes)) or not isinstance(answers, Sequence):
-        raise TypeError("answers must be a list of letters 'A'-'D' or indices 0-3.")
+    validate_answers(answers)
 
     with session_scope(db) as session:
-        trace = LearningTraceRepository(session)
-        if trace.get_learner(student_id) is None:
-            raise LearnerNotFoundError(f"Learner {student_id!r} was not found.")
-        learning_session = trace.get_learning_session(session_id)
-        if learning_session is None or learning_session.learner_id != student_id:
-            raise LearningSessionNotFoundError(
-                f"Learning session {session_id!r} was not found for learner {student_id!r}."
-            )
-
+        ensure_learner_session(session, student_id, session_id)
         repository = AdaptationRepository(session)
         bank = repository.get_question_bank(topic_id)
         if bank is None:
@@ -88,26 +74,81 @@ def submit_pretest(
                 f"No question bank for topic {topic_id!r}; call prepare_pretest first."
             )
 
-        score = score_mcqs(bank["items"], answers)
-        competency = competency_from_score(score)
-        assessment = repository.create_assessment(
-            AssessmentCreate(
-                session_id=session_id,
-                student_id=student_id,
-                topic_id=topic_id,
-                type=AssessmentType.PRE,
-                items=bank["items"],
-                answers=list(answers),
-                score=score,
-                competency=CompetencyLevel(competency),
-            )
+        result = record_scored_assessment(
+            repository,
+            type=AssessmentType.PRE,
+            student_id=student_id,
+            session_id=session_id,
+            topic_id=topic_id,
+            items=bank["items"],
+            answers=answers,
         )
         logger.info(
             "pretest_submitted student_id=%s session_id=%s topic_id=%s score=%.3f competency=%s",
             student_id,
             session_id,
             topic_id,
-            score,
-            competency,
+            result["score"],
+            result["competency"],
         )
-        return {"assessment_id": assessment["id"], "score": score, "competency": competency}
+        return result
+
+
+def validate_answers(answers: Sequence[Any]) -> None:
+    """Raise TypeError unless ``answers`` is a list-like of per-item answers."""
+    if isinstance(answers, (str, bytes)) or not isinstance(answers, Sequence):
+        raise TypeError("answers must be a list of letters 'A'-'D' or indices 0-3.")
+
+
+def ensure_learner_session(session: Session, student_id: str, session_id: str) -> None:
+    """Raise unless the learner exists and owns the learning session."""
+    trace = LearningTraceRepository(session)
+    if trace.get_learner(student_id) is None:
+        raise LearnerNotFoundError(f"Learner {student_id!r} was not found.")
+    learning_session = trace.get_learning_session(session_id)
+    if learning_session is None or learning_session.learner_id != student_id:
+        raise LearningSessionNotFoundError(
+            f"Learning session {session_id!r} was not found for learner {student_id!r}."
+        )
+
+
+def strip_answers(items: Sequence[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Return items safe to show the learner: ``{question_no, question, options, concept}``."""
+    return [
+        {
+            "question_no": number,
+            "question": item["question"],
+            "options": list(item["options"]),
+            "concept": item["concept"],
+        }
+        for number, item in enumerate(items, start=1)
+    ]
+
+
+def record_scored_assessment(
+    repository: AdaptationRepository,
+    *,
+    type: AssessmentType,
+    student_id: str,
+    session_id: str,
+    topic_id: str,
+    items: list[dict[str, Any]],
+    answers: Sequence[Any],
+) -> dict[str, Any]:
+    """Score ``answers`` against ``items``, persist the assessment, and return
+    ``{assessment_id, score, competency}``."""
+    score = score_mcqs(items, answers)
+    competency = competency_from_score(score)
+    assessment = repository.create_assessment(
+        AssessmentCreate(
+            session_id=session_id,
+            student_id=student_id,
+            topic_id=topic_id,
+            type=type,
+            items=items,
+            answers=list(answers),
+            score=score,
+            competency=CompetencyLevel(competency),
+        )
+    )
+    return {"assessment_id": assessment["id"], "score": score, "competency": competency}

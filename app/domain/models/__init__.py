@@ -3,6 +3,7 @@ from app.domain.models.adaptation import (
     ExperienceCreate,
     ExperienceState,
     MCQItem,
+    SessionFeedbackCreate,
 )
 from app.domain.models.core import (
     EducationalResourceCreate,
@@ -26,6 +27,7 @@ __all__ = [
     "ExperienceCreate",
     "ExperienceState",
     "MCQItem",
+    "SessionFeedbackCreate",
     "EducationalResourceCreate",
     "AssessmentResultCreate",
     "AssessmentResultResponse",

@@ -11,10 +11,16 @@ from app.db.models import (
     LearnerProfile,
     LearningSession,
     Policy,
+    SessionFeedback,
     TopicQuestionBank,
 )
 from app.domain.enums import AssessmentType
-from app.domain.models import AssessmentCreate, ExperienceCreate, ExperienceState
+from app.domain.models import (
+    AssessmentCreate,
+    ExperienceCreate,
+    ExperienceState,
+    SessionFeedbackCreate,
+)
 
 # Order of the kNN state vector returned by get_experiences().
 EXPERIENCE_STATE_KEYS: tuple[str, ...] = tuple(ExperienceState.model_fields)
@@ -136,6 +142,17 @@ class AdaptationRepository:
             statement = statement.limit(limit)
         return [_experience_to_dict(experience) for experience in self.session.scalars(statement)]
 
+    def get_experience_for_session(self, session_id: str) -> dict[str, Any] | None:
+        """Return the earliest experience stored for a session, or None."""
+        statement = (
+            select(Experience)
+            .where(Experience.session_id == session_id)
+            .order_by(Experience.created_at)
+            .limit(1)
+        )
+        experience = self.session.scalars(statement).first()
+        return _experience_to_dict(experience) if experience is not None else None
+
     def get_last_qoe(self, student_id: str) -> float | None:
         """Return ``qoe_after`` of the learner's most recent experience, or None."""
         statement = (
@@ -173,6 +190,30 @@ class AdaptationRepository:
         self.session.add(bank)
         self.session.flush()
         return _bank_to_dict(bank)
+
+    # Session feedback
+
+    def create_session_feedback(self, data: SessionFeedbackCreate) -> dict[str, Any]:
+        """Store a learner's session feedback (rating and/or comment may be None)."""
+        self._require_learner_and_session(data.student_id, data.session_id)
+        feedback = SessionFeedback(
+            session_id=data.session_id,
+            student_id=data.student_id,
+            rating=data.rating,
+            comment=data.comment,
+        )
+        self.session.add(feedback)
+        self.session.flush()
+        return _feedback_to_dict(feedback)
+
+    def list_session_feedback(self, session_id: str) -> list[dict[str, Any]]:
+        """Return all feedback stored for a session, oldest first."""
+        statement = (
+            select(SessionFeedback)
+            .where(SessionFeedback.session_id == session_id)
+            .order_by(SessionFeedback.created_at)
+        )
+        return [_feedback_to_dict(feedback) for feedback in self.session.scalars(statement)]
 
     def _require_learner_and_session(self, student_id: str, session_id: str) -> None:
         if self.session.get(LearnerProfile, student_id) is None:
@@ -224,6 +265,17 @@ def _experience_to_dict(experience: Experience) -> dict[str, Any]:
         "sre_after": experience.sre_after,
         "reward": experience.reward,
         "created_at": experience.created_at,
+    }
+
+
+def _feedback_to_dict(feedback: SessionFeedback) -> dict[str, Any]:
+    return {
+        "id": feedback.id,
+        "session_id": feedback.session_id,
+        "student_id": feedback.student_id,
+        "rating": feedback.rating,
+        "comment": feedback.comment,
+        "created_at": feedback.created_at,
     }
 
 
