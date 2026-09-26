@@ -1,3 +1,9 @@
+from app.domain.models.adaptation import (
+    AssessmentCreate,
+    ExperienceCreate,
+    ExperienceState,
+    MCQItem,
+)
 from app.domain.models.core import (
     EducationalResourceCreate,
     AssessmentResultCreate,
@@ -16,6 +22,10 @@ from app.domain.models.core import (
 )
 
 __all__ = [
+    "AssessmentCreate",
+    "ExperienceCreate",
+    "ExperienceState",
+    "MCQItem",
     "EducationalResourceCreate",
     "AssessmentResultCreate",
     "AssessmentResultResponse",

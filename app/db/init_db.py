@@ -6,6 +6,10 @@ from app.db.models import (
     LearnerProfile,
     LearningSession,
     RuntimeConfiguration,
+    Assessment,
+    Policy,
+    Experience,
+    TopicQuestionBank,
 )
 
 __all__ = [
@@ -15,6 +19,10 @@ __all__ = [
     "LearnerProfile",
     "LearningSession",
     "RuntimeConfiguration",
+    "Assessment",
+    "Policy",
+    "Experience",
+    "TopicQuestionBank",
     "create_tables",
 ]
 

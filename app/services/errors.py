@@ -10,6 +10,22 @@ class RuntimeConfigurationNotFoundError(AssistantError):
     """Raised when a requested runtime configuration does not exist."""
 
 
+class LearnerNotFoundError(AssistantError):
+    """Raised when an assessment targets an unknown learner."""
+
+
+class VectorStoreUnavailableError(AssistantError):
+    """Raised when topic retrieval is needed but no vector-store retriever is available."""
+
+
+class MCQGenerationError(AssistantError):
+    """Raised when valid MCQ items cannot be produced for a topic."""
+
+
+class QuestionBankNotFoundError(AssistantError):
+    """Raised when a topic has no stored question bank to score against."""
+
+
 class AssistantProviderUnavailableError(AssistantError):
     """Raised after a provider failure has been sanitized and recorded."""
 

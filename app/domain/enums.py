@@ -21,3 +21,13 @@ class CompetencyLevel(StrEnum):
     BEGINNER = "beginner"
     INTERMEDIATE = "intermediate"
     ADVANCED = "advanced"
+
+
+class AssessmentType(StrEnum):
+    PRE = "pre"
+    POST = "post"
+
+
+class PolicyRoute(StrEnum):
+    LOCAL = "local"
+    CLOUD = "cloud"

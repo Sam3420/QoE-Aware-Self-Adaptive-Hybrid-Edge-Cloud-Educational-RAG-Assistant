@@ -24,6 +24,12 @@ class Settings(BaseSettings):
     llm_max_tokens: int = Field(default=512, gt=0)
     llm_temperature: float = Field(default=0.2, ge=0)
     default_runtime_configuration_name: str = "huggingface-qwen-text"
+    competency_beginner_max: float = Field(default=0.4, ge=0, le=1)
+    competency_intermediate_max: float = Field(default=0.75, ge=0, le=1)
+    mcq_n_items: int = Field(default=5, gt=0)
+    mcq_max_retries: int = Field(default=1, ge=0)
+    mcq_context_chunks: int = Field(default=5, gt=0)
+    mcq_max_tokens: int = Field(default=1024, gt=0)
 
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -55,6 +61,53 @@ class Settings(BaseSettings):
     @staticmethod
     def _resolve_path(path: Path) -> Path:
         return path if path.is_absolute() else Path.cwd() / path
+
+
+# Predefined runtime policies (top_k x max_retries x route) used to seed the policies table.
+# FLAG FOR SAMI: agent/policies.py should be the single source of truth. Once it is committed,
+# seed from it and delete this copy. The P1-P4 mapping and threshold below are assumptions.
+POLICY_SEED: tuple[dict, ...] = (
+    {
+        "policy_id": "P1",
+        "name": "local-light",
+        "top_k": 3,
+        "threshold": 0.75,
+        "max_retries": 0,
+        "route": "local",
+        "is_default": True,
+        "description": "Local SLM, 3 chunks, no corrective retry.",
+    },
+    {
+        "policy_id": "P2",
+        "name": "local-thorough",
+        "top_k": 5,
+        "threshold": 0.75,
+        "max_retries": 1,
+        "route": "local",
+        "is_default": False,
+        "description": "Local SLM, 5 chunks, one corrective retry.",
+    },
+    {
+        "policy_id": "P3",
+        "name": "cloud-light",
+        "top_k": 3,
+        "threshold": 0.75,
+        "max_retries": 0,
+        "route": "cloud",
+        "is_default": False,
+        "description": "Cloud LLM, 3 chunks, no corrective retry.",
+    },
+    {
+        "policy_id": "P4",
+        "name": "cloud-thorough",
+        "top_k": 5,
+        "threshold": 0.75,
+        "max_retries": 1,
+        "route": "cloud",
+        "is_default": False,
+        "description": "Cloud LLM, 5 chunks, one corrective retry.",
+    },
+)
 
 
 @lru_cache

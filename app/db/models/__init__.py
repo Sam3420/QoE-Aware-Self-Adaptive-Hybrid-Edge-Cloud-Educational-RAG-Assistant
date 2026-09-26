@@ -1,9 +1,13 @@
+from app.db.models.assessment import Assessment
 from app.db.models.assessment_result import AssessmentResult
 from app.db.models.educational_resource import EducationalResource
+from app.db.models.experience import Experience
 from app.db.models.interaction import Interaction
 from app.db.models.learner import LearnerProfile
 from app.db.models.learning_session import LearningSession
+from app.db.models.policy import Policy
 from app.db.models.runtime_configuration import RuntimeConfiguration
+from app.db.models.topic_question_bank import TopicQuestionBank
 
 __all__ = [
     "EducationalResource",
@@ -12,4 +16,8 @@ __all__ = [
     "LearnerProfile",
     "LearningSession",
     "RuntimeConfiguration",
+    "Assessment",
+    "Policy",
+    "Experience",
+    "TopicQuestionBank",
 ]
