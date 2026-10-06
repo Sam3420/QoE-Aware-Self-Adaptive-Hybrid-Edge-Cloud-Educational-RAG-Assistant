@@ -1,8 +1,9 @@
-"""Run one full session offline with fake retrieval/LLMs, resuming each interrupt programmatically.
+"""Run one full session offline through the runner API and check the outcome.
 
-The real CRAG retriever and LLM router run; only the vector store and LLM clients are fakes.
-Scenario: 2 questions (the first is vague and triggers one CRAG retry), then the post-test.
-It also sends one invalid reply to check that the interrupt re-asks.
+Fakes: retrieval, LLMs, monitor and MCQ generation. Real: the graph, CRAG/router logic, policy
+selection, and Person B's DB code on a private in-memory SQLite DB.
+Scenario: 3 seeded experiences make kNN pick P2 (1 CRAG retry allowed); pre-test; Q1 is vague and
+triggers one retry; a blank question is re-asked; Q2; {"end": true}; post-test with feedback.
 Exits non-zero if the visited path or the final state is not as expected.
 """
 import sys
@@ -11,81 +12,90 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from langgraph.types import Command  # noqa: E402
-
 from agent.deps import make_fake_services, set_services  # noqa: E402
 from agent.graph import build_graph, get_checkpointer  # noqa: E402
-from agent.runner import run_until_pause  # noqa: E402
-from agent.state import initial_state  # noqa: E402
+from agent.runner import SessionRunner  # noqa: E402
 
-# Resume values, consumed in order, one per interrupt.
+ANSWERS = ["A", "B", "C", "D", "A"]  # all correct for the fake MCQ items
 RESUMES: list[Any] = [
-    "photosynthesis?",  # vague: triggers 1 CRAG retry (bare string = continue)
-    {"query": "   ", "continue_session": False},  # invalid: blank, so ask_question must re-ask
-    {"query": "How do plants convert sunlight into chemical energy?", "continue_session": False},
-    {"answers": ["A", "A", "A", "B", "C"], "rating": 4, "comment": "Clear answers, a bit slow."},
+    {"answers": ANSWERS},  # pre_test
+    "photosynthesis?",  # vague: triggers 1 CRAG retry (bare string = {"query": ...})
+    {"query": "   "},  # invalid: blank, so ask_question re-asks
+    {"query": "How do plants convert sunlight into chemical energy?"},
+    {"end": True},
+    {"answers": ["A", "B", "C", "A", "A"], "rating": 4, "comment": "Clear answers, a bit slow."},
 ]
-
 EXPECTED_PATH = [
     "load_profile", "pre_test", "collect_context", "select_policy",
     "ask_question", "crag_retrieve", "corrective_retrieve", "crag_retrieve", "llm_router", "generate_response",
     "ask_question", "crag_retrieve", "llm_router", "generate_response",
-    "post_test_and_feedback", "evaluate_session", "store_experience",
+    "ask_question", "post_test_and_feedback", "evaluate_session", "store_experience",
 ]
+CTX = {"rtt_ms": 180.0, "cpu": 0.35, "mem": 0.55, "competency_num": 1.0, "last_qoe": 0.5}
 
 
-def print_node(node: str, update: dict[str, Any]) -> None:
-    """Print one visited node and the keys it updated."""
-    print(f"  -> {node:<24} updates: {', '.join(sorted(update)) or '-'}")
+def seed(app) -> None:
+    """Store 3 past experiences in which P2 earned the best reward."""
+    for policy_id, reward in [("P2", 0.9), ("P2", 0.8), ("P1", 0.3)]:
+        student = app.create_learner("past learner")
+        app.store_experience(student, app.create_learning_session(student), "photosynthesis", policy_id, CTX,
+                             {"qoe_before": 0.5, "qoe_after": 0.7, "sre_before": 0.5, "sre_after": 0.7,
+                              "reward": reward})
 
 
 def main() -> int:
     """Drive the session and check the outcome."""
-    set_services(make_fake_services())
-    checkpointer = get_checkpointer()
-    graph = build_graph(checkpointer)
-    state = initial_state(student_id="student-001", topic_id="photosynthesis")
-    cfg = {"configurable": {"thread_id": state["session_id"]}}
-    print(f"Session {state['session_id']} (checkpoints: data/checkpoints.db)\n")
+    services = make_fake_services()
+    set_services(services)
+    seed(services.app)
+    student = services.app.create_learner("Demo Learner")
 
     visited: list[str] = []
+
+    def on_node(node: str, update: dict[str, Any]) -> None:
+        visited.append(node)
+        print(f"  -> {node:<24} updates: {', '.join(sorted(update)) or '-'}")
+
+    checkpointer = get_checkpointer()
+    runner = SessionRunner(build_graph(checkpointer), on_node=on_node)
+    out = runner.start_session(student, "photosynthesis")
+    tid = out["thread_id"]
+    print(f"Session {tid} (checkpoints: data/checkpoints.db)\n")
     reasked = False
-    pause, seen = run_until_pause(graph, state, cfg, print_node)
-    visited += seen
     resumes = iter(RESUMES)
-    while pause is not None:
-        if "error" in pause:
-            reasked = True
+    while "interrupt" in out:
+        pause = out["interrupt"]
+        reasked |= "error" in pause
         print(f"  || interrupt: {pause['type']}" + (f"  [error: {pause['error']}]" if "error" in pause else ""))
         value = next(resumes)
         print(f"  >> resume with: {value!r}")
-        pause, seen = run_until_pause(graph, Command(resume=value), cfg, print_node)
-        visited += seen
+        out = runner.resume(tid, value)
 
-    final = graph.get_state(cfg)
+    s = out["final_state"]
+    finished = runner.get_state(tid)["finished"]
     checkpointer.conn.close()
-    s = final.values
 
-    print("\nFinal state:")
-    for key in ("policy_id", "runtime_config", "competency", "pre_score", "post_score",
-                "rating", "qoe", "sre", "reward"):
+    print(f"\ndecision_reason: {s['decision_reason']}")
+    for key in ("policy_id", "runtime_config", "competency", "pre_score", "post_score", "rating", "evaluation"):
         print(f"  {key:<15} {s[key]}")
     print("  qa_log:")
-    for entry in s["qa_log"]:
-        print(f"    {entry}")
+    for e in s["qa_log"]:
+        print(f"    Q{e['question_no']} {e['query']!r} score={e['retrieval_score']} retries={e['crag_retries']} "
+              f"model={e['model_used']} error={e['error']}")
 
     q1, q2 = (s["qa_log"] + [{}, {}])[:2]
     checks = {
         "path matches expected": visited == EXPECTED_PATH,
-        "graph finished": not final.next,
+        "graph finished": finished,
+        "kNN chose P2 greedily": s["policy_id"] == "P2" and s["decision_reason"].startswith("P2: mean reward"),
         "invalid reply was re-asked": reasked,
-        "2 questions logged": len(s["qa_log"]) == 2,
-        "Q1 had 1 CRAG retry with a rewritten query": q1.get("retries") == 1
+        "Q1 had 1 CRAG retry with a rewritten query": q1.get("crag_retries") == 1
         and q1.get("retrieval_query") != q1.get("query"),
-        "Q2 had 0 CRAG retries": q2.get("retries") == 0,
-        "answers came from the local route (P1)": all(e["model"].startswith("local:") for e in s["qa_log"]),
-        "post-test scored": s["post_score"] is not None,
-        "reward computed": s["reward"] > 0,
+        "Q2 had 0 CRAG retries": q2.get("crag_retries") == 0,
+        "answers came from the local route": all(e["model_used"].startswith("local:") for e in s["qa_log"]),
+        "pre/post-test scored by B's services": s["pre_score"] == 1.0 and s["post_score"] == 0.8,  # 4 of 5 correct
+        "experience stored": any(e["session_id"] == tid for e in services.app.get_experiences()),
+        "no session errors": not s["session_errors"],
     }
     print("\nChecks:")
     for name, ok in checks.items():

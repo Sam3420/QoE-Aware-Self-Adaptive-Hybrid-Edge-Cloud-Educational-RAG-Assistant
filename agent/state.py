@@ -1,0 +1,90 @@
+"""Agent state schema shared by every node in the learning-session graph."""
+import operator
+import uuid
+from typing import Annotated, Any, TypedDict
+
+
+class AgentState(TypedDict):
+    """Full state of one learning session; nodes return partial updates of it."""
+
+    # Identity
+    student_id: str
+    session_id: str
+    topic_id: str
+
+    # Learner profile and assessment
+    profile: dict[str, Any]
+    competency: str
+    test_items: list[dict[str, Any]]
+    pre_score: float | None
+    post_score: float | None
+
+    # Policy selection
+    context: dict[str, Any]  # rtt_ms, cpu, mem, competency_num, last_qoe
+    similar_exps: list[dict[str, Any]]  # kNN neighbours: policy_id, reward, distance, session_id
+    policy_id: str
+    runtime_config: dict[str, Any]  # top_k, threshold, max_retries, route
+    decision_reason: str  # why select_policy chose policy_id (cold start / greedy / exploration)
+
+    # Current question (reset by ask_question)
+    query: str
+    retrieval_query: str  # query actually sent to retrieval (rewritten by corrective_retrieve)
+    question_started_at: float  # unix time the question arrived, for end-to-end latency
+    q_errors: list[str]  # errors hit while answering the current question
+    chunks: list[dict[str, Any]]  # RetrievedChunk dicts
+    retrieval_score: float
+    crag_retries: int
+    model_used: str
+    response: str
+
+    # Per-question log; the reducer appends, so nodes return only new entries.
+    qa_log: Annotated[list[dict[str, Any]], operator.add]
+    continue_session: bool
+
+    # Feedback and evaluation
+    rating: int | None
+    comment: str
+    evaluation: dict[str, Any]  # qoe_before, qoe_after, sre_before, sre_after, reward (store_experience shape)
+    qoe: float
+    sre: float
+    reward: float
+
+    # Non-fatal problems outside a single question (probe failure, pre-test generation, storage).
+    session_errors: Annotated[list[str], operator.add]
+
+
+def initial_state(student_id: str, topic_id: str, session_id: str | None = None) -> AgentState:
+    """Return a fully populated starting state for a new session."""
+    return AgentState(
+        student_id=student_id,
+        session_id=session_id or uuid.uuid4().hex,
+        topic_id=topic_id,
+        profile={},
+        competency="",
+        test_items=[],
+        pre_score=None,
+        post_score=None,
+        context={},
+        similar_exps=[],
+        policy_id="",
+        runtime_config={},
+        decision_reason="",
+        query="",
+        retrieval_query="",
+        question_started_at=0.0,
+        q_errors=[],
+        chunks=[],
+        retrieval_score=0.0,
+        crag_retries=0,
+        model_used="",
+        response="",
+        qa_log=[],
+        continue_session=True,
+        rating=None,
+        comment="",
+        evaluation={},
+        qoe=0.0,
+        sre=0.0,
+        reward=0.0,
+        session_errors=[],
+    )

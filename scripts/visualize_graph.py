@@ -22,20 +22,20 @@ from agent.graph import build_builder  # noqa: E402
 from config import settings  # noqa: E402
 
 # Human-in-the-loop nodes are highlighted in the diagram.
-INTERRUPT_NODES = ["ask_question", "post_test_and_feedback"]
-# Nodes backed by real services today, as opposed to stubs.
-REAL_NODES = ["crag_retrieve", "corrective_retrieve", "llm_router", "generate_response"]
+INTERRUPT_NODES = ["pre_test", "ask_question", "post_test_and_feedback"]
+# Nodes still calling a stub (waiting on Person B's metrics).
+STUB_NODES = ["evaluate_session"]
 
 
 def build_mermaid() -> str:
-    """Return the graph's Mermaid source with interrupt and real-service nodes highlighted."""
+    """Return the graph's Mermaid source with interrupt and stub nodes highlighted."""
     graph = build_builder().compile().get_graph()
     mermaid = graph.draw_mermaid()
     extra = [
         "\tclassDef interrupt fill:#ffe08a,stroke:#b8860b,stroke-width:2px",
-        "\tclassDef real fill:#c8f7c5,stroke:#2e7d32",
+        "\tclassDef stub fill:#e0e0e0,stroke:#757575,stroke-dasharray:4 3",
         f"\tclass {','.join(INTERRUPT_NODES)} interrupt",
-        f"\tclass {','.join(REAL_NODES)} real",
+        f"\tclass {','.join(STUB_NODES)} stub",
     ]
     return mermaid.rstrip() + "\n" + "\n".join(extra) + "\n"
 
@@ -67,7 +67,7 @@ def main() -> None:
     mmd_path.write_text(mermaid, encoding="utf-8")
     md_path.write_text(
         "# Agent graph\n\n"
-        "Yellow = interrupt (waits for the learner). Green = wired to real services. Dashed = conditional edge.\n"
+        "Yellow = interrupt (waits for the learner). Grey = still a stub. Dashed = conditional edge.\n"
         "Regenerate with `python scripts/visualize_graph.py`.\n\n"
         f"```mermaid\n{mermaid}```\n",
         encoding="utf-8",
