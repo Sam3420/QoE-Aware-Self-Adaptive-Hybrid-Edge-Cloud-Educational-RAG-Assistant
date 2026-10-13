@@ -2,7 +2,7 @@
 
 Uses the same runner API as the scripts (agent/runner.py) and shows what happens inside: the nodes
 visited, the context vector, the kNN policy decision, CRAG retrieval and retries, the LLM route,
-the pre/post-test, the (stub) evaluation and the stored experience.
+the pre/post-test, the QoE/SRE/reward evaluation and the stored experience.
 
 Modes:
   Offline demo: fake retrieval/LLMs/monitor/MCQs behind the real graph, CRAG, router and policy
@@ -55,7 +55,7 @@ from config import settings  # noqa: E402
 
 LETTERS = "ABCD"
 INTERRUPT_NODES = {"pre_test", "ask_question", "post_test_and_feedback"}
-STUB_NODES = {"evaluate_session"}
+STUB_NODES: set[str] = set()
 # Same context as FakeMonitor + a beginner, so seeded experiences are near neighbours in kNN.
 SEED_CTX = {"rtt_ms": 180.0, "cpu": 0.35, "mem": 0.55, "competency_num": 0.0, "last_qoe": 0.5}
 
@@ -85,7 +85,7 @@ def node_detail(node: str, update: dict[str, Any]) -> str:
     if node == "post_test_and_feedback":
         return f"post_score={update.get('post_score')} rating={update.get('rating')}"
     if node == "evaluate_session" and "reward" in update:
-        return f"reward={update['reward']} (stub metrics)"
+        return f"QoE={update['qoe']:.2f}, SRE={update['sre']:.2f}, reward={update['reward']:+.3f}"
     if node == "store_experience":
         return "experience stored" if not update.get("session_errors") else str(update["session_errors"])
     return ", ".join(sorted(update)) or "-"
@@ -164,14 +164,16 @@ def resume(e: dict[str, Any], payload: Any, spinner: str = "Running graph...") -
 
 
 def seed_experiences(e: dict[str, Any], policy_id: str, n: int) -> None:
-    """Store n past experiences where policy_id earned a high reward (and P1 a low one)."""
-    app = e["services"].app
+    """Store n past transitions where policy_id reached a high utility (and P1 a low one), via the real
+    experience store so they are indexed in FAISS and used by the policy engine."""
+    from agent.experience_store import record_synthetic_transition
+
+    services = e["services"]
     for i in range(n):
-        for pid, reward in [(policy_id, 0.9 - 0.05 * i), ("P1" if policy_id != "P1" else "P3", 0.3)]:
-            student = app.create_learner(f"past learner {pid}")
-            app.store_experience(student, app.create_learning_session(student), "photosynthesis", pid, SEED_CTX,
-                                 {"qoe_before": 0.5, "qoe_after": 0.75, "sre_before": 0.5, "sre_after": 0.7,
-                                  "reward": round(reward, 3)})
+        for pid, value in [(policy_id, 0.9 - 0.05 * i), ("P1" if policy_id != "P1" else "P3", 0.3)]:
+            record_synthetic_transition(services.experience_store(), services.app, policy_id=pid,
+                                        runtime_config=POLICIES[pid].runtime_config(), context=SEED_CTX,
+                                        qoe=round(value, 3), sre=round(value, 3))
 
 
 # ---- Rendering helpers ----------------------------------------------------------------------
@@ -429,7 +431,7 @@ with tab_session:
                 m[3].metric("QoE", ev.get("qoe_after", "—"), delta=(round(ev["qoe_after"] - ev["qoe_before"], 3)
                                                                    if ev else None))
                 m[4].metric("Reward", ev.get("reward", "—"))
-                st.caption("QoE/SRE/reward come from `evaluate_session_stub` until the Phase 9 metrics exist.")
+                st.caption("QoE/SRE/reward are computed by metrics/ from the session's measurements (docs/adaptive_policy.md).")
                 if f.get("session_errors"):
                     st.warning("Session errors:\n\n" + "\n".join(f"- {x}" for x in f["session_errors"]))
 

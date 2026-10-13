@@ -37,11 +37,15 @@ def learner(services):
     return services.app.create_learner("Test Learner")
 
 
-def seed_experiences(app, rows, context=None):
-    """Store (policy_id, reward) experiences through B's store_experience, one learner/session each."""
-    for policy_id, reward in rows:
-        student = app.create_learner("seed")
-        session = app.create_learning_session(student)
-        app.store_experience(student, session, "photosynthesis", policy_id, context or CTX,
-                             {"qoe_before": 0.5, "qoe_after": 0.6, "sre_before": 0.5, "sre_after": 0.6,
-                              "reward": reward})
+def seed_experiences(services, rows, context=None):
+    """Store (policy_id, value) transitions through the real experience store (DB + FAISS).
+
+    Each transition's s_next has QoE = SRE = value, so its observed utility is exactly `value`.
+    """
+    from agent.experience_store import record_synthetic_transition
+    from agent.policies import POLICIES
+
+    for policy_id, value in rows:
+        record_synthetic_transition(services.experience_store(), services.app, policy_id=policy_id,
+                                    runtime_config=POLICIES[policy_id].runtime_config(), context=context or CTX,
+                                    qoe=value, sre=value)

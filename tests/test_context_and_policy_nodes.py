@@ -25,14 +25,14 @@ def test_collect_context_probe_failure_uses_rtt_fail_ms(services):
 
 
 def test_collect_context_reads_last_qoe_from_experiences(services):
-    seed_experiences(services.app, [("P2", 0.7)])
+    seed_experiences(services, [("P2", 0.7)])
     student = services.app.get_experiences()[0]["student_id"]
-    assert collect_context(initial_state(student, "photosynthesis"))["context"]["last_qoe"] == 0.6
+    assert collect_context(initial_state(student, "photosynthesis"))["context"]["last_qoe"] == 0.7
 
 
 def test_select_policy_cold_start(services):
-    update = select_policy(initial_state("s", "t") | {"context": {"rtt_ms": 180.0, "cpu": 0.35, "mem": 0.55,
-                                                                  "competency_num": 0.0, "last_qoe": 0.5}})
+    update = select_policy(initial_state(services.app.create_learner("x"), "t") | {
+        "context": {"rtt_ms": 180.0, "cpu": 0.35, "mem": 0.55, "competency_num": 0.0, "last_qoe": 0.5}})
     assert update["policy_id"] == "P1"
     assert update["decision_reason"].startswith("cold start")
     assert update["runtime_config"] == {"top_k": 3, "threshold": settings.crag_retrieval_threshold,
@@ -41,14 +41,17 @@ def test_select_policy_cold_start(services):
 
 def test_select_policy_greedy_reads_runtime_config_from_db(services):
     services.rng.seed(3)  # first draw is 0.238 ≥ ε=0.2, so the choice is greedy
-    seed_experiences(services.app, [("P4", 0.9), ("P4", 0.8), ("P1", 0.2), ("P2", 0.3)])
+    seed_experiences(services, [("P4", 0.9), ("P4", 0.8), ("P1", 0.2), ("P2", 0.3)])
     ctx = {"rtt_ms": 180.0, "cpu": 0.35, "mem": 0.55, "competency_num": 0.0, "last_qoe": 0.5}
-    update = select_policy(initial_state("s", "t") | {"context": ctx})
+    update = select_policy(initial_state(services.app.create_learner("x"), "t") | {"context": ctx})
     assert update["policy_id"] == "P4"
-    assert update["decision_reason"] == "P4: mean reward 0.85 over 2 of 4 neighbours"
+    assert update["decision_reason"].startswith("P4: highest estimated utility 0.850")  # equal distances → mean
+    assert update["candidate_utilities"]["P4"]["support"] == 2
+    assert update["candidate_utilities"]["P3"]["estimated"] is None  # never executed nearby
     assert update["runtime_config"] == {"top_k": 5, "threshold": settings.crag_retrieval_threshold,
                                         "max_retries": 1, "route": "cloud"}
     assert len(update["similar_exps"]) == 4
+    assert update["prev_state"]["baseline"] is True  # learner without history → baseline s
 
 
 def test_agent_policies_match_db_seed():

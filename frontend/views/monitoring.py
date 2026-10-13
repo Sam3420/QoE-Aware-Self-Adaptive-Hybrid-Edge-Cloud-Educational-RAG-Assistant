@@ -91,8 +91,15 @@ def render(backend: AgentBackend) -> None:
     with right:
         _providers(backend)
     _recorded(state.get(state.AGENT_SESSION), backend)
+    thread = state.get(state.AGENT_SESSION)
+    snap = backend.get_state(thread) if thread else None
+    ev = (snap or {}).get("values", {}).get("evaluation") or {}
     with st.container(border=True):
-        badge("stub", "QoE score: not implemented")
-        st.caption("Phase 9 (QoE evaluation) does not exist yet. The QoE/SRE/reward an agent session reports come "
-                   "from `evaluate_session_stub` (rating/5 and a fixed per-route constant), so no QoE score is "
-                   "shown here.")
+        st.markdown("**QoE and resource efficiency of the active session**")
+        if ev.get("status") == "completed":
+            st.dataframe(pd.DataFrame([{"QoE": ev["qoe_after"], "SRE": ev["sre_after"], "utility": ev["utility_after"],
+                                        "reward": ev["reward"], **(ev.get("qoe_components") or {}),
+                                        **{f"{k} eff.": v for k, v in (ev.get("sre_components") or {}).items()}}]),
+                         hide_index=True, width="stretch", alt="QoE, SRE, utility and reward of the session")
+        else:
+            st.caption("QoE and SRE are computed when a learning session finishes (after the post-test).")

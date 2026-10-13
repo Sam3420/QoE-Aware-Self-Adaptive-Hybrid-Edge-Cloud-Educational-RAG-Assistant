@@ -47,5 +47,4 @@ graph TD;
 	classDef interrupt fill:#ffe08a,stroke:#b8860b,stroke-width:2px
 	classDef stub fill:#e0e0e0,stroke:#757575,stroke-dasharray:4 3
 	class pre_test,ask_question,post_test_and_feedback interrupt
-	class evaluate_session stub
 ```

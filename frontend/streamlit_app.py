@@ -33,6 +33,7 @@ from frontend.views import (  # noqa: E402
     monitoring,
     profile,
     quick_ask,
+    recommendations,
 )
 
 
@@ -72,6 +73,8 @@ def main() -> None:
         profile.render(learner)
     elif page == "Knowledge & retrieval":
         knowledge.render(backend)
+    elif page == "Video recommendations":
+        recommendations.render(backend, learner)
     elif page == "Monitoring":
         monitoring.render(backend)
     elif page == "Adaptation & memory":

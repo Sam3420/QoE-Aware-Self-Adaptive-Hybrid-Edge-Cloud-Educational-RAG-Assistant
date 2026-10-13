@@ -23,8 +23,8 @@ from config import settings  # noqa: E402
 
 # Human-in-the-loop nodes are highlighted in the diagram.
 INTERRUPT_NODES = ["pre_test", "ask_question", "post_test_and_feedback"]
-# Nodes still calling a stub (waiting on Person B's metrics).
-STUB_NODES = ["evaluate_session"]
+# Nodes still calling a stub (none since the QoE/SRE/reward modules landed).
+STUB_NODES: list[str] = []
 
 
 def build_mermaid() -> str:
@@ -35,8 +35,9 @@ def build_mermaid() -> str:
         "\tclassDef interrupt fill:#ffe08a,stroke:#b8860b,stroke-width:2px",
         "\tclassDef stub fill:#e0e0e0,stroke:#757575,stroke-dasharray:4 3",
         f"\tclass {','.join(INTERRUPT_NODES)} interrupt",
-        f"\tclass {','.join(STUB_NODES)} stub",
     ]
+    if STUB_NODES:
+        extra.append(f"\tclass {','.join(STUB_NODES)} stub")
     return mermaid.rstrip() + "\n" + "\n".join(extra) + "\n"
 
 

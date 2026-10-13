@@ -31,7 +31,10 @@ def test_full_session_through_runner(runner, learner, services):
     assert len(final["qa_log"]) == 1
     assert set(final["qa_log"][0]) >= {"query", "retrieval_score", "crag_retries", "model_used",
                                        "latency_ms", "error"}
-    assert set(final["evaluation"]) == {"qoe_before", "qoe_after", "sre_before", "sre_after", "reward"}
+    ev = final["evaluation"]
+    assert ev["status"] == "completed" and ev["baseline_used"] is True  # first session: s is the baseline
+    assert {"qoe_before", "qoe_after", "sre_before", "sre_after", "reward", "predicted_utility"} <= set(ev)
+    assert ev["reward"] == round(0.7 * ev["delta_qoe"] + 0.3 * ev["delta_sre"], 6)
     assert runner.get_state(tid)["finished"]
 
     stored = services.app.get_experiences()

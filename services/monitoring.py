@@ -18,6 +18,14 @@ class SystemMonitor:
         mem = psutil.virtual_memory().percent / 100.0
         return min(max(cpu, 0.0), 1.0), min(max(mem, 0.0), 1.0)
 
+    def net_bytes(self) -> int | None:
+        """System-wide bytes sent + received since boot (psutil); None if unavailable."""
+        try:
+            counters = psutil.net_io_counters()
+            return int(counters.bytes_sent + counters.bytes_recv)
+        except Exception:
+            return None
+
     def probe_rtt(self, url: str, timeout_s: float) -> float:
         """Return the time in ms for one HEAD request; any HTTP status counts as reachable.
 

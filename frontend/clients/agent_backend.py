@@ -89,7 +89,7 @@ def describe_node(node: str, update: dict[str, Any]) -> str:
     if node == "post_test_and_feedback":
         return f"post_score={update.get('post_score')}, rating={update.get('rating')}"
     if node == "evaluate_session" and "reward" in update:
-        return f"reward={update['reward']} (stub formula)"
+        return f"QoE={update['qoe']:.2f}, SRE={update['sre']:.2f}, reward={update['reward']:+.3f}"
     if node == "store_experience":
         return "; ".join(update.get("session_errors", [])) or "experience stored"
     return ", ".join(sorted(update)) or "-"

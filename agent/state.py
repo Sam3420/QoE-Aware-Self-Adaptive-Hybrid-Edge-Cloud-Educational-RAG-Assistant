@@ -25,6 +25,10 @@ class AgentState(TypedDict):
     policy_id: str
     runtime_config: dict[str, Any]  # top_k, threshold, max_retries, route
     decision_reason: str  # why select_policy chose policy_id (cold start / greedy / exploration)
+    candidate_utilities: dict[str, Any]  # action → estimated utility/support (prediction, before execution)
+    prev_state: dict[str, Any]  # RuntimeState s: the learner's last measured state, or a baseline state
+    prev_state_at: str | None  # when s was measured (bounds the recommendation window of s_next)
+    resource_start: dict[str, Any]  # network counter at context collection (for SRE bandwidth)
 
     # Current question (reset by ask_question)
     query: str
@@ -69,6 +73,10 @@ def initial_state(student_id: str, topic_id: str, session_id: str | None = None)
         policy_id="",
         runtime_config={},
         decision_reason="",
+        candidate_utilities={},
+        prev_state={},
+        prev_state_at=None,
+        resource_start={},
         query="",
         retrieval_query="",
         question_started_at=0.0,

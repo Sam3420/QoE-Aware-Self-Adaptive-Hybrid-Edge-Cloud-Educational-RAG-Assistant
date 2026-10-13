@@ -2,7 +2,7 @@
 
 Nodes call only this module, never app/ directly, and never SQLite. Each call opens one DB
 session, passes it to B's function (so B's code does not open its own) and commits.
-Functions B has not written yet are clearly marked STUB at the bottom.
+(Session evaluation now lives in metrics/ and agent/nodes/evaluation.py; the former stub was removed.)
 """
 import json
 import logging
@@ -240,24 +240,3 @@ def make_memory_gateway(*, retriever: Any, mcq_llm: Any) -> AppGateway:
                          retriever=retriever, mcq_llm=mcq_llm)
     gateway.ensure_ready()
     return gateway
-
-
-# ---- STUBS: Person B's Sunday metrics are not written yet ----------------------------------------
-
-def evaluate_session_stub(qa_log: list[dict[str, Any]], rating: int | None, pre_score: float | None,
-                          post_score: float | None, context: Mapping[str, Any],
-                          runtime_config: Mapping[str, Any]) -> dict[str, float]:
-    """STUB(B: metrics.qoe / metrics.sre / metrics.reward): placeholder evaluation in store_experience's shape.
-
-    qoe_before = last_qoe from the context; qoe_after = rating/5 (0.5 without a rating);
-    sre_before = 0.5; sre_after = 0.8 for local, 0.6 for cloud; reward = mean of qoe_after and sre_after.
-    """
-    qoe_after = round(rating / 5, 3) if rating else 0.5
-    sre_after = 0.8 if runtime_config.get("route") == "local" else 0.6
-    return {
-        "qoe_before": float(context.get("last_qoe", 0.5)),
-        "qoe_after": qoe_after,
-        "sre_before": 0.5,
-        "sre_after": sre_after,
-        "reward": round(0.5 * qoe_after + 0.5 * sre_after, 3),
-    }

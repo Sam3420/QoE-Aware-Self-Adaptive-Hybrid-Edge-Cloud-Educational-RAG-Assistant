@@ -29,6 +29,15 @@ class Services:
     monitor: Any  # SystemMonitor-like: cpu_mem(), probe_rtt(url, timeout_s)
     app: AppGateway  # Person B's DB and services
     rng: random.Random = field(default_factory=lambda: random.Random(settings.policy_rng_seed))
+    experiences: Any = None  # agent.experience_store.ExperienceStore (built lazily from app's DB)
+
+    def experience_store(self) -> Any:
+        """The FAISS-backed experience store over this container's database."""
+        if self.experiences is None:
+            from agent.experience_store import ExperienceStore
+
+            self.experiences = ExperienceStore(self.app.session_factory)
+        return self.experiences
 
 
 def make_embedder(cfg: Settings = settings) -> Embedder:
@@ -69,8 +78,11 @@ def make_fake_services(cfg: Settings = settings, *, app: AppGateway | None = Non
         health_ttl_s=cfg.llm_health_ttl_s,
     )
     app = app or make_memory_gateway(retriever=CragKnowledgeRetriever(crag), mcq_llm=FakeMCQProvider())
+    from agent.experience_store import ExperienceStore
+
     return Services(crag=crag, router=router, monitor=monitor or FakeMonitor(), app=app,
-                    rng=rng or random.Random(0))
+                    rng=rng or random.Random(0),
+                    experiences=ExperienceStore(app.session_factory, index_dir=None))  # in-memory FAISS
 
 
 _services: Services | None = None

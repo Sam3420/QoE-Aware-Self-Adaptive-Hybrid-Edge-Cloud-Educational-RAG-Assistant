@@ -175,14 +175,29 @@ def _summary(backend: AgentBackend, thread_id: str, values: dict[str, Any]) -> N
 
     ev = values.get("evaluation") or {}
     with st.container(border=True):
-        badge("stub", "Placeholder evaluation")
-        st.markdown(
-            "QoE, SRE and reward below come from `agent.interfaces.evaluate_session_stub`: **qoe_after = rating/5**, "
-            "**sre_after = 0.8 (local) / 0.6 (cloud)**, **reward = their mean**. They are not measured QoE; the "
-            "Phase 9 metrics are not implemented."
-        )
-        if ev:
-            st.dataframe(pd.DataFrame([ev]), hide_index=True, width="stretch")
+        st.markdown("**Session evaluation** (metrics/qoe.py, sre.py, utility.py, reward.py)")
+        if ev.get("status") != "completed":
+            badge("warn", f"Not evaluated: {ev.get('reason', ev.get('status', 'unknown'))}")
+        else:
+            cols = st.columns(4)
+            cols[0].metric("QoE", f"{ev['qoe_after']:.2f}", delta=f"{ev['delta_qoe']:+.2f}")
+            cols[1].metric("Resource efficiency (SRE)", f"{ev['sre_after']:.2f}", delta=f"{ev['delta_sre']:+.2f}")
+            cols[2].metric("Reward", f"{ev['reward']:+.3f}")
+            predicted = ev.get("predicted_utility")
+            cols[3].metric("Utility: observed vs predicted", f"{ev['utility_after']:.2f}",
+                           delta=f"{ev['utility_after'] - predicted:+.2f} vs prediction" if predicted is not None
+                           else "no prediction (cold start)", delta_color="off")
+            if ev.get("baseline_used"):
+                st.caption("First evaluated session for this learner: the 'before' scores are the configured baseline.")
+            comp = ev.get("qoe_components") or {}
+            st.caption("QoE components: " + " · ".join(f"{k} {'—' if v is None else f'{v:.2f}'}" for k, v in comp.items())
+                       + f" · evidence coverage {pct(ev.get('qoe_coverage'))}")
+            missing = [k for k, v in (ev.get("metrics") or {}).items() if v is None]
+            if missing:
+                st.caption(f"Unavailable metrics (weights renormalised over the rest): {', '.join(missing)}. "
+                           "LQ/SQ/TQ have no data source in this build.")
+            for note in ev.get("sre_notes") or []:
+                st.caption(f"SRE: {note}")
 
     experience = data_access.experience_for_session(thread_id)
     if experience:
@@ -197,6 +212,12 @@ def _summary(backend: AgentBackend, thread_id: str, values: dict[str, Any]) -> N
             threshold = values["runtime_config"].get("threshold", settings.crag_retrieval_threshold)
             for turn in turns:
                 chat.agent_turn(turn, threshold)
+    if st.button("Find videos for what I missed", icon=":material/smart_display:"):
+        st.session_state["rec_topic"] = values["topic_id"]
+        st.session_state["rec_session"] = thread_id
+        st.session_state.pop("rec_run", None)
+        state.goto("Video recommendations")
+        st.rerun()
     if st.button("Start a new session", type="primary", icon=":material/add:"):
         state.put(state.AGENT_SESSION, None)
         st.session_state.pop("last_step", None)

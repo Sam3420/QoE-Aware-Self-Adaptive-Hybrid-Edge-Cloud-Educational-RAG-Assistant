@@ -80,7 +80,7 @@ def render(backend: AgentBackend, db: data_access.DatabaseStatus, learner: dict[
             "- **Working:** learner/session storage, FastAPI text assistant, LangGraph learning sessions with "
             "MCQ pre/post-tests, FAISS + CRAG retrieval, local/cloud/extractive LLM routing, psutil/RTT monitoring, "
             "experience memory and kNN policy selection.\n"
-            "- **Placeholder:** QoE/SRE/reward evaluation (`evaluate_session_stub`).\n"
-            "- **Not implemented:** YouTube recommendations, speech-to-text, text-to-speech.\n\n"
+            "- **Estimated inputs:** feedback sentiment (lexicon) and energy (CPU power model) inside QoE/SRE.\n"
+            "- **Not implemented:** speech-to-text, text-to-speech.\n\n"
             "See **System capabilities** for the evidence behind each item."
         )

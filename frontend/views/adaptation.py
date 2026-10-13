@@ -39,9 +39,9 @@ def render(backend: AgentBackend) -> None:
     st.subheader("Experience memory (experiences table)")
     exps = app.get_experiences()
     with st.container(border=True):
-        badge("stub", "Rewards come from the placeholder evaluation")
-        st.caption("Experiences are stored for real, but each reward is computed by `evaluate_session_stub`, not "
-                   "by measured QoE. Selection is real; the signal it learns from is a placeholder.")
+        badge("ok", "Rewards from measured QoE and SRE (R = μ1·ΔQoE + μ2·ΔSRE)")
+        st.caption("Selection uses only experiences with a full transition record (experience_transitions) indexed in "
+                   "FAISS. Rows stored before this module existed have placeholder rewards and are not used.")
     if not exps:
         st.caption("No experiences stored yet. Finish a learning session to store the first one.")
         return

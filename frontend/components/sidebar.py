@@ -18,6 +18,7 @@ PAGES = {
     "Quick ask (API)": ":material/chat:",
     "Learner profile": ":material/person:",
     "Knowledge & retrieval": ":material/library_books:",
+    "Video recommendations": ":material/smart_display:",
     "Monitoring": ":material/monitor_heart:",
     "Adaptation & memory": ":material/psychology:",
     "History": ":material/history:",

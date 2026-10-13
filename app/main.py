@@ -5,6 +5,7 @@ from fastapi import FastAPI
 
 from app.api.routes.health import router as health_router
 from app.api.routes.interactions import router as interactions_router
+from app.api.routes.recommendations import router as recommendations_router
 from app.core.config import get_settings
 from app.core.logging import configure_logging
 from app.db.init_db import create_tables
@@ -23,6 +24,7 @@ def create_app() -> FastAPI:
     app = FastAPI(title=settings.app_name, lifespan=lifespan)
     app.include_router(health_router)
     app.include_router(interactions_router)
+    app.include_router(recommendations_router)
     return app
 
 

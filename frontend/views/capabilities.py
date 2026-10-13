@@ -14,19 +14,21 @@ CAPABILITIES = [
      "Stored by update_learner_personalization; only preferred language reaches the agent prompt"),
     ("Pre-test / post-test MCQs + feedback", "Implemented",
      "app/services/mcq.py, pretest.py, posttest.py (needs an LLM to generate the bank)"),
-    ("YouTube recommendations (Phase 4)", "Not implemented",
-     "Only an educational_resources table exists; no YouTube client or API key setting"),
+    ("YouTube recommendations (Phase 4)", "Implemented (needs YOUTUBE_API_KEY)",
+     "services/youtube/ (Data API v3 search.list + videos.list, youtube-transcript-api adapter, ranking), "
+     "agent/recommendations.py (R1-R3 strategy kNN), recommendation_* tables, /learners/{id}/recommendations"),
     ("Knowledge prep + FAISS RAG (Phase 5)", "Implemented",
      "knowledge_prep/build_index.py, services/vector_store.py (transcripts are local .txt files)"),
     ("CRAG grading + corrective retrieval (Phase 6)", "Implemented", "services/crag.py, agent/routing.py"),
     ("Speech-to-text (Phase 7)", "Not implemented", "No STT code in the repository"),
     ("Text-to-speech (Phase 8)", "Not implemented", "No TTS code in the repository"),
     ("Monitoring: CPU, memory, RTT (Phase 9)", "Implemented", "services/monitoring.py"),
-    ("QoE / SRE / reward evaluation (Phase 9)", "Stub",
-     "agent/interfaces.py evaluate_session_stub: rating/5 and a fixed per-route constant"),
+    ("QoE / SRE / reward evaluation (Phase 9)", "Implemented (some inputs unavailable)",
+     "metrics/qoe.py, sre.py, utility.py, reward.py, ewm.py; agent/session_metrics.py maps measurements "
+     "(LLM/STT/TTS quality have no source; sentiment and energy are labelled estimates)"),
     ("Experience memory (Phase 10)", "Implemented", "app/services/experience.py, experiences table"),
     ("Adaptive policy selection (Phase 11)", "Implemented",
-     "agent/policy_selection.py: kNN over experiences + ε-exploration (learns from stub rewards)"),
+     "agent/policy_engine.py: FAISS retrieval of similar states, similarity-weighted utility per action, ε-greedy"),
     ("Hybrid local/cloud routing (Phase 12)", "Implemented",
      "services/llm_router.py + agent llm_router node; local = Ollama, cloud = HF, extractive fallback"),
     ("Local model hosting (Phase 13)", "Depends on setup",
@@ -37,12 +39,12 @@ CAPABILITIES = [
 def render() -> None:
     page_header("System capabilities", "Implementation status",
                 "What the current source code does, verified file by file. The README marks Phases 4, 7 and 8 as "
-                "implemented; the code does not contain them, so this frontend does not offer them.")
+                "implemented; the code does not contain Phases 7 and 8, so this frontend does not offer them.")
     df = pd.DataFrame(CAPABILITIES, columns=["capability", "status", "evidence"])
     st.dataframe(df, hide_index=True, width="stretch", column_config={
         "capability": st.column_config.TextColumn(width="medium"),
         "status": st.column_config.TextColumn(width="small"),
         "evidence": st.column_config.TextColumn(width="large"),
     })
-    st.info("Speech input/output and YouTube recommendations are not available in this build.",
+    st.info("Speech input/output is not available in this build.",
             icon=":material/info:")

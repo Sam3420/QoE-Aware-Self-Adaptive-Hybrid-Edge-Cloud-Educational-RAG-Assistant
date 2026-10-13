@@ -37,7 +37,9 @@ def _to_first_question(runner, learner):
 
 def _favour(services, policy_id):
     """Make kNN pick `policy_id` greedily."""
-    seed_experiences(services.app, [(policy_id, 0.9), (policy_id, 0.9), ("P1", 0.1)])
+    # Same context as the session's: the learner aces the pre-test (advanced) and has no QoE history yet.
+    ctx = {"rtt_ms": 180.0, "cpu": 0.35, "mem": 0.55, "competency_num": 1.0, "last_qoe": 0.5}
+    seed_experiences(services, [(policy_id, 0.9), (policy_id, 0.9), ("P1", 0.1)], context=ctx)
 
 
 def test_two_question_session_loops_and_finishes(runner, learner, services, visited):

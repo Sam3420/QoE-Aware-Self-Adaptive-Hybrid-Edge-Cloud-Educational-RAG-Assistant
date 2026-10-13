@@ -55,8 +55,17 @@ class FakeLLMClient:
 class FakeMonitor:
     """Fixed CPU/memory/RTT; set rtt_ms=None to make the probe fail."""
 
-    def __init__(self, cpu: float = 0.35, mem: float = 0.55, rtt_ms: float | None = 180.0) -> None:
+    def __init__(self, cpu: float = 0.35, mem: float = 0.55, rtt_ms: float | None = 180.0,
+                 net_step_bytes: int = 2_000_000) -> None:
         self.cpu, self.mem, self.rtt_ms = cpu, mem, rtt_ms
+        self.net_step_bytes, self._net = net_step_bytes, 0
+
+    def net_bytes(self) -> int | None:
+        """Grows by net_step_bytes on each call (None when net_step_bytes < 0)."""
+        if self.net_step_bytes < 0:
+            return None
+        self._net += self.net_step_bytes
+        return self._net
 
     def cpu_mem(self) -> tuple[float, float]:
         """Return the fixed load."""

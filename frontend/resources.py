@@ -19,6 +19,14 @@ def api_health(base_url: str) -> api_client.HealthResult:
     return api_client.check_health(base_url)
 
 
+@st.cache_resource(show_spinner=False)
+def get_recommender(_backend: AgentBackend):
+    """Video recommender sharing the backend's services (embedder, monitor, DB); built once per process."""
+    from agent.recommendations import make_recommender
+
+    return make_recommender(_backend.services)
+
+
 def provider_statuses(backend: AgentBackend) -> list[ProviderStatus]:
     return backend.provider_statuses()
 
