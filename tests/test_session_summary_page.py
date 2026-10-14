@@ -10,7 +10,7 @@ def summary_script() -> None:
     from agent.graph import build_graph
     from agent.runner import SessionRunner
     from frontend.views import learning_session
-    from tests.conftest import ANSWERS
+    from tests.conftest import ANSWERS, pass_pretest
 
     if "summary_values" not in st.session_state:
         services = make_fake_services()
@@ -18,7 +18,7 @@ def summary_script() -> None:
         runner = SessionRunner(build_graph(InMemorySaver()))
         learner = services.app.create_learner("Summary learner")
         tid = runner.start_session(learner, "photosynthesis")["thread_id"]
-        runner.resume(tid, {"answers": ANSWERS})
+        pass_pretest(runner, tid, ANSWERS)
         runner.resume(tid, {"query": "How do plants make glucose from light?"})
         runner.resume(tid, {"end": True})
         final = runner.resume(tid, {"answers": ANSWERS, "rating": 4, "comment": "clear"})["final_state"]

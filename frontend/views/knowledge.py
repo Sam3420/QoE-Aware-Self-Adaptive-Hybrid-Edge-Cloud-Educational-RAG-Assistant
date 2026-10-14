@@ -9,6 +9,7 @@ from frontend.clients import data_access
 from frontend.clients.agent_backend import AgentBackend
 from frontend.components.ui import page_header
 from frontend.utils import state
+from knowledge_prep.catalog import topic_label
 
 _TOPIC_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,63}$")
 
@@ -25,7 +26,7 @@ def _index_table(backend: AgentBackend) -> None:
         s = backend.index_status(topic)
         bank = data_access.question_bank(topic)
         rows.append({
-            "topic": topic,
+            "topic": topic_label(topic),
             "index": "ready" if s.exists and s.compatible else ("unusable" if s.exists else "missing"),
             "chunks": s.n_chunks, "dim": s.dim, "embedding model": s.embedding_model,
             "MCQ bank": f"{bank['n_items']} items ({bank['model_provider']})" if bank else "not generated",
@@ -34,9 +35,24 @@ def _index_table(backend: AgentBackend) -> None:
     st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
 
     buildable = [t for t, src in topics.items() if src is not None]
+    missing = [t for t in buildable if not backend.index_status(t).compatible]
+    if missing and st.button(f"Build all missing indexes ({len(missing)})", icon=":material/build:"):
+        built, failed = [], []
+        with st.spinner(f"Embedding {len(missing)} topics with {backend.embedder_name}…"):
+            for topic in missing:
+                try:
+                    backend.build_index(topic, topics[topic])
+                    built.append(topic)
+                except Exception as exc:
+                    failed.append(f"{topic}: {type(exc).__name__}: {exc}")
+        if built:
+            state.flash("success", f"Built {len(built)} index(es): {', '.join(built)}.")
+        for message in failed:
+            state.flash("error", f"Index build failed for {message}")
+        st.rerun()
     if buildable:
         c1, c2 = st.columns([3, 1], vertical_alignment="bottom")
-        topic = c1.selectbox("Build or rebuild the index for", buildable)
+        topic = c1.selectbox("Build or rebuild the index for", buildable, format_func=topic_label)
         if c2.button("Build index", icon=":material/build:", width="stretch"):
             with st.spinner(f"Chunking and embedding '{topic}' with {backend.embedder_name}…"):
                 try:
@@ -92,7 +108,7 @@ def _explorer(backend: AgentBackend) -> None:
         return
     with st.form("retrieve"):
         c1, c2 = st.columns([1, 3])
-        topic = c1.selectbox("Topic", ready)
+        topic = c1.selectbox("Topic", ready, format_func=topic_label)
         query = c2.text_input("Query", placeholder="e.g. What does chlorophyll do?")
         c3, c4 = st.columns(2)
         top_k = c3.slider("top_k", 1, 10, 5)

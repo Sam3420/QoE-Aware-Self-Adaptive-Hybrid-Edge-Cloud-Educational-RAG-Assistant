@@ -12,6 +12,7 @@ from frontend.components.mcq import mcq_inputs
 from frontend.components.ui import badge, code_id, page_header, show_step_error
 from frontend.utils import state
 from frontend.utils.formatting import ms, pct
+from knowledge_prep.catalog import topic_label, topic_title
 
 
 def _remember(step: StepResult, action: str) -> None:
@@ -32,54 +33,119 @@ def _last_step_panel() -> None:
 
 
 def _start_panel(backend: AgentBackend, learner: dict[str, Any]) -> None:
-    topics = backend.topics()
-    if not topics:
-        st.warning("No topics found. Add a transcript under knowledge_prep/samples/ or upload one on the "
-                   "Knowledge & retrieval page.")
-        return
-
     with st.container(border=True):
         st.subheader("Start a learning session")
-        topic = st.selectbox("Topic", list(topics))
-        status = backend.index_status(topic)
-        if status.exists and status.compatible:
-            badge("ok", f"Knowledge index ready · {status.n_chunks} chunks · {status.embedding_model}")
-        elif status.exists:
-            badge("error", "Index unusable")
-            st.caption(status.error)
-        else:
-            badge("warn", "Knowledge index not found")
-            st.caption("Retrieval and MCQ generation need this topic's FAISS index.")
-        if status.source and not (status.exists and status.compatible):
-            if st.button(f"Build index for '{topic}' now", icon=":material/build:"):
-                with st.spinner(f"Chunking and embedding {status.source.name} with {backend.embedder_name}…"):
-                    try:
-                        meta = backend.build_index(topic, status.source)
-                        state.flash("success", f"Indexed {len(meta.chunks)} chunks for '{topic}'.")
-                    except Exception as exc:
-                        state.flash("error", f"Index build failed: {type(exc).__name__}: {exc}")
-                st.rerun()
-
         providers = backend.provider_statuses()
         if not any(p.available for p in providers):
             st.warning("No language model is reachable (Ollama is down and HF_TOKEN is not set). The session "
                        "will still run, but the pre/post-test cannot be generated and answers will be lesson "
                        "extracts from the model-free fallback, not generated text.", icon=":material/warning:")
-
+        if not settings.youtube_api_key:
+            st.warning("YOUTUBE_API_KEY is not set, so no videos can be recommended and the session cannot reach "
+                       "the question stage.", icon=":material/warning:")
         st.markdown(
-            "The agent will: load your profile → give a **pre-test** (skipped if you already took one for this "
-            "topic) → measure **RTT, CPU and memory** → **select a policy** (P1–P4) from similar past sessions → "
-            "answer questions with **CRAG** retrieval and the **local/cloud router** → give a **post-test** and "
+            "The agent will: load your profile → let you **choose a topic** → give a **pre-test** (planned from your "
+            "past results on the topic) → **recommend YouTube videos** for the topic, your level and language → "
+            "let you **choose a video** → turn its transcript into a searchable index (once per video) → measure "
+            "**RTT, CPU and memory** → **select a policy** (P1–P4) → answer your questions from the video with "
+            "**CRAG** retrieval and the **local/cloud router** → give a **post-test** on the same questions and "
             "store the session as an **experience**."
         )
-        ready = status.exists and status.compatible
-        if st.button("Start session", type="primary", icon=":material/play_arrow:", disabled=not ready):
-            with st.spinner("Creating the session and running the graph (pre-test generation can take a while)…"):
-                step = backend.start_session(learner["id"], topic)
+        if st.button("Start session", type="primary", icon=":material/play_arrow:"):
+            with st.spinner("Creating the session…"):
+                step = backend.start_session(learner["id"])
             _remember(step, "Start session")
             if step.out:
                 state.put(state.AGENT_SESSION, step.out["thread_id"])
             st.rerun()
+
+
+def _select_topic(backend: AgentBackend, thread_id: str, learner: dict[str, Any], pause: dict[str, Any]) -> None:
+    st.subheader("Choose a topic")
+    options = {t["topic_id"]: t for t in pause["topics"]}
+    topic = st.selectbox("Topic", list(options), format_func=lambda t: options[t]["label"])
+    taken = [a for a in data_access.learner_assessments(learner["id"]) if a["topic_id"] == topic]
+    if taken:
+        last = taken[0]
+        st.caption(f"You have studied this topic before (last {last['type']}-test {pct(last['score'])}). "
+                   "Your pre-test will re-check what you missed and add new questions.")
+    else:
+        st.caption("First time on this topic: you will start with the standard pre-test.")
+    status = backend.index_status(topic)
+    if not (status.exists and status.compatible):
+        st.caption(f"The topic's lesson notes ({status.source.name if status.source else 'missing'}) will be indexed "
+                   "first; they ground the pre-test and post-test questions.")
+    if st.button("Continue to the pre-test", type="primary", icon=":material/arrow_forward:"):
+        with st.spinner("Preparing the topic and planning your pre-test (writing questions can take a minute)…"):
+            _remember(backend.resume(thread_id, {"topic_id": topic}), "Choose topic")
+        st.rerun()
+
+
+def _duration(seconds: int | None) -> str:
+    if not seconds:
+        return "—"
+    if seconds >= 3600:
+        return f"{seconds // 3600}:{seconds % 3600 // 60:02d}:{seconds % 60:02d}"
+    return f"{seconds // 60}:{seconds % 60:02d}"
+
+
+def _select_video(backend: AgentBackend, thread_id: str, values: dict[str, Any], pause: dict[str, Any]) -> None:
+    _pretest_score(values)
+    st.subheader("Choose a video to learn from")
+    st.caption(f"Recommended for **{topic_title(values['topic_id'])}**, your level "
+               f"({values.get('competency') or 'unknown'}) and language ({values['profile'].get('language')}). "
+               f"Strategy {pause.get('strategy_id') or '—'}: {pause.get('decision_reason') or '—'}")
+    if pause.get("notice"):
+        st.warning(pause["notice"], icon=":material/warning:")
+    if pause.get("status") not in ("ok", None):
+        st.error(f"Recommendation status: {pause['status']}", icon=":material/error:")
+    for err in pause.get("errors") or []:
+        st.caption(f"Note: {err}")
+    if not pause["items"]:
+        st.info("No videos were found. Try new recommendations or end the session.")
+    for item in pause["items"]:
+        with st.container(border=True):
+            left, right = st.columns([1, 3])
+            if item.get("thumbnail_url"):
+                left.image(item["thumbnail_url"], width="stretch")
+            right.markdown(f"**{item['rank']}. [{item['title']}]({item['url']})**")
+            captions = f" · captions {item['caption_language']} ({item.get('caption_type')})" \
+                if item.get("caption_language") else ""
+            right.caption(f"{item.get('channel_title') or '—'} · {_duration(item.get('duration_s'))} · "
+                          f"score {item['score']:.2f} · evidence: {item.get('evidence_level')}{captions}")
+            right.caption(item.get("explanation") or "")
+            if item.get("unavailable"):
+                right.warning(f"Can't be used for questions: {item['unavailable']}", icon=":material/block:")
+            elif right.button("Learn from this video", key=f"vid-{item['item_id']}", type="primary",
+                              icon=":material/smart_display:"):
+                with st.spinner("Fetching the transcript and building the video's index (first time only), then "
+                                "measuring context and selecting a policy…"):
+                    _remember(backend.resume(thread_id, {"item_id": item["item_id"]}), "Choose video")
+                st.rerun()
+    c1, c2 = st.columns(2)
+    if c1.button("Find other videos", icon=":material/refresh:", width="stretch"):
+        with st.spinner("Searching YouTube again…"):
+            _remember(backend.resume(thread_id, {"refresh": True}), "New recommendations")
+        st.rerun()
+    if c2.button("End session", icon=":material/stop:", width="stretch"):
+        _remember(backend.resume(thread_id, {"end": True}), "End session")
+        st.rerun()
+
+
+def _video_panel(values: dict[str, Any]) -> None:
+    video = values.get("video") or {}
+    if not values.get("resource_id") or not video:
+        return
+    with st.expander(f"Video: {video.get('title')}", expanded=True, icon=":material/smart_display:"):
+        if video.get("url"):
+            st.video(video["url"])
+        chunks = f", {video['n_chunks']} chunks" if video.get("n_chunks") else ""
+        reused = ", reused from an earlier session" if video.get("reused_index") else ""
+        st.caption(f"Answers are retrieved from this video's transcript (index `{values['resource_id']}`"
+                   f"{chunks}{reused}).")
+        if video.get("replaces"):
+            st.info(f"'{video['replaces']['title']}' had no usable transcript, so the next recommendation is used.",
+                    icon=":material/swap_horiz:")
 
 
 def _policy_panel(values: dict[str, Any]) -> None:
@@ -99,25 +165,95 @@ def _policy_panel(values: dict[str, Any]) -> None:
                        f"memory {pct(ctx['mem'])} · last QoE {ctx['last_qoe']}")
 
 
+def _plan_banner(plan: dict[str, Any]) -> None:
+    """Explain why the learner got these questions (from the agent's pre-test plan)."""
+    if plan.get("mode") == "returning":
+        prev = plan.get("previous") or {}
+        scores = " → ".join(f"{label} {pct(prev[key])}" for label, key in (("pre-test", "pre_score"),
+                                                                               ("post-test", "post_score"))
+                            if prev.get(key) is not None)
+        # Small models sometimes write a sentence as the concept name; keep the banner readable.
+        weak = [c if len(c) <= 40 else c[:37].rstrip() + "…" for c in (plan.get("weak_concepts") or [])[:4]]
+        st.info(f"**Welcome back.** Last time on this topic ({str(prev.get('date', ''))[:10]}): {scores or 'no score'}. "
+                + (f"This quiz re-checks what you missed and adds new questions on **{', '.join(weak)}**."
+                   if weak else "You got everything right last time, so this quiz uses new questions."),
+                icon=":material/history:")
+    else:
+        st.info("**First time on this topic.** This short quiz finds your starting level, so explanations match it.",
+                icon=":material/flag:")
+
+
 def _pretest(backend: AgentBackend, thread_id: str, pause: dict[str, Any]) -> None:
     st.subheader("Pre-test")
-    st.caption(f"{pause['prompt']} Generated from the lesson by the LLM and scored by app/services/pretest.py.")
+    _plan_banner(pause.get("plan") or {})
+    st.caption(f"{pause['prompt']} Questions are generated from the lesson by the LLM and scored by "
+               "app/services/pretest.py.")
     with st.form("pretest"):
         answers = mcq_inputs(pause["items"], f"pre-{thread_id}")
         if st.form_submit_button("Submit pre-test", type="primary"):
             if None in answers:
                 st.error("Answer every question before submitting.")
             else:
-                with st.spinner("Scoring, measuring context and selecting a policy…"):
+                with st.spinner("Scoring and searching YouTube for videos at your level…"):
                     _remember(backend.resume(thread_id, {"answers": answers}), "Submit pre-test")
                 st.rerun()
 
 
+def _pretest_score(values: dict[str, Any]) -> None:
+    """The learner's pre-test result, shown once it is scored (answers stay hidden until the post-test)."""
+    result = values.get("pre_result") or {}
+    if values.get("pre_score") is None or not result:
+        return
+    with st.container(border=True):
+        cols = st.columns([1, 1, 3], vertical_alignment="center")
+        cols[0].metric("Pre-test score", f"{result['correct']} / {result['total']}")
+        cols[1].metric("Starting level", str(result["competency"]).capitalize())
+        cols[2].caption(f"You got {pct(values['pre_score'])} right. The correct answers and explanations are shown "
+                        "after the post-test, which asks these same questions again, so you can see what you "
+                        "learned in this session.")
+
+
+def _review(values: dict[str, Any]) -> None:
+    """Answer key after the post-test: correct option, why it is right, and the learner's pre/post answers."""
+    review = values.get("post_review") or {}
+    items = review.get("items") or []
+    if not items:
+        return
+    st.subheader("Answers and explanations")
+    if review.get("note"):
+        st.warning(review["note"], icon=":material/warning:")
+    for item in items:
+        mark = ":green[:material/check_circle:]" if item["post_correct"] else ":red[:material/cancel:]"
+        with st.container(border=True):
+            st.markdown(f"{mark} **Q{item['question_no']}. {item['question']}**")
+            for i, option in enumerate(item["options"]):
+                letter = "ABCD"[i]
+                tags = [t for t, hit in (("correct answer", letter == item["answer"]),
+                                         ("your post-test answer", letter == item["post_answer"]),
+                                         ("your pre-test answer", letter == item.get("pre_answer"))) if hit]
+                text = f"{letter}. {option}" + (f"  _({', '.join(tags)})_" if tags else "")
+                st.markdown(f":green[**{text}**]" if letter == item["answer"] else
+                            (f":red[{text}]" if letter == item["post_answer"] else text))
+            if item["explanation"]:
+                st.markdown(f"**Why {item['answer']} is right:** {item['explanation']}")
+            else:
+                st.caption("No explanation is available for this question.")
+            progress = ("" if item.get("pre_correct") is None else
+                        " · learned this session" if item["post_correct"] and not item["pre_correct"] else
+                        " · got it wrong after getting it right in the pre-test" if item["pre_correct"]
+                        and not item["post_correct"] else "")
+            st.caption(f"Concept: {item['concept']}{progress}")
+    st.caption("Explanations are written by the LLM from the lesson text when the question is generated, so check "
+               "them against your textbook.")
+
+
 def _questions(backend: AgentBackend, thread_id: str, values: dict[str, Any], pause: dict[str, Any]) -> None:
+    _pretest_score(values)
+    _video_panel(values)
     threshold = values["runtime_config"].get("threshold", settings.crag_retrieval_threshold)
     turns = backend.conversation(thread_id)
     if not turns:
-        st.info(f"Ask your first question about **{values['topic_id']}**.")
+        st.info(f"Ask your first question about **{topic_title(values['topic_id'])}**.")
     for turn in turns:
         chat.agent_turn(turn, threshold)
 
@@ -128,7 +264,7 @@ def _questions(backend: AgentBackend, thread_id: str, values: dict[str, Any], pa
             _remember(backend.resume(thread_id, {"end": True}), "Finish session")
         st.rerun()
 
-    if prompt := st.chat_input(f"Ask about {values['topic_id']}…", max_chars=2000):
+    if prompt := st.chat_input(f"Ask about {topic_title(values['topic_id'])}…", max_chars=2000):
         with st.chat_message("user"):
             st.write(prompt)
         with st.spinner("Retrieving lesson context (CRAG), routing and generating the answer…"):
@@ -143,8 +279,10 @@ def _posttest(backend: AgentBackend, thread_id: str, values: dict[str, Any], pau
         with st.expander(f"Conversation ({len(turns)} questions)"):
             for turn in turns:
                 chat.agent_turn(turn, threshold)
+    _pretest_score(values)
     st.subheader("Post-test and feedback")
-    st.caption(pause["prompt"])
+    st.caption(pause["prompt"] + " After you submit, you will see your score, the correct answers and why "
+               "they are right.")
     if not pause["items"]:
         st.warning("This topic has no question bank (pre-test generation failed earlier), so there is no "
                    "post-test. The agent keeps your rating in the session state only: without a question bank, "
@@ -159,19 +297,32 @@ def _posttest(backend: AgentBackend, thread_id: str, values: dict[str, Any], pau
             else:
                 payload = {"answers": answers, "rating": None if rating == "No rating" else rating,
                            "comment": comment.strip() or None}
-                with st.spinner("Scoring, evaluating the session and storing the experience…"):
+                with st.spinner("Scoring, preparing the answer explanations, evaluating the session and storing "
+                                "the experience…"):
                     _remember(backend.resume(thread_id, payload), "Submit post-test")
                 st.rerun()
 
 
 def _summary(backend: AgentBackend, thread_id: str, values: dict[str, Any]) -> None:
     st.success("Session finished.", icon=":material/task_alt:")
+    video = values.get("video") or {}
+    if values.get("resource_id") and video:
+        st.caption(f"Learned from the video [{video.get('title')}]({video.get('url')}).")
     pre, post = values.get("pre_score"), values.get("post_score")
+    pre_n, post_n = values.get("pre_result") or {}, values.get("post_review") or {}
+
+    def score(value: float | None, counts: dict[str, Any]) -> str:
+        if value is None:
+            return "—"
+        return f"{counts['correct']} / {counts['total']} ({pct(value)})" if counts.get("total") else pct(value)
+
     cols = st.columns(4)
-    cols[0].metric("Pre-test", pct(pre))
-    cols[1].metric("Post-test", pct(post), delta=f"{post - pre:+.0%}" if pre is not None and post is not None else None)
+    cols[0].metric("Pre-test", score(pre, pre_n))
+    cols[1].metric("Post-test", score(post, post_n),
+                   delta=f"{post - pre:+.0%}" if pre is not None and post is not None else None)
     cols[2].metric("Rating", values.get("rating") or "—")
     cols[3].metric("Questions asked", len(values.get("qa_log", [])))
+    _review(values)
 
     ev = values.get("evaluation") or {}
     with st.container(border=True):
@@ -204,7 +355,9 @@ def _summary(backend: AgentBackend, thread_id: str, values: dict[str, Any]) -> N
         st.caption(f"Experience stored in the database (id `{experience['id']}`, policy {experience['policy_id']}, "
                    f"reward {experience['reward']}). Future sessions use it for kNN policy selection.")
     else:
-        st.warning("No experience row exists for this session.")
+        reason = (values.get("evaluation") or {}).get("reason")
+        st.warning(f"No experience was stored for this session: {reason}." if reason
+                   else "No experience row exists for this session.")
 
     turns = backend.conversation(thread_id)
     if turns:
@@ -248,7 +401,8 @@ def render(backend: AgentBackend, learner: dict[str, Any] | None) -> None:
         return
 
     values, pause = snap["values"], snap["interrupt"]
-    st.markdown(f"Topic **{values['topic_id']}** · session {code_id(thread_id)}", unsafe_allow_html=True)
+    topic_text = topic_label(values["topic_id"]) if values["topic_id"] else "not chosen yet"
+    st.markdown(f"Topic **{topic_text}** · session {code_id(thread_id)}", unsafe_allow_html=True)
     if pause and pause.get("error"):
         st.warning(f"The agent rejected the last reply and asked again: {pause['error']}")
     if values.get("session_errors"):
@@ -258,7 +412,11 @@ def render(backend: AgentBackend, learner: dict[str, Any] | None) -> None:
                 st.markdown(f"- {err}")
 
     _policy_panel(values)
-    if pause and pause["type"] == "pre_test":
+    if pause and pause["type"] == "select_topic":
+        _select_topic(backend, thread_id, learner, pause)
+    elif pause and pause["type"] == "select_video":
+        _select_video(backend, thread_id, values, pause)
+    elif pause and pause["type"] == "pre_test":
         _pretest(backend, thread_id, pause)
     elif pause and pause["type"] == "ask_question":
         _questions(backend, thread_id, values, pause)

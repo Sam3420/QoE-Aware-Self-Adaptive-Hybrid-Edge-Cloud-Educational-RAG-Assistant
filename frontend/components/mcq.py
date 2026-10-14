@@ -12,7 +12,8 @@ def mcq_inputs(items: list[dict[str, Any]], key: str) -> list[int | None]:
     for item in items:
         with st.container(border=True):
             st.markdown(f"**Q{item['question_no']}. {item['question']}**")
-            st.caption(f"Concept: {item.get('concept') or '—'}")
+            why = f" · {item['reason']}" if item.get("reason") else ""
+            st.caption(f"Concept: {item.get('concept') or '—'}{why}")
             answers.append(st.radio(
                 f"Answer to question {item['question_no']}",
                 options=range(len(item["options"])),

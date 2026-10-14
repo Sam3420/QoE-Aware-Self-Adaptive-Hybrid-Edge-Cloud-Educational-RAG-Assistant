@@ -56,7 +56,9 @@ def crag_retrieve(state: AgentState) -> dict[str, Any]:
     crag = get_services().crag
     top_k = state["runtime_config"]["top_k"]
     try:
-        result = crag.retrieve(state["topic_id"], state["retrieval_query"], top_k, grade_query=state["query"])
+        # The chosen video's transcript index; sessions from before video selection used the topic index.
+        resource_id = state.get("resource_id") or state["topic_id"]
+        result = crag.retrieve(resource_id, state["retrieval_query"], top_k, grade_query=state["query"])
     except (IndexNotFoundError, EmbeddingError) as exc:
         return {"q_errors": [*state["q_errors"], f"retrieval: {exc}"]}
     previous = [RetrievedChunk.model_validate(c) for c in state["chunks"]]

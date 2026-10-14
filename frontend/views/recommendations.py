@@ -10,6 +10,7 @@ from frontend.clients.agent_backend import AgentBackend
 from frontend.components.ui import badge, page_header
 from frontend.utils import state
 from frontend.utils.formatting import ms, pct, when
+from knowledge_prep.catalog import topic_label
 from services.youtube.ranking import mmss
 
 STATUS_BADGE = {"ok": ("ok", "Ranked"), "degraded": ("warn", "Ranked with reduced evidence"),
@@ -51,7 +52,8 @@ def _request_form(backend: AgentBackend, recommender: Any, learner: dict[str, An
     with st.form("recommend"):
         st.subheader("What do you want to learn?")
         if topics:
-            topic = st.selectbox("Topic", topics, index=topics.index(preset) if preset in topics else 0)
+            topic = st.selectbox("Topic", topics, index=topics.index(preset) if preset in topics else 0,
+                                 format_func=topic_label)
         else:
             topic = st.text_input("Topic", value=preset or "", max_chars=200)
         objective = st.text_input("Learning objective (optional)", max_chars=500,

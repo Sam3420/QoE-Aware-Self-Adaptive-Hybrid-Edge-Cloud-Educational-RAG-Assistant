@@ -76,7 +76,7 @@ def test_submit_posttest_scores_persists_and_returns_plain_dict(db_session, lear
         comment="Clear answers, a bit slow.", db=db_session,
     )
 
-    assert set(result) == {"assessment_id", "score", "competency", "rating", "comment"}
+    assert set(result) == {"assessment_id", "score", "competency", "correct", "total", "rating", "comment"}
     assert result["score"] == 1.0
     assert result["competency"] == "advanced"
     assert result["rating"] == 4

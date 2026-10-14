@@ -8,7 +8,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 
 from agent import nodes
-from agent.routing import continue_session, crag_ok, more_questions, need_pretest
+from agent.routing import continue_session, crag_ok, knowledge_ready, more_questions, need_pretest, route_video
 from agent.state import AgentState
 from config import settings
 
@@ -18,7 +18,12 @@ def build_builder() -> StateGraph:
     g = StateGraph(AgentState)
 
     g.add_node("load_profile", nodes.load_profile)
+    g.add_node("select_topic", nodes.select_topic)
+    g.add_node("plan_pretest", nodes.plan_pretest)
     g.add_node("pre_test", nodes.pre_test)
+    g.add_node("recommend_videos", nodes.recommend_videos)
+    g.add_node("select_video", nodes.select_video)
+    g.add_node("prepare_knowledge", nodes.prepare_knowledge)
     g.add_node("collect_context", nodes.collect_context)
     g.add_node("select_policy", nodes.select_policy)
     g.add_node("ask_question", nodes.ask_question)
@@ -31,8 +36,17 @@ def build_builder() -> StateGraph:
     g.add_node("store_experience", nodes.store_experience)
 
     g.add_edge(START, "load_profile")
-    g.add_conditional_edges("load_profile", need_pretest, ["pre_test", "collect_context"])
-    g.add_edge("pre_test", "collect_context")
+    g.add_edge("load_profile", "select_topic")
+    # Every session takes a topic-level pre-test planned from the learner's history (skipped only when no
+    # questions could be prepared), then gets videos recommended for the topic, competency and language.
+    g.add_edge("select_topic", "plan_pretest")
+    g.add_conditional_edges("plan_pretest", need_pretest, ["pre_test", "recommend_videos"])
+    g.add_edge("pre_test", "recommend_videos")
+    g.add_edge("recommend_videos", "select_video")
+    # A chosen video is indexed once (transcript → chunks → embeddings → FAISS) and reused afterwards.
+    g.add_conditional_edges("select_video", route_video,
+                            ["recommend_videos", "post_test_and_feedback", "prepare_knowledge", "collect_context"])
+    g.add_conditional_edges("prepare_knowledge", knowledge_ready, ["collect_context", "select_video"])
     g.add_edge("collect_context", "select_policy")
     g.add_edge("select_policy", "ask_question")
     # {"end": true} at ask_question finishes the session; a query goes to retrieval.

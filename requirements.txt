@@ -5,12 +5,14 @@ pydantic-settings>=2.4,<3.0
 httpx>=0.27,<1.0
 numpy>=1.26
 faiss-cpu>=1.8
-sqlalchemy>=2.0,<3.0
+# <2.1: 2.1 has no pure-Python fallback when Windows Smart App Control blocks its compiled extension
+sqlalchemy>=2.0,<2.1
 psutil>=5.9
 youtube-transcript-api>=1.2,<2.0
 # ui
 streamlit>=1.40
-pandas>=2.0
+# <3: pandas 3.0.x DLLs are blocked by Windows Smart App Control (no reputation yet)
+pandas>=2.2,<3.0
 # optional: tracing (agent/observability.py works without it)
 # langfuse>=4.0
 # dev

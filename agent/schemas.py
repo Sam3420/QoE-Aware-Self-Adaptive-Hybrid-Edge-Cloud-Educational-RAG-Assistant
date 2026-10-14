@@ -31,6 +31,38 @@ class SessionContext(BaseModel):
     last_qoe: float = Field(ge=0.0, le=1.0)
 
 
+class TopicReply(BaseModel):
+    """Resume value for the select_topic interrupt: {"topic_id": <a catalogue topic id>}."""
+
+    topic_id: str
+
+    @field_validator("topic_id")
+    @classmethod
+    def _in_catalogue(cls, topic_id: str) -> str:
+        from knowledge_prep.catalog import TOPICS, get_topic
+
+        topic_id = topic_id.strip()
+        if get_topic(topic_id) is None:
+            raise ValueError(f"unknown topic; choose one of {[t.topic_id for t in TOPICS]}")
+        return topic_id
+
+
+class VideoReply(BaseModel):
+    """Resume value for the select_video interrupt: exactly one of
+    {"item_id": <recommendation item id>}, {"refresh": true} (new recommendations) or {"end": true}."""
+
+    item_id: str | None = None
+    refresh: bool = False
+    end: bool = False
+
+    @model_validator(mode="after")
+    def _exactly_one(self) -> "VideoReply":
+        self.item_id = (self.item_id or "").strip() or None
+        if sum([self.item_id is not None, self.refresh, self.end]) != 1:
+            raise ValueError('send {"item_id": "<id>"}, {"refresh": true} or {"end": true}')
+        return self
+
+
 class QuestionReply(BaseModel):
     """Resume value for the ask_question interrupt: {"query": str} to ask, or {"end": true} to finish."""
 

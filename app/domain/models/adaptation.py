@@ -12,6 +12,9 @@ class MCQItem(BaseModel):
     options: list[str] = Field(min_length=4, max_length=4)
     answer_index: int = Field(ge=0, le=3)
     concept: str = Field(min_length=1)
+    # Why the correct option is right, from the study material. Banks generated before this field
+    # existed have none; app/services/mcq.explain_items fills it in when a post-test review needs it.
+    explanation: str = ""
 
     @field_validator("options")
     @classmethod

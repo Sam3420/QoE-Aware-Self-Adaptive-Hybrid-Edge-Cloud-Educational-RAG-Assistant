@@ -5,9 +5,25 @@ from agent.state import AgentState
 from config import settings
 
 
-def need_pretest(state: AgentState) -> Literal["pre_test", "collect_context"]:
-    """Run the pre-test unless the learner already has a pre-test score for this topic."""
-    return "pre_test" if state["pre_score"] is None else "collect_context"
+def need_pretest(state: AgentState) -> Literal["pre_test", "recommend_videos"]:
+    """Every session takes the planned pre-test; skip it only when no questions could be prepared."""
+    return "pre_test" if state["test_items"] else "recommend_videos"
+
+
+def route_video(state: AgentState) -> Literal["recommend_videos", "post_test_and_feedback", "prepare_knowledge",
+                                              "collect_context"]:
+    """After select_video: new recommendations, end, or the chosen video (indexing it first if needed)."""
+    action = state["video_action"]
+    if action == "refresh":
+        return "recommend_videos"
+    if action == "end":
+        return "post_test_and_feedback"
+    return "collect_context" if state["resource_id"] else "prepare_knowledge"
+
+
+def knowledge_ready(state: AgentState) -> Literal["collect_context", "select_video"]:
+    """After prepare_knowledge: continue with the indexed video, or let the learner choose again."""
+    return "collect_context" if state["resource_id"] else "select_video"
 
 
 def continue_session(state: AgentState) -> Literal["crag_retrieve", "post_test_and_feedback"]:

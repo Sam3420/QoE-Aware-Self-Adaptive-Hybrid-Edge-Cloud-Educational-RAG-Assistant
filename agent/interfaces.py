@@ -17,7 +17,7 @@ from sqlalchemy.pool import StaticPool
 from app.core.config import get_settings as get_app_settings
 from app.db.base import Base
 from app.db.repositories import AdaptationRepository, LearningTraceRepository
-from app.domain.models import LearnerProfileCreate, LearningSessionCreate
+from app.domain.models import EducationalResourceCreate, LearnerProfileCreate, LearningSessionCreate
 from app.llm.types import LLMGenerateRequest, LLMGenerateResult, LLMProviderError
 from app.services import experience as b_experience
 from app.services import posttest as b_posttest
@@ -48,7 +48,7 @@ class CragKnowledgeRetriever:
 
 
 def mcq_json_schema(n_items: int) -> dict[str, Any]:
-    """JSON schema for B's MCQ reply: an array of n {question, options[4], answer_index 0-3, concept}."""
+    """JSON schema for B's MCQ reply: an array of n {question, options[4], answer_index 0-3, concept, explanation}."""
     item = {
         "type": "object",
         "properties": {
@@ -56,8 +56,9 @@ def mcq_json_schema(n_items: int) -> dict[str, Any]:
             "options": {"type": "array", "items": {"type": "string"}, "minItems": 4, "maxItems": 4},
             "answer_index": {"type": "integer", "minimum": 0, "maximum": 3},
             "concept": {"type": "string"},
+            "explanation": {"type": "string"},
         },
-        "required": ["question", "options", "answer_index", "concept"],
+        "required": ["question", "options", "answer_index", "concept", "explanation"],
     }
     return {"type": "array", "items": item, "minItems": n_items, "maxItems": n_items}
 
@@ -75,7 +76,7 @@ class RouterLLMProvider:
         """Generate with the best available real model; raise LLMProviderError if none works."""
         req = GenerationRequest(system=request.system_prompt or "", prompt=request.prompt,
                                 max_tokens=request.max_tokens, temperature=request.temperature,
-                                json_schema=mcq_json_schema(get_app_settings().mcq_n_items))
+                                json_schema=request.json_schema or mcq_json_schema(get_app_settings().mcq_n_items))
         errors = []
         for provider in ("cloud", "local"):
             if not self.router.is_available(provider):
@@ -89,13 +90,23 @@ class RouterLLMProvider:
 
 
 class FakeMCQProvider:
-    """Offline LLMProvider returning 5 valid MCQs (correct letters A, B, C, D, A)."""
+    """Offline LLMProvider returning 5 valid MCQs (correct letters A, B, C, D, A).
+
+    The first call returns "Practice question 1?".."5?"; later calls (bank top-ups) return new questions
+    "Practice question <call>.<i>?" on the same concepts, so top-ups add distinct items.
+    """
+
+    def __init__(self) -> None:
+        self.calls = 0
 
     def generate(self, request: LLMGenerateRequest) -> LLMGenerateResult:
-        """Return a fixed JSON array of MCQ items."""
+        """Return a JSON array of MCQ items."""
+        self.calls += 1
+        label = (lambda i: f"{i + 1}") if self.calls == 1 else (lambda i: f"{self.calls}.{i + 1}")
         items = [
-            {"question": f"Practice question {i + 1}?", "options": [f"option {i}-{c}" for c in "abcd"],
-             "answer_index": i % 4, "concept": f"concept {i + 1}"}
+            {"question": f"Practice question {label(i)}?", "options": [f"option {i}-{c}" for c in "abcd"],
+             "answer_index": i % 4, "concept": f"concept {i + 1}",
+             "explanation": f"Option {'ABCD'[i % 4]} is what the lesson states for concept {i + 1}."}
             for i in range(5)
         ]
         return LLMGenerateResult(text=json.dumps(items), model_provider="fake", model_name="fake-mcq")
@@ -199,24 +210,45 @@ class AppGateway:
             return b_pretest.prepare_pretest(student_id, topic_id, db=db,
                                              retriever=self.retriever, llm=self.mcq_llm)
 
-    def submit_pretest(self, student_id: str, session_id: str, topic_id: str,
-                       answers: Sequence[Any]) -> dict[str, Any]:
-        """Score and store the pre-test; return {assessment_id, score, competency}."""
+    def plan_pretest(self, student_id: str, topic_id: str) -> dict[str, Any]:
+        """Plan this learner's pre-test: {mode, items (with item_id, reason), weak_concepts, previous, notes}."""
         with self._db() as db:
-            return b_pretest.submit_pretest(student_id, session_id, topic_id, answers, db=db)
+            return b_pretest.plan_pretest(student_id, topic_id, db=db, retriever=self.retriever, llm=self.mcq_llm)
 
-    def prepare_posttest(self, student_id: str, topic_id: str) -> list[dict[str, Any]]:
-        """Return post-test items without answers (same bank as the pre-test)."""
+    def submit_pretest(self, student_id: str, session_id: str, topic_id: str,
+                       answers: Sequence[Any], item_ids: Sequence[int] | None = None) -> dict[str, Any]:
+        """Score and store the pre-test on the questions shown; return {assessment_id, score, competency}."""
         with self._db() as db:
-            return b_posttest.prepare_posttest(student_id, topic_id, db=db)
+            return b_pretest.submit_pretest(student_id, session_id, topic_id, answers, item_ids=item_ids, db=db)
+
+    def prepare_posttest(self, student_id: str, topic_id: str,
+                         item_ids: Sequence[int] | None = None) -> list[dict[str, Any]]:
+        """Return post-test items without answers (the session's pre-test questions)."""
+        with self._db() as db:
+            return b_posttest.prepare_posttest(student_id, topic_id, item_ids=item_ids, db=db)
 
     def submit_posttest_and_feedback(self, student_id: str, session_id: str, topic_id: str,
                                      answers: Sequence[Any], rating: int | None,
-                                     comment: str | None) -> dict[str, Any]:
+                                     comment: str | None, item_ids: Sequence[int] | None = None) -> dict[str, Any]:
         """Score and store the post-test and feedback; return {score, competency, rating, comment, ...}."""
         with self._db() as db:
             return b_posttest.submit_posttest_and_feedback(student_id, session_id, topic_id, answers,
-                                                           rating, comment, db=db)
+                                                           rating, comment, item_ids=item_ids, db=db)
+
+    def review_posttest(self, topic_id: str, post_answers: Sequence[Any], item_ids: Sequence[int] | None = None,
+                        pre_answers: Sequence[Any] | None = None) -> dict[str, Any]:
+        """Answer key with explanations for a submitted post-test: {items, note}."""
+        with self._db() as db:
+            return b_posttest.review_posttest(topic_id, post_answers, item_ids=item_ids, pre_answers=pre_answers,
+                                              db=db, retriever=self.retriever, llm=self.mcq_llm)
+
+    def register_resource(self, *, source: str, external_id: str, title: str, url: str | None, topic: str,
+                          metadata: Mapping[str, Any]) -> str:
+        """Store (or update) an indexed educational resource's metadata; return its id."""
+        with self._db() as db:
+            return LearningTraceRepository(db).upsert_educational_resource(EducationalResourceCreate(
+                source=source, external_resource_id=external_id, title=title, url=url, topic=topic,
+                metadata=dict(metadata))).id
 
     def store_experience(self, student_id: str, session_id: str, topic_id: str, policy_id: str,
                          context: Mapping[str, Any], evaluation: Mapping[str, Any]) -> dict[str, Any]:

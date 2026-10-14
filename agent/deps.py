@@ -13,7 +13,7 @@ from agent.interfaces import (
 )
 from config import Settings, settings
 from services.crag import CragRetriever
-from services.fakes import FakeLLMClient, FakeMonitor, FakeSearchBackend
+from services.fakes import FakeLLMClient, FakeMonitor, FakeSearchBackend, FakeVideoRecommender
 from services.llm_clients import ExtractiveClient, HuggingFaceClient, OllamaClient
 from services.llm_router import LLMRouter
 from services.monitoring import SystemMonitor
@@ -30,6 +30,15 @@ class Services:
     app: AppGateway  # Person B's DB and services
     rng: random.Random = field(default_factory=lambda: random.Random(settings.policy_rng_seed))
     experiences: Any = None  # agent.experience_store.ExperienceStore (built lazily from app's DB)
+    videos: Any = None  # agent.recommendations.RecommendationCoordinator (built lazily; YouTube + transcripts)
+
+    def video_recommender(self) -> Any:
+        """The YouTube recommender (strategy kNN, ranking, stored runs) and its transcript source."""
+        if self.videos is None:
+            from agent.recommendations import make_recommender
+
+            self.videos = make_recommender(self)
+        return self.videos
 
     def experience_store(self) -> Any:
         """The FAISS-backed experience store over this container's database."""
@@ -82,7 +91,8 @@ def make_fake_services(cfg: Settings = settings, *, app: AppGateway | None = Non
 
     return Services(crag=crag, router=router, monitor=monitor or FakeMonitor(), app=app,
                     rng=rng or random.Random(0),
-                    experiences=ExperienceStore(app.session_factory, index_dir=None))  # in-memory FAISS
+                    experiences=ExperienceStore(app.session_factory, index_dir=None),  # in-memory FAISS
+                    videos=FakeVideoRecommender())  # offline: no YouTube calls
 
 
 _services: Services | None = None

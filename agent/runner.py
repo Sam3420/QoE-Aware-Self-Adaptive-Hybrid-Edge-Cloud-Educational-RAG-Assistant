@@ -67,8 +67,11 @@ class SessionRunner:
             return {"thread_id": thread_id, "interrupt": pause}
         return {"thread_id": thread_id, "final_state": self.graph.get_state(self._cfg(thread_id)).values}
 
-    def start_session(self, student_id: str, topic_id: str) -> dict[str, Any]:
-        """Create the learning session in B's DB and run until the first interrupt."""
+    def start_session(self, student_id: str, topic_id: str = "") -> dict[str, Any]:
+        """Create the learning session in B's DB and run until the first interrupt.
+
+        Without a topic the session pauses at select_topic; with one, that step is skipped.
+        """
         app = get_services().app
         app.ensure_ready()
         session_id = app.create_learning_session(student_id)  # raises LearnerNotFound
@@ -110,7 +113,7 @@ def _runner() -> SessionRunner:
     return _default_runner
 
 
-def start_session(student_id: str, topic_id: str) -> dict[str, Any]:
+def start_session(student_id: str, topic_id: str = "") -> dict[str, Any]:
     """Start a session with the default runner."""
     return _runner().start_session(student_id, topic_id)
 

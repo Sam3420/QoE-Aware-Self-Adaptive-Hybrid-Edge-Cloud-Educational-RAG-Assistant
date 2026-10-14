@@ -7,6 +7,8 @@ class LLMGenerateRequest(BaseModel):
     model_id: str
     max_tokens: int = Field(gt=0)
     temperature: float = Field(ge=0)
+    # Optional JSON schema the reply must follow; providers that can enforce one (Ollama) do.
+    json_schema: dict | None = None
 
 
 class LLMGenerateResult(BaseModel):

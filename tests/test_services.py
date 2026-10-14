@@ -117,4 +117,4 @@ def test_mcq_adapter_sends_schema_and_prefers_cloud():
         LLMGenerateRequest(prompt="p", system_prompt="s", model_id="x", max_tokens=10, temperature=0.0))
     assert result.model_provider == "cloud" and list(seen) == ["cloud"]
     schema = seen["cloud"].json_schema
-    assert schema["type"] == "array" and schema["items"]["required"] == ["question", "options", "answer_index", "concept"]
+    assert schema["type"] == "array" and schema["items"]["required"] == ["question", "options", "answer_index", "concept", "explanation"]

@@ -66,7 +66,9 @@ def test_prepare_then_submit_round_trip(db_session, learner_session):
     )
 
     assert [item["question_no"] for item in test_items] == [1, 2, 3, 4, 5]
-    assert all(set(item) == {"question_no", "question", "options", "concept"} for item in test_items)
+    assert all(set(item) == {"question_no", "item_id", "question", "options", "concept", "reason"}
+               for item in test_items)
+    assert [item["item_id"] for item in test_items] == [0, 1, 2, 3, 4]
     assert "answer_index" not in json.dumps(test_items)
 
     result = submit_pretest(

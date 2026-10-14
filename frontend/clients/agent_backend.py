@@ -19,6 +19,7 @@ from agent.graph import build_graph, get_checkpointer
 from agent.runner import SessionNotFound, SessionRunner
 from app.core.config import get_settings as get_app_settings
 from config import settings
+from knowledge_prep.catalog import catalog_order
 from services.crag import RetrievalResult
 from services.monitoring import ProbeError
 from services.vector_store import IndexMeta
@@ -65,10 +66,34 @@ def describe_node(node: str, update: dict[str, Any]) -> str:
     """One-line summary of a node's real state update, for the execution trace."""
     if node == "load_profile" and "profile" in update:
         return f"learner {update['profile'].get('display_name')!r}, language {update['profile'].get('language')}"
+    if node == "plan_pretest":
+        plan = update.get("pretest_plan") or {}
+        if plan.get("mode") == "unavailable":
+            return f"no pre-test: {plan.get('reason')}"
+        return (f"{plan.get('mode')} learner: {len(update.get('test_items', []))} questions"
+                + (f", weak concepts {', '.join(plan['weak_concepts'])}" if plan.get("weak_concepts") else ""))
     if node == "pre_test":
         if "pre_score" in update:
             return f"pre_score={update['pre_score']:.2f} → competency={update['competency']}"
         return "; ".join(update.get("session_errors", [])) or "waiting for answers"
+    if node == "select_topic":
+        return f"topic {update['topic_id']!r}" if update.get("topic_id") else "topic given at start"
+    if node == "recommend_videos" and "recommendations" in update:
+        r = update["recommendations"]
+        return (f"{r.get('strategy_id') or '-'}: {len(r.get('items', []))} videos, status {r.get('status')}"
+                + (f" ({'; '.join(r['errors'])[:160]})" if r.get("errors") else ""))
+    if node == "select_video":
+        action = update.get("video_action")
+        if action == "video":
+            v = update.get("video") or {}
+            return f"chose {v.get('title')!r}" + (" (index reused)" if v.get("reused_index") else "")
+        return {"refresh": "asked for new recommendations", "end": "ended the session"}.get(action, "-")
+    if node == "prepare_knowledge":
+        if update.get("resource_id"):
+            v = update.get("video") or {}
+            return (f"indexed {v.get('n_chunks', '?')} chunks from {v.get('title')!r} "
+                    f"({v.get('caption_type')} captions, {v.get('caption_language')}) → {update['resource_id']}")
+        return update.get("knowledge_error") or "-"
     if node == "collect_context" and "context" in update:
         c = update["context"]
         return f"rtt={c['rtt_ms']:.0f} ms, cpu={c['cpu']:.0%}, mem={c['mem']:.0%}, last_qoe={c['last_qoe']}"
@@ -127,8 +152,8 @@ class AgentBackend:
             finally:
                 self.runner.on_node = None
 
-    def start_session(self, student_id: str, topic_id: str) -> StepResult:
-        """Create the LearningSession row and run the graph to its first interrupt."""
+    def start_session(self, student_id: str, topic_id: str = "") -> StepResult:
+        """Create the LearningSession row and run the graph to its first interrupt (select_topic)."""
         return self._run(lambda: self.runner.start_session(student_id, topic_id))
 
     def resume(self, thread_id: str, payload: Any) -> StepResult:
@@ -201,7 +226,7 @@ class AgentBackend:
         if settings.vector_index_dir.is_dir():
             for meta in settings.vector_index_dir.glob("*.json"):
                 found.setdefault(meta.stem, None)
-        return dict(sorted(found.items()))
+        return dict(sorted(found.items(), key=lambda kv: catalog_order(kv[0])))
 
     def index_status(self, topic: str) -> IndexStatus:
         """Read the topic's index sidecar and check it matches the configured embedder."""

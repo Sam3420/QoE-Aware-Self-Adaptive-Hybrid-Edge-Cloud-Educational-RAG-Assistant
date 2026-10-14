@@ -10,6 +10,18 @@ ANSWERS = ["A", "B", "C", "D", "A"]  # all correct for FakeMCQProvider's items
 CTX = {"rtt_ms": 180.0, "cpu": 0.35, "mem": 0.55, "competency_num": 0.0, "last_qoe": 0.5}
 
 
+def pick_video(runner, tid, out=None, index=0):
+    """Choose the index-th recommended video at the select_video interrupt."""
+    pause = (out or runner.get_state(tid))["interrupt"]
+    assert pause["type"] == "select_video", pause
+    return runner.resume(tid, {"item_id": pause["items"][index]["item_id"]})
+
+
+def pass_pretest(runner, tid, answers=ANSWERS):
+    """Answer the pre-test, then pick the top recommended video (prepare_knowledge indexes it)."""
+    return pick_video(runner, tid, runner.resume(tid, {"answers": answers}))
+
+
 @pytest.fixture
 def services():
     """Fake retrieval/LLMs/monitor; rng seed 0 (first draw 0.84 ≥ ε, so selection is greedy)."""

@@ -3,7 +3,7 @@ import pytest
 from pydantic import ValidationError
 
 from agent.policies import POLICIES, get_policy
-from agent.routing import continue_session, crag_ok, more_questions, need_pretest
+from agent.routing import continue_session, crag_ok, more_questions
 from agent.schemas import PostTestReply, PreTestReply, QuestionReply, RuntimeConfig
 from agent.state import initial_state
 from config import settings
@@ -13,11 +13,6 @@ def _state(**overrides):
     state = initial_state("s1", "photosynthesis")
     state.update(overrides)
     return state
-
-
-def test_need_pretest_until_a_pre_score_exists():
-    assert need_pretest(_state(pre_score=None)) == "pre_test"
-    assert need_pretest(_state(pre_score=0.0)) == "collect_context"
 
 
 @pytest.mark.parametrize(

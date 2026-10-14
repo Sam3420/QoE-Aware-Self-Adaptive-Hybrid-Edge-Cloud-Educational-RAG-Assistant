@@ -54,7 +54,7 @@ def test_gap_concepts_come_from_wrong_pretest_answers(rec, learner, services):
     assert needs["competency"] == "intermediate" and needs["competency_num"] == 0.5
     assert needs["language_code"] == "en"  # learner default "english"
     run = rec.recommend(learner, "photosynthesis")
-    assert run["objective"] == "photosynthesis: concept 2, concept 3, concept 4"
+    assert run["objective"] == "Photosynthesis class 7: concept 2, concept 3, concept 4"  # catalogue title, not the id
     assert run["request"]["concepts"] == ["concept 2", "concept 3", "concept 4"]
 
 

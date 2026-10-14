@@ -20,6 +20,7 @@ from agent.policy_selection import choose_policy
 from app.db.repositories import AdaptationRepository, RecommendationRepository
 from app.services.mcq import normalize_answer
 from config import Settings, settings
+from knowledge_prep.catalog import search_text
 from services.vector_store import HashingEmbedder
 from services.youtube.cache import JsonFileCache
 from services.youtube.data_api import QuotaTracker, YouTubeDataClient
@@ -68,6 +69,11 @@ class RecommendationCoordinator:
         self.services = services
         self.rng = rng
         self.cfg = cfg
+
+    @property
+    def transcripts(self) -> TranscriptFetcher:
+        """The pipeline's (cached) transcript source, also used to index a chosen video."""
+        return self.pipeline.transcripts
 
     @contextmanager
     def _db(self) -> Iterator[Session]:
@@ -130,11 +136,12 @@ class RecommendationCoordinator:
             strategy, reason = self.choose_strategy(context)
 
         concepts = needs["gap_concepts"] if concepts is None else [c.strip() for c in concepts if c.strip()]
-        objective = (objective or "").strip() or (f"{topic_id}: {', '.join(concepts[:4])}" if concepts else topic_id)
+        topic_text = search_text(topic_id)  # "Crop Production and Management class 8", not the id
+        objective = (objective or "").strip() or (f"{topic_text}: {', '.join(concepts[:4])}" if concepts else topic_text)
         with self._db() as db:
             excluded = {} if revision else RecommendationRepository(db).learner_video_states(student_id)
         request = RecommendationRequest(
-            topic=topic_id, objective=objective, concepts=concepts[:8], language_code=needs["language_code"],
+            topic=topic_text, objective=objective, concepts=concepts[:8], language_code=needs["language_code"],
             competency=needs["competency"], competency_num=needs["competency_num"], excluded=excluded,
             count=count or self.cfg.rec_count)
 

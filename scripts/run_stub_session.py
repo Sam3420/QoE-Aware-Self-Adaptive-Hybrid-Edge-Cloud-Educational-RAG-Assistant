@@ -2,7 +2,8 @@
 
 Fakes: retrieval, LLMs, monitor and MCQ generation. Real: the graph, CRAG/router logic, policy
 selection, and Person B's DB code on a private in-memory SQLite DB.
-Scenario: 3 seeded experiences make kNN pick P2 (1 CRAG retry allowed); pre-test; Q1 is vague and
+Scenario: 3 seeded experiences make kNN pick P2 (1 CRAG retry allowed); topic choice; pre-test; the top
+fake video recommendation is chosen and its fake transcript indexed; Q1 is vague and
 triggers one retry; a blank question is re-asked; Q2; {"end": true}; post-test with feedback.
 Exits non-zero if the visited path or the final state is not as expected.
 """
@@ -18,7 +19,9 @@ from agent.runner import SessionRunner  # noqa: E402
 
 ANSWERS = ["A", "B", "C", "D", "A"]  # all correct for the fake MCQ items
 RESUMES: list[Any] = [
+    {"topic_id": "photosynthesis"},  # select_topic
     {"answers": ANSWERS},  # pre_test
+    {"item_id": "fake-run-1-item-0"},  # select_video: the fake recommender's top video
     "photosynthesis?",  # vague: triggers 1 CRAG retry (bare string = {"query": ...})
     {"query": "   "},  # invalid: blank, so ask_question re-asks
     {"query": "How do plants convert sunlight into chemical energy?"},
@@ -26,7 +29,8 @@ RESUMES: list[Any] = [
     {"answers": ["A", "B", "C", "A", "A"], "rating": 4, "comment": "Clear answers, a bit slow."},
 ]
 EXPECTED_PATH = [
-    "load_profile", "pre_test", "collect_context", "select_policy",
+    "load_profile", "select_topic", "plan_pretest", "pre_test", "recommend_videos", "select_video",
+    "prepare_knowledge", "collect_context", "select_policy",
     "ask_question", "crag_retrieve", "corrective_retrieve", "crag_retrieve", "llm_router", "generate_response",
     "ask_question", "crag_retrieve", "llm_router", "generate_response",
     "ask_question", "post_test_and_feedback", "evaluate_session", "store_experience",
@@ -60,7 +64,7 @@ def main() -> int:
 
     checkpointer = get_checkpointer()
     runner = SessionRunner(build_graph(checkpointer), on_node=on_node)
-    out = runner.start_session(student, "photosynthesis")
+    out = runner.start_session(student)
     tid = out["thread_id"]
     print(f"Session {tid} (checkpoints: data/checkpoints.db)\n")
     reasked = False
@@ -100,6 +104,7 @@ def main() -> int:
         "Q1 had 1 CRAG retry with a rewritten query": q1.get("crag_retries") == 1
         and q1.get("retrieval_query") != q1.get("query"),
         "Q2 had 0 CRAG retries": q2.get("crag_retries") == 0,
+        "answers retrieved from the chosen video's index": s["resource_id"] == "yt_fakeVid1000",
         "answers came from the local route": all(e["model_used"].startswith("local:") for e in s["qa_log"]),
         "pre/post-test scored by B's services": s["pre_score"] == 1.0 and s["post_score"] == 0.8,  # 4 of 5 correct
         "reward computed from measured QoE/SRE": s["evaluation"].get("status") == "completed"

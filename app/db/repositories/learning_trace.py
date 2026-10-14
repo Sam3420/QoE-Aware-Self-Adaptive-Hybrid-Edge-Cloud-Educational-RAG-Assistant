@@ -114,6 +114,23 @@ class LearningTraceRepository:
         self.session.flush()
         return resource
 
+    def upsert_educational_resource(self, data: EducationalResourceCreate) -> EducationalResource:
+        """Create the resource, or update the stored one with the same (source, external id)."""
+        resource = self.session.scalars(
+            select(EducationalResource).where(
+                EducationalResource.source == data.source,
+                EducationalResource.external_resource_id == data.external_resource_id,
+            )
+        ).first()
+        if resource is None:
+            return self.create_educational_resource(data)
+        resource.title = data.title
+        resource.url = str(data.url) if data.url else None
+        resource.topic = data.topic
+        resource.resource_metadata = {**(resource.resource_metadata or {}), **data.metadata}
+        self.session.flush()
+        return resource
+
     def create_runtime_configuration(
         self,
         data: RuntimeConfigurationCreate,

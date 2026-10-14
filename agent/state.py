@@ -15,9 +15,20 @@ class AgentState(TypedDict):
     # Learner profile and assessment
     profile: dict[str, Any]
     competency: str
-    test_items: list[dict[str, Any]]
+    test_items: list[dict[str, Any]]  # this session's pre-test questions (with bank item_id and reason)
+    pretest_plan: dict[str, Any]  # mode (new/returning/unavailable), weak_concepts, previous session, notes
     pre_score: float | None
     post_score: float | None
+    pre_result: dict[str, Any]  # correct, total, competency, answers (letters) of this session's pre-test
+    post_review: dict[str, Any]  # answer key after the post-test: items (answer, explanation, your answers), note
+
+    # Learning resource: recommended videos, the chosen one, and the index Q&A retrieves from
+    recommendations: dict[str, Any]  # run_id, status, errors, strategy_id, decision_reason, items
+    video_action: str  # select_video's decision: "video", "refresh" or "end"
+    video: dict[str, Any]  # chosen video (video_id, title, url, item_id, ...) plus index details once prepared
+    resource_id: str  # FAISS index answering questions (yt_<video_id>); "" until knowledge is prepared
+    knowledge_attempts: list[dict[str, Any]]  # videos tried by prepare_knowledge, with failure reasons
+    knowledge_error: str  # why no recommended video could be indexed (shown again by select_video)
 
     # Policy selection
     context: dict[str, Any]  # rtt_ms, cpu, mem, competency_num, last_qoe
@@ -57,7 +68,7 @@ class AgentState(TypedDict):
     session_errors: Annotated[list[str], operator.add]
 
 
-def initial_state(student_id: str, topic_id: str, session_id: str | None = None) -> AgentState:
+def initial_state(student_id: str, topic_id: str = "", session_id: str | None = None) -> AgentState:
     """Return a fully populated starting state for a new session."""
     return AgentState(
         student_id=student_id,
@@ -66,8 +77,17 @@ def initial_state(student_id: str, topic_id: str, session_id: str | None = None)
         profile={},
         competency="",
         test_items=[],
+        pretest_plan={},
         pre_score=None,
         post_score=None,
+        pre_result={},
+        post_review={},
+        recommendations={},
+        video_action="",
+        video={},
+        resource_id="",
+        knowledge_attempts=[],
+        knowledge_error="",
         context={},
         similar_exps=[],
         policy_id="",

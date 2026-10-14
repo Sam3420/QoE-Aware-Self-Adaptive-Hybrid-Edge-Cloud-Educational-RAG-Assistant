@@ -27,6 +27,10 @@ class Settings(BaseSettings):
     competency_beginner_max: float = Field(default=0.4, ge=0, le=1)
     competency_intermediate_max: float = Field(default=0.75, ge=0, le=1)
     mcq_n_items: int = Field(default=5, gt=0)
+    # A returning learner's pre-test re-asks at most this many previously missed questions.
+    mcq_retest_max: int = Field(default=2, ge=0)
+    # The topic bank grows with new questions when a returning learner has seen them all; it stops here.
+    mcq_bank_max_items: int = Field(default=40, gt=0)
     mcq_max_retries: int = Field(default=1, ge=0)
     mcq_context_chunks: int = Field(default=5, gt=0)
     mcq_max_tokens: int = Field(default=1024, gt=0)

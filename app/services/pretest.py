@@ -18,13 +18,17 @@ from app.services.errors import (
     LearningSessionNotFoundError,
     QuestionBankNotFoundError,
 )
+from app.core.config import get_settings
+from app.services.errors import MCQGenerationError
 from app.services.mcq import (
     KnowledgeRetriever,
     competency_from_score,
+    extend_topic_items,
     get_or_create_topic_items,
     score_mcqs,
     session_scope,
 )
+from app.services.pretest_planning import PretestPlan, plan_pretest as plan_items
 
 logger = get_logger(__name__)
 
@@ -37,15 +41,56 @@ def prepare_pretest(
     retriever: KnowledgeRetriever | None = None,
     llm: LLMProvider | None = None,
 ) -> list[dict[str, Any]]:
-    """Return the topic's pre-test items for display, with ``answer_index`` removed.
+    """Return this learner's pre-test items for display (see ``plan_pretest``)."""
+    return plan_pretest(student_id, topic_id, db=db, retriever=retriever, llm=llm)["items"]
 
-    Each item is ``{question_no, question, options, concept}``; answer with letters
-    ``"A"``-``"D"`` in the same order. Items are shared per topic, so ``student_id``
-    is accepted for the node's interface but does not change the items.
+
+def plan_pretest(
+    student_id: str,
+    topic_id: str,
+    *,
+    db: Session | None = None,
+    retriever: KnowledgeRetriever | None = None,
+    llm: LLMProvider | None = None,
+) -> dict[str, Any]:
+    """Plan the learner's pre-test for a topic and return ``{mode, items, weak_concepts, previous, notes}``.
+
+    A learner new to the topic gets the standard first questions of the bank (generated once per topic).
+    A returning learner gets questions they missed last time plus unseen ones, preferring concepts they got
+    wrong; if the bank has too few unseen questions, new ones focused on those concepts are generated and
+    added first. Each item is ``{question_no, item_id, question, options, concept, reason}`` without the
+    answer; ``item_id`` is the bank position to pass back to ``submit_pretest``.
+    A failed top-up is not fatal: the plan falls back to review questions and says so in ``notes``.
     """
-    items = get_or_create_topic_items(topic_id, db=db, retriever=retriever, llm=llm)
-    logger.info("pretest_prepared student_id=%s topic_id=%s n_items=%s", student_id, topic_id, len(items))
-    return strip_answers(items)
+    settings = get_settings()
+    notes: list[str] = []
+    with session_scope(db) as session:
+        bank_items = get_or_create_topic_items(topic_id, db=session, retriever=retriever, llm=llm)
+        assessments = AdaptationRepository(session).list_assessments(student_id, topic_id)
+        plan = _plan(bank_items, assessments, settings)
+        if plan.mode == "returning" and plan.unseen_needed:
+            try:
+                added = extend_topic_items(topic_id, focus_concepts=plan.weak_concepts, db=session,
+                                           retriever=retriever, llm=llm)
+            except MCQGenerationError as exc:
+                added = 0
+                notes.append(f"Could not add new questions ({exc}); some questions are repeated for review.")
+            if added:
+                bank_items = AdaptationRepository(session).get_question_bank(topic_id)["items"]
+                plan = _plan(bank_items, assessments, settings)
+            elif not notes:
+                notes.append("No new questions could be added to the bank; some questions are repeated for review.")
+
+    items = strip_answers([bank_items[p.bank_index] for p in plan.items],
+                          item_ids=[p.bank_index for p in plan.items], reasons=[p.reason for p in plan.items])
+    logger.info("pretest_planned student_id=%s topic_id=%s mode=%s n_items=%s weak=%s",
+                student_id, topic_id, plan.mode, len(items), plan.weak_concepts)
+    return {"mode": plan.mode, "items": items, "weak_concepts": plan.weak_concepts,
+            "previous": plan.previous, "notes": notes}
+
+
+def _plan(bank_items: list[dict[str, Any]], assessments: list[dict[str, Any]], settings: Any) -> PretestPlan:
+    return plan_items(bank_items, assessments, n=settings.mcq_n_items, retest_max=settings.mcq_retest_max)
 
 
 def submit_pretest(
@@ -54,10 +99,14 @@ def submit_pretest(
     topic_id: str,
     answers: Sequence[Any],
     *,
+    item_ids: Sequence[int] | None = None,
     db: Session | None = None,
 ) -> dict[str, Any]:
     """Score the learner's pre-test answers, persist the assessment, and return
     ``{assessment_id, score, competency}`` (score is a 0-1 fraction).
+
+    ``item_ids`` are the bank positions of the questions shown (from ``plan_pretest``); without them the
+    first MCQ_N_ITEMS bank questions are assumed.
 
     Raises LearnerNotFoundError / LearningSessionNotFoundError if the learner or session
     does not exist (or the session belongs to another learner), and
@@ -80,7 +129,7 @@ def submit_pretest(
             student_id=student_id,
             session_id=session_id,
             topic_id=topic_id,
-            items=bank["items"],
+            items=select_bank_items(bank["items"], item_ids),
             answers=answers,
         )
         logger.info(
@@ -112,17 +161,35 @@ def ensure_learner_session(session: Session, student_id: str, session_id: str) -
         )
 
 
-def strip_answers(items: Sequence[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Return items safe to show the learner: ``{question_no, question, options, concept}``."""
-    return [
-        {
+def select_bank_items(bank_items: Sequence[dict[str, Any]],
+                      item_ids: Sequence[int] | None) -> list[dict[str, Any]]:
+    """The bank items at ``item_ids`` (in that order), or the first MCQ_N_ITEMS when no ids are given."""
+    if item_ids is None:
+        return list(bank_items[: get_settings().mcq_n_items])
+    invalid = [i for i in item_ids if not 0 <= i < len(bank_items)]
+    if invalid:
+        raise ValueError(f"Unknown question ids {invalid}; the bank has {len(bank_items)} questions.")
+    return [bank_items[i] for i in item_ids]
+
+
+def strip_answers(items: Sequence[dict[str, Any]], *, item_ids: Sequence[int] | None = None,
+                  reasons: Sequence[str] | None = None) -> list[dict[str, Any]]:
+    """Return items safe to show the learner: ``{question_no, question, options, concept}``, plus
+    ``item_id`` and ``reason`` when given."""
+    shown = []
+    for number, item in enumerate(items, start=1):
+        entry = {
             "question_no": number,
             "question": item["question"],
             "options": list(item["options"]),
             "concept": item["concept"],
         }
-        for number, item in enumerate(items, start=1)
-    ]
+        if item_ids is not None:
+            entry["item_id"] = item_ids[number - 1]
+        if reasons is not None:
+            entry["reason"] = reasons[number - 1]
+        shown.append(entry)
+    return shown
 
 
 def record_scored_assessment(
@@ -136,7 +203,7 @@ def record_scored_assessment(
     answers: Sequence[Any],
 ) -> dict[str, Any]:
     """Score ``answers`` against ``items``, persist the assessment, and return
-    ``{assessment_id, score, competency}``."""
+    ``{assessment_id, score, competency, correct, total}``."""
     score = score_mcqs(items, answers)
     competency = competency_from_score(score)
     assessment = repository.create_assessment(
@@ -151,4 +218,5 @@ def record_scored_assessment(
             competency=CompetencyLevel(competency),
         )
     )
-    return {"assessment_id": assessment["id"], "score": score, "competency": competency}
+    return {"assessment_id": assessment["id"], "score": score, "competency": competency,
+            "correct": round(score * len(items)), "total": len(items)}

@@ -9,7 +9,7 @@ is simulated. When a component is unavailable, the UI shows the real error inste
 | What | How | Why |
 |---|---|---|
 | Backend health, text questions (Phase 2 assistant) | HTTP → FastAPI (`GET /health`, `POST /sessions/{id}/interactions/text-question`) | These are the only routes the API exposes |
-| Learning sessions (pre-test → policy → CRAG → router → post-test → experience) | In-process → `agent/runner.py` `SessionRunner` with `agent.deps.make_real_services()` | The agent has no HTTP API; `docs/agent_runner.md` names the runner as the UI entry point |
+| Learning sessions (topic → pre-test → video recommendation → video choice → transcript index → policy → CRAG → router → post-test → experience) | In-process → `agent/runner.py` `SessionRunner` with `agent.deps.make_real_services()` | The agent has no HTTP API; `docs/agent_runner.md` names the runner as the UI entry point |
 | Learners, sessions, personalization, history | In-process → `AppGateway`, `LearningTraceRepository`, `AdaptationRepository` | No API routes exist for them |
 | Index building, retrieval explorer | In-process → `knowledge_prep.build_index`, `services.crag.CragRetriever` | Same objects the agent uses |
 | CPU / memory / RTT | In-process → `services.monitoring.SystemMonitor` | Same measurements `collect_context` uses |
@@ -27,11 +27,14 @@ python -m venv .venv
 .venv\Scripts\pip install -r requirements.txt fastapi uvicorn
 
 # terminal 1: FastAPI backend (creates tables on startup)
-.venv\Scripts\uvicorn app.main:app --host 127.0.0.1 --port 8000
+.venv\Scripts\python -m uvicorn app.main:app --host 127.0.0.1 --port 8000
 
 # terminal 2: Streamlit frontend
-.venv\Scripts\streamlit run frontend\streamlit_app.py
+.venv\Scripts\python -m streamlit run frontend\streamlit_app.py
 ```
+
+Use `python -m …` rather than `.venv\Scripts\uvicorn.exe` / `streamlit.exe`: Windows Smart App Control can block
+those pip-generated launchers ("Permission denied"), while python.exe is signed.
 
 Open http://localhost:8501. The database tables and policies P1–P4 are created on first start; no
 separate initialisation command is needed.
@@ -64,7 +67,7 @@ Restart both processes after editing `.env`; settings are read once at startup.
 ## Pages
 
 - **Dashboard**: live API/DB/LLM-route/index status and activity counts from the DB and checkpoints.
-- **Learning session**: the full agent loop. The pre-test, chat, post-test and summary are each a real graph interrupt. Each answer has a *Technical details* panel (model, route, latencies, retrieval score, CRAG retries, retrieved chunks, errors).
+- **Learning session**: the full agent loop. Topic choice, pre-test, video choice, chat and post-test are each a real graph interrupt. Videos come from the YouTube Data API (needs `YOUTUBE_API_KEY`); the chosen video's transcript is fetched in the learner's language, indexed once as `yt_<video_id>`, and answers are retrieved from it. A video without a usable transcript is skipped for the next recommendation. Each answer has a *Technical details* panel (model, route, latencies, retrieval score, CRAG retries, retrieved chunks, errors).
 - **Quick ask (API)**: the FastAPI assistant over HTTP. The conversation is read back from the `interactions` table, including failed attempts the backend recorded.
 - **Learner profile**: Phase 3 fields saved to `learner_profiles`, with notes on which fields the agent actually reads.
 - **Knowledge & retrieval**: index status, build/rebuild, transcript upload, and a CRAG retrieval explorer.

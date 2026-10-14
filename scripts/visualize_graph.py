@@ -22,7 +22,7 @@ from agent.graph import build_builder  # noqa: E402
 from config import settings  # noqa: E402
 
 # Human-in-the-loop nodes are highlighted in the diagram.
-INTERRUPT_NODES = ["pre_test", "ask_question", "post_test_and_feedback"]
+INTERRUPT_NODES = ["select_topic", "pre_test", "select_video", "ask_question", "post_test_and_feedback"]
 # Nodes still calling a stub (none since the QoE/SRE/reward modules landed).
 STUB_NODES: list[str] = []
 

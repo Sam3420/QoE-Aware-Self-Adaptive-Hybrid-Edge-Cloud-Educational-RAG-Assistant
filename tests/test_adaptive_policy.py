@@ -10,7 +10,7 @@ from agent.weight_estimation import estimate_group
 from app.db.repositories import AdaptiveLearningRepository
 from metrics.reward import RuntimeState
 from services.experience_index import FaissExperienceIndex
-from tests.conftest import ANSWERS, CTX
+from tests.conftest import ANSWERS, CTX, pass_pretest
 
 ADVANCED = {**CTX, "competency_num": 1.0}  # context of a session whose learner aces the pre-test
 FAR = {"rtt_ms": 2000.0, "cpu": 0.95, "mem": 0.95, "competency_num": 1.0, "last_qoe": 0.0}
@@ -135,7 +135,7 @@ def _session(runner, learner, questions=("How do plants make glucose from light?
     out = runner.start_session(learner, "photosynthesis")
     tid = out["thread_id"]
     if out["interrupt"]["type"] == "pre_test":
-        runner.resume(tid, {"answers": ANSWERS})
+        pass_pretest(runner, tid, ANSWERS)
     for q in questions:
         runner.resume(tid, {"query": q})
     runner.resume(tid, {"end": True})

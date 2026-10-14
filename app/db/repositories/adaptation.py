@@ -75,6 +75,15 @@ class AdaptationRepository:
         assessment = self.session.scalars(statement).first()
         return _assessment_to_dict(assessment) if assessment is not None else None
 
+    def list_assessments(self, student_id: str, topic_id: str) -> list[dict[str, Any]]:
+        """Return every pre/post assessment of a learner on a topic, newest first."""
+        statement = (
+            select(Assessment)
+            .where(Assessment.student_id == student_id, Assessment.topic_id == topic_id)
+            .order_by(Assessment.created_at.desc())
+        )
+        return [_assessment_to_dict(assessment) for assessment in self.session.scalars(statement)]
+
     def has_pre_score(self, student_id: str, topic_id: str) -> bool:
         """Return True if the learner already has a pre-test score for the topic."""
         return self.get_latest_assessment(student_id, topic_id, AssessmentType.PRE) is not None
@@ -188,6 +197,32 @@ class AdaptationRepository:
             model_name=model_name,
         )
         self.session.add(bank)
+        self.session.flush()
+        return _bank_to_dict(bank)
+
+    def append_question_bank_items(self, topic_id: str, items: list[dict[str, Any]]) -> dict[str, Any]:
+        """Add items to the end of a topic's bank (existing positions never change) and return it."""
+        bank = self.session.scalars(
+            select(TopicQuestionBank).where(TopicQuestionBank.topic_id == topic_id)
+        ).first()
+        if bank is None:
+            raise ReferencedRecordNotFoundError(f"Topic {topic_id!r} has no question bank.")
+        bank.items = [*bank.items, *items]  # reassign so SQLAlchemy sees the JSON change
+        bank.n_items = len(bank.items)
+        self.session.flush()
+        return _bank_to_dict(bank)
+
+    def set_question_bank_explanations(self, topic_id: str, explanations: dict[int, str]) -> dict[str, Any]:
+        """Set ``explanation`` on the bank items at the given positions and return the bank."""
+        bank = self.session.scalars(
+            select(TopicQuestionBank).where(TopicQuestionBank.topic_id == topic_id)
+        ).first()
+        if bank is None:
+            raise ReferencedRecordNotFoundError(f"Topic {topic_id!r} has no question bank.")
+        items = [dict(item) for item in bank.items]
+        for index, text in explanations.items():
+            items[index]["explanation"] = text
+        bank.items = items  # reassign so SQLAlchemy sees the JSON change
         self.session.flush()
         return _bank_to_dict(bank)
 

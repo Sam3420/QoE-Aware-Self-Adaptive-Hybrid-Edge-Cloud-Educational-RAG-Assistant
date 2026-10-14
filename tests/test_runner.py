@@ -3,7 +3,7 @@ import pytest
 
 from agent.interfaces import LearnerNotFound
 from agent.runner import SessionNotFound, SessionNotPaused
-from tests.conftest import ANSWERS
+from tests.conftest import ANSWERS, pass_pretest
 
 
 def test_full_session_through_runner(runner, learner, services):
@@ -12,7 +12,7 @@ def test_full_session_through_runner(runner, learner, services):
     assert out["interrupt"]["type"] == "pre_test"
     assert all("answer_index" not in item for item in out["interrupt"]["items"])  # answers never leak
 
-    out = runner.resume(tid, {"answers": ANSWERS})
+    out = pass_pretest(runner, tid, ANSWERS)
     assert out["interrupt"] == {"type": "ask_question", "question_no": 1,
                                 "prompt": 'Ask your question about this topic, or send {"end": true} to finish.'}
     out = runner.resume(tid, {"query": "How do leaves take in carbon dioxide?"})
@@ -52,7 +52,7 @@ def test_unknown_learner_and_thread_and_finished_session(runner, learner):
     with pytest.raises(SessionNotFound):
         runner.get_state("missing")
     tid = runner.start_session(learner, "photosynthesis")["thread_id"]
-    runner.resume(tid, {"answers": ANSWERS})
+    pass_pretest(runner, tid, ANSWERS)
     runner.resume(tid, {"end": True})
     runner.resume(tid, {"answers": ANSWERS, "rating": 3})
     with pytest.raises(SessionNotPaused):
