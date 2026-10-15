@@ -44,6 +44,7 @@ from services.youtube.ranking import (
 )
 from services.youtube.relevance import RelevanceScorer, chunk_transcript, keyword_overlap, metadata_text
 from services.youtube.transcripts import TranscriptFetcher, timed_fetch, truncate_record
+from telemetry import tracing
 
 logger = logging.getLogger(__name__)
 _LEVEL_HINTS = {"beginner": "explained simply", "intermediate": "", "advanced": "in depth"}
@@ -289,22 +290,28 @@ class RecommendationPipeline:
                 errors.append(f"transcript embedding failed; transcripts not used for ranking: {exc}")
 
         # ---- final ranking --------------------------------------------------------------------------
-        final_started = time.perf_counter()
-        results = []
-        for video in scored:
-            video.features["caption_match"] = caption_match(video.candidate, video.transcript)
-            video.features["language_match"] = language_match(video.candidate, video.transcript, request.language_code)
-            video.score, video.coverage = combine(video.features, weights, s.prior)
-            rel = video.features["transcript_relevance"]
-            topic = video.features["topic_similarity"]
-            if rel is not None and rel < strategy.min_transcript_relevance:
-                filtered.append(_filtered(video, f"transcript relevance {rel:.2f} < {strategy.min_transcript_relevance}"))
-            elif rel is None and topic is not None and topic < strategy.min_topic_similarity:
-                filtered.append(_filtered(video, f"topic similarity {topic:.2f} < {strategy.min_topic_similarity}"))
-            else:
-                results.append(video)
-        results.sort(key=lambda v: (v.score, v.coverage), reverse=True)
-        recs = [self._to_recommendation(rank, v, request, learner) for rank, v in enumerate(results[:request.count], 1)]
+        with tracing.observation("rank-videos", as_type="span",
+                                 input={"candidates": len(scored), "weights": weights.weights},
+                                 metadata={"strategy_id": strategy.strategy_id}) as rank_obs:
+            final_started = time.perf_counter()
+            results = []
+            for video in scored:
+                video.features["caption_match"] = caption_match(video.candidate, video.transcript)
+                video.features["language_match"] = language_match(video.candidate, video.transcript, request.language_code)
+                video.score, video.coverage = combine(video.features, weights, s.prior)
+                rel = video.features["transcript_relevance"]
+                topic = video.features["topic_similarity"]
+                if rel is not None and rel < strategy.min_transcript_relevance:
+                    filtered.append(_filtered(video, f"transcript relevance {rel:.2f} < {strategy.min_transcript_relevance}"))
+                elif rel is None and topic is not None and topic < strategy.min_topic_similarity:
+                    filtered.append(_filtered(video, f"topic similarity {topic:.2f} < {strategy.min_topic_similarity}"))
+                else:
+                    results.append(video)
+            results.sort(key=lambda v: (v.score, v.coverage), reverse=True)
+            recs = [self._to_recommendation(rank, v, request, learner) for rank, v in enumerate(results[:request.count], 1)]
+            rank_obs.update(output={"ranked": [{"video_id": r.video_id, "score": r.score,
+                                                "evidence": r.evidence_level} for r in recs],
+                                    "filtered": [f.model_dump() for f in filtered]})
         timings.ranking_ms = round(max(ranking_ms, 0.0) + (time.perf_counter() - final_started) * 1000, 1)
         metrics.candidates_filtered = len(filtered)
 
@@ -320,7 +327,9 @@ class RecommendationPipeline:
         s = self.settings
         started = time.perf_counter()
         pool = ThreadPoolExecutor(max_workers=min(s.transcript_workers, len(video_ids)), thread_name_prefix="transcript")
-        futures = {pool.submit(timed_fetch, self.transcripts, vid, s.transcript_languages): vid for vid in video_ids}
+        # Worker threads do not inherit the tracing context: bind each task to a copy of it, so the
+        # transcript observations nest under this request instead of starting orphan traces.
+        futures = {pool.submit(tracing.with_current_context(self._traced_fetch), vid): vid for vid in video_ids}
         done, _ = wait(futures, timeout=s.transcript_time_budget_s)
         pool.shutdown(wait=False, cancel_futures=True)
         out: dict[str, Any] = {}
@@ -333,6 +342,20 @@ class RecommendationPipeline:
                 out[vid] = TranscriptRecord(video_id=vid, status=TranscriptStatus.FAILED, error=reason)
         out["__elapsed_ms__"] = round((time.perf_counter() - started) * 1000, 1)
         return out
+
+    def _traced_fetch(self, video_id: str) -> tuple[TranscriptRecord, float]:
+        """One transcript fetch as a `tool` observation (WARNING when no usable transcript)."""
+        languages = self.settings.transcript_languages
+        with tracing.observation("fetch-transcript", as_type="tool",
+                                 input={"video_id": video_id, "languages": list(languages)},
+                                 metadata={"source": "youtube-transcript-api"}) as obs:
+            record, ms = timed_fetch(self.transcripts, video_id, languages)
+            ok = record.status == TranscriptStatus.OK
+            obs.update(output={"status": record.status.value, "language": record.language_code,
+                               "caption_type": record.caption_type, "segments": len(record.segments),
+                               "from_cache": record.from_cache, "error": record.error},
+                       **({} if ok else {"level": "WARNING", "status_message": record.error or record.status.value}))
+            return record, ms
 
     @staticmethod
     def _to_recommendation(rank: int, video: ScoredVideo, request: RecommendationRequest,

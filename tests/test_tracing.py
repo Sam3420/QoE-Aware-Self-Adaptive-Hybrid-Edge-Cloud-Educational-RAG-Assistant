@@ -13,7 +13,7 @@ from config import Settings, settings
 from services.llm_clients import OllamaClient
 from services.vector_store import HashingEmbedder
 from telemetry import tracing
-from tests.conftest import ANSWERS, seed_experiences
+from tests.conftest import ANSWERS, pass_pretest, seed_experiences
 from tests.youtube_fakes import OBJECTIVE, FakeTranscripts, FakeYouTubeApi, make_client
 
 TYPE, LEVEL = "langfuse.observation.type", "langfuse.observation.level"
@@ -90,7 +90,7 @@ def ollama(services):
 def run_session(runner, learner, comment="clear and helpful"):
     out = runner.start_session(learner, "photosynthesis")
     tid = out["thread_id"]
-    runner.resume(tid, {"answers": ANSWERS})
+    pass_pretest(runner, tid)
     runner.resume(tid, {"query": "How do plants make glucose from light?"})
     runner.resume(tid, {"end": True})
     final = runner.resume(tid, {"answers": ANSWERS, "rating": 4, "comment": comment})
@@ -107,12 +107,14 @@ def test_learning_session_traces_follow_best_practices(traced, runner, learner, 
     traces = spans_by_trace(client, exporter)
     roots = {root(spans).name: spans for spans in traces.values()}
     # one trace per learner step, verb-first names
-    assert set(roots) == {"start-learning-session", "submit-pretest", "answer-question", "end-questions",
-                          "submit-posttest"}
+    assert set(roots) == {"start-learning-session", "submit-pretest", "choose-video", "answer-question",
+                          "end-questions", "submit-posttest"}
     for spans in roots.values():
         assert load(root(spans), TYPE) == "agent"
         assert all(s.attributes.get("session.id") == tid and s.attributes.get("user.id") == learner for s in spans)
         assert all(s.attributes.get("langfuse.trace.tags") == ("learning-session",) for s in spans)
+        # nested helpers (recommend-videos) must not rename the step's trace
+        assert {s.attributes.get("langfuse.trace.name") for s in spans} <= {root(spans).name, None}
         assert not [s.name for s in spans if s.attributes.get(LEVEL) == "ERROR"]  # interrupts are not errors
         assert all(s.attributes.get(INPUT) is not None or s.attributes.get(OUTPUT) is not None for s in spans)
 
@@ -129,8 +131,15 @@ def test_learning_session_traces_follow_best_practices(traced, runner, learner, 
     assert all(s.parent.span_id in ids for s in answer if s.parent)  # nothing dangles outside the tree
 
     start = roots["start-learning-session"]
+    assert load(by_name(start, "choose-topic")[0], OUTPUT) == {"topic_id": "preset"}
+    assert load(by_name(start, "plan-pretest")[0], OUTPUT)["items"] > 0
     assert load(by_name(start, "run-pretest")[0], OUTPUT) == {"waiting_for_learner": "pre_test", "reask_error": None}
-    policy = roots["submit-pretest"]
+    pretest = roots["submit-pretest"]
+    assert load(by_name(pretest, "receive-video-choice")[0], OUTPUT)["waiting_for_learner"] == "select_video"
+    policy = roots["choose-video"]
+    chosen = load(by_name(policy, "receive-video-choice")[0], OUTPUT)
+    assert chosen["action"] == "video" and chosen["video_id"]
+    assert load(by_name(policy, "index-video-transcript")[0], OUTPUT)["resource_id"]
     assert load(by_name(policy, "select-policy")[0], TYPE) == "chain"
     assert load(by_name(policy, "retrieve-similar-sessions")[0], TYPE) == "retriever"
     assert load(by_name(policy, "measure-context")[0], TYPE) == "tool"
@@ -154,7 +163,7 @@ def test_failed_llm_call_is_an_error_generation_and_fallback_is_visible(traced, 
     broken._http = httpx.Client(transport=httpx.MockTransport(handler))
     services.router.clients["local"] = broken
     out = runner.start_session(learner, "photosynthesis")
-    runner.resume(out["thread_id"], {"answers": ANSWERS})
+    pass_pretest(runner, out["thread_id"])
     runner.resume(out["thread_id"], {"query": "How do plants make glucose from light?"})
     answer = next(spans for spans in spans_by_trace(client, exporter).values()
                   if root(spans).name == "answer-question")
@@ -178,7 +187,7 @@ def test_pii_is_redacted_and_content_capture_can_be_disabled(traced, runner, lea
     exporter.clear()
     monkeypatch.setattr(settings, "langfuse_capture_content", False)
     out = runner.start_session(learner, "photosynthesis")
-    assert out["interrupt"]["type"] == "ask_question"  # pre-test already taken in the first session
+    pass_pretest(runner, out["thread_id"])
     runner.resume(out["thread_id"], {"query": "How do plants make glucose from light?"})
     answer = next(spans for spans in spans_by_trace(client, exporter).values()
                   if root(spans).name == "answer-question")
@@ -217,6 +226,17 @@ def test_recommendation_trace_keeps_threaded_transcripts_and_scores_feedback(tra
     trace_id = format(r.context.trace_id, "032x")
     assert [(s["name"], s["value"], s["trace_id"]) for s in scores] == [
         ("video_marked_helpful", 1, trace_id), ("video_rating", 5, trace_id)]
+
+    # Called from a graph node (inside a learner-step trace) it nests instead of starting or renaming a trace.
+    exporter.clear()
+    with tracing.trace("submit-pretest", user_id=learner, session_id="s-1", tags=["learning-session"]):
+        rec.recommend(learner, "photosynthesis", objective=OBJECTIVE)
+    traces = spans_by_trace(client, exporter)
+    assert len(traces) == 1
+    spans = next(iter(traces.values()))
+    assert root(spans).name == "submit-pretest" and by_name(spans, "recommend-videos")[0].parent is not None
+    assert {s.attributes.get("langfuse.trace.name") for s in spans} <= {"submit-pretest", None}
+    assert all(s.attributes.get("session.id") == "s-1" for s in spans)
 
 
 def test_tracing_off_or_broken_never_affects_the_app(runner, learner, services, ollama):

@@ -13,7 +13,7 @@ youtube-transcript-api>=1.2,<2.0
 streamlit>=1.40
 # <3: pandas 3.0.x DLLs are blocked by Windows Smart App Control (no reputation yet)
 pandas>=2.2,<3.0
-# optional: tracing (agent/observability.py works without it)
-# langfuse>=4.0
+# tracing (telemetry/tracing.py; a no-op until LANGFUSE_PUBLIC_KEY/SECRET_KEY are set)
+langfuse>=5.0.1,<6
 # dev
 pytest>=8.0

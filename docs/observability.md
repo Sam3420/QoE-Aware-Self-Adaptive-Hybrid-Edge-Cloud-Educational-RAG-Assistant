@@ -12,7 +12,7 @@ never affects a learner's session.
 ```dotenv
 LANGFUSE_PUBLIC_KEY=pk-lf-...
 LANGFUSE_SECRET_KEY=sk-lf-...
-LANGFUSE_BASE_URL=https://cloud.langfuse.com
+LANGFUSE_BASE_URL=http://localhost:3000   # self-hosted; or https://cloud.langfuse.com
 LANGFUSE_ENVIRONMENT=development
 ```
 
@@ -24,12 +24,14 @@ LANGFUSE_ENVIRONMENT=development
 
 | Trace name | Unit of work | Root input → output |
 |---|---|---|
-| `start-learning-session` | session start → pre-test shown | topic → next prompt |
-| `submit-pretest` | pre-test scored → context, policy selected | answers → next prompt |
+| `start-learning-session` | session start → topic choice or pre-test shown | topic → next prompt |
+| `choose-topic` | learner picks a topic → pre-test shown | topic id → next prompt |
+| `submit-pretest` | pre-test scored → videos recommended (`recommend-videos` nested) | answers → video choices |
+| `choose-video` / `refresh-videos` / `end-session` | video picked and its transcript indexed → context, policy selected | item id → next prompt |
 | `answer-question` | one question through CRAG and the LLM | **the question → the answer** |
 | `end-questions` | learner finishes asking | `{"end": true}` → post-test prompt |
 | `submit-posttest` | post-test, evaluation, experience stored | answers, rating, comment → QoE/SRE/reward |
-| `recommend-videos` | one YouTube recommendation request | topic/objective → ranked videos |
+| `recommend-videos` | one YouTube recommendation request from the API or the recommendations page (inside a session it is a child of `submit-pretest`) | topic/objective → ranked videos |
 
 **Correlation fields:**
 - Every trace of a learning session shares `session_id` (the learning-session id) and `user_id` (the learner id), so the Sessions view shows the whole session in order.
@@ -41,7 +43,7 @@ LANGFUSE_ENVIRONMENT=development
 
 | Observation | Type | Where |
 |---|---|---|
-| `load-learner-profile`, `run-pretest`, `receive-question`, `rewrite-query`, `route-llm`, `score-posttest`, `store-experience` | span | graph nodes (`agent/node_tracing.py`) |
+| `load-learner-profile`, `choose-topic`, `plan-pretest`, `run-pretest`, `receive-video-choice`, `index-video-transcript`, `receive-question`, `rewrite-query`, `route-llm`, `score-posttest`, `store-experience` | span | graph nodes (`agent/node_tracing.py`) |
 | `measure-context` | tool | context node (RTT probe, CPU and memory) |
 | `select-policy` | chain | policy node; child `retrieve-similar-sessions` (retriever, FAISS) |
 | `retrieve-lesson-context` | retriever | CRAG retrieval (chunks with scores); child `embed-query` |
@@ -49,7 +51,7 @@ LANGFUSE_ENVIRONMENT=development
 | `extract-answer` | tool | model-free fallback |
 | `embed-query`, `embed-documents` | embedding | `services/vector_store.py` (model, input tokens) |
 | `evaluate-session` | evaluator | QoE, SRE, reward, predicted vs observed utility |
-| `select-strategy`, `search-youtube`, `fetch-video-metadata`, `fetch-transcript`, `rank-videos` | chain / tool / span | recommendation pipeline |
+| `select-strategy`, `search-youtube`, `fetch-video-metadata`, `fetch-transcript`, `rank-videos` | chain / tool / span | recommendation pipeline (`fetch-transcript` also under `index-video-transcript`) |
 
 Inputs and outputs are short, readable summaries, never the whole agent state.
 
@@ -80,7 +82,7 @@ Inputs and outputs are short, readable summaries, never the whole agent state.
 .venv\Scripts\python scripts\run_session.py --mock-llm      # or a real session / the Streamlit app
 npx langfuse-cli api observations --help                    # then list observations of the printed trace ids
 ```
-Open the trace in Langfuse and check the tree against the tables above. `tests/test_tracing.py` checks the same structure offline with an in-memory exporter.
+Open the trace in Langfuse and check the tree against the tables above. `tests/test_tracing.py` checks the same structure offline with an in-memory exporter; every other test runs with tracing off (`tests/conftest.py`), so `pytest` never writes to your Langfuse project.
 
 ## Next steps (not done)
 - **Prompt management:** the answer and MCQ prompts still live in code. Moving them to Langfuse prompt management and linking them to generations would show which prompt version produced each answer (skill reference: `prompt-migration.md`).

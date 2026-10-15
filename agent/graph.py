@@ -8,6 +8,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 
 from agent import nodes
+from agent.node_tracing import traced
 from agent.routing import continue_session, crag_ok, knowledge_ready, more_questions, need_pretest, route_video
 from agent.state import AgentState
 from config import settings
@@ -17,23 +18,11 @@ def build_builder() -> StateGraph:
     """Return the uncompiled graph with every node and edge."""
     g = StateGraph(AgentState)
 
-    g.add_node("load_profile", nodes.load_profile)
-    g.add_node("select_topic", nodes.select_topic)
-    g.add_node("plan_pretest", nodes.plan_pretest)
-    g.add_node("pre_test", nodes.pre_test)
-    g.add_node("recommend_videos", nodes.recommend_videos)
-    g.add_node("select_video", nodes.select_video)
-    g.add_node("prepare_knowledge", nodes.prepare_knowledge)
-    g.add_node("collect_context", nodes.collect_context)
-    g.add_node("select_policy", nodes.select_policy)
-    g.add_node("ask_question", nodes.ask_question)
-    g.add_node("crag_retrieve", nodes.crag_retrieve)
-    g.add_node("corrective_retrieve", nodes.corrective_retrieve)
-    g.add_node("llm_router", nodes.llm_router)
-    g.add_node("generate_response", nodes.generate_response)
-    g.add_node("post_test_and_feedback", nodes.post_test_and_feedback)
-    g.add_node("evaluate_session", nodes.evaluate_session)
-    g.add_node("store_experience", nodes.store_experience)
+    for name in ("load_profile", "select_topic", "plan_pretest", "pre_test", "recommend_videos", "select_video",
+                 "prepare_knowledge", "collect_context", "select_policy", "ask_question", "crag_retrieve",
+                 "corrective_retrieve", "llm_router", "generate_response", "post_test_and_feedback",
+                 "evaluate_session", "store_experience"):
+        g.add_node(name, traced(name, getattr(nodes, name)))  # Langfuse observation per node (no-op when off)
 
     g.add_edge(START, "load_profile")
     g.add_edge("load_profile", "select_topic")

@@ -76,7 +76,8 @@ class RouterLLMProvider:
         """Generate with the best available real model; raise LLMProviderError if none works."""
         req = GenerationRequest(system=request.system_prompt or "", prompt=request.prompt,
                                 max_tokens=request.max_tokens, temperature=request.temperature,
-                                json_schema=request.json_schema or mcq_json_schema(get_app_settings().mcq_n_items))
+                                json_schema=request.json_schema or mcq_json_schema(get_app_settings().mcq_n_items),
+                                operation="generate-mcqs")
         errors = []
         for provider in ("cloud", "local"):
             if not self.router.is_available(provider):

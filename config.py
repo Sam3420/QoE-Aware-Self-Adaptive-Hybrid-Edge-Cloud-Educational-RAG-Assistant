@@ -178,10 +178,17 @@ class Settings(BaseSettings):
     policy_min_weight_sum: float = Field(default=0.1, ge=0.0)
     policy_estimate_target: Literal["utility", "reward"] = "utility"
 
-    # --- Optional Langfuse tracing (no-op unless both keys are set) -----------------------------------
+    # --- Optional Langfuse tracing (telemetry/tracing.py; no-op unless both keys are set) ---------------
     langfuse_public_key: SecretStr | None = None
     langfuse_secret_key: SecretStr | None = None
-    langfuse_host: str | None = None
+    langfuse_base_url: str | None = None  # e.g. https://cloud.langfuse.com (EU) or https://us.cloud.langfuse.com
+    langfuse_host: str | None = None  # older name for the same setting; LANGFUSE_BASE_URL wins
+    langfuse_environment: str = "development"  # keeps test/dev traces apart from production data
+    langfuse_release: str | None = None  # e.g. a git commit or version tag
+    langfuse_sample_rate: float = Field(default=1.0, ge=0.0, le=1.0)
+    # False: learner questions, answers, comments and lesson text are replaced before export; scores,
+    # models, token usage, latencies and the trace structure are still sent. PII redaction always applies.
+    langfuse_capture_content: bool = True
 
     @field_validator("data_dir", "checkpoint_db_path", "vector_index_dir", "knowledge_samples_dir", "docs_dir",
                      "youtube_cache_dir", "experience_index_dir")

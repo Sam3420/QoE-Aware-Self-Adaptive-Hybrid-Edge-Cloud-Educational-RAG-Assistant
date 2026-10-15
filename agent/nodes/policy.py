@@ -2,7 +2,7 @@
 from typing import Any
 
 from agent.deps import get_services
-from agent.observability import log_event, observe
+from agent.observability import log_event
 from agent.policies import runtime_config_from_row
 from agent.policy_engine import PolicyEngine
 from agent.state import AgentState
@@ -18,10 +18,7 @@ def select_policy(state: AgentState) -> dict[str, Any]:
     default_id = default["policy_id"] if default else settings.default_policy_id
     prev_state, prev_record = store.previous_state(state["student_id"])
 
-    with observe("select_policy", input={"context": state["context"], "candidates": candidates},
-                 metadata={"session_id": state["session_id"]}) as span:
-        decision = PolicyEngine(store, services.rng).select(state["context"], candidates, default_id)
-        span.update(output={"policy_id": decision.action_id, "mode": decision.mode, "reason": decision.reason})
+    decision = PolicyEngine(store, services.rng).select(state["context"], candidates, default_id)
     log_event("policy_selected", session_id=state["session_id"], student_id=state["student_id"],
               policy_id=decision.action_id, mode=decision.mode, n_history=decision.n_history,
               estimates={a: e.estimated_value for a, e in decision.estimates.items()})

@@ -19,6 +19,7 @@ from typing import Any
 import httpx
 
 from services.youtube.cache import JsonFileCache
+from telemetry import tracing
 from services.youtube.models import VideoCandidate
 
 logger = logging.getLogger(__name__)
@@ -281,23 +282,38 @@ class YouTubeDataClient:
 
     def search(self, query: str, *, max_results: int, max_pages: int = 1, **kwargs: Any) -> list[VideoCandidate]:
         """Up to max_results unique videos across at most max_pages pages, in search order."""
-        found: dict[str, VideoCandidate] = {}
-        token: str | None = None
-        for _ in range(max_pages):
-            page = self.search_page(query, max_results=min(50, max_results - len(found)), page_token=token, **kwargs)
-            for cand in page.candidates:
-                if cand.video_id not in found:  # duplicate removal across pages
-                    found[cand.video_id] = cand.model_copy(update={"search_rank": len(found)})
-            token = page.next_page_token
-            if not token or len(found) >= max_results:
-                break
-        return list(found.values())[:max_results]
+        units_before = self.stats.units
+        with tracing.observation("search-youtube", as_type="tool",
+                                 input={"query": query, "max_results": max_results, "max_pages": max_pages, **kwargs},
+                                 metadata={"api": "search.list"}) as obs:
+            found: dict[str, VideoCandidate] = {}
+            token: str | None = None
+            for _ in range(max_pages):
+                page = self.search_page(query, max_results=min(50, max_results - len(found)), page_token=token,
+                                        **kwargs)
+                for cand in page.candidates:
+                    if cand.video_id not in found:  # duplicate removal across pages
+                        found[cand.video_id] = cand.model_copy(update={"search_rank": len(found)})
+                token = page.next_page_token
+                if not token or len(found) >= max_results:
+                    break
+            result = list(found.values())[:max_results]
+            obs.update(output=[{"video_id": c.video_id, "title": c.title} for c in result],
+                       metadata={"api": "search.list", "quota_units": self.stats.units - units_before})
+            return result
 
     # ---- videos.list -----------------------------------------------------------------------------
 
     def get_videos(self, video_ids: Iterable[str]) -> dict[str, dict[str, Any]]:
         """videos.list for up to 50 ids per call; returns raw items by id (missing ids are not returned)."""
         ids = list(dict.fromkeys(v for v in video_ids if _VIDEO_ID.match(v)))
+        with tracing.observation("fetch-video-metadata", as_type="tool", input={"video_ids": ids},
+                                 metadata={"api": "videos.list", "parts": VIDEOS_PARTS}) as obs:
+            items = self._get_videos(ids)
+            obs.update(output={"returned": len(items), "missing": [v for v in ids if v not in items]})
+            return items
+
+    def _get_videos(self, ids: list[str]) -> dict[str, dict[str, Any]]:
         items: dict[str, dict[str, Any]] = {}
         to_fetch = []
         for vid in ids:

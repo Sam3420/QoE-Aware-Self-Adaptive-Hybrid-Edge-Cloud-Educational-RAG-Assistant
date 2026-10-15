@@ -4,11 +4,12 @@ from datetime import datetime
 from typing import Any
 
 from agent.deps import get_services
-from agent.observability import log_event, observe
+from agent.observability import log_event
 from agent.session_metrics import build_next_state, sample_resources
 from agent.state import AgentState
 from config import settings
 from metrics.reward import AdaptationAction, IncompleteTransition, RewardResult, RuntimeState, compute_reward
+from telemetry import tracing
 
 logger = logging.getLogger(__name__)
 
@@ -29,21 +30,18 @@ def evaluate_session(state: AgentState) -> dict[str, Any]:
         context={}, baseline=True)
     action = AdaptationAction(action_id=state["policy_id"], config=state["runtime_config"])
     weights = store.weights()
-    with observe("evaluate_session", input={"policy_id": action.action_id},
-                 metadata={"session_id": state["session_id"]}) as span:
-        try:
-            result = compute_reward(s, s_next, action, weights, policy=settings.metric_missing_policy,
-                                    baseline_qoe=settings.baseline_qoe, baseline_sre=settings.baseline_sre)
-        except IncompleteTransition as exc:
-            span.update(output={"status": "incomplete", "reason": str(exc)})
-            return {"evaluation": {"status": "incomplete", "reason": str(exc)},
-                    "session_errors": [f"evaluation: {exc}"]}
-        span.update(output={"reward": result.reward, "qoe": result.after.qoe, "sre": result.after.sre})
-        for name, value in (("qoe", result.after.qoe), ("sre", result.after.sre), ("reward", result.reward)):
-            try:
-                span.score(name=name, value=value)
-            except Exception:  # tracing must never break evaluation
-                pass
+    try:
+        result = compute_reward(s, s_next, action, weights, policy=settings.metric_missing_policy,
+                                baseline_qoe=settings.baseline_qoe, baseline_sre=settings.baseline_sre)
+    except IncompleteTransition as exc:
+        return {"evaluation": {"status": "incomplete", "reason": str(exc)},
+                "session_errors": [f"evaluation: {exc}"]}
+    # Session outcomes as Langfuse session scores (one learning session = one Langfuse session).
+    learning_gain = s_next.qoe_metrics.LG if s_next.qoe_metrics else None
+    for name, value in (("session_qoe", result.after.qoe), ("session_sre", result.after.sre),
+                        ("adaptation_reward", result.reward), ("learning_gain", learning_gain)):
+        tracing.score(name=name, value=value, session_id=state["session_id"], data_type="NUMERIC",
+                      metadata={"policy_id": action.action_id, "weights_version": result.weights_version})
 
     predicted = (state.get("candidate_utilities") or {}).get(action.action_id, {}).get("estimated")
     qoe_detail = result.after.qoe_detail
@@ -78,16 +76,14 @@ def store_experience(state: AgentState) -> dict[str, Any]:
         return {"session_errors": [f"experience not stored: {evaluation.get('reason', 'evaluation incomplete')}"]}
     store = get_services().experience_store()
     try:
-        with observe("store_experience", metadata={"session_id": state["session_id"]}) as span:
-            record, created = store.record_transition(
-                student_id=state["student_id"], session_id=state["session_id"], topic_id=state["topic_id"],
-                context=state["context"], s=RuntimeState.model_validate(state["prev_state"] or {"context": {},
-                                                                                                "baseline": True}),
-                s_next=RuntimeState.model_validate(evaluation["next_state"]),
-                action=AdaptationAction(action_id=state["policy_id"], config=state["runtime_config"]),
-                result=RewardResult.model_validate(evaluation["result"]),
-                predicted_utility=evaluation.get("predicted_utility"))
-            span.update(output={"experience_id": record["id"], "created": created})
+        record, created = store.record_transition(
+            student_id=state["student_id"], session_id=state["session_id"], topic_id=state["topic_id"],
+            context=state["context"], s=RuntimeState.model_validate(state["prev_state"] or {"context": {},
+                                                                                            "baseline": True}),
+            s_next=RuntimeState.model_validate(evaluation["next_state"]),
+            action=AdaptationAction(action_id=state["policy_id"], config=state["runtime_config"]),
+            result=RewardResult.model_validate(evaluation["result"]),
+            predicted_utility=evaluation.get("predicted_utility"))
     except Exception as exc:  # a storage failure must not lose the learner's finished session
         logger.error("store_experience failed: %s", exc)
         return {"session_errors": [f"store_experience failed: {exc}"]}

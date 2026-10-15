@@ -5,8 +5,17 @@ from langgraph.checkpoint.memory import InMemorySaver
 from agent.deps import make_fake_services, set_services
 from agent.graph import build_graph
 from agent.runner import SessionRunner
+from telemetry import tracing
 
 ANSWERS = ["A", "B", "C", "D", "A"]  # all correct for FakeMCQProvider's items
+
+
+@pytest.fixture(autouse=True)
+def no_real_tracing():
+    """Tests never send traces to the Langfuse configured in .env (test_tracing installs an in-memory client)."""
+    tracing.set_client(None)
+    yield
+    tracing.set_client(None)
 CTX = {"rtt_ms": 180.0, "cpu": 0.35, "mem": 0.55, "competency_num": 0.0, "last_qoe": 0.5}
 
 

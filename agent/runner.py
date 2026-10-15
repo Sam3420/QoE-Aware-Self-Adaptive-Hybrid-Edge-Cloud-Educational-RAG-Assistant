@@ -15,6 +15,28 @@ from langgraph.types import Command
 
 from agent.deps import get_services
 from agent.state import initial_state
+from telemetry import tracing
+
+
+def _step_for(pending: dict[str, Any], payload: Any) -> tuple[str, Any]:
+    """Trace name and readable input for the learner's reply to the pending interrupt."""
+    kind = pending.get("type")
+    if kind == "select_topic":
+        return "choose-topic", payload
+    if kind == "select_video":
+        if isinstance(payload, dict) and (payload.get("end") or payload.get("refresh")):
+            return ("end-session" if payload.get("end") else "refresh-videos"), payload
+        return "choose-video", payload
+    if kind == "pre_test":
+        return "submit-pretest", payload
+    if kind == "post_test_and_feedback":
+        return "submit-posttest", payload
+    if kind == "ask_question":
+        if isinstance(payload, dict) and payload.get("end"):
+            return "end-questions", {"end": True}
+        query = payload.get("query") if isinstance(payload, dict) else payload
+        return "answer-question", query
+    return "resume-session", payload
 
 
 class SessionNotFound(LookupError):
@@ -60,12 +82,35 @@ class SessionRunner:
         """LangGraph config for a thread."""
         return {"configurable": {"thread_id": thread_id}}
 
-    def _drive(self, thread_id: str, graph_input: Any) -> dict[str, Any]:
-        """Run to the next interrupt or the end and package the result."""
-        pause, _ = run_until_pause(self.graph, graph_input, self._cfg(thread_id), self.on_node)
+    def _drive(self, thread_id: str, graph_input: Any, *, step: str, student_id: str, topic_id: str,
+               trace_input: Any) -> dict[str, Any]:
+        """Run to the next interrupt or the end inside one Langfuse trace, and package the result.
+
+        One trace per learner step; every step of a learning session shares session_id = thread_id.
+        """
+        with tracing.trace(step, user_id=student_id, session_id=thread_id, tags=["learning-session"],
+                           input=trace_input, metadata={"topic_id": topic_id}) as root:
+            pause, _ = run_until_pause(self.graph, graph_input, self._cfg(thread_id), self.on_node)
+            out: dict[str, Any] = {"thread_id": thread_id}
+            if pause is not None:
+                out["interrupt"] = pause
+            else:
+                out["final_state"] = self.graph.get_state(self._cfg(thread_id)).values
+            if tracing.enabled():
+                root.update(output=self._trace_output(thread_id, step, pause))
+                out["trace_id"] = tracing.current_trace_id()
+        return out
+
+    def _trace_output(self, thread_id: str, step: str, pause: dict[str, Any] | None) -> Any:
+        """Readable trace output: the answer for a question, otherwise what the learner sees next."""
+        values = self.graph.get_state(self._cfg(thread_id)).values
+        if step == "answer-question" and values.get("response"):
+            return values["response"]
         if pause is not None:
-            return {"thread_id": thread_id, "interrupt": pause}
-        return {"thread_id": thread_id, "final_state": self.graph.get_state(self._cfg(thread_id)).values}
+            return {"next": pause.get("type"), "prompt": pause.get("prompt"), "reask_error": pause.get("error")}
+        ev = values.get("evaluation") or {}
+        return {"finished": True, "qoe": ev.get("qoe_after"), "sre": ev.get("sre_after"), "reward": ev.get("reward"),
+                "evaluation_status": ev.get("status")}
 
     def start_session(self, student_id: str, topic_id: str = "") -> dict[str, Any]:
         """Create the learning session in B's DB and run until the first interrupt.
@@ -75,14 +120,18 @@ class SessionRunner:
         app = get_services().app
         app.ensure_ready()
         session_id = app.create_learning_session(student_id)  # raises LearnerNotFound
-        return self._drive(session_id, initial_state(student_id, topic_id, session_id))
+        return self._drive(session_id, initial_state(student_id, topic_id, session_id), step="start-learning-session",
+                           student_id=student_id, topic_id=topic_id, trace_input={"topic_id": topic_id})
 
     def resume(self, thread_id: str, payload: Any) -> dict[str, Any]:
         """Answer the pending interrupt with `payload` and run until the next one or the end."""
         state = self.get_state(thread_id)
         if state["finished"]:
             raise SessionNotPaused(f"Session {thread_id!r} has already finished.")
-        return self._drive(thread_id, Command(resume=payload))
+        step, trace_input = _step_for(state["interrupt"] or {}, payload)
+        values = state["values"]
+        return self._drive(thread_id, Command(resume=payload), step=step, student_id=values["student_id"],
+                           topic_id=values["topic_id"], trace_input=trace_input)
 
     def get_state(self, thread_id: str) -> dict[str, Any]:
         """Return the session's current values, next nodes and pending interrupt (if any)."""

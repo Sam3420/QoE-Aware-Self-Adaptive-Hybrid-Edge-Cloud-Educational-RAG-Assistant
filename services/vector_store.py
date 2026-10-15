@@ -10,6 +10,8 @@ import httpx
 import numpy as np
 from pydantic import BaseModel, Field
 
+from telemetry import tracing
+
 
 class Chunk(BaseModel):
     """One piece of transcript text stored in an index."""
@@ -70,22 +72,30 @@ class OllamaEmbedder:
         # nomic-embed-text is trained with task prefixes; other models get none.
         self._nomic = "nomic" in model
 
-    def _embed(self, texts: list[str]) -> np.ndarray:
+    def _embed(self, texts: list[str], operation: str) -> np.ndarray:
         """Call Ollama's /api/embed for a batch of texts."""
-        try:
-            resp = self._http.post(self._url, json={"model": self.model, "input": texts})
-            resp.raise_for_status()
-            return _normalise(np.array(resp.json()["embeddings"]))
-        except (httpx.HTTPError, KeyError, ValueError) as exc:
-            raise EmbeddingError(f"Ollama embedding failed ({self.model}): {exc}") from exc
+        with tracing.observation(operation, as_type="embedding", model=self.model,
+                                 input={"texts": len(texts), "first": tracing.preview(texts[0], 200) if texts else None},
+                                 metadata={"provider": "ollama"}) as obs:
+            try:
+                resp = self._http.post(self._url, json={"model": self.model, "input": texts})
+                resp.raise_for_status()
+                data = resp.json()
+                vectors = _normalise(np.array(data["embeddings"]))
+            except (httpx.HTTPError, KeyError, ValueError) as exc:
+                raise EmbeddingError(f"Ollama embedding failed ({self.model}): {exc}") from exc
+            tokens = data.get("prompt_eval_count")
+            obs.update(output={"vectors": int(vectors.shape[0]), "dim": int(vectors.shape[1])},
+                       usage_details={"input": int(tokens)} if isinstance(tokens, int) else None)
+            return vectors
 
     def embed_documents(self, texts: list[str]) -> np.ndarray:
         """Embed transcript chunks."""
-        return self._embed([f"search_document: {t}" if self._nomic else t for t in texts])
+        return self._embed([f"search_document: {t}" if self._nomic else t for t in texts], "embed-documents")
 
     def embed_query(self, text: str) -> np.ndarray:
         """Embed one learner question."""
-        return self._embed([f"search_query: {text}" if self._nomic else text])[0]
+        return self._embed([f"search_query: {text}" if self._nomic else text], "embed-query")[0]
 
 
 class HashingEmbedder:

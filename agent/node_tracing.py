@@ -3,6 +3,8 @@ input/output summary per node (never the whole state, which holds chunks, histor
 
 `generate_response` is not wrapped: the LLM clients already record each model call as a
 `generation` (and the extractive fallback as a `tool`), so a wrapper would only add an empty layer.
+`recommend_videos` is not wrapped either: the recommender records itself as `recommend-videos`
+(nested in the step's trace here, its own trace when called from the API or the recommendations page).
 A node that pauses for the learner (langgraph `interrupt`) is recorded as waiting, not as an error;
 it runs again (and is traced again) in the next step's trace when the learner replies.
 """
@@ -31,10 +33,33 @@ NODE_SPECS: dict[str, tuple[str, str, Summary, Summary]] = {
                      lambda s: {"topic_id": s["topic_id"]},
                      lambda u: {"language": (u.get("profile") or {}).get("language"),
                                 "pretest_already_taken": u.get("pre_score") is not None}),
+    "select_topic": ("choose-topic", "span",
+                     lambda s: {"preset_topic": s["topic_id"] or None},
+                     lambda u: {"topic_id": u.get("topic_id")} if u else {"topic_id": "preset"}),
+    "plan_pretest": ("plan-pretest", "span",
+                     lambda s: {"topic_id": s["topic_id"]},
+                     lambda u: {"items": len(u.get("test_items") or []), "plan": u.get("pretest_plan"),
+                                "errors": _errors(u)}),
     "pre_test": ("run-pretest", "span",
                  lambda s: {"topic_id": s["topic_id"]},
                  lambda u: {"pre_score": u.get("pre_score"), "competency": u.get("competency"),
                             "errors": _errors(u)}),
+    "select_video": ("receive-video-choice", "span",
+                     lambda s: {"options": len(s["recommendations"].get("items") or []),
+                                "strategy_id": s["recommendations"].get("strategy_id")},
+                     lambda u: {"action": u.get("video_action"), "video_id": (u.get("video") or {}).get("video_id"),
+                                "title": (u.get("video") or {}).get("title"),
+                                "reused_index": (u.get("video") or {}).get("reused_index"), "errors": _errors(u)}),
+    "prepare_knowledge": ("index-video-transcript", "span",
+                          lambda s: {"video_id": s["video"].get("video_id"), "title": s["video"].get("title")},
+                          lambda u: {"resource_id": u.get("resource_id") or None,
+                                     "video_id": (u.get("video") or {}).get("video_id"),
+                                     "chunks": (u.get("video") or {}).get("n_chunks"),
+                                     "reused_index": (u.get("video") or {}).get("reused_index"),
+                                     "replaces": (u.get("video") or {}).get("replaces"),
+                                     "attempts": [{k: a.get(k) for k in ("video_id", "status", "reason")}
+                                                  for a in u.get("knowledge_attempts") or []],
+                                     "errors": _errors(u)}),
     "collect_context": ("measure-context", "tool",
                         lambda s: {"competency": s["competency"]},
                         lambda u: u.get("context")),

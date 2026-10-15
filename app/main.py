@@ -20,6 +20,9 @@ def create_app() -> FastAPI:
     async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         create_tables(engine)
         yield
+        from telemetry import tracing
+
+        tracing.shutdown()  # flush Langfuse on server shutdown
 
     app = FastAPI(title=settings.app_name, lifespan=lifespan)
     app.include_router(health_router)

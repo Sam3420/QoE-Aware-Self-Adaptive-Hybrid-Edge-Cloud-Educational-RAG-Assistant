@@ -183,6 +183,10 @@ def trace(name: str, *, user_id: str | None, session_id: str | None, tags: list[
     if client is None:
         yield NOOP
         return
+    if _inside_trace():  # already inside a trace: nest, keeping that trace's name/session
+        with observation(name, as_type=as_type, input=input, metadata=metadata) as obs:
+            yield obs
+        return
     try:
         from langfuse import propagate_attributes
 
@@ -206,6 +210,16 @@ def trace(name: str, *, user_id: str | None, session_id: str | None, tags: list[
                 attrs.__exit__(*exc_info)
             except Exception as exc:
                 logger.warning("Langfuse trace attributes not closed for %s: %s", name, exc)
+
+
+def _inside_trace() -> bool:
+    """True when an OpenTelemetry span is active in this context (checked silently, unlike the client)."""
+    try:
+        from opentelemetry import trace as otel_trace
+
+        return otel_trace.get_current_span().get_span_context().is_valid
+    except Exception:
+        return False
 
 
 def current_trace_id() -> str | None:

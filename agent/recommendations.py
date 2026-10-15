@@ -32,6 +32,7 @@ from services.youtube.pipeline import (
     RecommendationStrategy,
 )
 from services.youtube.ranking import LANGUAGE_CODES
+from telemetry import tracing
 from services.youtube.relevance import RelevanceScorer
 from services.youtube.transcripts import (
     CachedTranscriptFetcher,
@@ -57,6 +58,14 @@ STRATEGIES: dict[str, RecommendationStrategy] = {
         description="More candidates, 8 transcripts, transcript evidence weighted highest, stricter relevance."),
 }
 RATING_RANGE = (1, 5)
+# event type → (score name, data type). Opening is not watching; completion is self-reported.
+FEEDBACK_SCORES = {
+    "opened": ("video_opened", "BOOLEAN"),
+    "accepted": ("video_marked_helpful", "BOOLEAN"),
+    "dismissed": ("video_marked_not_relevant", "BOOLEAN"),
+    "completed": ("video_completed_self_reported", "BOOLEAN"),
+    "rated": ("video_rating", "NUMERIC"),
+}
 
 
 class RecommendationCoordinator:
@@ -125,7 +134,28 @@ class RecommendationCoordinator:
     def recommend(self, student_id: str, topic_id: str, *, objective: str | None = None,
                   concepts: list[str] | None = None, session_id: str | None = None, revision: bool = False,
                   strategy_id: str | None = None, count: int | None = None) -> dict[str, Any]:
-        """Run one recommendation request end to end and store it; returns the stored run with items."""
+        """Run one recommendation request end to end and store it; returns the stored run with items.
+
+        Traced as one `recommend-videos` trace (user = learner; session = the learning session, if any).
+        """
+        with tracing.trace("recommend-videos", user_id=student_id, session_id=session_id,
+                           tags=["video-recommendations"], metadata={"topic_id": topic_id},
+                           input={"topic_id": topic_id, "objective": objective, "concepts": concepts,
+                                  "revision": revision}) as root:
+            run = self._recommend(student_id, topic_id, objective=objective, concepts=concepts,
+                                  session_id=session_id, revision=revision, strategy_id=strategy_id, count=count,
+                                  trace_id=tracing.current_trace_id())
+            root.update(output={"status": run["status"], "strategy_id": run["strategy_id"],
+                                "recommendations": [{"rank": r["rank"], "video_id": r["video_id"],
+                                                     "title": r["title"], "evidence": r["evidence_level"]}
+                                                    for r in run["recommendations"]], "errors": run["errors"]},
+                        **({"level": "WARNING", "status_message": "; ".join(run["errors"])[:500]}
+                           if run["status"] in ("failed", "degraded") else {}))
+            return run
+
+    def _recommend(self, student_id: str, topic_id: str, *, objective: str | None, concepts: list[str] | None,
+                   session_id: str | None, revision: bool, strategy_id: str | None, count: int | None,
+                   trace_id: str | None) -> dict[str, Any]:
         needs = self.learner_needs(student_id, topic_id)
         context, context_errors = measure_context(self.services, student_id, needs["competency"] or "")
         if strategy_id is not None:
@@ -133,7 +163,9 @@ class RecommendationCoordinator:
                 raise ValueError(f"Unknown strategy {strategy_id!r}; choose from {sorted(STRATEGIES)}.")
             strategy, reason = STRATEGIES[strategy_id], f"{strategy_id}: requested explicitly (no selection)"
         else:
-            strategy, reason = self.choose_strategy(context)
+            with tracing.observation("select-strategy", as_type="chain", input={"context": context}) as obs:
+                strategy, reason = self.choose_strategy(context)
+                obs.update(output={"strategy_id": strategy.strategy_id, "reason": reason})
 
         concepts = needs["gap_concepts"] if concepts is None else [c.strip() for c in concepts if c.strip()]
         topic_text = search_text(topic_id)  # "Crop Production and Management class 8", not the id
@@ -150,7 +182,7 @@ class RecommendationCoordinator:
                 return RecommendationRepository(db).video_history(video_ids)
 
         result = self.pipeline.run(request, strategy, history_lookup)
-        metrics = {**result.metrics.model_dump(mode="json"), "rates": result.metrics.rates()}
+        metrics = {**result.metrics.model_dump(mode="json"), "rates": result.metrics.rates(), "trace_id": trace_id}
         with self._db() as db:
             repo = RecommendationRepository(db)
             run = repo.create_run(
@@ -179,7 +211,20 @@ class RecommendationCoordinator:
         with self._db() as db:
             event = RecommendationRepository(db).add_event(run_id=run_id, event_type=event_type, item_id=item_id,
                                                            value=value)
+        self._score_event(run_id, event)
         return {"event": event, "outcome": self.evaluate(run_id)}
+
+    def _score_event(self, run_id: str, event: dict[str, Any]) -> None:
+        """Learner feedback on a recommended video as a score on the run's trace (named after the signal)."""
+        signal = FEEDBACK_SCORES.get(event["event_type"])
+        if signal is None or not tracing.enabled():
+            return
+        run = self.get_run(run_id) or {}
+        trace_id = (run.get("metrics") or {}).get("trace_id")
+        name, data_type = signal
+        value = (event.get("value") or {}).get("rating") if data_type == "NUMERIC" else 1
+        tracing.score(name=name, value=value, trace_id=trace_id, data_type=data_type,
+                      metadata={"video_id": event.get("video_id"), "item_id": event.get("item_id"), "run_id": run_id})
 
     def evaluate(self, run_id: str) -> dict[str, Any]:
         """Recompute metrics from all events and the assessments around the run; store and return them."""

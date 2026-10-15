@@ -21,6 +21,7 @@ from config import Settings, settings
 from metrics.reward import AdaptationAction, RewardResult, RuntimeState
 from metrics.weights import WeightSet
 from services.experience_index import FaissExperienceIndex
+from telemetry import tracing
 
 logger = logging.getLogger(__name__)
 
@@ -109,18 +110,24 @@ class ExperienceStore:
     def neighbours(self, context: dict[str, Any], k: int) -> list[tuple[dict[str, Any], float]]:
         """Top-k most similar past states (by FAISS) with their full records and distances, closest first."""
         self._ensure_synced()
-        hits = self.index.search(self.embedder.embed(context), k)
-        with self._db() as db:
-            repo = AdaptiveLearningRepository(db)
-            id_map = repo.experience_ids_for([fid for fid, _ in hits])
-            records = repo.records(list(id_map.values()))
-        out = []
-        for fid, distance in hits:
-            record = records.get(id_map.get(fid, ""))
-            if record is None:  # index drifted from the DB: resync next time
-                self._synced = False
-                continue
-            out.append((record, distance))
+        vector = self.embedder.embed(context)
+        with tracing.observation("retrieve-similar-sessions", as_type="retriever",
+                                 input={"state_vector": vector, "k": k, "embedding_version": self.embedder.version},
+                                 metadata={"index_size": self.index.ntotal}) as obs:
+            hits = self.index.search(vector, k)
+            with self._db() as db:
+                repo = AdaptiveLearningRepository(db)
+                id_map = repo.experience_ids_for([fid for fid, _ in hits])
+                records = repo.records(list(id_map.values()))
+            out = []
+            for fid, distance in hits:
+                record = records.get(id_map.get(fid, ""))
+                if record is None:  # index drifted from the DB: resync next time
+                    self._synced = False
+                    continue
+                out.append((record, distance))
+            obs.update(output=[{"experience_id": r["id"], "policy_id": r["policy_id"], "distance": round(d, 4),
+                                "utility_after": r.get("utility_after"), "reward": r.get("reward")} for r, d in out])
         return out
 
     def count(self) -> int:

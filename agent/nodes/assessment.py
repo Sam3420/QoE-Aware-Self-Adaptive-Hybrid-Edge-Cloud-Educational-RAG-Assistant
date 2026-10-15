@@ -11,6 +11,7 @@ from agent.schemas import PostTestReply, PreTestReply
 from agent.state import AgentState
 from app.services.errors import AssistantError, QuestionBankNotFoundError
 from services.vector_store import EmbeddingError
+from telemetry import tracing
 
 logger = logging.getLogger(__name__)
 
@@ -85,10 +86,12 @@ def post_test_and_feedback(state: AgentState) -> dict[str, Any]:
     reply = _ask(prompt, PostTestReply)
     if not items:
         # Without a question bank, B's submit function cannot store the feedback either.
+        _score_feedback(state["session_id"], reply.rating, reply.comment, None)
         return {"rating": reply.rating, "comment": reply.comment or "", "session_errors": errors}
 
     result = app.submit_posttest_and_feedback(state["student_id"], state["session_id"], state["topic_id"],
                                               reply.answers, reply.rating, reply.comment, item_ids=item_ids)
+    _score_feedback(state["session_id"], reply.rating, reply.comment, result["score"])
     # Only now, after scoring, are the answers revealed (with explanations written for any question without one).
     review = app.review_posttest(state["topic_id"], reply.answers, item_ids=item_ids,
                                  pre_answers=(state.get("pre_result") or {}).get("answers"))
@@ -103,3 +106,9 @@ def post_test_and_feedback(state: AgentState) -> dict[str, Any]:
     return {"post_score": result["score"], "post_review": {**review, "correct": result["correct"],
                                                            "total": result["total"]},
             "rating": result["rating"], "comment": result["comment"] or "", "session_errors": errors}
+
+
+def _score_feedback(session_id: str, rating: int | None, comment: str | None, post_score: float | None) -> None:
+    """Learner feedback and the post-test result as Langfuse session scores (named after the signal)."""
+    tracing.score(name="session_rating", value=rating, session_id=session_id, data_type="NUMERIC", comment=comment)
+    tracing.score(name="posttest_score", value=post_score, session_id=session_id, data_type="NUMERIC")

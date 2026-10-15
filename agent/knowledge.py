@@ -11,6 +11,7 @@ from services.vector_store import EmbeddingError, IndexNotFoundError
 from services.youtube.models import TranscriptStatus
 from services.youtube.ranking import LANGUAGE_CODES
 from services.youtube.transcripts import clean_text, truncate_record
+from telemetry import tracing
 
 
 class KnowledgeUnavailable(RuntimeError):
@@ -67,7 +68,14 @@ def index_video(store: Any, transcripts: Any, video: dict[str, Any], languages: 
 
     Raises KnowledgeUnavailable with the transcript status when there is nothing usable to index.
     """
-    record = transcripts.fetch(video["video_id"], languages)
+    with tracing.observation("fetch-transcript", as_type="tool",
+                             input={"video_id": video["video_id"], "languages": list(languages)},
+                             metadata={"source": "youtube-transcript-api", "purpose": "index-video"}) as obs:
+        record = transcripts.fetch(video["video_id"], languages)
+        ok = record.status == TranscriptStatus.OK
+        obs.update(output={"status": record.status.value, "language": record.language_code,
+                           "caption_type": record.caption_type, "from_cache": record.from_cache, "error": record.error},
+                   **({} if ok else {"level": "WARNING", "status_message": record.error or record.status.value}))
     if record.status != TranscriptStatus.OK:
         raise KnowledgeUnavailable(f"transcript {record.status.value}" + (f": {record.error}" if record.error else ""))
     record = truncate_record(record, settings.transcript_max_words)

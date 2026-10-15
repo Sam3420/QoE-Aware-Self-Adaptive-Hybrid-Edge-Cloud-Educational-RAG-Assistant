@@ -4,6 +4,8 @@ import time
 from typing import Any, Protocol
 
 import httpx
+
+from telemetry import tracing
 from pydantic import BaseModel, Field, SecretStr
 
 # Small models misread bare language codes (e.g. answer "hi" for Hindi), so prompts use names.
@@ -29,6 +31,11 @@ class GenerationRequest(BaseModel):
     temperature: float = Field(ge=0.0, le=2.0)
     # Optional JSON schema for structured output; Ollama enforces it during decoding, other clients ignore it.
     json_schema: dict[str, Any] | None = None
+    operation: str = "generate-response"  # tracing name of the call (what it does, not which model)
+
+    def messages(self) -> list[dict[str, str]]:
+        """The chat messages sent to the model (OpenAI format)."""
+        return [{"role": "system", "content": self.system}, {"role": "user", "content": self.prompt}]
 
 
 class GenerationResult(BaseModel):
@@ -85,7 +92,7 @@ def build_request(query: str, chunks: list[str], *, grounded: bool, competency: 
     else:
         prompt = f"{caution}No lesson context was found.\n\nQuestion: {query}\nAnswer:"
     return GenerationRequest(system=system, prompt=prompt, context_chunks=chunks,
-                             max_tokens=max_tokens, temperature=temperature)
+                             max_tokens=max_tokens, temperature=temperature, operation="generate-answer")
 
 
 class OllamaClient:
@@ -114,25 +121,30 @@ class OllamaClient:
         body = {
             "model": self.model,
             "stream": False,
-            "messages": [{"role": "system", "content": request.system},
-                         {"role": "user", "content": request.prompt}],
+            "messages": request.messages(),
             "options": {"num_predict": request.max_tokens, "temperature": request.temperature},
         }
         if request.json_schema is not None:
             body["format"] = request.json_schema
-        start = time.perf_counter()
-        try:
-            resp = self._http.post(f"{self._base}/api/chat", json=body)
-            resp.raise_for_status()
-            data = resp.json()
-            text = data["message"]["content"].strip()
-        except (httpx.HTTPError, KeyError, ValueError) as exc:
-            raise LLMError(f"Ollama generation failed ({self.model}): {exc}") from exc
-        if not text:
-            raise LLMError(f"Ollama returned an empty answer ({self.model}).")
-        return GenerationResult(text=text, provider=self.provider, model=self.model,
-                                latency_ms=(time.perf_counter() - start) * 1000,
-                                completion_tokens=data.get("eval_count"))
+        with tracing.observation(request.operation, as_type="generation", input=request.messages(), model=self.model,
+                                 model_parameters={"max_tokens": request.max_tokens,
+                                                   "temperature": request.temperature,
+                                                   "structured_output": request.json_schema is not None},
+                                 metadata={"provider": "ollama", "route": self.provider}) as gen:
+            start = time.perf_counter()
+            try:
+                resp = self._http.post(f"{self._base}/api/chat", json=body)
+                resp.raise_for_status()
+                data = resp.json()
+                text = data["message"]["content"].strip()
+            except (httpx.HTTPError, KeyError, ValueError) as exc:
+                raise LLMError(f"Ollama generation failed ({self.model}): {exc}") from exc
+            if not text:
+                raise LLMError(f"Ollama returned an empty answer ({self.model}).")
+            gen.update(output=text, usage_details=_usage(data.get("prompt_eval_count"), data.get("eval_count")))
+            return GenerationResult(text=text, provider=self.provider, model=self.model,
+                                    latency_ms=(time.perf_counter() - start) * 1000,
+                                    completion_tokens=data.get("eval_count"))
 
 
 class HuggingFaceClient:
@@ -156,25 +168,30 @@ class HuggingFaceClient:
             raise LLMError("HF_TOKEN is not configured.")
         body = {
             "model": self.model,
-            "messages": [{"role": "system", "content": request.system},
-                         {"role": "user", "content": request.prompt}],
+            "messages": request.messages(),
             "max_tokens": request.max_tokens,
             "temperature": request.temperature,
         }
-        headers = {"Authorization": f"Bearer {self._token.get_secret_value()}"}
-        start = time.perf_counter()
-        try:
-            resp = httpx.post(self._url, json=body, headers=headers, timeout=self._timeout)
-            resp.raise_for_status()
-            data = resp.json()
-            text = data["choices"][0]["message"]["content"].strip()
-        except (httpx.HTTPError, KeyError, IndexError, ValueError) as exc:
-            raise LLMError(f"Hugging Face generation failed ({self.model}): {exc}") from exc
-        if not text:
-            raise LLMError(f"Hugging Face returned an empty answer ({self.model}).")
-        return GenerationResult(text=text, provider=self.provider, model=self.model,
-                                latency_ms=(time.perf_counter() - start) * 1000,
-                                completion_tokens=(data.get("usage") or {}).get("completion_tokens"))
+        headers = {"Authorization": f"Bearer {self._token.get_secret_value()}"}  # never traced
+        with tracing.observation(request.operation, as_type="generation", input=request.messages(), model=self.model,
+                                 model_parameters={"max_tokens": request.max_tokens,
+                                                   "temperature": request.temperature},
+                                 metadata={"provider": "huggingface", "route": self.provider}) as gen:
+            start = time.perf_counter()
+            try:
+                resp = httpx.post(self._url, json=body, headers=headers, timeout=self._timeout)
+                resp.raise_for_status()
+                data = resp.json()
+                text = data["choices"][0]["message"]["content"].strip()
+            except (httpx.HTTPError, KeyError, IndexError, ValueError) as exc:
+                raise LLMError(f"Hugging Face generation failed ({self.model}): {exc}") from exc
+            if not text:
+                raise LLMError(f"Hugging Face returned an empty answer ({self.model}).")
+            usage = data.get("usage") or {}
+            gen.update(output=text, usage_details=_usage(usage.get("prompt_tokens"), usage.get("completion_tokens")))
+            return GenerationResult(text=text, provider=self.provider, model=self.model,
+                                    latency_ms=(time.perf_counter() - start) * 1000,
+                                    completion_tokens=usage.get("completion_tokens"))
 
 
 class ExtractiveClient:
@@ -192,11 +209,20 @@ class ExtractiveClient:
 
     def generate(self, request: GenerationRequest) -> GenerationResult:
         """Return the first sentences of the best chunk, or a polite 'not found'."""
-        start = time.perf_counter()
-        if request.context_chunks:
-            sentences = re.split(r"(?<=[.!?])\s+", request.context_chunks[0].strip())
-            text = "From the lesson: " + " ".join(sentences[: self.max_sentences])
-        else:
-            text = "Sorry, I could not find this in the lesson. Please try asking in a different way."
-        return GenerationResult(text=text, provider=self.provider, model=self.model,
-                                latency_ms=(time.perf_counter() - start) * 1000)
+        with tracing.observation("extract-answer", as_type="tool", input={"chunks": len(request.context_chunks)},
+                                 metadata={"route": self.provider, "reason": "model-free fallback"}) as obs:
+            start = time.perf_counter()
+            if request.context_chunks:
+                sentences = re.split(r"(?<=[.!?])\s+", request.context_chunks[0].strip())
+                text = "From the lesson: " + " ".join(sentences[: self.max_sentences])
+            else:
+                text = "Sorry, I could not find this in the lesson. Please try asking in a different way."
+            obs.update(output=text)
+            return GenerationResult(text=text, provider=self.provider, model=self.model,
+                                    latency_ms=(time.perf_counter() - start) * 1000)
+
+
+def _usage(input_tokens: Any, output_tokens: Any) -> dict[str, int] | None:
+    """Token usage for Langfuse (enables cost calculation); None when the provider did not report it."""
+    usage = {k: int(v) for k, v in (("input", input_tokens), ("output", output_tokens)) if isinstance(v, int)}
+    return usage or None

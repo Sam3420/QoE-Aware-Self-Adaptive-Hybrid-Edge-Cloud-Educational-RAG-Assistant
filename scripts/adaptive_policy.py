@@ -78,4 +78,10 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        code = main()
+    finally:
+        from telemetry import tracing
+
+        tracing.shutdown()  # send buffered Langfuse data before the script exits
+    sys.exit(code)
