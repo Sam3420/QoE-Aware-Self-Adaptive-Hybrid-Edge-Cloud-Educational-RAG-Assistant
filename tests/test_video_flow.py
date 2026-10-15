@@ -6,7 +6,7 @@ from services.fakes import FakeTranscriptFetcher, FakeVideoRecommender
 from tests.conftest import ANSWERS, pick_video
 
 
-def _to_video_choice(runner, learner, topic="photosynthesis"):
+def _to_video_choice(runner, learner, topic="life_processes"):
     out = runner.start_session(learner)
     assert out["interrupt"]["type"] == "select_topic"
     out = runner.resume(out["thread_id"], {"topic_id": topic})
@@ -20,19 +20,21 @@ def test_session_without_topic_asks_for_a_catalogue_topic(runner, learner):
     out = runner.start_session(learner)
     pause = out["interrupt"]
     assert pause["type"] == "select_topic"
-    assert "crop_production_and_management" in [t["topic_id"] for t in pause["topics"]]
+    assert [t["topic_id"] for t in pause["topics"]] == [
+        "life_processes", "control_and_coordination", "how_do_organisms_reproduce", "heredity", "our_environment"]
+    assert pause["topics"][0]["label"] == "Class 10 Biology · Life Processes"
     out = runner.resume(out["thread_id"], {"topic_id": "astrology"})
     assert out["interrupt"]["type"] == "select_topic" and "unknown topic" in out["interrupt"]["error"]
-    out = runner.resume(out["thread_id"], {"topic_id": "reproduction_in_animals"})
+    out = runner.resume(out["thread_id"], {"topic_id": "how_do_organisms_reproduce"})
     assert out["interrupt"]["type"] == "pre_test"
-    assert runner.get_state(out["thread_id"])["values"]["topic_id"] == "reproduction_in_animals"
+    assert runner.get_state(out["thread_id"])["values"]["topic_id"] == "how_do_organisms_reproduce"
 
 
 def test_chosen_video_is_indexed_and_answers_come_from_it(runner, learner, services, visited):
     out = _to_video_choice(runner, learner)
     tid, pause = out["thread_id"], out["interrupt"]
     rec = services.videos
-    assert rec.calls == [{"student_id": learner, "topic_id": "photosynthesis", "session_id": tid, "revision": False}]
+    assert rec.calls == [{"student_id": learner, "topic_id": "life_processes", "session_id": tid, "revision": False}]
     assert pause["status"] == "ok" and len(pause["items"]) == 3 and pause["notice"] is None
     chosen = pause["items"][1]
     out = runner.resume(tid, {"item_id": chosen["item_id"]})
@@ -119,8 +121,11 @@ def test_real_coordinator_records_events_and_skips_unusable_transcripts(runner, 
     transcripts = FakeTranscripts()
     services.videos = make_recommender(services, data_client=make_client(FakeYouTubeApi()), transcripts=transcripts,
                                        embedder=HashingEmbedder(), cfg=cfg)
-    out = _to_video_choice(runner, learner)
+    # The fake YouTube catalogue is about photosynthesis, so start with that topic preset (skips select_topic).
+    out = runner.start_session(learner, "photosynthesis")
+    out = runner.resume(out["thread_id"], {"answers": ANSWERS})
     pause = out["interrupt"]
+    assert pause["type"] == "select_video"
     assert pause["status"] == "ok" and pause["strategy_id"] in {"R1", "R2", "R3"}
     ids = [i["video_id"] for i in pause["items"]]
     assert "goodTeach01" in ids
@@ -152,3 +157,43 @@ def test_pick_video_helper_matches_first_item(runner, learner):
     out = _to_video_choice(runner, learner)
     out = pick_video(runner, out["thread_id"], out)
     assert out["interrupt"]["type"] == "ask_question"
+
+
+def test_after_doubts_the_learner_can_watch_another_video_then_take_the_post_test(runner, learner, services, visited):
+    out = _to_video_choice(runner, learner)
+    tid, first = out["thread_id"], out["interrupt"]["items"][0]
+    out = runner.resume(tid, {"item_id": first["item_id"]})
+    assert out["interrupt"]["video"]["title"] == first["title"]
+    runner.resume(tid, {"query": "How do plants convert sunlight into chemical energy?"})  # a doubt on video 1
+    policy = runner.get_state(tid)["values"]["policy_id"]
+
+    out = runner.resume(tid, {"more_videos": True})  # back to the list, video 1 marked as watched
+    pause = out["interrupt"]
+    assert pause["type"] == "select_video" and [i["watched"] for i in pause["items"]] == [True, False, False]
+    assert [v["video_id"] for v in pause["watched"]] == [first["video_id"]]
+
+    visited.clear()
+    second = pause["items"][1]
+    out = runner.resume(tid, {"item_id": second["item_id"]})
+    assert out["interrupt"]["type"] == "ask_question" and out["interrupt"]["video"]["title"] == second["title"]
+    assert visited == ["select_video", "prepare_knowledge"]  # no new context measurement or policy selection
+    runner.resume(tid, {"query": "What does chlorophyll absorb in the leaf?"})  # a doubt on video 2
+
+    values = runner.get_state(tid)["values"]
+    assert values["policy_id"] == policy and values["resource_id"] == f"yt_{second['video_id']}"
+    assert [v["video_id"] for v in values["videos_watched"]] == [first["video_id"], second["video_id"]]
+    assert [(e["resource_id"], e["video_title"]) for e in values["qa_log"]] == [
+        (f"yt_{first['video_id']}", first["title"]), (f"yt_{second['video_id']}", second["title"])]
+    assert ("fake-run-1", "accepted", second["item_id"]) in services.videos.events
+
+    out = runner.resume(tid, {"end": True})
+    assert out["interrupt"]["type"] == "post_test_and_feedback"
+    final = runner.resume(tid, {"answers": ANSWERS, "rating": 5})["final_state"]
+    assert len(final["qa_log"]) == 2 and final["evaluation"]["status"] == "completed"
+
+
+def test_more_videos_and_end_cannot_both_be_sent(runner, learner):
+    out = _to_video_choice(runner, learner)
+    out = pick_video(runner, out["thread_id"], out)
+    out = runner.resume(out["thread_id"], {"more_videos": True, "end": True})
+    assert out["interrupt"]["type"] == "ask_question" and "not both" in out["interrupt"]["error"]

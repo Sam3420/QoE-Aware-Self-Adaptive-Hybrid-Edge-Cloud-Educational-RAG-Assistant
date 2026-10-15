@@ -1,7 +1,7 @@
-"""Topics offered to learners: NCERT Class 8 Science biology chapters, plus the original sample lesson.
+"""Topics offered to learners: the biology chapters of NCERT Class 10 Science (rationalised syllabus).
 
-Each topic's lesson text is knowledge_prep/samples/<topic_id>.txt. The Class 8 texts are project-written
-lesson notes that follow the NCERT chapter outlines; they are not the textbook's own text. Replace a file with
+Each topic's lesson text is knowledge_prep/samples/<topic_id>.txt. The texts are project-written lesson
+notes that follow the NCERT chapter outlines; they are not the textbook's own text. Replace a file with
 the official chapter text or a lecture transcript (then rebuild its index) to change what the assistant
 retrieves and what the quizzes are generated from.
 """
@@ -17,13 +17,11 @@ class Topic:
 
 
 TOPICS: tuple[Topic, ...] = (
-    Topic("crop_production_and_management", "Crop Production and Management", 8, "Biology"),
-    Topic("microorganisms_friend_and_foe", "Microorganisms: Friend and Foe", 8, "Biology"),
-    Topic("cell_structure_and_functions", "Cell: Structure and Functions", 8, "Biology"),
-    Topic("conservation_of_plants_and_animals", "Conservation of Plants and Animals", 8, "Biology"),
-    Topic("reproduction_in_animals", "Reproduction in Animals", 8, "Biology"),
-    Topic("reaching_the_age_of_adolescence", "Reaching the Age of Adolescence", 8, "Biology"),
-    Topic("photosynthesis", "Photosynthesis", 7, "Biology"),  # the project's original sample lesson
+    Topic("life_processes", "Life Processes", 10, "Biology"),
+    Topic("control_and_coordination", "Control and Coordination", 10, "Biology"),
+    Topic("how_do_organisms_reproduce", "How do Organisms Reproduce?", 10, "Biology"),
+    Topic("heredity", "Heredity", 10, "Biology"),
+    Topic("our_environment", "Our Environment", 10, "Biology"),
 )
 
 _BY_ID = {topic.topic_id: topic for topic in TOPICS}

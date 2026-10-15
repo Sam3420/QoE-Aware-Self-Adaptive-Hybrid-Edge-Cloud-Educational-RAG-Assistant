@@ -29,6 +29,7 @@ class AgentState(TypedDict):
     resource_id: str  # FAISS index answering questions (yt_<video_id>); "" until knowledge is prepared
     knowledge_attempts: list[dict[str, Any]]  # videos tried by prepare_knowledge, with failure reasons
     knowledge_error: str  # why no recommended video could be indexed (shown again by select_video)
+    videos_watched: list[dict[str, Any]]  # every video studied this session (video_id, title, url, resource_id)
 
     # Policy selection
     context: dict[str, Any]  # rtt_ms, cpu, mem, competency_num, last_qoe
@@ -88,6 +89,7 @@ def initial_state(student_id: str, topic_id: str = "", session_id: str | None = 
         resource_id="",
         knowledge_attempts=[],
         knowledge_error="",
+        videos_watched=[],
         context={},
         similar_exps=[],
         policy_id="",

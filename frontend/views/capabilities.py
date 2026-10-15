@@ -12,7 +12,7 @@ CAPABILITIES = [
      "app/api/routes/interactions.py → AssistantService → Hugging Face"),
     ("Personalization fields (Phase 3)", "Partial",
      "Stored by update_learner_personalization; only preferred language reaches the agent prompt"),
-    ("Topic catalogue: NCERT Class 8 biology chapters (the only topics a session offers)", "Implemented",
+    ("Topic catalogue: NCERT Class 10 biology chapters (the only topics a session offers)", "Implemented",
      "knowledge_prep/catalog.py + knowledge_prep/samples/*.txt (project-written lesson notes, not textbook text)"),
     ("Pre-test every session, planned from the learner's history", "Implemented",
      "app/services/pretest_planning.py (retest missed questions, unseen questions on weak concepts), "

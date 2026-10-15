@@ -15,6 +15,8 @@ def agent_turn(turn: dict[str, Any], threshold: float) -> None:
     provider = log["model_used"].split(":", 1)[0]
     with st.chat_message("user"):
         st.write(log["query"])
+        if log.get("video_title"):
+            st.caption(f"About: {log['video_title']}")
     with st.chat_message("assistant", avatar=":material/school:"):
         if turn["response"]:
             st.markdown(turn["response"])

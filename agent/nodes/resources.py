@@ -51,6 +51,13 @@ def recommend_videos(state: AgentState) -> dict[str, Any]:
         "query": run.get("query"), "items": items, "refreshed": refresh}}
 
 
+def _watched(state: AgentState, video: dict[str, Any], resource_id: str) -> list[dict[str, Any]]:
+    """videos_watched with this video appended (once per video)."""
+    watched = [v for v in state["videos_watched"] if v["video_id"] != video["video_id"]]
+    return [*watched, {"video_id": video["video_id"], "title": video.get("title"), "url": video.get("url"),
+                       "resource_id": resource_id}]
+
+
 def _unavailable(state: AgentState) -> dict[str, str]:
     """video_id → why it could not be indexed earlier in this session."""
     return {a["video_id"]: a["reason"] for a in state["knowledge_attempts"] if a["status"] != "ok"}
@@ -60,12 +67,15 @@ def select_video(state: AgentState) -> dict[str, Any]:
     """Pause for the learner's choice of video, a request for new recommendations, or the end of the session."""
     recs = state["recommendations"]
     unavailable = _unavailable(state)
-    items = [{**item, "unavailable": unavailable.get(item["video_id"])} for item in recs.get("items", [])]
+    watched = {v["video_id"] for v in state["videos_watched"]}
+    items = [{**item, "unavailable": unavailable.get(item["video_id"]), "watched": item["video_id"] in watched}
+             for item in recs.get("items", [])]
     choosable = {item["item_id"]: item for item in items if not item["unavailable"]}
     prompt: dict[str, Any] = {
         "type": "select_video", "topic_id": state["topic_id"], "items": items,
         "status": recs.get("status"), "errors": recs.get("errors", []), "strategy_id": recs.get("strategy_id"),
         "decision_reason": recs.get("decision_reason"), "notice": state["knowledge_error"] or None,
+        "watched": state["videos_watched"],
         "prompt": 'Pick a video to learn from ({"item_id": ...}), ask for new recommendations '
                   '({"refresh": true}) or end the session ({"end": true}).'}
     while True:
@@ -96,8 +106,12 @@ def select_video(state: AgentState) -> dict[str, Any]:
     event("accepted", video["item_id"])
     resource_id = video_resource_id(video["video_id"])
     reused = index_ready(get_services().crag.store, resource_id)
-    return {"video_action": "video", "video": {k: video.get(k) for k in VIDEO_FIELDS} | {"reused_index": reused},
-            "resource_id": resource_id if reused else "", "knowledge_error": "", "session_errors": errors}
+    update: dict[str, Any] = {"video_action": "video", "knowledge_error": "", "session_errors": errors,
+                              "video": {k: video.get(k) for k in VIDEO_FIELDS} | {"reused_index": reused},
+                              "resource_id": resource_id if reused else ""}
+    if reused:
+        update["videos_watched"] = _watched(state, video, resource_id)
+    return update
 
 
 def prepare_knowledge(state: AgentState) -> dict[str, Any]:
@@ -138,7 +152,7 @@ def prepare_knowledge(state: AgentState) -> dict[str, Any]:
         video_state = {k: video.get(k) for k in VIDEO_FIELDS} | info
         if video["video_id"] != chosen["video_id"]:
             video_state["replaces"] = {"video_id": chosen["video_id"], "title": chosen.get("title")}
-        return {"video": video_state, "resource_id": resource_id,
+        return {"video": video_state, "resource_id": resource_id, "videos_watched": _watched(state, video, resource_id),
                 "knowledge_attempts": [*state["knowledge_attempts"], *attempts], "session_errors": errors}
 
     reasons = "; ".join(f"'{a['title']}': {a['reason']}" for a in attempts)

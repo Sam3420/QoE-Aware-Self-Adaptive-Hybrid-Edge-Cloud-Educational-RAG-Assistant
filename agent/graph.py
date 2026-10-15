@@ -33,13 +33,17 @@ def build_builder() -> StateGraph:
     g.add_edge("pre_test", "recommend_videos")
     g.add_edge("recommend_videos", "select_video")
     # A chosen video is indexed once (transcript → chunks → embeddings → FAISS) and reused afterwards.
+    # The first video continues to context/policy; a video chosen later goes straight back to questions.
     g.add_conditional_edges("select_video", route_video,
-                            ["recommend_videos", "post_test_and_feedback", "prepare_knowledge", "collect_context"])
-    g.add_conditional_edges("prepare_knowledge", knowledge_ready, ["collect_context", "select_video"])
+                            ["recommend_videos", "post_test_and_feedback", "prepare_knowledge", "collect_context",
+                             "ask_question"])
+    g.add_conditional_edges("prepare_knowledge", knowledge_ready, ["collect_context", "ask_question", "select_video"])
     g.add_edge("collect_context", "select_policy")
     g.add_edge("select_policy", "ask_question")
-    # {"end": true} at ask_question finishes the session; a query goes to retrieval.
-    g.add_conditional_edges("ask_question", continue_session, ["crag_retrieve", "post_test_and_feedback"])
+    # At ask_question the learner asks a doubt (→ retrieval), watches another video (→ select_video)
+    # or takes the post-test ({"end": true}).
+    g.add_conditional_edges("ask_question", continue_session,
+                            ["crag_retrieve", "select_video", "post_test_and_feedback"])
     # CRAG loop: retry retrieval until the score is good enough or the retries run out.
     g.add_conditional_edges("crag_retrieve", crag_ok, ["llm_router", "corrective_retrieve"])
     g.add_edge("corrective_retrieve", "crag_retrieve")

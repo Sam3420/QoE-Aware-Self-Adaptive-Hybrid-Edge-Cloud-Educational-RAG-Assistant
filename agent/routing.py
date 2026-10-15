@@ -10,25 +10,32 @@ def need_pretest(state: AgentState) -> Literal["pre_test", "recommend_videos"]:
     return "pre_test" if state["test_items"] else "recommend_videos"
 
 
+def _to_questions(state: AgentState) -> Literal["collect_context", "ask_question"]:
+    """The first video goes through context measurement and policy selection; later videos keep that policy."""
+    return "ask_question" if state["policy_id"] else "collect_context"
+
+
 def route_video(state: AgentState) -> Literal["recommend_videos", "post_test_and_feedback", "prepare_knowledge",
-                                              "collect_context"]:
+                                              "collect_context", "ask_question"]:
     """After select_video: new recommendations, end, or the chosen video (indexing it first if needed)."""
     action = state["video_action"]
     if action == "refresh":
         return "recommend_videos"
     if action == "end":
         return "post_test_and_feedback"
-    return "collect_context" if state["resource_id"] else "prepare_knowledge"
+    return _to_questions(state) if state["resource_id"] else "prepare_knowledge"
 
 
-def knowledge_ready(state: AgentState) -> Literal["collect_context", "select_video"]:
+def knowledge_ready(state: AgentState) -> Literal["collect_context", "ask_question", "select_video"]:
     """After prepare_knowledge: continue with the indexed video, or let the learner choose again."""
-    return "collect_context" if state["resource_id"] else "select_video"
+    return _to_questions(state) if state["resource_id"] else "select_video"
 
 
-def continue_session(state: AgentState) -> Literal["crag_retrieve", "post_test_and_feedback"]:
-    """After ask_question: answer the question, or finish if the learner sent {"end": true}."""
-    return "crag_retrieve" if state["continue_session"] else "post_test_and_feedback"
+def continue_session(state: AgentState) -> Literal["crag_retrieve", "select_video", "post_test_and_feedback"]:
+    """After ask_question: answer the doubt, go back to the videos, or take the post-test."""
+    if state["continue_session"]:
+        return "crag_retrieve"
+    return "select_video" if state["video_action"] == "more" else "post_test_and_feedback"
 
 
 def crag_ok(state: AgentState) -> Literal["llm_router", "corrective_retrieve"]:

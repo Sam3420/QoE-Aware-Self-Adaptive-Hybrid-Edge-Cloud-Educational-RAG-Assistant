@@ -22,10 +22,14 @@ def _provider_order(preferred: str) -> list[str]:
 
 def ask_question(state: AgentState) -> dict[str, Any]:
     """Pause for {"query": str} or {"end": true} (re-asking on invalid input) and reset per-question fields."""
+    video = state.get("video") or {}
     prompt: dict[str, Any] = {
         "type": "ask_question",
         "question_no": len(state["qa_log"]) + 1,
-        "prompt": 'Ask your question about this topic, or send {"end": true} to finish.',
+        "video": {"video_id": video.get("video_id"), "title": video.get("title"), "url": video.get("url")},
+        "next_steps": ["ask a doubt", "watch another video", "take the post-test"],
+        "prompt": 'Ask a doubt about the video ({"query": "..."}), watch another video ({"more_videos": true}) '
+                  'or take the post-test ({"end": true}).',
     }
     # interrupt() must come first: this node re-runs from the top on each resume.
     while True:
@@ -35,8 +39,10 @@ def ask_question(state: AgentState) -> dict[str, Any]:
             break
         except ValidationError as exc:
             prompt = {**prompt, "error": exc.errors(include_url=False)[0]["msg"]}
+    if reply.more_videos:
+        return {"continue_session": False, "video_action": "more"}
     if reply.end:
-        return {"continue_session": False}
+        return {"continue_session": False, "video_action": "end"}
     return {
         "query": reply.query,
         "retrieval_query": reply.query,
@@ -126,6 +132,8 @@ def generate_response(state: AgentState) -> dict[str, Any]:
         latency_ms=max(0.0, (time.time() - state["question_started_at"]) * 1000),
         gen_latency_ms=result.latency_ms,
         error="; ".join(errors) or None,
+        resource_id=state.get("resource_id") or state["topic_id"],
+        video_title=(state.get("video") or {}).get("title"),
     )
     return {"response": result.text, "model_used": model_used, "q_errors": errors,
             "qa_log": [entry.model_dump()]}

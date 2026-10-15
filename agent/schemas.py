@@ -64,10 +64,12 @@ class VideoReply(BaseModel):
 
 
 class QuestionReply(BaseModel):
-    """Resume value for the ask_question interrupt: {"query": str} to ask, or {"end": true} to finish."""
+    """Resume value for the ask_question interrupt: {"query": str} to ask a doubt, {"more_videos": true} to
+    choose another video, or {"end": true} to go to the post-test."""
 
     query: str | None = Field(default=None, max_length=2000)
     end: bool = False
+    more_videos: bool = False
 
     @model_validator(mode="before")
     @classmethod
@@ -79,8 +81,10 @@ class QuestionReply(BaseModel):
     def _query_unless_end(self) -> "QuestionReply":
         """Require a non-blank query unless the learner is ending the session."""
         self.query = (self.query or "").strip() or None
-        if not self.end and self.query is None:
-            raise ValueError('send {"query": "<question>"} or {"end": true}')
+        if self.end and self.more_videos:
+            raise ValueError('send either {"more_videos": true} or {"end": true}, not both')
+        if not (self.end or self.more_videos) and self.query is None:
+            raise ValueError('send {"query": "<question>"}, {"more_videos": true} or {"end": true}')
         return self
 
 
@@ -112,3 +116,5 @@ class QALogEntry(BaseModel):
     latency_ms: float = Field(ge=0.0)  # question received → answer ready
     gen_latency_ms: float = Field(ge=0.0)  # LLM call only
     error: str | None = None  # retrieval errors, route fallbacks, generation failures
+    resource_id: str | None = None  # index the answer was retrieved from (yt_<video_id>)
+    video_title: str | None = None  # the video being studied when the question was asked

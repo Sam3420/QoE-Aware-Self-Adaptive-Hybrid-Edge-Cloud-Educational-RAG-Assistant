@@ -13,8 +13,10 @@ def test_full_session_through_runner(runner, learner, services):
     assert all("answer_index" not in item for item in out["interrupt"]["items"])  # answers never leak
 
     out = pass_pretest(runner, tid, ANSWERS)
-    assert out["interrupt"] == {"type": "ask_question", "question_no": 1,
-                                "prompt": 'Ask your question about this topic, or send {"end": true} to finish.'}
+    pause = out["interrupt"]
+    assert pause["type"] == "ask_question" and pause["question_no"] == 1
+    assert pause["video"]["title"] == "Fake video 1 about photosynthesis"
+    assert pause["next_steps"] == ["ask a doubt", "watch another video", "take the post-test"]
     out = runner.resume(tid, {"query": "How do leaves take in carbon dioxide?"})
     assert out["interrupt"]["question_no"] == 2
     out = runner.resume(tid, {"end": True})

@@ -168,7 +168,7 @@ class RecommendationCoordinator:
                 obs.update(output={"strategy_id": strategy.strategy_id, "reason": reason})
 
         concepts = needs["gap_concepts"] if concepts is None else [c.strip() for c in concepts if c.strip()]
-        topic_text = search_text(topic_id)  # "Crop Production and Management class 8", not the id
+        topic_text = search_text(topic_id)  # "Life Processes class 10", not the id
         objective = (objective or "").strip() or (f"{topic_text}: {', '.join(concepts[:4])}" if concepts else topic_text)
         with self._db() as db:
             excluded = {} if revision else RecommendationRepository(db).learner_video_states(student_id)

@@ -91,7 +91,12 @@ def _duration(seconds: int | None) -> str:
 
 def _select_video(backend: AgentBackend, thread_id: str, values: dict[str, Any], pause: dict[str, Any]) -> None:
     _pretest_score(values)
-    st.subheader("Choose a video to learn from")
+    watched = pause.get("watched") or []
+    if watched:
+        st.subheader("Watch another video")
+        st.caption("Watched so far: " + " · ".join(v.get("title") or v["video_id"] for v in watched))
+    else:
+        st.subheader("Choose a video to learn from")
     st.caption(f"Recommended for **{topic_title(values['topic_id'])}**, your level "
                f"({values.get('competency') or 'unknown'}) and language ({values['profile'].get('language')}). "
                f"Strategy {pause.get('strategy_id') or '—'}: {pause.get('decision_reason') or '—'}")
@@ -114,6 +119,8 @@ def _select_video(backend: AgentBackend, thread_id: str, values: dict[str, Any],
             right.caption(f"{item.get('channel_title') or '—'} · {_duration(item.get('duration_s'))} · "
                           f"score {item['score']:.2f} · evidence: {item.get('evidence_level')}{captions}")
             right.caption(item.get("explanation") or "")
+            if item.get("watched"):
+                right.caption(":green[:material/check_circle: Already watched this session]")
             if item.get("unavailable"):
                 right.warning(f"Can't be used for questions: {item['unavailable']}", icon=":material/block:")
             elif right.button("Learn from this video", key=f"vid-{item['item_id']}", type="primary",
@@ -127,8 +134,9 @@ def _select_video(backend: AgentBackend, thread_id: str, values: dict[str, Any],
         with st.spinner("Searching YouTube again…"):
             _remember(backend.resume(thread_id, {"refresh": True}), "New recommendations")
         st.rerun()
-    if c2.button("End session", icon=":material/stop:", width="stretch"):
-        _remember(backend.resume(thread_id, {"end": True}), "End session")
+    if c2.button("Take the post-test" if watched else "End session",
+                 icon=":material/flag:" if watched else ":material/stop:", width="stretch"):
+        _remember(backend.resume(thread_id, {"end": True}), "Take the post-test" if watched else "End session")
         st.rerun()
 
 
@@ -252,19 +260,29 @@ def _questions(backend: AgentBackend, thread_id: str, values: dict[str, Any], pa
     _video_panel(values)
     threshold = values["runtime_config"].get("threshold", settings.crag_retrieval_threshold)
     turns = backend.conversation(thread_id)
-    if not turns:
-        st.info(f"Ask your first question about **{topic_title(values['topic_id'])}**.")
     for turn in turns:
         chat.agent_turn(turn, threshold)
 
-    left, right = st.columns([3, 1])
-    left.caption(f"Question {pause['question_no']} of at most {settings.max_questions_per_session}.")
-    if right.button("Finish → post-test", icon=":material/flag:", width="stretch"):
-        with st.spinner("Preparing the post-test…"):
-            _remember(backend.resume(thread_id, {"end": True}), "Finish session")
-        st.rerun()
+    video_title = (pause.get("video") or {}).get("title") or "the video"
+    with st.chat_message("assistant", avatar=":material/school:"):
+        if turns:
+            st.markdown(f"Any more doubts about **{video_title}**? Ask below. Or would you like to watch another "
+                        "video, or are you ready for the post-test?")
+        else:
+            st.markdown(f"Watch **{video_title}** above, then ask me anything you didn't understand. When you're "
+                        "done, you can watch another video or take the post-test.")
+        c1, c2 = st.columns(2)
+        if c1.button("Watch another video", icon=":material/video_library:", width="stretch"):
+            with st.spinner("Loading the video recommendations…"):
+                _remember(backend.resume(thread_id, {"more_videos": True}), "Watch another video")
+            st.rerun()
+        if c2.button("Take the post-test", icon=":material/flag:", type="primary", width="stretch"):
+            with st.spinner("Preparing the post-test…"):
+                _remember(backend.resume(thread_id, {"end": True}), "Take the post-test")
+            st.rerun()
+    st.caption(f"Question {pause['question_no']} of at most {settings.max_questions_per_session} this session.")
 
-    if prompt := st.chat_input(f"Ask about {topic_title(values['topic_id'])}…", max_chars=2000):
+    if prompt := st.chat_input(f"Ask a doubt about {video_title}…", max_chars=2000):
         with st.chat_message("user"):
             st.write(prompt)
         with st.spinner("Retrieving lesson context (CRAG), routing and generating the answer…"):

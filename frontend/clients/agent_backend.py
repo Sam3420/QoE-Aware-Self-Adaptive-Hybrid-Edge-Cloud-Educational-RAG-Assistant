@@ -100,7 +100,9 @@ def describe_node(node: str, update: dict[str, Any]) -> str:
     if node == "select_policy":
         return f"{update.get('policy_id')}: {update.get('decision_reason')}"
     if node == "ask_question":
-        return "end requested" if update.get("continue_session") is False else f"query={update.get('query')!r}"
+        if update.get("continue_session") is False:
+            return "wants another video" if update.get("video_action") == "more" else "post-test requested"
+        return f"query={update.get('query')!r}"
     if node == "crag_retrieve":
         if "retrieval_score" in update:
             return f"best score={update['retrieval_score']:.3f}, chunks kept={len(update['chunks'])}"
