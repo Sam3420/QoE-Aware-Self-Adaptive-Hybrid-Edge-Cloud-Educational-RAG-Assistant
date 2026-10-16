@@ -82,17 +82,18 @@ def test_creates_new_tables_alongside_existing_ones(engine):
 
 
 def test_seed_policies_is_idempotent_with_one_default(repository):
-    assert repository.seed_policies() == 4
+    assert repository.seed_policies() == 5
     assert repository.seed_policies() == 0
 
     policies = repository.list_policies()
-    assert [policy["policy_id"] for policy in policies] == ["P1", "P2", "P3", "P4"]
+    assert [policy["policy_id"] for policy in policies] == ["P1", "P2", "P3", "P4", "P5"]
     assert sum(policy["is_default"] for policy in policies) == 1
     assert {(p["top_k"], p["max_retries"], p["route"]) for p in policies} == {
         (3, 0, "local"),
         (5, 1, "local"),
         (3, 0, "cloud"),
         (5, 1, "cloud"),
+        (5, 1, "escalate"),
     }
 
 

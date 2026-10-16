@@ -41,7 +41,8 @@ def test_more_questions_respects_cap():
 
 
 def test_policies_are_valid_and_default_is_p1():
-    assert set(POLICIES) == {"P1", "P2", "P3", "P4"}
+    assert set(POLICIES) == {"P1", "P2", "P3", "P4", "P5"}
+    assert POLICIES["P5"].route == "escalate"
     for policy in POLICIES.values():
         RuntimeConfig.model_validate(policy.runtime_config())
     assert get_policy(None).policy_id == "P1"

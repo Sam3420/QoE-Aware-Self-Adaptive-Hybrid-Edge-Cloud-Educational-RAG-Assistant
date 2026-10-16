@@ -36,7 +36,7 @@ python -m venv .venv
 Use `python -m …` rather than `.venv\Scripts\uvicorn.exe` / `streamlit.exe`: Windows Smart App Control can block
 those pip-generated launchers ("Permission denied"), while python.exe is signed.
 
-Open http://localhost:8501. The database tables and policies P1–P4 are created on first start; no
+Open http://localhost:8501. The database tables and policies P1–P5 are created on first start; no
 separate initialisation command is needed.
 
 ### Optional: local LLM and embeddings (Ollama)

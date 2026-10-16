@@ -111,6 +111,17 @@ POLICY_SEED: tuple[dict, ...] = (
         "is_default": False,
         "description": "Cloud LLM, 5 chunks, one corrective retry.",
     },
+    {
+        "policy_id": "P5",
+        "name": "local-escalate",
+        "top_k": 5,
+        "threshold": 0.75,
+        "max_retries": 1,
+        "route": "escalate",
+        "is_default": False,
+        "description": "Local SLM, 5 chunks, one corrective retry; escalates to the cloud LLM when retrieval "
+                       "confidence is low or a grounding check rejects the local answer.",
+    },
 )
 
 

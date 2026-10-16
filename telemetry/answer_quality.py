@@ -68,18 +68,34 @@ def session_answer_quality(session_id: str, *, names: list[str], score_min: floa
 
 
 def _answer_traces(client: Any, session_id: str, options: dict[str, Any]) -> dict[str, set[str]]:
-    """trace id → ids of its generate-answer generations, for this session."""
-    out: dict[str, set[str]] = defaultdict(set)
+    """trace id → id of the final generate-answer generation of each question, for this session.
+
+    A question has two generations when policy P5 replaced the local answer with a cloud one (agent/escalation.py);
+    LQ scores the answer the learner ended up with, so only the latest generation of a trace is kept.
+    """
+    latest: dict[str, tuple[Any, int, str]] = {}  # trace id → (start time, arrival order, generation id)
+    order = 0
     cursor = None
     for _ in range(10):  # 10 × 100 generations is far more than one session asks
         page = client.api.observations.get_many(session_id=session_id, name=GENERATION_NAME, type="GENERATION",
                                                 fields="core", limit=100, cursor=cursor, request_options=options)
         for obs in page.data:
-            out[obs.trace_id].add(obs.id)
+            key = (getattr(obs, "start_time", None), order, obs.id)
+            order += 1
+            current = latest.get(obs.trace_id)
+            if current is None or _later(key, current):
+                latest[obs.trace_id] = key
         cursor = getattr(getattr(page, "meta", None), "cursor", None)
         if not cursor:
             break
-    return dict(out)
+    return {trace_id: {key[2]} for trace_id, key in latest.items()}
+
+
+def _later(a: tuple[Any, int, str], b: tuple[Any, int, str]) -> bool:
+    """True if generation a started after b (by start time when both have one, else by arrival order)."""
+    if a[0] is not None and b[0] is not None and a[0] != b[0]:
+        return a[0] > b[0]
+    return a[1] > b[1]
 
 
 def _scores_by_answer(client: Any, answers: dict[str, set[str]], names: list[str],

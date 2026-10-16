@@ -7,7 +7,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
-from pydantic import Field, SecretStr, field_validator, model_validator
+from pydantic import AliasChoices, Field, SecretStr, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 PROJECT_ROOT = Path(__file__).resolve().parent
@@ -53,10 +53,30 @@ class Settings(BaseSettings):
     prewarm_question_banks: bool = True  # then generate missing topic question banks in the background
     local_llm_model: str = "gemma3:1b"
     local_llm_timeout_s: float = Field(default=180.0, gt=0)
+    # Cloud route: "auto" uses Groq when a Groq key is set, otherwise Hugging Face. Both speak the OpenAI
+    # chat-completions format.
+    cloud_provider: Literal["auto", "groq", "huggingface"] = "auto"
     hf_token: SecretStr | None = None
     hf_inference_url: str = "https://router.huggingface.co/v1/chat/completions"
-    cloud_llm_model: str = "meta-llama/Llama-3.1-8B-Instruct"
+    cloud_llm_model: str = "meta-llama/Llama-3.1-8B-Instruct"  # Hugging Face model
+    # GROQ_API_KEY (GROK_API_KEY is accepted too: the variable is easy to misspell; xAI's Grok is not supported).
+    groq_api_key: SecretStr | None = Field(default=None, validation_alias=AliasChoices("GROQ_API_KEY", "GROK_API_KEY"))
+    groq_url: str = "https://api.groq.com/openai/v1/chat/completions"
+    # Llama models are not offered to every Groq account; gpt-oss-120b answered a lesson question in ~0.8 s.
+    groq_model: str = "openai/gpt-oss-120b"
+    # gpt-oss models reason before answering and the reasoning counts towards max_tokens; "low" keeps it short.
+    groq_reasoning_effort: Literal["low", "medium", "high"] | None = "low"
     cloud_llm_timeout_s: float = Field(default=60.0, gt=0)
+    # P5 (route "escalate"): grounding check of local answers by a small, fast cloud model (agent/escalation.py).
+    escalation_check_enabled: bool = True
+    escalation_check_model: str = "openai/gpt-oss-20b"  # on the cloud provider (Groq); ~0.5 s per check
+    escalation_check_max_tokens: int = Field(default=400, gt=0)  # includes the model's reasoning tokens
+    escalation_min_check_score: float = Field(default=0.75, ge=0.0, le=1.0)  # below this the answer is replaced
+    # Escalate before answering only for borderline retrieval: [floor, CRAG threshold). Below the floor the question
+    # is off-topic for the video (nomic: off-topic 0.47-0.55, on-topic 0.71-0.82), the cloud cannot add missing
+    # content, and the local model's "not covered" reply is enough. Live test: escalating such questions cost
+    # ~1 s and a cloud call each and only produced the same "not covered" reply.
+    escalation_min_retrieval_score: float = Field(default=0.55, ge=0.0, le=1.0)
     llm_max_tokens: int = Field(default=200, gt=0)  # answers for school learners; fewer tokens = faster
     llm_temperature: float = Field(default=0.2, ge=0.0, le=2.0)
     # Provider health checks are cached for this long, so each question doesn't re-probe.

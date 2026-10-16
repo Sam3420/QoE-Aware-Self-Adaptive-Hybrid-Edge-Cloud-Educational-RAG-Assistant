@@ -193,16 +193,21 @@ class OllamaClient:
         return last, "".join(parts).strip()
 
 
-class HuggingFaceClient:
-    """Cloud LLM through the Hugging Face OpenAI-compatible router."""
+class OpenAICompatibleClient:
+    """Cloud LLM behind an OpenAI chat-completions endpoint (Groq, Hugging Face router)."""
 
     provider = "cloud"
 
-    def __init__(self, *, model: str, url: str, token: SecretStr | None, timeout_s: float) -> None:
+    def __init__(self, *, model: str, url: str, token: SecretStr | None, timeout_s: float,
+                 label: str = "huggingface", token_env: str = "HF_TOKEN",
+                 extra_body: dict[str, Any] | None = None) -> None:
         self.model = model
+        self.label = label  # which service, for traces and error messages
         self._url = url
         self._token = token
+        self._token_env = token_env
         self._timeout = timeout_s
+        self._extra = dict(extra_body or {})  # provider-specific request fields, e.g. Groq reasoning_effort
 
     def is_available(self) -> bool:
         """True when an API token is configured (no network probe, to save quota)."""
@@ -211,18 +216,19 @@ class HuggingFaceClient:
     def generate(self, request: GenerationRequest) -> GenerationResult:
         """Answer with a chat-completions call."""
         if not self.is_available():
-            raise LLMError("HF_TOKEN is not configured.")
+            raise LLMError(f"{self._token_env} is not configured.")
         body = {
             "model": self.model,
             "messages": request.messages(),
             "max_tokens": request.max_tokens,
             "temperature": request.temperature,
+            **self._extra,
         }
         headers = {"Authorization": f"Bearer {self._token.get_secret_value()}"}  # never traced
         with tracing.observation(request.operation, as_type="generation", input=request.messages(), model=self.model,
                                  model_parameters={"max_tokens": request.max_tokens,
                                                    "temperature": request.temperature},
-                                 metadata={"provider": "huggingface", "route": self.provider}) as gen:
+                                 metadata={"provider": self.label, "route": self.provider}) as gen:
             start = time.perf_counter()
             try:
                 resp = httpx.post(self._url, json=body, headers=headers, timeout=self._timeout)
@@ -230,14 +236,32 @@ class HuggingFaceClient:
                 data = resp.json()
                 text = data["choices"][0]["message"]["content"].strip()
             except (httpx.HTTPError, KeyError, IndexError, ValueError) as exc:
-                raise LLMError(f"Hugging Face generation failed ({self.model}): {exc}") from exc
+                raise LLMError(f"{self.label} generation failed ({self.model}): {_http_detail(exc)}") from exc
             if not text:
-                raise LLMError(f"Hugging Face returned an empty answer ({self.model}).")
+                # Reasoning models can spend the whole token budget thinking and return no answer text.
+                raise LLMError(f"{self.label} returned an empty answer ({self.model}, "
+                               f"finish_reason={data['choices'][0].get('finish_reason')}).")
             usage = data.get("usage") or {}
             gen.update(output=text, usage_details=_usage(usage.get("prompt_tokens"), usage.get("completion_tokens")))
             return GenerationResult(text=text, provider=self.provider, model=self.model,
                                     latency_ms=(time.perf_counter() - start) * 1000,
                                     completion_tokens=usage.get("completion_tokens"))
+
+
+class HuggingFaceClient(OpenAICompatibleClient):
+    """The Hugging Face router (kept for existing callers)."""
+
+
+def _http_detail(exc: Exception) -> str:
+    """The error plus the API's own message for HTTP errors (e.g. Groq's rate-limit or model errors)."""
+    response = getattr(exc, "response", None)
+    if response is not None:
+        try:
+            message = response.json().get("error", {}).get("message", "")
+        except ValueError:
+            message = response.text[:200]
+        return f"HTTP {response.status_code}: {message or response.reason_phrase}"[:500]
+    return str(exc)
 
 
 class ExtractiveClient:

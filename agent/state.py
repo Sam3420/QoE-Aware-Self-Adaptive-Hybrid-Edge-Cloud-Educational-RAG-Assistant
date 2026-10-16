@@ -52,6 +52,7 @@ class AgentState(TypedDict):
     crag_retries: int
     model_used: str
     response: str
+    escalation: dict[str, Any]  # P5: stage/reason when this question was escalated to the cloud LLM
 
     # Per-question log; the reducer appends, so nodes return only new entries.
     qa_log: Annotated[list[dict[str, Any]], operator.add]
@@ -108,6 +109,7 @@ def initial_state(student_id: str, topic_id: str = "", session_id: str | None = 
         crag_retries=0,
         model_used="",
         response="",
+        escalation={},
         qa_log=[],
         continue_session=True,
         rating=None,

@@ -5,11 +5,12 @@ from app.db.base import Base
 
 
 class Policy(Base):
-    """A fixed, predefined runtime policy (P1-P4) the agent can select.
+    """A fixed, predefined runtime policy (P1-P5) the agent can select.
 
     Kept separate from ``runtime_configurations``: those are versioned, immutable
     snapshots of what an interaction actually ran with, keyed by UUID, whereas
-    policies are a small static catalogue keyed by ``"P1"``..``"P4"``.
+    policies are a small static catalogue keyed by ``"P1"``..``"P5"``. ``route`` is "local", "cloud" or
+    "escalate" (local first, cloud when needed).
     """
 
     __tablename__ = "policies"

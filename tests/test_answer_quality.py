@@ -126,3 +126,17 @@ def test_lq_source_off_keeps_lq_unavailable(runner, learner, monkeypatch):
     runner.resume(tid, {"end": True})
     ev = runner.resume(tid, {"answers": ANSWERS, "rating": 4})["final_state"]["evaluation"]
     assert ev["metrics"]["LQ"] is None and ev["lq"]["reason"] == "LQ_SOURCE=off"
+
+
+def test_only_the_final_answer_of_a_question_is_scored():
+    """P5 replaces an unsupported local answer with a cloud one: LQ scores what the learner ended up with."""
+    from datetime import datetime, timedelta
+
+    t0 = datetime(2026, 10, 17, 10, 0, 0)
+    draft, final = NS(trace_id="t1", id="g-draft", start_time=t0), NS(trace_id="t1", id="g-final",
+                                                                       start_time=t0 + timedelta(seconds=2))
+    c = client([final, draft],  # API order does not matter, the later start time wins
+               {"t1": [("answer_quality", score(0.2, "observation", "g-draft")),
+                       ("answer_quality", score(0.9, "observation", "g-final"))]})
+    lq = session_answer_quality("s1", names=["answer_quality"], client=c)
+    assert lq.value == pytest.approx(0.9) and (lq.scored, lq.answers) == (1, 1)

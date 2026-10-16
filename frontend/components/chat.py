@@ -29,6 +29,15 @@ def agent_turn(turn: dict[str, Any], threshold: float) -> None:
             st.warning(f"No language model produced this answer. The agent's model-free fallback (ExtractiveClient) "
                        f"returned {what}. Neither the local nor the cloud route was available, or both failed.",
                        icon=":material/info:")
+        elif log.get("escalated"):
+            when = ("before answering" if log.get("escalation_stage") == "before"
+                    else f"after checking the local answer ({log.get('draft_model')})")
+            st.info(f"**Escalated to the cloud model {when}:** {log.get('escalation_reason')}.",
+                    icon=":material/trending_up:")
+        elif log["preferred_route"] == "escalate":
+            if log.get("check_supported"):
+                st.caption(f"Policy P5: local answer checked against the video ({log['check_score']:.0%} of its "
+                           f"claims supported, check took {ms(log['check_ms'])}).")
         elif provider != log["preferred_route"]:
             st.info(f"The policy preferred the **{log['preferred_route']}** route; the router used "
                     f"**{provider}** instead (see errors below).", icon=":material/alt_route:")
@@ -53,6 +62,11 @@ def agent_turn(turn: dict[str, Any], threshold: float) -> None:
                 ("CRAG min chunk score", f"{settings.crag_min_chunk_score:.2f}"),
                 ("Corrective retries", log["crag_retries"]),
                 ("Chunks passed to the model", log["n_chunks"]),
+                *([("Escalated (P5)", f"{log.get('escalation_stage') or 'no'}"
+                                      + (f": {log['escalation_reason']}" if log.get("escalation_reason") else "")),
+                   ("Grounding check", "not run" if log.get("check_supported") is None else
+                    f"score {log['check_score']:.2f} in {ms(log['check_ms'])}")]
+                  if log["preferred_route"] == "escalate" else []),
             ], columns=["field", "value"]).astype(str), hide_index=True, width="stretch")
             if log["retrieval_query"] != log["query"]:
                 st.markdown(f"Query rewritten by `corrective_retrieve`: `{log['retrieval_query']}`")

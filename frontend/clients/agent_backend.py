@@ -110,7 +110,8 @@ def describe_node(node: str, update: dict[str, Any]) -> str:
     if node == "corrective_retrieve":
         return f"retry {update.get('crag_retries')}: {update.get('retrieval_query')!r}"
     if node == "llm_router":
-        return str(update.get("model_used", ""))
+        esc = update.get("escalation") or {}
+        return str(update.get("model_used", "")) + (f" (escalated: {esc['reason']})" if esc.get("reason") else "")
     if node == "generate_response" and "model_used" in update:
         return f"answered by {update['model_used']}"
     if node == "post_test_and_feedback":
@@ -127,7 +128,7 @@ class AgentBackend:
 
     def __init__(self) -> None:
         self.services: Services = get_services()
-        self.services.app.ensure_ready()  # create tables if missing, seed policies P1-P4
+        self.services.app.ensure_ready()  # create tables if missing, seed policies P1-P5
         self.checkpointer = get_checkpointer()
         self.runner = SessionRunner(build_graph(self.checkpointer))
         # The runner and its SQLite checkpointer are shared; serialise graph execution.
@@ -213,7 +214,8 @@ class AgentBackend:
         router = self.services.router
         how = {
             "local": f"GET {settings.ollama_base_url}/api/tags lists the model",
-            "cloud": "HF_TOKEN is configured (the router does not probe the network, to save quota)",
+            "cloud": f"{getattr(self.services.router.clients.get('cloud'), 'label', 'cloud')} API key is configured "
+                     "(GROQ_API_KEY or HF_TOKEN; the router does not probe the network, to save quota)",
         }
         return [ProviderStatus(p, router.model_name(p), router.is_available(p), how[p]) for p in ROUTES]
 

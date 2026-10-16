@@ -174,7 +174,7 @@ The strategies are fixed, predefined, executable configurations:
   - It is `None` until the learner accepts, dismisses or rates something, so runs without judgements never influence selection.
   - It uses acceptance only after an accept/dismiss, and satisfaction only after a rating.
   - The formula is 0.8 × mean of those (plus learning gain when available) + 0.2 × latency quality.
-- Recommendation runs are stored in `recommendation_runs`, not in the Q&A `experiences` table. That table's `policy_id` references the Q&A policies P1–P4, so mixing them would let either selector pick the other's actions. The run row has the same experience shape (state, strategy, outcome, reward).
+- Recommendation runs are stored in `recommendation_runs`, not in the Q&A `experiences` table. That table's `policy_id` references the Q&A policies P1–P5, so mixing them would let either selector pick the other's actions. The run row has the same experience shape (state, strategy, outcome, reward).
 - No adaptive improvement is claimed until runs with real feedback exist and are compared with the R2 baseline.
 
 ## Feedback and evaluation

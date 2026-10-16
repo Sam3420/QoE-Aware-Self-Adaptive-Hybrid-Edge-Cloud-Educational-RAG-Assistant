@@ -16,7 +16,9 @@ class RuntimeConfig(BaseModel):
     top_k: int = Field(ge=1, le=20)
     threshold: float = Field(ge=0.0, le=1.0)
     max_retries: int = Field(ge=0, le=5)
-    route: Literal["local", "cloud"]
+    # "escalate" (P5): answer with the local SLM, escalate to the cloud LLM when retrieval confidence is low
+    # or a grounding check rejects the local answer (agent/escalation.py).
+    route: Literal["local", "cloud", "escalate"]
 
 
 class SessionContext(BaseModel):
@@ -117,4 +119,12 @@ class QALogEntry(BaseModel):
     gen_latency_ms: float = Field(ge=0.0)  # LLM call only
     error: str | None = None  # retrieval errors, route fallbacks, generation failures
     resource_id: str | None = None  # index the answer was retrieved from (yt_<video_id>)
+    # P5 (route "escalate") only: whether and why the answer was escalated to the cloud LLM.
+    escalated: bool = False
+    escalation_stage: Literal["before", "after"] | None = None  # low retrieval confidence / failed check
+    escalation_reason: str | None = None
+    check_supported: bool | None = None  # grounding check verdict on the local answer (None: not checked)
+    check_score: float | None = None  # share of the local answer's claims supported by the context
+    check_ms: float | None = None  # time spent on the check
+    draft_model: str | None = None  # the local model whose answer was replaced
     video_title: str | None = None  # the video being studied when the question was asked

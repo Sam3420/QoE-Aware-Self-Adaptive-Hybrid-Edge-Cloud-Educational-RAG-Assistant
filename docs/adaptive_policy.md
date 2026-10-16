@@ -37,7 +37,7 @@ One transition is **one learning session**:
 | Symbol | Meaning |
 |---|---|
 | `s` | The learner's previous measured state: the `s_next` stored with their last transition. On a first session, `s` is a baseline state and `QoE_old`/`SRE_old` = `BASELINE_QOE`/`BASELINE_SRE` (flagged `baseline_used`). |
-| `a` | The predefined policy P1–P4 executed this session: `top_k`, CRAG `max_retries`, local/cloud `route` (the agent applies the CRAG threshold from config). These are the agent's real runtime adaptations. |
+| `a` | The predefined policy P1–P5 executed this session: `top_k`, CRAG `max_retries`, local/cloud/escalate `route` (P5: see docs/escalation_policy.md) (the agent applies the CRAG threshold from config). These are the agent's real runtime adaptations. |
 | `s_next` | This session's measured state. |
 
 The graph runs these steps:

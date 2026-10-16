@@ -39,7 +39,7 @@ def _start_panel(backend: AgentBackend, learner: dict[str, Any]) -> None:
         st.subheader("Start a learning session")
         providers = backend.provider_statuses()
         if not any(p.available for p in providers):
-            st.warning("No language model is reachable (Ollama is down and HF_TOKEN is not set). The session "
+            st.warning("No language model is reachable (Ollama is down and neither GROQ_API_KEY nor HF_TOKEN is set). The session "
                        "will still run, but the pre/post-test cannot be generated and answers will be lesson "
                        "extracts from the model-free fallback, not generated text.", icon=":material/warning:")
         if not settings.youtube_api_key:
@@ -49,7 +49,7 @@ def _start_panel(backend: AgentBackend, learner: dict[str, Any]) -> None:
             "The agent will: load your profile → let you **choose a topic** → give a **pre-test** (planned from your "
             "past results on the topic) → **recommend YouTube videos** for the topic, your level and language → "
             "let you **choose a video** → turn its transcript into a searchable index (once per video) → measure "
-            "**RTT, CPU and memory** → **select a policy** (P1–P4) → answer your questions from the video with "
+            "**RTT, CPU and memory** → **select a policy** (P1–P5) → answer your questions from the video with "
             "**CRAG** retrieval and the **local/cloud router** → give a **post-test** on the same questions and "
             "store the session as an **experience**."
         )

@@ -38,6 +38,9 @@ CAPABILITIES = [
     ("Experience memory (Phase 10)", "Implemented", "app/services/experience.py, experiences table"),
     ("Adaptive policy selection (Phase 11)", "Implemented",
      "agent/policy_engine.py: FAISS retrieval of similar states, similarity-weighted utility per action, ε-greedy"),
+    ("Confidence-aware escalation policy P5", "Implemented (check needs GROQ_API_KEY)",
+     "agent/escalation.py: local SLM first; cloud LLM when retrieval confidence is low or a grounding check by a "
+     "small cloud model rejects the local answer (docs/escalation_policy.md)"),
     ("Hybrid local/cloud routing (Phase 12)", "Implemented",
      "services/llm_router.py + agent llm_router node; local = Ollama, cloud = HF, extractive fallback"),
     ("Local model hosting (Phase 13)", "Depends on setup",

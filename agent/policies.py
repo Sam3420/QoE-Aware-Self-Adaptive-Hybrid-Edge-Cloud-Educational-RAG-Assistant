@@ -1,4 +1,4 @@
-"""Runtime policies P1–P4: the fixed, predefined catalogue the agent selects from.
+"""Runtime policies P1–P5: the fixed, predefined catalogue the agent selects from.
 
 The mapping matches Person B's POLICY_SEED (the DB `policies` table), which the agent reads
 at runtime via get_policy. B's seed carries a FLAG asking to seed from this file instead;
@@ -23,7 +23,7 @@ class Policy(BaseModel):
     name: str
     top_k: int = Field(ge=1, le=20)
     max_retries: int = Field(ge=0, le=5)
-    route: Literal["local", "cloud"]  # local SLM or cloud LLM
+    route: Literal["local", "cloud", "escalate"]  # local SLM, cloud LLM, or local with cloud escalation (P5)
     threshold: float = Field(default=settings.crag_retrieval_threshold, ge=0.0, le=1.0)
 
     def runtime_config(self) -> dict[str, Any]:
@@ -40,6 +40,8 @@ POLICIES: dict[str, Policy] = {
     "P2": Policy(policy_id="P2", name="local-thorough", top_k=5, max_retries=1, route="local"),
     "P3": Policy(policy_id="P3", name="cloud-light", top_k=3, max_retries=0, route="cloud"),
     "P4": Policy(policy_id="P4", name="cloud-thorough", top_k=5, max_retries=1, route="cloud"),
+    # Confidence-aware cascade: local SLM by default, cloud LLM only for low-confidence or unsupported answers.
+    "P5": Policy(policy_id="P5", name="local-escalate", top_k=5, max_retries=1, route="escalate"),
 }
 
 DEFAULT_POLICY_ID = settings.default_policy_id

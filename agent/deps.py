@@ -14,7 +14,7 @@ from agent.interfaces import (
 from config import Settings, settings
 from services.crag import CragRetriever
 from services.fakes import FakeLLMClient, FakeMonitor, FakeSearchBackend, FakeVideoRecommender
-from services.llm_clients import ExtractiveClient, HuggingFaceClient, OllamaClient
+from services.llm_clients import ExtractiveClient, OllamaClient, OpenAICompatibleClient
 from services.llm_router import LLMRouter
 from services.monitoring import SystemMonitor
 from services.vector_store import Embedder, FaissVectorStore, HashingEmbedder, OllamaEmbedder
@@ -31,6 +31,7 @@ class Services:
     rng: random.Random = field(default_factory=lambda: random.Random(settings.policy_rng_seed))
     experiences: Any = None  # agent.experience_store.ExperienceStore (built lazily from app's DB)
     videos: Any = None  # agent.recommendations.RecommendationCoordinator (built lazily; YouTube + transcripts)
+    verifier: Any = None  # LLM client for P5's grounding check of local answers (None: no check)
 
     def video_recommender(self) -> Any:
         """The YouTube recommender (strategy kNN, ranking, stored runs) and its transcript source."""
@@ -56,6 +57,33 @@ def make_embedder(cfg: Settings = settings) -> Embedder:
     return OllamaEmbedder(model=cfg.embedding_model, base_url=cfg.ollama_base_url, keep_alive=cfg.ollama_keep_alive)
 
 
+def _uses_groq(cfg: Settings) -> bool:
+    return cfg.cloud_provider == "groq" or (cfg.cloud_provider == "auto" and cfg.groq_api_key is not None)
+
+
+def make_cloud_client(cfg: Settings = settings, *, model: str | None = None) -> OpenAICompatibleClient:
+    """The cloud route: Groq when chosen (or, with CLOUD_PROVIDER=auto, when a Groq key is set), else Hugging Face.
+
+    `model` overrides the provider's default model (P5's grounding check uses a smaller one).
+    """
+    if _uses_groq(cfg):
+        model = model or cfg.groq_model
+        extra = ({"reasoning_effort": cfg.groq_reasoning_effort}
+                 if cfg.groq_reasoning_effort and model.startswith("openai/gpt-oss") else {})
+        return OpenAICompatibleClient(model=model, url=cfg.groq_url, token=cfg.groq_api_key,
+                                      timeout_s=cfg.cloud_llm_timeout_s, label="groq", token_env="GROQ_API_KEY",
+                                      extra_body=extra)
+    return OpenAICompatibleClient(model=model or cfg.cloud_llm_model, url=cfg.hf_inference_url, token=cfg.hf_token,
+                                  timeout_s=cfg.cloud_llm_timeout_s, label="huggingface", token_env="HF_TOKEN")
+
+
+def make_verifier(cfg: Settings = settings) -> OpenAICompatibleClient | None:
+    """P5's grounding checker: the check model on Groq, or None when disabled or Groq is not configured."""
+    if not cfg.escalation_check_enabled or not _uses_groq(cfg) or cfg.groq_api_key is None:
+        return None
+    return make_cloud_client(cfg, model=cfg.escalation_check_model)
+
+
 def make_real_services(cfg: Settings = settings) -> Services:
     """Wire FAISS-backed CRAG, the local/cloud/extractive router, psutil monitoring and the app DB."""
     store = FaissVectorStore(base_dir=cfg.vector_index_dir, embedder=make_embedder(cfg))
@@ -65,14 +93,13 @@ def make_real_services(cfg: Settings = settings) -> Services:
             OllamaClient(model=cfg.local_llm_model, base_url=cfg.ollama_base_url,
                          timeout_s=cfg.local_llm_timeout_s, health_timeout_s=cfg.llm_health_timeout_s,
                          keep_alive=cfg.ollama_keep_alive),
-            HuggingFaceClient(model=cfg.cloud_llm_model, url=cfg.hf_inference_url,
-                              token=cfg.hf_token, timeout_s=cfg.cloud_llm_timeout_s),
+            make_cloud_client(cfg),
             ExtractiveClient(),
         ],
         health_ttl_s=cfg.llm_health_ttl_s,
     )
     app = make_app_gateway(retriever=CragKnowledgeRetriever(crag), mcq_llm=RouterLLMProvider(router))
-    return Services(crag=crag, router=router, monitor=SystemMonitor(), app=app)
+    return Services(crag=crag, router=router, monitor=SystemMonitor(), app=app, verifier=make_verifier(cfg))
 
 
 def make_fake_services(cfg: Settings = settings, *, app: AppGateway | None = None,
