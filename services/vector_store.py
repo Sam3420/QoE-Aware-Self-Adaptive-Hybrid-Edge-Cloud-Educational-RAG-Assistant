@@ -3,7 +3,7 @@ import hashlib
 import json
 import re
 from pathlib import Path
-from typing import Protocol
+from typing import Any, Protocol
 
 import faiss
 import httpx
@@ -64,9 +64,10 @@ def _normalise(matrix: np.ndarray) -> np.ndarray:
 class OllamaEmbedder:
     """Embeddings from a local Ollama model (default nomic-embed-text)."""
 
-    def __init__(self, *, model: str, base_url: str, timeout_s: float = 120.0) -> None:
+    def __init__(self, *, model: str, base_url: str, timeout_s: float = 120.0, keep_alive: str | None = None) -> None:
         self.model = model
         self.name = f"ollama:{model}"
+        self._keep_alive = keep_alive  # how long Ollama keeps the model loaded (None: its 5 min default)
         self._url = f"{base_url.rstrip('/')}/api/embed"
         self._http = httpx.Client(timeout=timeout_s)
         # nomic-embed-text is trained with task prefixes; other models get none.
@@ -78,7 +79,10 @@ class OllamaEmbedder:
                                  input={"texts": len(texts), "first": tracing.preview(texts[0], 200) if texts else None},
                                  metadata={"provider": "ollama"}) as obs:
             try:
-                resp = self._http.post(self._url, json={"model": self.model, "input": texts})
+                body: dict[str, Any] = {"model": self.model, "input": texts}
+                if self._keep_alive is not None:
+                    body["keep_alive"] = self._keep_alive
+                resp = self._http.post(self._url, json=body)
                 resp.raise_for_status()
                 data = resp.json()
                 vectors = _normalise(np.array(data["embeddings"]))

@@ -132,6 +132,9 @@ class AgentBackend:
         self.runner = SessionRunner(build_graph(self.checkpointer))
         # The runner and its SQLite checkpointer are shared; serialise graph execution.
         self._lock = threading.Lock()
+        from agent.warmup import start_background_warmup
+
+        start_background_warmup(self.services)  # load models + missing question banks without blocking the UI
 
     # ---- Sessions ----------------------------------------------------------------------------
 
@@ -161,6 +164,13 @@ class AgentBackend:
     def resume(self, thread_id: str, payload: Any) -> StepResult:
         """Answer the pending interrupt and run to the next one (or the end)."""
         return self._run(lambda: self.runner.resume(thread_id, payload))
+
+    def resume_streaming(self, thread_id: str, payload: Any, on_text: Callable[[str | None], None]) -> StepResult:
+        """Like resume, sending the answer text to `on_text` while the model writes it (None = discard so far)."""
+        from services.streaming import streaming_to
+
+        with streaming_to(on_text):
+            return self.resume(thread_id, payload)
 
     def get_state(self, thread_id: str) -> dict[str, Any] | None:
         """Return the checkpointed session state, or None if no checkpoint exists for the id."""

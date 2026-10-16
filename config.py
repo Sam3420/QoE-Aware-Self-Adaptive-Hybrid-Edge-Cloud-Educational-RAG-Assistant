@@ -46,13 +46,18 @@ class Settings(BaseSettings):
     # --- LLMs ----------------------------------------------------------------
     # 127.0.0.1 rather than localhost: on Windows, "localhost" tries IPv6 first and adds ~2 s per call.
     ollama_base_url: str = "http://127.0.0.1:11434"
+    # Keep models loaded between calls (Ollama unloads after 5 min idle; a cold gemma3:1b call took ~70 s vs ~1.4 s
+    # warm). "-1" = until Ollama stops; "0" = unload right away.
+    ollama_keep_alive: str = "30m"
+    warmup_on_start: bool = True  # load the LLM and embedding model in the background when the app starts
+    prewarm_question_banks: bool = True  # then generate missing topic question banks in the background
     local_llm_model: str = "gemma3:1b"
     local_llm_timeout_s: float = Field(default=180.0, gt=0)
     hf_token: SecretStr | None = None
     hf_inference_url: str = "https://router.huggingface.co/v1/chat/completions"
     cloud_llm_model: str = "meta-llama/Llama-3.1-8B-Instruct"
     cloud_llm_timeout_s: float = Field(default=60.0, gt=0)
-    llm_max_tokens: int = Field(default=384, gt=0)
+    llm_max_tokens: int = Field(default=200, gt=0)  # answers for school learners; fewer tokens = faster
     llm_temperature: float = Field(default=0.2, ge=0.0, le=2.0)
     # Provider health checks are cached for this long, so each question doesn't re-probe.
     llm_health_ttl_s: float = Field(default=30.0, ge=0)
@@ -110,11 +115,13 @@ class Settings(BaseSettings):
     transcript_chunk_words: int = Field(default=120, gt=10)
     transcript_chunk_overlap_words: int = Field(default=20, ge=0)
     transcript_max_chunks_per_video: int = Field(default=40, gt=0)
-    transcript_max_workers: int = Field(default=4, ge=1, le=8)  # parallel fetches (the library has no timeout)
-    transcript_time_budget_s: float = Field(default=20.0, gt=0)  # unfinished fetches are dropped after this
+    transcript_max_workers: int = Field(default=8, ge=1, le=8)  # parallel fetches; 8 = R3's budget in one round
+    transcript_time_budget_s: float = Field(default=8.0, gt=0)  # unfinished fetches are dropped after this
 
     # --- Recommendation ranking ------------------------------------------------------------------
     rec_count: int = Field(default=5, gt=0, le=20)  # recommendations returned
+    # Index the transcripts of the top N recommendations in the background while the learner chooses (0 = off).
+    video_prefetch_count: int = Field(default=2, ge=0, le=5)
     # Cosine similarity → [0, 1]: values ≤ floor map to 0, ≥ ceil to 1 (calibrated for nomic-embed-text).
     rec_similarity_floor: float = Field(default=0.40, ge=-1.0, le=1.0)
     rec_similarity_ceil: float = Field(default=0.85, ge=-1.0, le=1.0)
@@ -189,6 +196,13 @@ class Settings(BaseSettings):
     # False: learner questions, answers, comments and lesson text are replaced before export; scores,
     # models, token usage, latencies and the trace structure are still sent. PII redaction always applies.
     langfuse_capture_content: bool = True
+    # LQ (LLM response quality) from Langfuse evaluator scores on `generate-answer` (telemetry/answer_quality.py).
+    lq_source: Literal["langfuse", "off"] = "langfuse"
+    lq_score_names: list[str] = ["answer_quality"]  # the evaluator's score name(s) in Langfuse
+    lq_score_min: float = 0.0  # evaluator scale, mapped to LQ 0..1 (e.g. 1 and 5 for a 1-5 judge)
+    lq_score_max: float = 1.0
+    lq_wait_s: float = Field(default=0.0, ge=0.0, le=30.0)  # extra wait at session end for evaluators still running
+    lq_timeout_s: float = Field(default=3.0, gt=0.0)  # per Langfuse API request
 
     @field_validator("data_dir", "checkpoint_db_path", "vector_index_dir", "knowledge_samples_dir", "docs_dir",
                      "youtube_cache_dir", "experience_index_dir")

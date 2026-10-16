@@ -8,10 +8,12 @@ import logging
 from typing import Any
 
 from agent.deps import get_services
-from agent.knowledge import KnowledgeUnavailable, index_ready, index_video, transcript_languages, video_resource_id
+from agent.knowledge import (KnowledgeUnavailable, ensure_video_index, index_ready, prefetch_video_indexes,
+                             transcript_languages, video_resource_id)
 from agent.nodes.assessment import _ask
 from agent.schemas import TopicReply, VideoReply
 from agent.state import AgentState
+from config import settings
 from knowledge_prep.catalog import TOPICS, topic_label
 
 logger = logging.getLogger(__name__)
@@ -45,10 +47,34 @@ def recommend_videos(state: AgentState) -> dict[str, Any]:
         return {**update, "recommendations": {"run_id": None, "status": "failed", "errors": [message], "items": []},
                 "session_errors": [f"recommend_videos: {message}"]}
     items = [{k: rec.get(k) for k in VIDEO_FIELDS} for rec in run["recommendations"]]
+    _prefetch(state, recommender, items)
     return {**update, "recommendations": {
         "run_id": run["id"], "status": run["status"], "errors": list(run.get("errors") or []),
         "strategy_id": run.get("strategy_id"), "decision_reason": run.get("decision_reason"),
         "query": run.get("query"), "items": items, "refreshed": refresh}}
+
+
+def _prefetch(state: AgentState, recommender: Any, items: list[dict[str, Any]]) -> None:
+    """Start indexing the top recommendations' transcripts while the learner is still choosing (never blocks)."""
+    if not settings.video_prefetch_count or not items:
+        return
+    services, topic_id = get_services(), state["topic_id"]
+
+    def register(video: dict[str, Any], info: dict[str, Any]) -> None:  # as prepare_knowledge does for its builds
+        services.app.register_resource(
+            source="youtube", external_id=video["video_id"], title=video.get("title") or video["video_id"],
+            url=video.get("url"), topic=topic_id, metadata=_resource_metadata(info))
+
+    try:
+        prefetch_video_indexes(services.crag.store, recommender.transcripts, items[:settings.video_prefetch_count],
+                               transcript_languages(state["profile"].get("language")), on_indexed=register)
+    except Exception as exc:  # an optimisation only
+        logger.info("video prefetch not started: %s", exc)
+
+
+def _resource_metadata(info: dict[str, Any]) -> dict[str, Any]:
+    return {k: info.get(k) for k in ("resource_id", "n_chunks", "embedding_model", "caption_language", "caption_type",
+                                     "truncated", "words") if info.get(k) is not None}
 
 
 def _watched(state: AgentState, video: dict[str, Any], resource_id: str) -> list[dict[str, Any]]:
@@ -131,10 +157,7 @@ def prepare_knowledge(state: AgentState) -> dict[str, Any]:
     for video in queue:
         resource_id = video_resource_id(video["video_id"])
         try:
-            if index_ready(store, resource_id):
-                info: dict[str, Any] = {"resource_id": resource_id, "reused_index": True}
-            else:
-                info = {**index_video(store, transcripts, video, languages), "reused_index": False}
+            info: dict[str, Any] = ensure_video_index(store, transcripts, video, languages)  # waits for a prefetch
         except KnowledgeUnavailable as exc:
             attempts.append({"video_id": video["video_id"], "title": video.get("title"), "status": "failed",
                              "reason": str(exc)})
@@ -145,8 +168,7 @@ def prepare_knowledge(state: AgentState) -> dict[str, Any]:
             info["resource_db_id"] = services.app.register_resource(
                 source="youtube", external_id=video["video_id"], title=video.get("title") or video["video_id"],
                 url=video.get("url"), topic=state["topic_id"],
-                metadata={k: info.get(k) for k in ("resource_id", "n_chunks", "embedding_model", "caption_language",
-                                                   "caption_type", "truncated", "words") if info.get(k) is not None})
+                metadata=_resource_metadata(info))
         except Exception as exc:  # metadata only; the index is usable
             errors.append(f"prepare_knowledge: resource metadata not stored ({type(exc).__name__}: {exc})")
         video_state = {k: video.get(k) for k in VIDEO_FIELDS} | info

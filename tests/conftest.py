@@ -16,6 +16,15 @@ def no_real_tracing():
     tracing.set_client(None)
     yield
     tracing.set_client(None)
+
+
+@pytest.fixture(autouse=True)
+def no_background_work(monkeypatch):
+    """No video prefetch or warm-up threads, so graph paths do not depend on thread timing (test_latency covers them)."""
+    from config import settings
+
+    monkeypatch.setattr(settings, "video_prefetch_count", 0)
+    monkeypatch.setattr(settings, "warmup_on_start", False)
 CTX = {"rtt_ms": 180.0, "cpu": 0.35, "mem": 0.55, "competency_num": 0.0, "last_qoe": 0.5}
 
 

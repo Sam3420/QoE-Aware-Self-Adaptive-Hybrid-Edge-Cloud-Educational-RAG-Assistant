@@ -7,7 +7,7 @@
 | RA | video-recommendation acceptance (accepted/shown) since the learner's previous session, same topic | no recommendations shown |
 | LS | mean star rating of recommended videos in that window | no ratings |
 | RQ | mean CRAG retrieval score per question (normalised with QOE_RETRIEVAL_FLOOR/CEIL) | no questions |
-| LQ | none: no LLM-response evaluator exists | always |
+| LQ | Langfuse LLM-as-a-judge scores on the session's `generate-answer` generations (telemetry/answer_quality.py) | tracing off, LQ_SOURCE=off, no scores yet |
 | SQ, TQ | none: speech-to-text / text-to-speech are not implemented | always |
 | PL | mean end-to-end answer latency (cost: lower is better) | no questions |
 | NR | successful network operations / attempted (answers without route/generation failure + RTT probes) | — |
@@ -85,7 +85,7 @@ def recommendation_outcomes(session_factory: Any, student_id: str, topic_id: str
 
 
 def build_next_state(state: dict[str, Any], *, end: dict[str, Any], session_factory: Any, cfg: Settings,
-                     since: datetime | None) -> RuntimeState:
+                     since: datetime | None, llm_quality: float | None = None) -> RuntimeState:
     """The measured post-adaptation state s_next of this session."""
     qa = state["qa_log"]
     start = state.get("resource_start") or {}
@@ -109,6 +109,7 @@ def build_next_state(state: dict[str, Any], *, end: dict[str, Any], session_fact
         recommendation_acceptance=acceptance,
         learner_satisfaction_stars=item_stars,
         retrieval_score=sum(e["retrieval_score"] for e in qa) / len(qa) if qa else None,
+        llm_quality=llm_quality,
         latency_ms=sum(e["latency_ms"] for e in qa) / len(qa) if qa else None,
         network_reliability=reliability,
         utilization=max(loads) if loads else None,

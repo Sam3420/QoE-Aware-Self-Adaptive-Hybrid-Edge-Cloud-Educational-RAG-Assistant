@@ -99,7 +99,7 @@ NODE_SPECS: dict[str, tuple[str, str, Summary, Summary]] = {
                          lambda u: {k: (u.get("evaluation") or {}).get(k) for k in
                                     ("status", "qoe_before", "qoe_after", "sre_before", "sre_after", "reward",
                                      "predicted_utility", "utility_after", "qoe_components", "qoe_coverage",
-                                     "baseline_used", "reason")}),
+                                     "baseline_used", "lq", "reason")}),
     "store_experience": ("store-experience", "span",
                          lambda s: {"policy_id": s["policy_id"]},
                          lambda u: {"stored": not _errors(u), "errors": _errors(u)}),

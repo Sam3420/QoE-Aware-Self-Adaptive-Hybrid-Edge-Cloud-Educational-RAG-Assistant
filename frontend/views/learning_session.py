@@ -1,4 +1,6 @@
 """Learning session: drives the LangGraph agent through its pre-test, question and post-test interrupts."""
+import queue
+import threading
 from typing import Any
 
 import pandas as pd
@@ -285,9 +287,38 @@ def _questions(backend: AgentBackend, thread_id: str, values: dict[str, Any], pa
     if prompt := st.chat_input(f"Ask a doubt about {video_title}…", max_chars=2000):
         with st.chat_message("user"):
             st.write(prompt)
-        with st.spinner("Retrieving lesson context (CRAG), routing and generating the answer…"):
-            _remember(backend.resume(thread_id, {"query": prompt}), "Ask question")
+        with st.chat_message("assistant", avatar=":material/school:"):
+            with st.spinner("Finding the answer in the video…"):
+                step = _stream_answer(backend, thread_id, prompt)
+        _remember(step, "Ask question")
         st.rerun()
+
+
+_DONE = object()
+
+
+def _stream_answer(backend: AgentBackend, thread_id: str, prompt: str) -> StepResult:
+    """Run the question step in a worker thread and show the answer while the model writes it.
+
+    The streamed text is a preview: after the rerun the stored turn (with sources and checks) replaces it.
+    """
+    texts: queue.Queue[Any] = queue.Queue()
+    result: dict[str, StepResult] = {}
+
+    def work() -> None:
+        try:
+            result["step"] = backend.resume_streaming(thread_id, {"query": prompt}, texts.put)
+        finally:
+            texts.put(_DONE)
+
+    worker = threading.Thread(target=work, name="answer-stream", daemon=True)
+    worker.start()
+    preview, shown = st.empty(), ""
+    while (item := texts.get()) is not _DONE:
+        shown = "" if item is None else shown + item  # None: this route failed, another one will answer
+        preview.markdown(shown + " ▌" if shown else "")
+    worker.join()
+    return result["step"]
 
 
 def _posttest(backend: AgentBackend, thread_id: str, values: dict[str, Any], pause: dict[str, Any]) -> None:
@@ -364,7 +395,12 @@ def _summary(backend: AgentBackend, thread_id: str, values: dict[str, Any]) -> N
             missing = [k for k, v in (ev.get("metrics") or {}).items() if v is None]
             if missing:
                 st.caption(f"Unavailable metrics (weights renormalised over the rest): {', '.join(missing)}. "
-                           "LQ/SQ/TQ have no data source in this build.")
+                           "SQ/TQ have no data source in this build.")
+            lq = ev.get("lq") or {}
+            if lq.get("value") is not None:
+                st.caption(f"LQ: Langfuse evaluator scores on {lq['scored']} of {lq['answers']} answers.")
+            elif lq.get("reason"):
+                st.caption(f"LQ unavailable: {lq['reason']}.")
             for note in ev.get("sre_notes") or []:
                 st.caption(f"SRE: {note}")
 

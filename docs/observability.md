@@ -78,6 +78,29 @@ Inputs and outputs are short, readable summaries, never the whole agent state.
 - **`LANGFUSE_CAPTURE_CONTENT=false`** replaces every observation's input and output with `"[content capture disabled]"`. Structure, models, token usage, latencies, levels and scores are still sent.
 - **Never traced:** API keys (YouTube, Hugging Face) are not part of any payload. Learner names are not traced; only ids are.
 
+## LQ from Langfuse (LLM response quality)
+QoE's LQ comes from an LLM-as-a-judge evaluator that Langfuse runs on every `generate-answer` generation. At session
+end `telemetry/answer_quality.py` reads those scores back, maps them to 0–1 and averages them per answer. It is
+unavailable (weights renormalised) when tracing is off, Langfuse is unreachable, or nothing is scored yet.
+
+1. **Judge model:** Langfuse → Settings → LLM Connections → add an OpenAI-compatible connection. For the local
+   Ollama use base URL `http://host.docker.internal:11434/v1` (Langfuse runs in Docker, so not `127.0.0.1`) and any
+   API key, for example `ollama`.
+2. **Evaluator:** Evaluators → set up an LLM-as-a-judge evaluator (for example relevance or helpfulness) that
+   targets observations named `generate-answer`. Map the question to the observation input and the answer to its
+   output, and name the score `answer_quality`.
+3. **App settings** (`.env`, all optional):
+   ```dotenv
+   LQ_SCORE_NAMES=["answer_quality"]   # several names are averaged per answer
+   LQ_SCORE_MIN=0                      # the judge's scale, e.g. 1 and 5 for a 1-5 judge
+   LQ_SCORE_MAX=1
+   LQ_WAIT_S=0                         # seconds to wait at session end for evaluators still running
+   LQ_SOURCE=langfuse                  # off: LQ stays unavailable
+   ```
+
+Evaluators run asynchronously, so the last answers of a session may not be scored when the session ends. The
+summary page and the `evaluate-session` span show how many answers LQ covers (`lq.scored` of `lq.answers`).
+
 ## Verifying (run once credentials are set)
 ```powershell
 .venv\Scripts\python scripts\run_session.py --mock-llm      # or a real session / the Streamlit app

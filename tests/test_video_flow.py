@@ -197,3 +197,24 @@ def test_more_videos_and_end_cannot_both_be_sent(runner, learner):
     out = pick_video(runner, out["thread_id"], out)
     out = runner.resume(out["thread_id"], {"more_videos": True, "end": True})
     assert out["interrupt"]["type"] == "ask_question" and "not both" in out["interrupt"]["error"]
+
+
+def test_top_recommendations_are_prefetched_while_the_learner_chooses(runner, learner, services, visited, monkeypatch):
+    from agent import knowledge
+    from config import settings
+
+    monkeypatch.setattr(settings, "video_prefetch_count", 2)
+    out = _to_video_choice(runner, learner)
+    tid, items = out["thread_id"], out["interrupt"]["items"]
+    knowledge._prefetcher.submit(lambda: None).result(timeout=10)  # the single worker has finished the queue
+    assert sorted(services.videos.transcripts.calls) == sorted(i["video_id"] for i in items[:2])
+    visited.clear()
+    out = runner.resume(tid, {"item_id": items[0]["item_id"]})
+    assert out["interrupt"]["type"] == "ask_question"
+    assert "prepare_knowledge" not in visited  # already indexed in the background: no wait for the learner
+    assert runner.get_state(tid)["values"]["resource_id"] == f"yt_{items[0]['video_id']}"
+    with services.app._db() as db:
+        from app.db.models import EducationalResource
+
+        prefetched = db.query(EducationalResource).filter_by(external_resource_id=items[0]["video_id"]).one()
+        assert prefetched.resource_metadata["resource_id"] == f"yt_{items[0]['video_id']}"

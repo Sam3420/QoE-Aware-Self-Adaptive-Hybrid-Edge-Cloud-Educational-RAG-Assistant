@@ -10,6 +10,7 @@ from agent.state import AgentState
 from config import settings
 from metrics.reward import AdaptationAction, IncompleteTransition, RewardResult, RuntimeState, compute_reward
 from telemetry import tracing
+from telemetry.answer_quality import AnswerQuality, session_answer_quality
 
 logger = logging.getLogger(__name__)
 
@@ -24,8 +25,9 @@ def evaluate_session(state: AgentState) -> dict[str, Any]:
 
     since = datetime.fromisoformat(state["prev_state_at"]) if state.get("prev_state_at") else None
     end = sample_resources(services.monitor, settings)
+    lq = _answer_quality(state["session_id"])
     s_next = build_next_state(state, end=end, session_factory=services.app.session_factory, cfg=settings,
-                              since=since)
+                              since=since, llm_quality=lq.value)
     s = RuntimeState.model_validate(state["prev_state"]) if state.get("prev_state") else RuntimeState(
         context={}, baseline=True)
     action = AdaptationAction(action_id=state["policy_id"], config=state["runtime_config"])
@@ -58,6 +60,7 @@ def evaluate_session(state: AgentState) -> dict[str, Any]:
         "metrics": s_next.qoe_metrics.model_dump() if s_next.qoe_metrics else {},
         "sre_components": result.after.sre_detail.components if result.after.sre_detail else {},
         "sre_notes": result.after.sre_detail.notes if result.after.sre_detail else [],
+        "lq": lq.model_dump(),  # LQ evidence: answers scored by the Langfuse evaluator, or why it is unavailable
         "result": result.model_dump(mode="json"),
         "next_state": s_next.model_dump(mode="json"),
     }
@@ -66,6 +69,15 @@ def evaluate_session(state: AgentState) -> dict[str, Any]:
               predicted_utility=predicted, observed_utility=result.after.utility,
               baseline_used=result.baseline_used, weights_version=result.weights_version)
     return {"evaluation": evaluation, "qoe": result.after.qoe, "sre": result.after.sre, "reward": result.reward}
+
+
+def _answer_quality(session_id: str) -> AnswerQuality:
+    """LQ from Langfuse evaluator scores (unavailable when LQ_SOURCE=off or nothing is scored)."""
+    if settings.lq_source == "off":
+        return AnswerQuality(reason="LQ_SOURCE=off")
+    return session_answer_quality(session_id, names=settings.lq_score_names, score_min=settings.lq_score_min,
+                                  score_max=settings.lq_score_max, wait_s=settings.lq_wait_s,
+                                  timeout_s=settings.lq_timeout_s)
 
 
 def store_experience(state: AgentState) -> dict[str, Any]:

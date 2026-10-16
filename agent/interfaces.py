@@ -6,6 +6,8 @@ session, passes it to B's function (so B's code does not open its own) and commi
 """
 import json
 import logging
+import threading
+from collections import defaultdict
 from collections.abc import Callable, Iterator, Mapping, Sequence
 from contextlib import contextmanager
 from typing import Any
@@ -20,6 +22,7 @@ from app.db.repositories import AdaptationRepository, LearningTraceRepository
 from app.domain.models import EducationalResourceCreate, LearnerProfileCreate, LearningSessionCreate
 from app.llm.types import LLMGenerateRequest, LLMGenerateResult, LLMProviderError
 from app.services import experience as b_experience
+from app.services import mcq as b_mcq
 from app.services import posttest as b_posttest
 from app.services import pretest as b_pretest
 from services.crag import CragRetriever
@@ -28,6 +31,16 @@ from services.llm_router import LLMRouter
 
 logger = logging.getLogger(__name__)
 
+
+
+# One lock per topic's question bank: the background warm-up and a learner's pre-test never generate it twice.
+_bank_locks: defaultdict[str, threading.Lock] = defaultdict(threading.Lock)
+_bank_locks_guard = threading.Lock()
+
+
+def bank_lock(topic_id: str) -> threading.Lock:
+    with _bank_locks_guard:
+        return _bank_locks[topic_id]
 
 class LearnerNotFound(LookupError):
     """Raised when a session is started for a learner that does not exist."""
@@ -205,15 +218,23 @@ class AppGateway:
             return AdaptationRepository(db).get_default_policy()
 
     # pre-test / post-test / experience (B's services)
+    def ensure_question_bank(self, topic_id: str) -> bool:
+        """Generate and store the topic's question bank unless it exists; True if it was generated now."""
+        with bank_lock(topic_id), self._db() as db:
+            if AdaptationRepository(db).get_question_bank(topic_id) is not None:
+                return False
+            b_mcq.get_or_create_topic_items(topic_id, db=db, retriever=self.retriever, llm=self.mcq_llm)
+            return True
+
     def prepare_pretest(self, student_id: str, topic_id: str) -> list[dict[str, Any]]:
         """Return pre-test items without answers (generates the topic's question bank once)."""
-        with self._db() as db:
+        with bank_lock(topic_id), self._db() as db:
             return b_pretest.prepare_pretest(student_id, topic_id, db=db,
                                              retriever=self.retriever, llm=self.mcq_llm)
 
     def plan_pretest(self, student_id: str, topic_id: str) -> dict[str, Any]:
         """Plan this learner's pre-test: {mode, items (with item_id, reason), weak_concepts, previous, notes}."""
-        with self._db() as db:
+        with bank_lock(topic_id), self._db() as db:  # waits for a background generation of the same bank
             return b_pretest.plan_pretest(student_id, topic_id, db=db, retriever=self.retriever, llm=self.mcq_llm)
 
     def submit_pretest(self, student_id: str, session_id: str, topic_id: str,

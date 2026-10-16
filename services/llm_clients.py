@@ -1,10 +1,12 @@
 """LLM clients: local SLM via Ollama, cloud LLM via Hugging Face, and a model-free extractive fallback."""
+import json
 import re
 import time
 from typing import Any, Protocol
 
 import httpx
 
+from services.streaming import current_sink
 from telemetry import tracing
 from pydantic import BaseModel, Field, SecretStr
 
@@ -100,11 +102,24 @@ class OllamaClient:
 
     provider = "local"
 
-    def __init__(self, *, model: str, base_url: str, timeout_s: float, health_timeout_s: float) -> None:
+    def __init__(self, *, model: str, base_url: str, timeout_s: float, health_timeout_s: float,
+                 keep_alive: str | None = None) -> None:
         self.model = model
         self._base = base_url.rstrip("/")
         self._health_timeout = health_timeout_s
+        self._keep_alive = keep_alive  # how long Ollama keeps the model loaded after a call (None: its 5 min default)
         self._http = httpx.Client(timeout=timeout_s)
+
+    def warm_up(self) -> float:
+        """Load the model and run one tiny prompt, so the learner's first question does not pay the cold start
+        (measured: ~70 s cold vs ~1.4 s warm for gemma3:1b). Returns the seconds it took."""
+        start = time.perf_counter()
+        body = {"model": self.model, "stream": False, "messages": [{"role": "user", "content": "Hi"}],
+                "options": {"num_predict": 1}}
+        if self._keep_alive is not None:
+            body["keep_alive"] = self._keep_alive
+        self._http.post(f"{self._base}/api/chat", json=body).raise_for_status()
+        return time.perf_counter() - start
 
     def is_available(self) -> bool:
         """True if Ollama is up and the model is pulled."""
@@ -117,13 +132,16 @@ class OllamaClient:
             return False
 
     def generate(self, request: GenerationRequest) -> GenerationResult:
-        """Answer with /api/chat (non-streaming)."""
+        """Answer with /api/chat; streamed to the caller's token sink when one is set (plain-text answers only)."""
+        sink = current_sink() if request.json_schema is None else None
         body = {
             "model": self.model,
-            "stream": False,
+            "stream": sink is not None,
             "messages": request.messages(),
             "options": {"num_predict": request.max_tokens, "temperature": request.temperature},
         }
+        if self._keep_alive is not None:
+            body["keep_alive"] = self._keep_alive
         if request.json_schema is not None:
             body["format"] = request.json_schema
         with tracing.observation(request.operation, as_type="generation", input=request.messages(), model=self.model,
@@ -133,18 +151,46 @@ class OllamaClient:
                                  metadata={"provider": "ollama", "route": self.provider}) as gen:
             start = time.perf_counter()
             try:
-                resp = self._http.post(f"{self._base}/api/chat", json=body)
-                resp.raise_for_status()
-                data = resp.json()
-                text = data["message"]["content"].strip()
+                if sink is None:
+                    resp = self._http.post(f"{self._base}/api/chat", json=body)
+                    resp.raise_for_status()
+                    data = resp.json()
+                    text = data["message"]["content"].strip()
+                else:
+                    data, text = self._stream(body, sink)
             except (httpx.HTTPError, KeyError, ValueError) as exc:
+                if sink is not None:
+                    sink(None)  # drop the partial text: the router may answer with another route
                 raise LLMError(f"Ollama generation failed ({self.model}): {exc}") from exc
             if not text:
+                if sink is not None:
+                    sink(None)
                 raise LLMError(f"Ollama returned an empty answer ({self.model}).")
             gen.update(output=text, usage_details=_usage(data.get("prompt_eval_count"), data.get("eval_count")))
             return GenerationResult(text=text, provider=self.provider, model=self.model,
                                     latency_ms=(time.perf_counter() - start) * 1000,
                                     completion_tokens=data.get("eval_count"))
+
+
+    def _stream(self, body: dict[str, Any], sink: Any) -> tuple[dict[str, Any], str]:
+        """POST a streaming chat and pass each piece of text to `sink`; return the final chunk and the full text."""
+        parts: list[str] = []
+        last: dict[str, Any] = {}
+        with self._http.stream("POST", f"{self._base}/api/chat", json=body) as resp:
+            resp.raise_for_status()
+            for line in resp.iter_lines():
+                if not line.strip():
+                    continue
+                last = json.loads(line)
+                if last.get("error"):
+                    raise ValueError(last["error"])
+                piece = (last.get("message") or {}).get("content") or ""
+                if piece:
+                    parts.append(piece)
+                    sink(piece)
+                if last.get("done"):
+                    break
+        return last, "".join(parts).strip()
 
 
 class HuggingFaceClient:

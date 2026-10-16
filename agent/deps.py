@@ -53,7 +53,7 @@ def make_embedder(cfg: Settings = settings) -> Embedder:
     """Build the configured embedder (the same one must build and query an index)."""
     if cfg.embedding_backend == "hashing":
         return HashingEmbedder()
-    return OllamaEmbedder(model=cfg.embedding_model, base_url=cfg.ollama_base_url)
+    return OllamaEmbedder(model=cfg.embedding_model, base_url=cfg.ollama_base_url, keep_alive=cfg.ollama_keep_alive)
 
 
 def make_real_services(cfg: Settings = settings) -> Services:
@@ -63,7 +63,8 @@ def make_real_services(cfg: Settings = settings) -> Services:
     router = LLMRouter(
         [
             OllamaClient(model=cfg.local_llm_model, base_url=cfg.ollama_base_url,
-                         timeout_s=cfg.local_llm_timeout_s, health_timeout_s=cfg.llm_health_timeout_s),
+                         timeout_s=cfg.local_llm_timeout_s, health_timeout_s=cfg.llm_health_timeout_s,
+                         keep_alive=cfg.ollama_keep_alive),
             HuggingFaceClient(model=cfg.cloud_llm_model, url=cfg.hf_inference_url,
                               token=cfg.hf_token, timeout_s=cfg.cloud_llm_timeout_s),
             ExtractiveClient(),
