@@ -9,6 +9,8 @@ class LLMGenerateRequest(BaseModel):
     temperature: float = Field(ge=0)
     # Optional JSON schema the reply must follow; providers that can enforce one (Ollama) do.
     json_schema: dict | None = None
+    # Name of the operation for tracing (verb-first, e.g. "generate-mcqs", "explain-answers").
+    operation: str | None = None
 
 
 class LLMGenerateResult(BaseModel):

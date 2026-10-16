@@ -29,7 +29,8 @@ LANGFUSE_ENVIRONMENT=development
 | `submit-pretest` | pre-test scored → videos recommended (`recommend-videos` nested) | answers → video choices |
 | `choose-video` / `refresh-videos` / `end-session` | video picked and its transcript indexed → context, policy selected | item id → next prompt |
 | `answer-question` | one question through CRAG and the LLM | **the question → the answer** |
-| `end-questions` | learner finishes asking | `{"end": true}` → post-test prompt |
+| `watch-another-video` | learner asks for another video after their doubts | `{"more_videos": true}` → video list (already-watched videos marked) |
+| `end-questions` | learner finishes asking and takes the post-test | `{"end": true}` → post-test prompt |
 | `submit-posttest` | post-test, evaluation, experience stored | answers, rating, comment → QoE/SRE/reward |
 | `recommend-videos` | one YouTube recommendation request from the API or the recommendations page (inside a session it is a child of `submit-pretest`) | topic/objective → ranked videos |
 
@@ -46,8 +47,8 @@ LANGFUSE_ENVIRONMENT=development
 | `load-learner-profile`, `choose-topic`, `plan-pretest`, `run-pretest`, `receive-video-choice`, `index-video-transcript`, `receive-question`, `rewrite-query`, `route-llm`, `score-posttest`, `store-experience` | span | graph nodes (`agent/node_tracing.py`) |
 | `measure-context` | tool | context node (RTT probe, CPU and memory) |
 | `select-policy` | chain | policy node; child `retrieve-similar-sessions` (retriever, FAISS) |
-| `retrieve-lesson-context` | retriever | CRAG retrieval (chunks with scores); child `embed-query` |
-| `generate-answer`, `generate-mcqs` | **generation** | `services/llm_clients.py`: model, parameters, OpenAI-format messages, token usage (`input`/`output`) for cost |
+| `retrieve-lesson-context` | retriever | CRAG retrieval over the chosen video's index; input names `resource_id` (`yt_<video_id>`) and the video title, output the chunks with scores; child `embed-query` |
+| `generate-answer`, `generate-mcqs`, `explain-answers` | **generation** | `services/llm_clients.py`: model, parameters, OpenAI-format messages, token usage (`input`/`output`) for cost |
 | `extract-answer` | tool | model-free fallback |
 | `embed-query`, `embed-documents` | embedding | `services/vector_store.py` (model, input tokens) |
 | `evaluate-session` | evaluator | QoE, SRE, reward, predicted vs observed utility |

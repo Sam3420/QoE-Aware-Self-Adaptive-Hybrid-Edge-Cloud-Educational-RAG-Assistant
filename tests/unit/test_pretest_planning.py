@@ -186,6 +186,7 @@ def test_explain_items_fills_only_missing_explanations(db_session):
     items = repo.get_question_bank("cells")["items"]
     assert [i.get("explanation") for i in items] == ["Because of Y.", "Already explained.", "Because of X.", None]
     assert "Correct answer: A. a" in llm.requests[0].prompt and llm.requests[0].json_schema["minItems"] == 2
+    assert llm.requests[0].operation == "explain-answers"  # its own generation name in Langfuse
     assert explain_items("cells", [0, 1, 2], db=db_session, retriever=_Retriever(), llm=llm) == 0  # cached
     assert len(llm.requests) == 1
 

@@ -33,8 +33,21 @@ def render(backend: AgentBackend) -> None:
             st.dataframe(pd.DataFrame(v["similar_exps"]), hide_index=True, width="stretch")
         else:
             st.caption("No neighbours were used (cold start).")
+    elif snap is None:
+        st.caption("No learning session is open. A policy is chosen when a session's learner picks their first video.")
+    elif snap["finished"]:
+        st.caption("This session ended before a video was chosen, so no policy was selected and no experience "
+                   "was stored.")
     else:
-        st.caption("No policy selected yet. A policy is chosen after the pre-test of a learning session.")
+        stage = (snap["interrupt"] or {}).get("type", "starting")
+        st.caption(f"No policy selected yet: the session is at '{stage}'. The policy is chosen when the learner "
+                   "picks their first video (after the topic, pre-test and video recommendations).")
+
+    usable = backend.services.experience_store().count()
+    if usable < settings.min_experiences:
+        st.info(f"**Cold start:** {usable} of {settings.min_experiences} usable experiences, so every session uses the "
+                "default policy. An experience is stored only when a session has at least one question and a "
+                "submitted post-test.", icon=":material/ac_unit:")
 
     st.subheader("Experience memory (experiences table)")
     exps = app.get_experiences()

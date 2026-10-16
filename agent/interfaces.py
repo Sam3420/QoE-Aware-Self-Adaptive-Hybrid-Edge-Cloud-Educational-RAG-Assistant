@@ -77,7 +77,7 @@ class RouterLLMProvider:
         req = GenerationRequest(system=request.system_prompt or "", prompt=request.prompt,
                                 max_tokens=request.max_tokens, temperature=request.temperature,
                                 json_schema=request.json_schema or mcq_json_schema(get_app_settings().mcq_n_items),
-                                operation="generate-mcqs")
+                                operation=request.operation or "generate-mcqs")
         errors = []
         for provider in ("cloud", "local"):
             if not self.router.is_available(provider):

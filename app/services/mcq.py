@@ -205,7 +205,8 @@ def explain_items(
             try:
                 result = llm.generate(LLMGenerateRequest(
                     prompt=prompt, system_prompt=EXPLAIN_SYSTEM_PROMPT, model_id=settings.llm_model_id,
-                    max_tokens=settings.mcq_max_tokens, temperature=settings.llm_temperature, json_schema=schema))
+                    max_tokens=settings.mcq_max_tokens, temperature=settings.llm_temperature, json_schema=schema,
+                    operation="explain-answers"))
             except LLMProviderError as exc:
                 raise MCQGenerationError(f"LLM provider failed while writing explanations: {exc}") from exc
             try:

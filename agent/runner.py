@@ -32,6 +32,8 @@ def _step_for(pending: dict[str, Any], payload: Any) -> tuple[str, Any]:
     if kind == "post_test_and_feedback":
         return "submit-posttest", payload
     if kind == "ask_question":
+        if isinstance(payload, dict) and payload.get("more_videos") and not payload.get("end"):
+            return "watch-another-video", {"more_videos": True}
         if isinstance(payload, dict) and payload.get("end"):
             return "end-questions", {"end": True}
         query = payload.get("query") if isinstance(payload, dict) else payload

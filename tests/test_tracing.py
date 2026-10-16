@@ -151,6 +151,34 @@ def test_learning_session_traces_follow_best_practices(traced, runner, learner, 
     assert all(s["data_type"] == "NUMERIC" for s in scores)
 
 
+def test_watching_another_video_is_its_own_step_and_retrieval_names_the_video(traced, runner, learner, services,
+                                                                             ollama):
+    client, exporter, _ = traced
+    tid = runner.start_session(learner, "photosynthesis")["thread_id"]
+    first = pass_pretest(runner, tid)["interrupt"]["video"]
+    runner.resume(tid, {"query": "How do plants make glucose from light?"})
+    pause = runner.resume(tid, {"more_videos": True})["interrupt"]
+    runner.resume(tid, {"item_id": next(i["item_id"] for i in pause["items"] if not i["watched"])})
+    runner.resume(tid, {"query": "What does chlorophyll absorb?"})
+
+    traces = spans_by_trace(client, exporter)
+    roots = {}
+    for spans in traces.values():
+        roots.setdefault(root(spans).name, []).append(spans)
+    more = roots["watch-another-video"][0]
+    assert load(root(more), INPUT) == {"more_videos": True}
+    assert load(root(more), OUTPUT)["next"] == "select_video"
+    assert load(by_name(more, "receive-question")[0], OUTPUT) == {"next": "watch-another-video"}
+    assert load(by_name(more, "receive-video-choice")[0], INPUT)["already_watched"] == [first["video_id"]]
+
+    first_q, second_q = roots["answer-question"]
+    inputs = [load(by_name(t, "retrieve-lesson-context")[0], INPUT) for t in (first_q, second_q)]
+    assert inputs[0]["resource_id"] == f"yt_{first['video_id']}" and inputs[0]["video_title"] == first["title"]
+    assert inputs[1]["resource_id"] != inputs[0]["resource_id"] and inputs[1]["resource_id"].startswith("yt_")
+    assert sorted(load(root(t), INPUT) for t in roots["answer-question"]) == [
+        "How do plants make glucose from light?", "What does chlorophyll absorb?"]  # no empty question traces
+
+
 def test_failed_llm_call_is_an_error_generation_and_fallback_is_visible(traced, runner, learner, services):
     client, exporter, _ = traced
 
