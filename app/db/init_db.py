@@ -30,4 +30,7 @@ __all__ = [
 
 
 def create_tables(engine) -> None:
+    from app.db.migrations import run_migrations
+
+    run_migrations(engine)  # versioned schema changes first (app/db/migrations.py)
     Base.metadata.create_all(bind=engine)

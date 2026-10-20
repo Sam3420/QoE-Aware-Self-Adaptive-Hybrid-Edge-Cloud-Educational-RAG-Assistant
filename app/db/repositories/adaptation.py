@@ -75,6 +75,18 @@ class AdaptationRepository:
         assessment = self.session.scalars(statement).first()
         return _assessment_to_dict(assessment) if assessment is not None else None
 
+    def get_assessment(self, assessment_id: str) -> dict[str, Any] | None:
+        """One stored pre/post attempt by id, or None."""
+        assessment = self.session.get(Assessment, assessment_id)
+        return _assessment_to_dict(assessment) if assessment is not None else None
+
+    def list_all_assessments(self, topic_id: str | None = None) -> list[dict[str, Any]]:
+        """Every stored pre/post attempt (optionally of one topic), oldest first (backfills, audits)."""
+        statement = select(Assessment).order_by(Assessment.created_at)
+        if topic_id is not None:
+            statement = statement.where(Assessment.topic_id == topic_id)
+        return [_assessment_to_dict(a) for a in self.session.scalars(statement)]
+
     def list_assessments(self, student_id: str, topic_id: str) -> list[dict[str, Any]]:
         """Return every pre/post assessment of a learner on a topic, newest first."""
         statement = (

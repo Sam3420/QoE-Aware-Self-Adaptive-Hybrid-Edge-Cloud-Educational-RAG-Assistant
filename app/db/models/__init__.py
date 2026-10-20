@@ -1,6 +1,7 @@
 from app.db.models.adaptive_learning import ExperienceTransition, ExperienceVector, WeightSetRecord
 from app.db.models.assessment import Assessment
 from app.db.models.assessment_result import AssessmentResult
+from app.db.models.concept_tracker import ConceptEvent, LearnerTopicStrength
 from app.db.models.educational_resource import EducationalResource
 from app.db.models.experience import Experience
 from app.db.models.interaction import Interaction
@@ -30,4 +31,6 @@ __all__ = [
     "ExperienceTransition",
     "ExperienceVector",
     "WeightSetRecord",
+    "LearnerTopicStrength",
+    "ConceptEvent",
 ]

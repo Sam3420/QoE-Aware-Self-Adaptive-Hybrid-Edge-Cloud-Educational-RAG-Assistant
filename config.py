@@ -77,6 +77,12 @@ class Settings(BaseSettings):
     # content, and the local model's "not covered" reply is enough. Live test: escalating such questions cost
     # ~1 s and a cloud call each and only produced the same "not covered" reply.
     escalation_min_retrieval_score: float = Field(default=0.55, ge=0.0, le=1.0)
+    # Concept tracker (knowledge_prep/concepts.py): a free-text concept label maps to a vocabulary concept by name,
+    # alias, or embedding cosine >= this (nomic-embed-text; calibrated on the backfill, see docs/concept_tracker.md).
+    concept_match_min_similarity: float = Field(default=0.6, ge=0.0, le=1.0)
+    # ...and must beat the second-best concept by this much; otherwise the label is ambiguous and left unmapped
+    # (backfill of data/app.db: "Voluntary Movement" scored reflex_arc 0.636 vs plant_tropisms 0.635).
+    concept_match_min_margin: float = Field(default=0.03, ge=0.0, le=1.0)
     llm_max_tokens: int = Field(default=200, gt=0)  # answers for school learners; fewer tokens = faster
     llm_temperature: float = Field(default=0.2, ge=0.0, le=2.0)
     # Provider health checks are cached for this long, so each question doesn't re-probe.

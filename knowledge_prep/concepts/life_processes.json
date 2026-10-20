@@ -1,0 +1,117 @@
+{
+  "topic_id": "life_processes",
+  "status": "approved",
+  "generated_by": "groq:openai/gpt-oss-120b",
+  "generated_at": "2026-10-20T12:51:29.745296Z",
+  "reviewed_by": "Your Name",
+  "reviewed_at": "2026-10-20T13:04:34.590544Z",
+  "concepts": [
+    {
+      "id": "life_processes_overview",
+      "name": "Life Processes",
+      "description": "Learners should understand the four major life processes and their purpose in organisms.",
+      "aliases": [
+        "life processes",
+        "maintenance functions"
+      ],
+      "evidence": "The processes which together perform the maintenance job in living organisms are called life processes."
+    },
+    {
+      "id": "autotrophic_nutrition_photosynthesis",
+      "name": "Autotrophic Nutrition",
+      "description": "Learners should know how autotrophs make food via photosynthesis and its overall equation.",
+      "aliases": [
+        "autotrophic nutrition",
+        "photosynthesis"
+      ],
+      "evidence": "Photosynthesis is the process by which autotrophs take in carbon dioxide and water and convert them into carbohydrates in the presence of sunlight and chlorophyll."
+    },
+    {
+      "id": "heterotrophic_nutrition_types",
+      "name": "Heterotrophic Nutrition",
+      "description": "Learners should differentiate holozoic, saprophytic, and parasitic modes of nutrition.",
+      "aliases": [
+        "heterotrophic nutrition",
+        "saprophytic",
+        "parasitic",
+        "holozoic"
+      ],
+      "evidence": "Heterotrophic nutrition can be holozoic, saprophytic or parasitic."
+    },
+    {
+      "id": "human_digestion_process",
+      "name": "Human Digestion",
+      "description": "Learners should describe the sequence of digestive organs, enzymes, and the role of peristalsis.",
+      "aliases": [
+        "digestion",
+        "alimentary canal"
+      ],
+      "evidence": "The lining of the canal has muscles that contract rhythmically to push food forward; these movements are called peristalsis."
+    },
+    {
+      "id": "respiration_aerobic_vs_anaerobic",
+      "name": "Respiration Types",
+      "description": "Learners should compare aerobic respiration with anaerobic fermentation and their products.",
+      "aliases": [
+        "aerobic respiration",
+        "anaerobic respiration",
+        "fermentation"
+      ],
+      "evidence": "In yeast, without oxygen, pyruvate is converted into ethanol and carbon dioxide; this is anaerobic respiration (fermentation)."
+    },
+    {
+      "id": "respiratory_structure_mechanics",
+      "name": "Human Respiratory System",
+      "description": "Learners should understand the pathway of air, the role of alveoli, and the mechanics of breathing.",
+      "aliases": [
+        "respiratory system",
+        "lungs",
+        "alveoli"
+      ],
+      "evidence": "When we breathe in, the ribs lift and the diaphragm flattens, enlarging the chest cavity so air is sucked into the lungs."
+    },
+    {
+      "id": "human_circulatory_system",
+      "name": "Human Circulation",
+      "description": "Learners should explain double circulation, heart chambers, and the functions of arteries, veins, and capillaries.",
+      "aliases": [
+        "circulatory system",
+        "double circulation",
+        "heart"
+      ],
+      "evidence": "Because blood goes through the heart twice in each cycle, this is called double circulation; it keeps oxygenated and deoxygenated blood separate."
+    },
+    {
+      "id": "plant_transport_xylem_phloem",
+      "name": "Plant Transport",
+      "description": "Learners should describe xylem water movement and phloem translocation of photosynthates.",
+      "aliases": [
+        "xylem",
+        "phloem",
+        "translocation"
+      ],
+      "evidence": "Xylem moves water and minerals obtained from the soil, and phloem transports the products of photosynthesis from the leaves to other parts of the plant."
+    },
+    {
+      "id": "kidney_filtration",
+      "name": "Kidney Filtration",
+      "description": "Learners should know the structure of a nephron and the role of Bowman's capsule and glomerulus in filtration.",
+      "aliases": [
+        "nephron",
+        "glomerulus",
+        "Bowman's capsule"
+      ],
+      "evidence": "Each kidney has large numbers of filtration units called nephrons. In each nephron, a cup-shaped end called Bowman's capsule surrounds a cluster of very thin-walled blood capillaries called the glomerulus, where blood is filtered."
+    },
+    {
+      "id": "stomatal_control",
+      "name": "Stomatal Control",
+      "description": "Learners should understand how guard cells regulate opening and closing of stomata.",
+      "aliases": [
+        "stomata",
+        "guard cells"
+      ],
+      "evidence": "The opening and closing of each pore is controlled by guard cells: guard cells swell when water flows into them and the pore opens, and they shrink when they lose water and the pore closes."
+    }
+  ]
+}

@@ -6,7 +6,9 @@ import streamlit as st
 
 from app.domain.enums import CompetencyLevel, PreferredLanguage
 from frontend.clients import data_access
+from frontend.components.mastery import mastery_panel
 from frontend.components.ui import badge, code_id, page_header
+from knowledge_prep.catalog import TOPICS, topic_label
 from frontend.utils import state
 from frontend.utils.formatting import pct, when
 
@@ -22,6 +24,15 @@ def _usage_notes() -> None:
                    "(beginner if the pre-test is skipped).")
         badge("off", "Interests and learning preferences")
         st.caption("Stored in the database only. No assistant or agent code reads them yet.")
+
+
+def _mastery_section(learner: dict[str, Any]) -> None:
+    """Per-concept mastery for a topic (catalogue topics; the learner's last-tested topic first)."""
+    taken = [a["topic_id"] for a in data_access.learner_assessments(learner["id"])]
+    topics = [t.topic_id for t in TOPICS]
+    default = next((t for t in taken if t in topics), topics[0])
+    topic = st.selectbox("Topic", topics, index=topics.index(default), format_func=topic_label, key="mastery-topic")
+    mastery_panel(learner["id"], topic)
 
 
 def render(learner: dict[str, Any] | None) -> None:
@@ -59,6 +70,9 @@ def render(learner: dict[str, Any] | None) -> None:
                 st.rerun()
     with right:
         _usage_notes()
+
+    st.subheader("Concept mastery")
+    _mastery_section(learner)
 
     st.subheader("Assessment history")
     rows = data_access.learner_assessments(learner["id"])

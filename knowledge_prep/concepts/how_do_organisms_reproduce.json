@@ -1,0 +1,130 @@
+{
+  "topic_id": "how_do_organisms_reproduce",
+  "status": "draft",
+  "generated_by": "groq:openai/gpt-oss-120b",
+  "generated_at": "2026-10-20T12:48:20.042347Z",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "concepts": [
+    {
+      "id": "dna_replication_basics",
+      "name": "DNA replication",
+      "description": "Learners should understand that reproduction involves making a copy of DNA, which is not perfectly accurate and leads to variation.",
+      "aliases": [
+        "DNA copying",
+        "genetic duplication"
+      ],
+      "evidence": "The basic event in reproduction is the creation of a DNA copy."
+    },
+    {
+      "id": "asexual_fission",
+      "name": "Binary fission",
+      "description": "Learners should know that unicellular organisms reproduce by splitting into two daughter cells.",
+      "aliases": [
+        "cell division",
+        "binary splitting"
+      ],
+      "evidence": "Amoeba splits into two halves during cell division; this is binary fission."
+    },
+    {
+      "id": "multiple_fission",
+      "name": "Multiple fission",
+      "description": "Learners should recognize that some parasites produce many daughter cells simultaneously.",
+      "aliases": [
+        "schizogony",
+        "multiple splitting"
+      ],
+      "evidence": "The malarial parasite Plasmodium divides into many daughter cells at the same time; this is multiple fission."
+    },
+    {
+      "id": "fragmentation_reproduction",
+      "name": "Fragmentation",
+      "description": "Learners should understand that multicellular filaments can break into pieces, each developing into a new individual.",
+      "aliases": [
+        "filament breakage",
+        "fragmented growth"
+      ],
+      "evidence": "In simple multicellular organisms such as Spirogyra, the filament breaks into smaller pieces, and each piece grows into a new individual."
+    },
+    {
+      "id": "regeneration_and_budding",
+      "name": "Regeneration & budding",
+      "description": "Learners should be able to differentiate regeneration (whole organism from a piece) from budding (outgrowth that detaches).",
+      "aliases": [
+        "regenerative growth",
+        "budding process"
+      ],
+      "evidence": "In budding, as in Hydra and yeast, a bud develops as an outgrowth due to repeated cell division at one site; the bud develops into a tiny individual, and when fully mature, it detaches from the parent and becomes a new independent individual."
+    },
+    {
+      "id": "vegetative_propagation",
+      "name": "Vegetative propagation",
+      "description": "Learners should know that many plants reproduce asexually from roots, stems, or leaves, producing genetically similar offspring.",
+      "aliases": [
+        "clonal propagation",
+        "asexual plant reproduction"
+      ],
+      "evidence": "In many plants, new plants develop from parts such as the root, stem and leaves."
+    },
+    {
+      "id": "spore_formation_and_protection",
+      "name": "Spore protection",
+      "description": "Learners should understand that spores are enclosed in thick walls that safeguard them until favorable conditions arise.",
+      "aliases": [
+        "spore coat",
+        "spore durability"
+      ],
+      "evidence": "Spores are covered by thick walls that protect them until they come into contact with a moist surface and can begin to grow."
+    },
+    {
+      "id": "flower_anatomy_pistil",
+      "name": "Pistil anatomy",
+      "description": "Learners should identify the three parts of the pistil: ovary, style, and stigma.",
+      "aliases": [
+        "female flower parts",
+        "pistil structure"
+      ],
+      "evidence": "The pistil, in the centre of the flower, is the female reproductive part; it has three parts: the swollen bottom part is the ovary, the middle elongated part is the style, and the terminal sticky part is the stigma."
+    },
+    {
+      "id": "pollination_and_fertilisation",
+      "name": "Pollination & fertilisation",
+      "description": "Learners should distinguish self‑pollination from cross‑pollination and describe the pollen tube pathway leading to fertilisation.",
+      "aliases": [
+        "pollen transfer",
+        "fertilisation process"
+      ],
+      "evidence": "The transfer of pollen grains from the stamen to the stigma is called pollination. If it happens within the same flower it is self-pollination; if pollen is transferred from one flower to another, it is cross-pollination."
+    },
+    {
+      "id": "human_puberty_and_reproductive_systems",
+      "name": "Human puberty & reproduction",
+      "description": "Learners should recognize the physiological changes at puberty and the basic structure of male and female reproductive systems.",
+      "aliases": [
+        "adolescence changes",
+        "human reproductive anatomy"
+      ],
+      "evidence": "The period of adolescence during which the reproductive tissues begin to mature is called puberty."
+    },
+    {
+      "id": "menstruation_cycle",
+      "name": "Menstruation cycle",
+      "description": "Learners should know the monthly cycle of egg release, possible fertilisation, and shedding of the uterine lining if fertilisation does not occur.",
+      "aliases": [
+        "menstrual cycle",
+        "uterine lining shedding"
+      ],
+      "evidence": "If the egg is not fertilised, it lives for about one day; the thick, spongy lining of the uterus is then not needed and slowly breaks and comes out through the vagina as blood and mucus."
+    },
+    {
+      "id": "reproductive_health_methods",
+      "name": "Reproductive health methods",
+      "description": "Learners should identify various contraceptive and disease‑prevention methods, including barriers, hormonal, intra‑uterine, and surgical options.",
+      "aliases": [
+        "contraception",
+        "birth control methods"
+      ],
+      "evidence": "Methods to avoid pregnancy include mechanical barriers such as condoms; hormonal methods such as oral pills, which change the hormonal balance of the body so that eggs are not released; devices such as the loop or the copper‑T placed in the uterus; and surgical methods, in which the vas deferens in males or the fallopian tube in females is blocked."
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "topic_id": "control_and_coordination",
+  "status": "draft",
+  "generated_by": "groq:openai/gpt-oss-120b",
+  "generated_at": "2026-10-20T12:52:08.914713Z",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "concepts": [
+    {
+      "id": "sensory_receptors",
+      "name": "Sensory Receptors",
+      "description": "Learners should identify where and how organisms detect environmental stimuli.",
+      "aliases": [
+        "receptors",
+        "sense organs"
+      ],
+      "evidence": "Information from the environment is detected by specialised tips of nerve cells called receptors, located in the sense organs: the inner ear, the nose, the tongue, the eyes and the skin."
+    },
+    {
+      "id": "neuron_structure",
+      "name": "Neuron Structure",
+      "description": "Learners should know the three main parts of a neuron and their functions.",
+      "aliases": [
+        "nerve cell parts"
+      ],
+      "evidence": "A neuron, or nerve cell, has three parts: dendrites, which acquire information; the cell body; and the axon, a long extension along which information travels as an electrical impulse."
+    },
+    {
+      "id": "synaptic_transmission",
+      "name": "Synaptic Transmission",
+      "description": "Learners should understand how an electrical impulse triggers chemical release across a synapse.",
+      "aliases": [
+        "synapse",
+        "chemical transmission"
+      ],
+      "evidence": "At the end of the axon, the electrical impulse sets off the release of chemicals, which cross a small gap called the synapse and start a similar electrical impulse in the dendrite of the next neuron."
+    },
+    {
+      "id": "reflex_arc",
+      "name": "Reflex Arc",
+      "description": "Learners should describe the pathway that produces a rapid involuntary response.",
+      "aliases": [
+        "reflex pathway"
+      ],
+      "evidence": "Nerves that detect heat are connected to nerves that move muscles, and this pathway, from the input nerve to the output nerve through the spinal cord, is called a reflex arc."
+    },
+    {
+      "id": "brain_regions",
+      "name": "Brain Regions",
+      "description": "Learners should identify the three major parts of the brain.",
+      "aliases": [
+        "fore‑brain",
+        "mid‑brain",
+        "hind‑brain"
+      ],
+      "evidence": "The brain has three major parts: the fore-brain, the mid-brain and the hind-brain."
+    },
+    {
+      "id": "cerebellum_function",
+      "name": "Cerebellum Function",
+      "description": "Learners should explain the role of the cerebellum in coordinating voluntary movements and balance.",
+      "aliases": [
+        "cerebellum"
+      ],
+      "evidence": "The cerebellum, also in the hind-brain, is responsible for precision of voluntary actions and for maintaining posture and balance, such as walking in a straight line, riding a bicycle or picking up a pencil."
+    },
+    {
+      "id": "plant_tropisms",
+      "name": "Plant Tropisms",
+      "description": "Learners should recognize different growth‑directed movements of plants toward stimuli.",
+      "aliases": [
+        "phototropism",
+        "geotropism",
+        "hydrotropism",
+        "chemotropism"
+      ],
+      "evidence": "Shoots bend towards light (phototropism); roots grow downwards towards the pull of the earth (geotropism, or gravitropism) and towards water (hydrotropism); and pollen tubes grow towards ovules (chemotropism)."
+    },
+    {
+      "id": "auxin_mechanism",
+      "name": "Auxin Mechanism",
+      "description": "Learners should understand how auxin distribution causes phototropic bending.",
+      "aliases": [
+        "auxin",
+        "phototropism hormone"
+      ],
+      "evidence": "When light comes from one side, auxin diffuses towards the shady side of the shoot, which stimulates the cells there to grow longer, so the shoot bends towards light."
+    },
+    {
+      "id": "animal_hormones",
+      "name": "Animal Hormones",
+      "description": "Learners should define hormones as chemical messengers released by endocrine glands into the blood.",
+      "aliases": [
+        "endocrine hormones"
+      ],
+      "evidence": "Hormones are chemical messengers secreted by endocrine glands directly into the blood, which carries them to target organs."
+    },
+    {
+      "id": "hormonal_feedback",
+      "name": "Hormonal Feedback",
+      "description": "Learners should describe how hormone release is regulated by feedback mechanisms.",
+      "aliases": [
+        "feedback regulation"
+      ],
+      "evidence": "The timing and amount of hormone released are regulated by feedback mechanisms: for example, if sugar levels in the blood rise, the cells of the pancreas detect it and produce more insulin, and as the sugar level falls, insulin secretion is reduced."
+    },
+    {
+      "id": "muscle_contraction",
+      "name": "Muscle Contraction",
+      "description": "Learners should explain how nervous impulses cause muscle fibers to shorten.",
+      "aliases": [
+        "muscle action"
+      ],
+      "evidence": "Muscle cells contain special proteins that change their shape and arrangement in response to nervous electrical impulses, which makes the muscle cells shorter."
+    }
+  ]
+}

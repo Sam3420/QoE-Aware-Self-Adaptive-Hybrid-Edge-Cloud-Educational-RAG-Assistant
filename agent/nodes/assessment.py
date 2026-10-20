@@ -58,7 +58,24 @@ def pre_test(state: AgentState) -> dict[str, Any]:
                                                reply.answers, item_ids=_item_ids(items))
     pre_result = {"correct": result["correct"], "total": result["total"], "competency": result["competency"],
                   "answers": [_letter(a) for a in reply.answers]}
-    return {"pre_score": result["score"], "competency": result["competency"], "pre_result": pre_result}
+    update = {"pre_score": result["score"], "competency": result["competency"], "pre_result": pre_result}
+    errors = _track_concepts(result["assessment_id"])
+    return {**update, "session_errors": errors} if errors else update
+
+
+def _track_concepts(assessment_id: str) -> list[str]:
+    """Record a scored test's answers in the concept tracker; problems are reported, never raised."""
+    from agent.concept_tracking import track_assessment
+
+    try:
+        report = track_assessment(get_services(), assessment_id)
+    except Exception as exc:  # the tracker must not break a learning session
+        logger.warning("concept tracking failed for %s: %s", assessment_id, exc)
+        return [f"concept tracker: {type(exc).__name__}: {exc}"]
+    if report.unmapped:
+        return [f"concept tracker: {sum(report.unmapped.values())} item(s) not mapped to a concept "
+                f"({', '.join(sorted(report.unmapped))[:200]})"]
+    return []
 
 
 def _letter(answer: str | int) -> str:
@@ -92,6 +109,7 @@ def post_test_and_feedback(state: AgentState) -> dict[str, Any]:
     result = app.submit_posttest_and_feedback(state["student_id"], state["session_id"], state["topic_id"],
                                               reply.answers, reply.rating, reply.comment, item_ids=item_ids)
     _score_feedback(state["session_id"], reply.rating, reply.comment, result["score"])
+    errors.extend(_track_concepts(result["assessment_id"]))
     # Only now, after scoring, are the answers revealed (with explanations written for any question without one).
     review = app.review_posttest(state["topic_id"], reply.answers, item_ids=item_ids,
                                  pre_answers=(state.get("pre_result") or {}).get("answers"))

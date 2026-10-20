@@ -200,3 +200,50 @@ def question_bank(topic_id: str) -> dict[str, Any] | None:
     if bank is None:
         return None
     return {k: v for k, v in bank.items() if k != "items"}
+
+
+# ---- Concept tracker (learner_topic_strength) ------------------------------------------------------------------
+
+def concept_mastery(learner_id: str, topic_id: str) -> dict[str, Any]:
+    """The learner's standing on every concept of a topic: the vocabulary's concepts (untested ones at the 0.5 prior)
+    plus tracked concepts the vocabulary no longer lists. Returns {vocabulary_status, rows, error}."""
+    from app.db.repositories import ConceptTrackerRepository
+    from knowledge_prep.concepts import load_vocabulary
+
+    vocabulary = load_vocabulary(topic_id)
+    try:
+        with db_session() as db:
+            tracked = {r["concept_id"]: r for r in ConceptTrackerRepository(db).get_mastery(learner_id, topic_id)}
+    except SQLAlchemyError as exc:  # tracker tables not migrated yet
+        return {"vocabulary_status": vocabulary.status if vocabulary else None, "rows": [],
+                "error": f"Concept tracker unavailable ({type(exc).__name__}); run scripts/migrate_db.py."}
+    rows = []
+    for c in (vocabulary.concepts if vocabulary else []):
+        r = tracked.pop(c.id, None)
+        rows.append({"concept_id": c.id, "concept": c.name, "description": c.description,
+                     "mastery": r["mastery"] if r else 0.5, "attempts": r["attempts"] if r else 0,
+                     "correct": r["correct"] if r else 0, "covered": r["covered_count"] if r else 0,
+                     "last_attempt_at": r["last_attempt_at"] if r else None, "in_vocabulary": True})
+    for concept_id, r in tracked.items():  # e.g. a concept renamed after it was tracked
+        rows.append({"concept_id": concept_id, "concept": concept_id, "description": "Not in the current vocabulary.",
+                     "mastery": r["mastery"], "attempts": r["attempts"], "correct": r["correct"],
+                     "covered": r["covered_count"], "last_attempt_at": r["last_attempt_at"], "in_vocabulary": False})
+    return {"vocabulary_status": vocabulary.status if vocabulary else None, "rows": rows, "error": None}
+
+
+def session_concept_results(learner_id: str, topic_id: str, session_id: str) -> dict[str, dict[str, list[bool]]]:
+    """concept id → {"pre-test": [correct, ...], "post-test": [...]} for the answers given in one session."""
+    from app.db.repositories import ConceptTrackerRepository
+
+    try:
+        with db_session() as db:
+            ids = {a["id"] for a in AdaptationRepository(db).list_assessments(learner_id, topic_id)
+                   if a["session_id"] == session_id}
+            events = ConceptTrackerRepository(db).list_events(learner_id, topic_id)
+    except SQLAlchemyError:
+        return {}
+    out: dict[str, dict[str, list[bool]]] = {}
+    for e in events:
+        if e["kind"] == "attempt" and e["source_ref"].split(":", 1)[0] in ids:
+            out.setdefault(e["concept_id"], {}).setdefault(e["source"], []).append(bool(e["correct"]))
+    return out

@@ -10,6 +10,7 @@ from config import settings
 from frontend.clients import data_access
 from frontend.clients.agent_backend import AgentBackend, StepResult
 from frontend.components import chat
+from frontend.components.mastery import mastery_panel
 from frontend.components.mcq import mcq_inputs
 from frontend.components.ui import badge, code_id, page_header, show_step_error
 from frontend.utils import state
@@ -372,6 +373,10 @@ def _summary(backend: AgentBackend, thread_id: str, values: dict[str, Any]) -> N
     cols[2].metric("Rating", values.get("rating") or "—")
     cols[3].metric("Questions asked", len(values.get("qa_log", [])))
     _review(values)
+    st.subheader("Concept mastery after this session")
+    st.caption("Your pre-test and post-test answers on each concept of the topic, and your mastery across all "
+               "sessions so far.")
+    mastery_panel(values["student_id"], values["topic_id"], session_id=thread_id)
 
     ev = values.get("evaluation") or {}
     with st.container(border=True):

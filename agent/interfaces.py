@@ -18,6 +18,7 @@ from sqlalchemy.pool import StaticPool
 
 from app.core.config import get_settings as get_app_settings
 from app.db.base import Base
+from app.db.migrations import run_migrations
 from app.db.repositories import AdaptationRepository, LearningTraceRepository
 from app.domain.models import EducationalResourceCreate, LearnerProfileCreate, LearningSessionCreate
 from app.llm.types import LLMGenerateRequest, LLMGenerateResult, LLMProviderError
@@ -154,6 +155,9 @@ class AppGateway:
         """Create B's tables if missing and seed the predefined policies (idempotent)."""
         if self._ready:
             return
+        with self._db() as db:
+            engine = db.get_bind()
+        run_migrations(engine)  # versioned schema changes (app/db/migrations.py), each in its own transaction
         with self._db() as db:
             Base.metadata.create_all(bind=db.get_bind())
             AdaptationRepository(db).seed_policies()

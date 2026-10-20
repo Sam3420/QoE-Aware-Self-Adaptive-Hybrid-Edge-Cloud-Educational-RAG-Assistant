@@ -1,0 +1,110 @@
+{
+  "topic_id": "heredity",
+  "status": "draft",
+  "generated_by": "groq:openai/gpt-oss-120b",
+  "generated_at": "2026-10-20T12:48:58.271510Z",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "concepts": [
+    {
+      "id": "asexual_reproduction",
+      "name": "Asexual Reproduction",
+      "description": "Learners should understand that asexual reproduction produces offspring with very few differences due to minor DNA copying errors.",
+      "aliases": [
+        "binary fission",
+        "clonal reproduction"
+      ],
+      "evidence": "In asexual reproduction, such as in bacteria, very few differences appear between generations because they arise only from small inaccuracies in DNA copying."
+    },
+    {
+      "id": "sexual_reproduction",
+      "name": "Sexual Reproduction",
+      "description": "Learners should know that sexual reproduction creates greater genetic diversity because offspring receive DNA from two parents.",
+      "aliases": [
+        "meiotic reproduction",
+        "bisexual reproduction"
+      ],
+      "evidence": "In sexual reproduction, even greater diversity is generated, because each offspring receives DNA from two parents."
+    },
+    {
+      "id": "genetic_variation",
+      "name": "Genetic Variation",
+      "description": "Learners should recognize that variation among individuals increases a species' chances of survival in changing environments.",
+      "aliases": [
+        "variation",
+        "diversity"
+      ],
+      "evidence": "Variations accumulate across generations, and the great advantage of variation to a species is that it increases the chances of survival in a changing environment."
+    },
+    {
+      "id": "dominant_recessive",
+      "name": "Dominant & Recessive Traits",
+      "description": "Learners should be able to identify which trait is expressed (dominant) and which is hidden (recessive) in a heterozygote.",
+      "aliases": [
+        "dominance",
+        "recessiveness"
+      ],
+      "evidence": "The trait that is expressed is called dominant, and the trait that is not expressed is called recessive."
+    },
+    {
+      "id": "monohybrid_ratio",
+      "name": "Monohybrid Ratio",
+      "description": "Learners should calculate the 3:1 phenotypic ratio in the F2 generation of a monohybrid cross.",
+      "aliases": [
+        "1:2:1 genotype ratio",
+        "3:1 phenotype ratio"
+      ],
+      "evidence": "In the F2 generation, tall and short plants appeared in a ratio of about 3:1."
+    },
+    {
+      "id": "independent_assortment",
+      "name": "Independent Assortment",
+      "description": "Learners should understand that different gene pairs segregate independently during gamete formation, producing new trait combinations.",
+      "aliases": [
+        "Mendel's second law",
+        "law of independent assortment"
+      ],
+      "evidence": "This showed that the tall/short trait and the round/wrinkled seed trait are inherited independently of each other."
+    },
+    {
+      "id": "dihybrid_ratio",
+      "name": "Dihybrid Ratio",
+      "description": "Learners should predict the 9:3:3:1 phenotypic ratio resulting from a dihybrid cross.",
+      "aliases": [
+        "9:3:3:1 ratio",
+        "di‑cross ratio"
+      ],
+      "evidence": "In such a dihybrid cross the four combinations appear in the ratio 9:3:3:1."
+    },
+    {
+      "id": "gene_definition",
+      "name": "Gene Definition",
+      "description": "Learners should know that a gene is a DNA segment that provides the information for making a specific protein.",
+      "aliases": [
+        "DNA segment",
+        "hereditary factor"
+      ],
+      "evidence": "Cellular DNA is the information source for making proteins in the cell. A section of DNA that provides information for one protein is called the gene for that protein."
+    },
+    {
+      "id": "sex_determination",
+      "name": "Sex Determination",
+      "description": "Learners should explain how sex chromosomes (XX or XY) determine the sex of human offspring.",
+      "aliases": [
+        "XY system",
+        "chromosomal sex determination"
+      ],
+      "evidence": "Women have a perfect pair, both called X, while men have a mismatched pair, one normal-sized X and one short chromosome called Y."
+    },
+    {
+      "id": "chromosome_number_restoration",
+      "name": "Chromosome Number Restoration",
+      "description": "Learners should understand that fertilisation restores the normal diploid chromosome number by combining one set from each parent.",
+      "aliases": [
+        "diploid restoration",
+        "chromosome complement"
+      ],
+      "evidence": "when two germ cells combine, the normal number of chromosomes, with one copy from each parent, is restored."
+    }
+  ]
+}
