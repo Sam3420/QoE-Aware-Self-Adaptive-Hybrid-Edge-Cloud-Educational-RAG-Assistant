@@ -118,6 +118,15 @@ def describe_node(node: str, update: dict[str, Any]) -> str:
         return f"post_score={update.get('post_score')}, rating={update.get('rating')}"
     if node == "evaluate_session" and "reward" in update:
         return f"QoE={update['qoe']:.2f}, SRE={update['sre']:.2f}, reward={update['reward']:+.3f}"
+    if node == "plan_session":
+        plan = update.get("session_plan") or {}
+        goals = ", ".join(g["concept_id"] for g in plan.get("goals") or [])
+        return f"goals: {goals}" if goals else f"no plan ({plan.get('reason') or plan.get('status')})"
+    if node == "update_tracker" and update.get("tracker_updates"):
+        last = update["tracker_updates"][-1]
+        return f"{last['status']}" + (f": {last['concept_id']} ({last['confidence']})" if last.get("concept_id") else "")
+    if node == "monitor_progress" and update.get("progress"):
+        return f"{update['progress'].get('touched', 0)}/{update['progress'].get('total', 0)} goals worked on"
     if node == "store_experience":
         return "; ".join(update.get("session_errors", [])) or "experience stored"
     return ", ".join(sorted(update)) or "-"

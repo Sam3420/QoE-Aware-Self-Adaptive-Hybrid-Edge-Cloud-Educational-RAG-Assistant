@@ -28,6 +28,8 @@ class Concept(BaseModel):
     description: str = Field(min_length=10, max_length=300)
     aliases: list[str] = Field(default_factory=list)  # other names learners or questions use
     evidence: str = Field(min_length=10)  # a sentence from the lesson notes that teaches the concept
+    # Question-bank positions that test this concept (derived from question_concept_map by concepts/extract.py).
+    source_question_ids: list[int] = Field(default_factory=list)
 
     @field_validator("id")
     @classmethod
@@ -35,6 +37,16 @@ class Concept(BaseModel):
         if not _ID.match(value):
             raise ValueError(f"concept id {value!r} must be snake_case (a-z, 0-9, _)")
         return value
+
+
+class QuestionMapping(BaseModel):
+    """The concept one question-bank item tests (keyed in question_concept_map by its bank position)."""
+
+    concept_id: str
+    question: str  # the item's text when mapped: the backfill checks the bank position still holds this question
+    confidence: float = Field(ge=0.0, le=1.0)
+    needs_review: bool = False
+    note: str = ""  # why it needs review (low confidence, disagrees with the item's own concept label, ...)
 
 
 class Vocabulary(BaseModel):
@@ -45,6 +57,8 @@ class Vocabulary(BaseModel):
     reviewed_by: str | None = None
     reviewed_at: datetime | None = None
     concepts: list[Concept]
+    # Bank position (as a string) -> concept, written by concepts/extract.py; kept by every load/save of this file.
+    question_concept_map: dict[str, QuestionMapping] = Field(default_factory=dict)
 
     @model_validator(mode="after")
     def _well_formed(self) -> "Vocabulary":
@@ -56,6 +70,10 @@ class Vocabulary(BaseModel):
                 raise ValueError(f"concept {field}s must be unique")
         if self.status == "approved" and not self.reviewed_by:
             raise ValueError("an approved vocabulary needs reviewed_by")
+        ids = {c.id for c in self.concepts}
+        unknown = sorted({m.concept_id for m in self.question_concept_map.values()} - ids)
+        if unknown:
+            raise ValueError(f"question_concept_map uses unknown concept ids: {unknown}")
         return self
 
     def get(self, concept_id: str) -> Concept | None:

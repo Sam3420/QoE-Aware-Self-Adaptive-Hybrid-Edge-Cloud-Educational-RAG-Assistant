@@ -1,5 +1,6 @@
 """Graph nodes: each takes AgentState and returns a partial update dict."""
 from agent.nodes.assessment import plan_pretest, post_test_and_feedback, pre_test
+from agent.nodes.coaching import monitor_progress, plan_session, update_tracker
 from agent.nodes.context import collect_context
 from agent.nodes.evaluation import evaluate_session, store_experience
 from agent.nodes.policy import select_policy
@@ -22,7 +23,9 @@ __all__ = [
     "generate_response",
     "llm_router",
     "load_profile",
+    "monitor_progress",
     "plan_pretest",
+    "plan_session",
     "post_test_and_feedback",
     "pre_test",
     "prepare_knowledge",
@@ -31,4 +34,5 @@ __all__ = [
     "select_topic",
     "select_video",
     "store_experience",
+    "update_tracker",
 ]

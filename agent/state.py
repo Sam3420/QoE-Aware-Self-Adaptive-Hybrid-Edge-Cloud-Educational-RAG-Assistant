@@ -31,6 +31,11 @@ class AgentState(TypedDict):
     knowledge_error: str  # why no recommended video could be indexed (shown again by select_video)
     videos_watched: list[dict[str, Any]]  # every video studied this session (video_id, title, url, resource_id)
 
+    # Coaching (agent/nodes/coaching.py): goals for this session, tracker updates per question, progress on the goals
+    session_plan: dict[str, Any]  # status, goals (concept_id, name, reason, mastery, attempts), query (concepts, objective)
+    tracker_updates: Annotated[list[dict[str, Any]], operator.add]  # per answered question: concept, status
+    progress: dict[str, Any]  # goals (status, mastery now vs at planning), touched/total, suggestion
+
     # Policy selection
     context: dict[str, Any]  # rtt_ms, cpu, mem, competency_num, last_qoe
     similar_exps: list[dict[str, Any]]  # kNN neighbours: policy_id, reward, distance, session_id
@@ -91,6 +96,9 @@ def initial_state(student_id: str, topic_id: str = "", session_id: str | None = 
         knowledge_attempts=[],
         knowledge_error="",
         videos_watched=[],
+        session_plan={},
+        tracker_updates=[],
+        progress={},
         context={},
         similar_exps=[],
         policy_id="",

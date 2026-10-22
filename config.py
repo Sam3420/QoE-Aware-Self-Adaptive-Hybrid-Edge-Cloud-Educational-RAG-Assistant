@@ -92,6 +92,11 @@ class Settings(BaseSettings):
     # --- Session -------------------------------------------------------------
     # Hard cap on questions per session, even if the learner asks to continue.
     max_questions_per_session: int = Field(default=10, gt=0)
+    # Session plan (agent/planning.py): goal concepts per session and what counts as low mastery.
+    plan_min_goals: int = Field(default=2, ge=1, le=12)
+    plan_max_goals: int = Field(default=4, ge=1, le=12)
+    plan_low_mastery: float = Field(default=0.5, ge=0.0, le=1.0)  # mastery below this (with attempts) is weak
+    coach_match_min_confidence: float = Field(default=0.6, ge=0.0, le=1.0)  # question -> concept, to record it
     pretest_num_items: int = Field(default=5, gt=0)
     posttest_num_items: int = Field(default=5, gt=0)
 

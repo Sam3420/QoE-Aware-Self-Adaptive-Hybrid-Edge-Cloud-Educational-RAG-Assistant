@@ -21,7 +21,7 @@ def build_builder() -> StateGraph:
     for name in ("load_profile", "select_topic", "plan_pretest", "pre_test", "recommend_videos", "select_video",
                  "prepare_knowledge", "collect_context", "select_policy", "ask_question", "crag_retrieve",
                  "corrective_retrieve", "llm_router", "generate_response", "post_test_and_feedback",
-                 "evaluate_session", "store_experience"):
+                 "evaluate_session", "store_experience", "plan_session", "update_tracker", "monitor_progress"):
         g.add_node(name, traced(name, getattr(nodes, name)))  # Langfuse observation per node (no-op when off)
 
     g.add_edge(START, "load_profile")
@@ -29,8 +29,10 @@ def build_builder() -> StateGraph:
     # Every session takes a topic-level pre-test planned from the learner's history (skipped only when no
     # questions could be prepared), then gets videos recommended for the topic, competency and language.
     g.add_edge("select_topic", "plan_pretest")
-    g.add_conditional_edges("plan_pretest", need_pretest, ["pre_test", "recommend_videos"])
-    g.add_edge("pre_test", "recommend_videos")
+    g.add_conditional_edges("plan_pretest", need_pretest, ["pre_test", "plan_session"])
+    # The session plan (2-4 goal concepts: pre-test misses, then low mastery) shapes the video query.
+    g.add_edge("pre_test", "plan_session")
+    g.add_edge("plan_session", "recommend_videos")
     g.add_edge("recommend_videos", "select_video")
     # A chosen video is indexed once (transcript → chunks → embeddings → FAISS) and reused afterwards.
     # The first video continues to context/policy; a video chosen later goes straight back to questions.
@@ -48,8 +50,11 @@ def build_builder() -> StateGraph:
     g.add_conditional_edges("crag_retrieve", crag_ok, ["llm_router", "corrective_retrieve"])
     g.add_edge("corrective_retrieve", "crag_retrieve")
     g.add_edge("llm_router", "generate_response")
-    # Question loop (bounded by max_questions_per_session).
-    g.add_conditional_edges("generate_response", more_questions, ["ask_question", "post_test_and_feedback"])
+    # After each answer: record the concept asked about, update progress on the goals, then the question loop
+    # (bounded by max_questions_per_session).
+    g.add_edge("generate_response", "update_tracker")
+    g.add_edge("update_tracker", "monitor_progress")
+    g.add_conditional_edges("monitor_progress", more_questions, ["ask_question", "post_test_and_feedback"])
     g.add_edge("post_test_and_feedback", "evaluate_session")
     g.add_edge("evaluate_session", "store_experience")
     g.add_edge("store_experience", END)

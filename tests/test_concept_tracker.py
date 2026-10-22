@@ -93,7 +93,7 @@ def test_migration_creates_tracker_tables_once():
     import app.db.models  # noqa: F401
 
     Base.metadata.tables["learner_profiles"].create(bind=engine)  # an "old" database without the tracker
-    assert run_migrations(engine) == ["0001_concept_tracker"]
+    assert run_migrations(engine) == [m.id for m in MIGRATIONS]  # every pending migration, in order
     tables = set(inspect(engine).get_table_names())
     assert {"learner_topic_strength", "concept_events", "schema_migrations"} <= tables
     assert run_migrations(engine) == [] and applied(engine) == [m.id for m in MIGRATIONS]
@@ -104,7 +104,7 @@ def test_migration_records_itself_when_create_all_already_made_the_tables():
     import app.db.models  # noqa: F401
 
     Base.metadata.create_all(bind=engine)
-    assert run_migrations(engine) == ["0001_concept_tracker"] and run_migrations(engine) == []
+    assert run_migrations(engine) == [m.id for m in MIGRATIONS] and run_migrations(engine) == []
 
 
 # --- vocabulary ---------------------------------------------------------------------------------------------

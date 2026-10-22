@@ -5,9 +5,9 @@ from agent.state import AgentState
 from config import settings
 
 
-def need_pretest(state: AgentState) -> Literal["pre_test", "recommend_videos"]:
+def need_pretest(state: AgentState) -> Literal["pre_test", "plan_session"]:
     """Every session takes the planned pre-test; skip it only when no questions could be prepared."""
-    return "pre_test" if state["test_items"] else "recommend_videos"
+    return "pre_test" if state["test_items"] else "plan_session"
 
 
 def _to_questions(state: AgentState) -> Literal["collect_context", "ask_question"]:

@@ -94,6 +94,7 @@ def _duration(seconds: int | None) -> str:
 
 def _select_video(backend: AgentBackend, thread_id: str, values: dict[str, Any], pause: dict[str, Any]) -> None:
     _pretest_score(values)
+    _plan_card(values)
     watched = pause.get("watched") or []
     if watched:
         st.subheader("Watch another video")
@@ -224,6 +225,34 @@ def _pretest_score(values: dict[str, Any]) -> None:
                         "learned in this session.")
 
 
+_GOAL_STATUS = {"not started": ("gray", ":material/radio_button_unchecked:"),
+                "covered by video": ("blue", ":material/smart_display:"),
+                "discussed": ("orange", ":material/forum:"), "practised": ("green", ":material/check_circle:")}
+
+
+def _plan_card(values: dict[str, Any]) -> None:
+    """This session's goals (agent plan_session) and, once questions start, progress on each (monitor_progress)."""
+    plan = values.get("session_plan") or {}
+    goals = plan.get("goals") or []
+    if not goals:
+        return
+    progress = {g["concept_id"]: g for g in (values.get("progress") or {}).get("goals") or []}
+    with st.container(border=True):
+        st.markdown("**:material/flag: Your goals for this session**")
+        for goal in goals:
+            now = progress.get(goal["concept_id"])
+            name_col, status_col = st.columns([4, 1], vertical_alignment="center")
+            name_col.markdown(f"**{goal['name']}** · {goal['reason']}")
+            name_col.caption(goal["description"])
+            if now:
+                color, icon = _GOAL_STATUS.get(now["status"], ("gray", None))
+                status_col.badge(now["status"].capitalize(), color=color, icon=icon)
+        if values.get("progress", {}).get("suggestion"):
+            st.caption(values["progress"]["suggestion"])
+        elif plan.get("query", {}).get("concepts"):
+            st.caption("The videos below were searched for these goals.")
+
+
 def _review(values: dict[str, Any]) -> None:
     """Answer key after the post-test: correct option, why it is right, and the learner's pre/post answers."""
     review = values.get("post_review") or {}
@@ -260,6 +289,7 @@ def _review(values: dict[str, Any]) -> None:
 
 def _questions(backend: AgentBackend, thread_id: str, values: dict[str, Any], pause: dict[str, Any]) -> None:
     _pretest_score(values)
+    _plan_card(values)
     _video_panel(values)
     threshold = values["runtime_config"].get("threshold", settings.crag_retrieval_threshold)
     turns = backend.conversation(thread_id)
@@ -330,6 +360,7 @@ def _posttest(backend: AgentBackend, thread_id: str, values: dict[str, Any], pau
             for turn in turns:
                 chat.agent_turn(turn, threshold)
     _pretest_score(values)
+    _plan_card(values)
     st.subheader("Post-test and feedback")
     st.caption(pause["prompt"] + " After you submit, you will see your score, the correct answers and why "
                "they are right.")

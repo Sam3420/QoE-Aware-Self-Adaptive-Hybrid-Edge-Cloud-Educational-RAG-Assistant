@@ -40,7 +40,8 @@ def recommend_videos(state: AgentState) -> dict[str, Any]:
     refresh = state["video_action"] == "refresh"
     update: dict[str, Any] = {"video_action": "", "knowledge_error": ""}
     try:
-        run = recommender.recommend(state["student_id"], state["topic_id"], session_id=state["session_id"])
+        query = (state.get("session_plan") or {}).get("query") or {}  # goal concepts, when the session is planned
+        run = recommender.recommend(state["student_id"], state["topic_id"], session_id=state["session_id"], **query)
     except Exception as exc:  # unexpected failure (API errors are reported in the run's status/errors)
         logger.exception("recommend_videos failed")
         message = f"{type(exc).__name__}: {exc}"

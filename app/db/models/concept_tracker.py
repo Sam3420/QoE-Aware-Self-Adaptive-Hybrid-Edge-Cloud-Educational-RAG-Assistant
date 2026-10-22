@@ -33,6 +33,11 @@ class LearnerTopicStrength(TimestampMixin, Base):
     first_covered_at: Mapped[datetime | None] = mapped_column(nullable=True)
     last_covered_at: Mapped[datetime | None] = mapped_column(nullable=True)
     last_attempt_at: Mapped[datetime | None] = mapped_column(nullable=True)
+    # Added by migration 0002 (tracker.py): a video covered the concept; questions the learner asked about it; source of
+    # the latest graded attempt ("pre-test", "post-test", "formative").
+    covered_video: Mapped[bool] = mapped_column(default=False, server_default="0", nullable=False)
+    asked_count: Mapped[int] = mapped_column(default=0, server_default="0", nullable=False)
+    last_source: Mapped[str | None] = mapped_column(String(32), nullable=True)
 
 
 class ConceptEvent(Base):

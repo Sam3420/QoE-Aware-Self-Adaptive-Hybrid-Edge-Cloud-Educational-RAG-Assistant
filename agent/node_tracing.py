@@ -105,6 +105,16 @@ NODE_SPECS: dict[str, tuple[str, str, Summary, Summary]] = {
     "store_experience": ("store-experience", "span",
                          lambda s: {"policy_id": s["policy_id"]},
                          lambda u: {"stored": not _errors(u), "errors": _errors(u)}),
+    "plan_session": ("plan-session", "chain",
+                     lambda s: {"topic_id": s["topic_id"], "pre_score": s["pre_score"]},
+                     lambda u: {k: (u.get("session_plan") or {}).get(k)
+                                for k in ("status", "goals", "query", "pretest_missed", "reason")}),
+    "update_tracker": ("update-tracker", "span",
+                       lambda s: {"question_no": len(s["qa_log"]), "query": s["query"]},
+                       lambda u: (u.get("tracker_updates") or [None])[-1]),
+    "monitor_progress": ("monitor-progress", "span",
+                         lambda s: {"goals": len((s.get("session_plan") or {}).get("goals") or [])},
+                         lambda u: u.get("progress")),
 }
 
 
