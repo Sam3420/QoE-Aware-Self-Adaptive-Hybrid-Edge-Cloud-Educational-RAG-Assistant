@@ -37,6 +37,11 @@ class QoERaw(BaseModel):
     star_rating: float | None = None  # 1–5 session rating
     sentiment: float | None = None  # −1..1 (lexicon estimate)
     completion: float | None = None  # 0–1
+    # Coaching outcomes (agent/reflection.py). Stored with every transition; not in any weight group (GROUP_KEYS),
+    # so QoE and the reward are unchanged until they are given weights.
+    mastery_gain: float | None = None  # mean mastery change of the concepts practised this session, −1..1
+    goal_completion: float | None = None  # goals met / goals, 0–1 (coach_mode rules only)
+    suggestion_acceptance: float | None = None  # suggestions accepted / shown, 0–1 (coach_mode rules only)
 
 
 class QoEBounds(BaseModel):
@@ -68,6 +73,9 @@ class QoEMetrics(BaseModel):
     SR: float | None = None
     FS: float | None = None
     CR: float | None = None
+    MG: float | None = None  # mastery gain (0.5 = no change)
+    GC: float | None = None  # goal completion rate
+    SA: float | None = None  # suggestion acceptance rate
 
     @field_validator("*")
     @classmethod
@@ -95,6 +103,9 @@ def normalize_qoe(raw: QoERaw, bounds: QoEBounds) -> QoEMetrics:
         SR=stars(raw.star_rating),
         FS=signed(raw.sentiment),
         CR=fraction(raw.completion),
+        MG=signed(raw.mastery_gain),
+        GC=fraction(raw.goal_completion),
+        SA=fraction(raw.suggestion_acceptance),
     )
 
 

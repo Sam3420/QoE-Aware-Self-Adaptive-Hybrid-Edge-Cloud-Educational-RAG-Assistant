@@ -29,8 +29,16 @@ def _provider_order(preferred: str) -> list[str]:
 
 
 def ask_question(state: AgentState) -> dict[str, Any]:
-    """Pause for {"query": str} or {"end": true} (re-asking on invalid input) and reset per-question fields."""
+    """Pause for {"query": str} or {"end": true} (re-asking on invalid input) and reset per-question fields.
+
+    The coach's suggestion travels in the payload; {"accept_suggestion": true} does what it offers, and every reply
+    logs whether the suggestion shown was accepted (suggestion_log).
+    """
+    from agent.nodes.coaching import classify_question, log_suggestion
+
     video = state.get("video") or {}
+    suggestion = state.get("suggestion") or {}
+    formative = state.get("formative_result") or {}
     prompt: dict[str, Any] = {
         "type": "ask_question",
         "question_no": len(state["qa_log"]) + 1,
@@ -38,22 +46,47 @@ def ask_question(state: AgentState) -> dict[str, Any]:
         "next_steps": ["ask a doubt", "watch another video", "take the post-test"],
         "prompt": 'Ask a doubt about the video ({"query": "..."}), watch another video ({"more_videos": true}) '
                   'or take the post-test ({"end": true}).',
+        "suggestion": {k: suggestion.get(k) for k in ("action", "concept_id", "label", "reason")}
+        if suggestion.get("action") else None,
+        "formative_result": formative if formative and formative.get("question_no") == len(state["qa_log"]) else None,
     }
     # interrupt() must come first: this node re-runs from the top on each resume.
     while True:
         raw = interrupt(prompt)
         try:
             reply = QuestionReply.model_validate(raw)
-            break
         except ValidationError as exc:
             prompt = {**prompt, "error": exc.errors(include_url=False)[0]["msg"]}
+            continue
+        if reply.accept_suggestion and not suggestion.get("action"):
+            prompt = {**prompt, "error": "there is no suggestion to accept"}
+            continue
+        break
+    logged = {"suggestion_log": log_suggestion(state, accepted=reply.accept_suggestion), "suggestion": {}}
+    query = reply.query
+    if reply.accept_suggestion:
+        action = suggestion["action"]
+        if action == "formative_check":
+            return {**logged, "suggestion": suggestion, "continue_session": False, "video_action": "formative"}
+        if action == "another_video":
+            goals = (state.get("session_plan") or {}).get("goals") or []
+            focus = next((g["name"] for g in goals if g["concept_id"] == suggestion["concept_id"]),
+                         suggestion["concept_id"].replace("_", " "))
+            return {**logged, "continue_session": False, "video_action": "focus", "video_focus": focus}
+        if action == "post_test":
+            return {**logged, "continue_session": False, "video_action": "end"}
+        query = suggestion["query"]  # review / follow_up: the templated question
+        accepted_concept = suggestion.get("concept_id")
     if reply.more_videos:
-        return {"continue_session": False, "video_action": "more"}
+        return {**logged, "continue_session": False, "video_action": "more"}
     if reply.end:
-        return {"continue_session": False, "video_action": "end"}
+        return {**logged, "continue_session": False, "video_action": "end"}
     return {
-        "query": reply.query,
-        "retrieval_query": reply.query,
+        **logged,
+        # tagged before answering, so the answer can be scaffolded for its concept (no LLM: matching.py)
+        "question_concept": classify_question(state, query, accepted_concept if reply.accept_suggestion else None),
+        "query": query,
+        "retrieval_query": query,
         "question_started_at": time.time(),
         "q_errors": [],
         "continue_session": True,
@@ -116,7 +149,10 @@ def llm_router(state: AgentState) -> dict[str, Any]:
 
 def generate_response(state: AgentState) -> dict[str, Any]:
     """Generate the answer, falling back along the provider order on failure, and append a qa_log entry."""
+    from agent.nodes.coaching import scaffold_for
+
     router = get_services().router
+    scaffold = scaffold_for(state)
     preferred = state["runtime_config"]["route"]
     chosen = state["model_used"].split(":", 1)[0]
     request = build_request(
@@ -127,6 +163,7 @@ def generate_response(state: AgentState) -> dict[str, Any]:
         language=state["profile"].get("language", "en"),
         max_tokens=settings.llm_max_tokens,
         temperature=settings.llm_temperature,
+        scaffold=scaffold or None,
     )
     errors = list(state["q_errors"])
     order = _provider_order(preferred)
@@ -159,6 +196,8 @@ def generate_response(state: AgentState) -> dict[str, Any]:
         error="; ".join(errors) or None,
         resource_id=state.get("resource_id") or state["topic_id"],
         video_title=(state.get("video") or {}).get("title"),
+        concept_id=(state.get("question_concept") or {}).get("concept_id"),
+        scaffold=scaffold or None,
         escalated=bool(escalation.get("stage")),
         escalation_stage=escalation.get("stage"),
         escalation_reason=escalation.get("reason"),
@@ -168,6 +207,7 @@ def generate_response(state: AgentState) -> dict[str, Any]:
         draft_model=escalation.get("draft_model"),
     )
     return {"response": result.text, "model_used": model_used, "q_errors": errors, "escalation": escalation,
+            "scaffold": scaffold,
             "qa_log": [entry.model_dump()]}
 
 

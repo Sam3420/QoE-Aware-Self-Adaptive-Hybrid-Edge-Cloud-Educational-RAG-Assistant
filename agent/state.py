@@ -35,6 +35,20 @@ class AgentState(TypedDict):
     session_plan: dict[str, Any]  # status, goals (concept_id, name, reason, mastery, attempts), query (concepts, objective)
     tracker_updates: Annotated[list[dict[str, Any]], operator.add]  # per answered question: concept, status
     progress: dict[str, Any]  # goals (status, mastery now vs at planning), touched/total, suggestion
+    tracker_snapshot: dict[str, Any]  # concept id -> {mastery, attempts, correct, covered, asked} after the last answer
+    suggestion: dict[str, Any]  # the coach's next step: action, concept_id, label, reason, query, after_question
+    suggestion_log: Annotated[list[dict[str, Any]], operator.add]  # each suggestion shown: action, concept, accepted
+    video_concepts: dict[str, Any]  # video id -> concept ids it covers (None: unknown), cached for the coach
+    video_focus: str  # concept name to search videos for (an accepted another_video suggestion), "" otherwise
+    formative: dict[str, Any]  # the running formative check: concept_id, items (with answers), results
+    formative_result: dict[str, Any]  # the last finished check, shown back at the questions
+    formative_seen: Annotated[list[str], operator.add]  # formative item ids used this session (never repeated)
+    formative_history: Annotated[list[dict[str, Any]], operator.add]  # every formative answer: concept_id, correct
+    coach_mode: str  # "rules" or "off" for this session (settings.coach_mode when it started)
+    question_concept: dict[str, Any]  # the current question's concept: question_no, concept_id, confidence, status
+    scaffold: dict[str, Any]  # how the current answer was shaped: style, support, why ({} when coach_mode is off)
+    mastery_start: dict[str, Any]  # every concept's state at planning time (reflection: before vs after)
+    reflection: dict[str, Any]  # end of session: goals met, mastery change, checks, suggestions, summary text
 
     # Policy selection
     context: dict[str, Any]  # rtt_ms, cpu, mem, competency_num, last_qoe
@@ -75,8 +89,13 @@ class AgentState(TypedDict):
     session_errors: Annotated[list[str], operator.add]
 
 
-def initial_state(student_id: str, topic_id: str = "", session_id: str | None = None) -> AgentState:
+def initial_state(student_id: str, topic_id: str = "", session_id: str | None = None,
+                  coach_mode: str | None = None) -> AgentState:
     """Return a fully populated starting state for a new session."""
+    if coach_mode is None:
+        from config import settings
+
+        coach_mode = settings.coach_mode
     return AgentState(
         student_id=student_id,
         session_id=session_id or uuid.uuid4().hex,
@@ -99,6 +118,20 @@ def initial_state(student_id: str, topic_id: str = "", session_id: str | None = 
         session_plan={},
         tracker_updates=[],
         progress={},
+        tracker_snapshot={},
+        suggestion={},
+        suggestion_log=[],
+        video_concepts={},
+        video_focus="",
+        formative={},
+        formative_result={},
+        formative_seen=[],
+        formative_history=[],
+        coach_mode=coach_mode,
+        question_concept={},
+        scaffold={},
+        mastery_start={},
+        reflection={},
         context={},
         similar_exps=[],
         policy_id="",

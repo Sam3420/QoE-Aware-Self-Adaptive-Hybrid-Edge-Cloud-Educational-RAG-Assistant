@@ -125,6 +125,12 @@ def describe_node(node: str, update: dict[str, Any]) -> str:
     if node == "update_tracker" and update.get("tracker_updates"):
         last = update["tracker_updates"][-1]
         return f"{last['status']}" + (f": {last['concept_id']} ({last['confidence']})" if last.get("concept_id") else "")
+    if node == "coach":
+        suggestion = update.get("suggestion") or {}
+        return f"suggests {suggestion['action']}: {suggestion.get('concept_id') or '-'}" if suggestion else "no plan"
+    if node == "record_formative" and update.get("formative_result"):
+        r = update["formative_result"]
+        return f"practice {r['correct']}/{r['total']} on {r['concept_id']}"
     if node == "monitor_progress" and update.get("progress"):
         return f"{update['progress'].get('touched', 0)}/{update['progress'].get('total', 0)} goals worked on"
     if node == "store_experience":

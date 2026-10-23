@@ -20,6 +20,11 @@ def agent_turn(turn: dict[str, Any], threshold: float) -> None:
     with st.chat_message("assistant", avatar=":material/school:"):
         if turn["response"]:
             st.markdown(turn["response"])
+        scaffold = log.get("scaffold") or {}
+        if scaffold.get("style") == "step_by_step" or scaffold.get("support") == "hint_first":
+            shape = " + ".join(s.replace("_", " ") for s in (scaffold.get("style"), scaffold.get("support"))
+                               if s not in ("concise", "direct"))
+            st.caption(f":material/stairs: Answer shaped {shape} ({scaffold.get('why')}).")
         else:
             st.warning("The answer text for this question is not in the checkpoint history.")
 

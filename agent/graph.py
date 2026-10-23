@@ -21,7 +21,8 @@ def build_builder() -> StateGraph:
     for name in ("load_profile", "select_topic", "plan_pretest", "pre_test", "recommend_videos", "select_video",
                  "prepare_knowledge", "collect_context", "select_policy", "ask_question", "crag_retrieve",
                  "corrective_retrieve", "llm_router", "generate_response", "post_test_and_feedback",
-                 "evaluate_session", "store_experience", "plan_session", "update_tracker", "monitor_progress"):
+                 "evaluate_session", "store_experience", "plan_session", "update_tracker", "monitor_progress",
+                 "coach", "plan_formative", "formative_check", "record_formative", "reflect"):
         g.add_node(name, traced(name, getattr(nodes, name)))  # Langfuse observation per node (no-op when off)
 
     g.add_edge(START, "load_profile")
@@ -44,8 +45,10 @@ def build_builder() -> StateGraph:
     g.add_edge("select_policy", "ask_question")
     # At ask_question the learner asks a doubt (→ retrieval), watches another video (→ select_video)
     # or takes the post-test ({"end": true}).
+    # An accepted coach suggestion can also start a formative check or a video search for one concept.
     g.add_conditional_edges("ask_question", continue_session,
-                            ["crag_retrieve", "select_video", "post_test_and_feedback"])
+                            ["crag_retrieve", "select_video", "post_test_and_feedback", "plan_formative",
+                             "recommend_videos"])
     # CRAG loop: retry retrieval until the score is good enough or the retries run out.
     g.add_conditional_edges("crag_retrieve", crag_ok, ["llm_router", "corrective_retrieve"])
     g.add_edge("corrective_retrieve", "crag_retrieve")
@@ -54,8 +57,14 @@ def build_builder() -> StateGraph:
     # (bounded by max_questions_per_session).
     g.add_edge("generate_response", "update_tracker")
     g.add_edge("update_tracker", "monitor_progress")
-    g.add_conditional_edges("monitor_progress", more_questions, ["ask_question", "post_test_and_feedback"])
-    g.add_edge("post_test_and_feedback", "evaluate_session")
+    g.add_edge("monitor_progress", "coach")  # one rule-based next-step suggestion (agent/coach.py)
+    g.add_conditional_edges("coach", more_questions, ["ask_question", "post_test_and_feedback"])
+    # Formative check (items fixed first, then asked one at a time like the pre-test), then back through the tracker.
+    g.add_edge("plan_formative", "formative_check")
+    g.add_edge("formative_check", "record_formative")
+    g.add_edge("record_formative", "update_tracker")
+    g.add_edge("post_test_and_feedback", "reflect")  # goals met, mastery change, summary; weak concepts saved
+    g.add_edge("reflect", "evaluate_session")
     g.add_edge("evaluate_session", "store_experience")
     g.add_edge("store_experience", END)
     return g

@@ -55,8 +55,9 @@ def missed_concepts(vocabulary: Vocabulary, assessment: dict[str, Any] | None, e
 
 
 def plan_goals(vocabulary: Vocabulary, missed: list[str], mastery: dict[str, Any], *, min_goals: int = 2,
-               max_goals: int = 4, low_mastery: float = 0.5) -> list[Goal]:
-    """Apply the goal rules (module docstring). `mastery`: concept id -> ConceptState (tracker.get_mastery)."""
+               max_goals: int = 4, low_mastery: float = 0.5, carry_over: list[str] = ()) -> list[Goal]:
+    """Apply the goal rules (module docstring). `mastery`: concept id -> ConceptState (tracker.get_mastery).
+    `carry_over`: concepts the last session's reflection left weak (learner profile), right after the misses."""
     chosen: dict[str, str] = {}
 
     def add(concept_id: str, reason: str) -> None:
@@ -65,6 +66,8 @@ def plan_goals(vocabulary: Vocabulary, missed: list[str], mastery: dict[str, Any
 
     for concept_id in missed:
         add(concept_id, MISSED)
+    for concept_id in carry_over:
+        add(concept_id, "still weak after your last session")
     weak = sorted((cid for cid, s in mastery.items() if s.attempts and s.mastery < low_mastery),
                   key=lambda cid: (mastery[cid].mastery, -mastery[cid].attempts))
     for concept_id in weak:

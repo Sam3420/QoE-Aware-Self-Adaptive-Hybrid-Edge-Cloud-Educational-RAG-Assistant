@@ -34,6 +34,7 @@ class RuntimeState(BaseModel):
     session_id: str | None = None
     measured_at: datetime | None = None
     baseline: bool = False  # True: no measured predecessor; scores come from the configured baseline
+    coach: dict[str, Any] | None = None  # coach_mode and the session's coaching outcomes (per-concept mastery gain)
 
 
 class AdaptationAction(BaseModel):

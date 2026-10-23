@@ -183,9 +183,22 @@ class AppGateway:
             learner = LearningTraceRepository(db).get_learner(student_id)
             if learner is None:
                 raise LearnerNotFound(f"Learner {student_id!r} does not exist.")
+            prefs = learner.learning_preferences or {}
             return {"student_id": learner.id, "display_name": learner.display_name,
                     "language": learner.preferred_language or "english",
-                    "competency_level": learner.competency_level}
+                    "competency_level": learner.competency_level,
+                    "explanation_style": prefs.get("explanation_style"),  # free text from the profile page
+                    "weak_concepts": (learner.profile_data or {}).get("weak_concepts") or {}}  # topic -> ids
+
+    def save_weak_concepts(self, student_id: str, topic_id: str, concept_ids: list[str]) -> None:
+        """Remember the concepts still weak after a session (profile_data.weak_concepts[topic]) for the next plan."""
+        with self._db() as db:
+            learner = LearningTraceRepository(db).get_learner(student_id)
+            if learner is None:
+                raise LearnerNotFound(f"Learner {student_id!r} does not exist.")
+            data = dict(learner.profile_data or {})
+            data["weak_concepts"] = {**(data.get("weak_concepts") or {}), topic_id: list(concept_ids)}
+            learner.profile_data = data  # reassigned so SQLAlchemy sees the JSON change
 
     # repository reads (B's AdaptationRepository)
     def get_latest_pretest(self, student_id: str, topic_id: str) -> dict[str, Any] | None:

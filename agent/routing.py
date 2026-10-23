@@ -31,11 +31,14 @@ def knowledge_ready(state: AgentState) -> Literal["collect_context", "ask_questi
     return _to_questions(state) if state["resource_id"] else "select_video"
 
 
-def continue_session(state: AgentState) -> Literal["crag_retrieve", "select_video", "post_test_and_feedback"]:
-    """After ask_question: answer the doubt, go back to the videos, or take the post-test."""
+def continue_session(state: AgentState) -> Literal["crag_retrieve", "select_video", "post_test_and_feedback",
+                                                  "plan_formative", "recommend_videos"]:
+    """After ask_question: answer the doubt, go back to the videos, a formative check, videos for a concept (both
+    from an accepted coach suggestion), or the post-test."""
     if state["continue_session"]:
         return "crag_retrieve"
-    return "select_video" if state["video_action"] == "more" else "post_test_and_feedback"
+    return {"more": "select_video", "formative": "plan_formative", "focus": "recommend_videos"}.get(
+        state["video_action"], "post_test_and_feedback")
 
 
 def crag_ok(state: AgentState) -> Literal["llm_router", "corrective_retrieve"]:

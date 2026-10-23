@@ -14,7 +14,7 @@ from agent.nodes.assessment import _ask
 from agent.schemas import TopicReply, VideoReply
 from agent.state import AgentState
 from config import settings
-from knowledge_prep.catalog import TOPICS, topic_label
+from knowledge_prep.catalog import TOPICS, search_text, topic_label
 
 logger = logging.getLogger(__name__)
 
@@ -38,9 +38,12 @@ def recommend_videos(state: AgentState) -> dict[str, Any]:
     """Search YouTube for the topic using the learner's competency and preferred language, and rank results."""
     recommender = get_services().video_recommender()
     refresh = state["video_action"] == "refresh"
-    update: dict[str, Any] = {"video_action": "", "knowledge_error": ""}
+    update: dict[str, Any] = {"video_action": "", "knowledge_error": "", "video_focus": ""}
     try:
         query = (state.get("session_plan") or {}).get("query") or {}  # goal concepts, when the session is planned
+        if state.get("video_focus"):  # an accepted "another video" suggestion: search for that one concept
+            query = {"concepts": [state["video_focus"]],
+                     "objective": f"{search_text(state['topic_id'])}: {state['video_focus']}"}
         run = recommender.recommend(state["student_id"], state["topic_id"], session_id=state["session_id"], **query)
     except Exception as exc:  # unexpected failure (API errors are reported in the run's status/errors)
         logger.exception("recommend_videos failed")
@@ -49,6 +52,9 @@ def recommend_videos(state: AgentState) -> dict[str, Any]:
                 "session_errors": [f"recommend_videos: {message}"]}
     items = [{k: rec.get(k) for k in VIDEO_FIELDS} for rec in run["recommendations"]]
     _prefetch(state, recommender, items)
+    from agent.nodes.coaching import video_covers
+
+    items, update["video_concepts"] = video_covers(state, items)  # "covers: ..." on each card (coach_mode rules)
     return {**update, "recommendations": {
         "run_id": run["id"], "status": run["status"], "errors": list(run.get("errors") or []),
         "strategy_id": run.get("strategy_id"), "decision_reason": run.get("decision_reason"),

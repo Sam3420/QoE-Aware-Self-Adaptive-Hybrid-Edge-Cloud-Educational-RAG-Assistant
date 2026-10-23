@@ -91,6 +91,7 @@ def build_next_state(state: dict[str, Any], *, end: dict[str, Any], session_fact
     start = state.get("resource_start") or {}
     context = state["context"]
     pre, post = state.get("pre_score"), state.get("post_score")
+    reflection = state.get("reflection") or {}
     gain = (post - pre) / (1 - pre) if pre is not None and post is not None and pre < 1 else None
     acceptance, item_stars = recommendation_outcomes(session_factory, state["student_id"], state["topic_id"], since)
 
@@ -117,6 +118,9 @@ def build_next_state(state: dict[str, Any], *, end: dict[str, Any], session_fact
         star_rating=state.get("rating"),
         sentiment=lexicon_sentiment(state.get("comment")) if cfg.sentiment_lexicon_enabled else None,
         completion=sum(steps) / len(steps),
+        mastery_gain=reflection.get("mean_mastery_gain"),
+        goal_completion=reflection.get("goal_completion_rate"),
+        suggestion_acceptance=reflection.get("suggestion_acceptance_rate"),
     )
 
     cpus = [x for x in (context.get("cpu"), end.get("cpu")) if x is not None]
@@ -134,5 +138,9 @@ def build_next_state(state: dict[str, Any], *, end: dict[str, Any], session_fact
                     bandwidth_scope="system-wide (psutil)" if bandwidth is not None else None)
 
     next_context = {**context, "cpu": end.get("cpu", context.get("cpu")), "mem": end.get("mem", context.get("mem"))}
+    coach = {"coach_mode": state.get("coach_mode"),
+             **{k: reflection.get(k) for k in ("mean_mastery_gain", "goal_completion_rate",
+                                                "suggestion_acceptance_rate", "formative_checks")},
+             "mastery_gain_by_concept": {c["concept_id"]: c["gain"] for c in reflection.get("concepts") or []}}
     return RuntimeState(context=next_context, qoe_metrics=normalize_qoe(raw, qoe_bounds(cfg)), sre_inputs=sre,
-                        session_id=state["session_id"], measured_at=datetime.now(timezone.utc))
+                        session_id=state["session_id"], measured_at=datetime.now(timezone.utc), coach=coach)

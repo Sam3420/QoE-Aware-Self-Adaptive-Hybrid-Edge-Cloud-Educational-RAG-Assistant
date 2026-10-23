@@ -54,9 +54,10 @@ def test_two_question_session_loops_and_finishes(runner, learner, services, visi
         "load_profile", "select_topic", "plan_pretest", "pre_test", "plan_session", "recommend_videos",
         "select_video", "prepare_knowledge", "collect_context", "select_policy",
         "ask_question", "crag_retrieve", "corrective_retrieve", "crag_retrieve", "llm_router", "generate_response",
-        "update_tracker", "monitor_progress",
+        "update_tracker", "monitor_progress", "coach",
         "ask_question", "crag_retrieve", "llm_router", "generate_response", "update_tracker", "monitor_progress",
-        "ask_question", "post_test_and_feedback", "evaluate_session", "store_experience",
+        "coach",
+        "ask_question", "post_test_and_feedback", "reflect", "evaluate_session", "store_experience",
     ]
     final = out["final_state"]
     assert final["policy_id"] == "P2"

@@ -119,7 +119,7 @@ def test_after_each_answer_tracker_and_progress_run_on_the_stub(runner, learner,
     pass_pretest(runner, tid, ["B", *ANSWERS[1:]])
     runner.resume(tid, {"query": "How do plants make glucose from light?"})
     values = runner.get_state(tid)["values"]
-    assert visited[-3:] == ["generate_response", "update_tracker", "monitor_progress"]
+    assert visited[-4:] == ["generate_response", "update_tracker", "monitor_progress", "coach"]
     assert values["tracker_updates"][-1]["status"] == "stub"  # matching.match_question is not implemented yet
     progress = values["progress"]
     assert progress["after_question"] == 1 and progress["touched"] == 0
@@ -174,7 +174,7 @@ def test_plan_card_shows_goals_and_progress():
                                    {"concept_id": "concept_5", "status": "not started"}],
                          "suggestion": "Ask about Concept 5 next."}})
 
-    at = AppTest.from_function(card).run()
+    at = AppTest.from_function(card, default_timeout=30).run()
     assert not at.exception
     text = " ".join(m.value for m in at.markdown)
     assert "Your goals for this session" in text and "**Concept 1** · missed in this pre-test" in text

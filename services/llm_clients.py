@@ -66,11 +66,13 @@ class LLMClient(Protocol):
 
 
 def build_request(query: str, chunks: list[str], *, grounded: bool, competency: str, language: str,
-                  max_tokens: int, temperature: float) -> GenerationRequest:
+                  max_tokens: int, temperature: float, scaffold: dict[str, str] | None = None) -> GenerationRequest:
     """Build a competency-adapted prompt from the question and chunks.
 
     grounded=False means retrieval confidence stayed below the threshold, so the model is told
-    the lesson probably does not cover the question.
+    the lesson probably does not cover the question. ``scaffold`` ({style, support}, agent/coach.py) shapes the
+    answer: step_by_step -> short numbered steps; hint_first -> a hint and a guiding question before the full answer.
+    Both are prompt instructions only (no extra model call); they get a little more room (max_tokens x1.5).
     """
     style = _COMPETENCY_STYLE.get(competency, _COMPETENCY_STYLE["beginner"])
     system = (
@@ -85,6 +87,10 @@ def build_request(query: str, chunks: list[str], *, grounded: bool, competency: 
         "reply in one or two sentences that this lesson does not cover it, and suggest asking about the lesson.\n\n"
         if not grounded else ""
     )
+    shape = _scaffold_instructions(scaffold)
+    if shape:
+        caution += shape + "\n\n"
+        max_tokens = int(max_tokens * 1.5)
     # A bare topic ("photosynthesis?") reads as a yes/no question to small models; make it explicit.
     if len(query.split()) <= 3:
         query = f"Explain {query.strip().rstrip('?')}."
@@ -290,6 +296,19 @@ class ExtractiveClient:
             obs.update(output=text)
             return GenerationResult(text=text, provider=self.provider, model=self.model,
                                     latency_ms=(time.perf_counter() - start) * 1000)
+
+
+def _scaffold_instructions(scaffold: dict[str, str] | None) -> str:
+    """Answer-shape instructions for the user turn (small models follow those better than the system prompt)."""
+    if not scaffold:
+        return ""
+    parts = []
+    if scaffold.get("support") == "hint_first":
+        parts.append('Start with "Hint:" and one sentence that points the learner in the right direction, then '
+                     '"Think about it:" and one short guiding question, then "Full answer:" and the explanation.')
+    if scaffold.get("style") == "step_by_step":
+        parts.append("Explain in 3 to 5 short numbered steps, one idea per step, using simple words.")
+    return " ".join(parts)
 
 
 def _usage(input_tokens: Any, output_tokens: Any) -> dict[str, int] | None:

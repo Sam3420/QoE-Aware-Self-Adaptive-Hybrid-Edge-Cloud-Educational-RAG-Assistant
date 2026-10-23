@@ -60,7 +60,10 @@ def evaluate_session(state: AgentState) -> dict[str, Any]:
         "metrics": s_next.qoe_metrics.model_dump() if s_next.qoe_metrics else {},
         "sre_components": result.after.sre_detail.components if result.after.sre_detail else {},
         "sre_notes": result.after.sre_detail.notes if result.after.sre_detail else [],
-        "lq": lq.model_dump(),  # LQ evidence: answers scored by the Langfuse evaluator, or why it is unavailable
+        "lq": lq.model_dump(),
+        "coach": coach_summary(state.get("suggestion_log") or []),
+        "coach_mode": state.get("coach_mode"),
+        "reflection": state.get("reflection") or {},  # suggestion acceptance (shown/accepted/rate)  # LQ evidence: answers scored by the Langfuse evaluator, or why it is unavailable
         "result": result.model_dump(mode="json"),
         "next_state": s_next.model_dump(mode="json"),
     }
@@ -69,6 +72,18 @@ def evaluate_session(state: AgentState) -> dict[str, Any]:
               predicted_utility=predicted, observed_utility=result.after.utility,
               baseline_used=result.baseline_used, weights_version=result.weights_version)
     return {"evaluation": evaluation, "qoe": result.after.qoe, "sre": result.after.sre, "reward": result.reward}
+
+
+def coach_summary(log: list[dict[str, Any]]) -> dict[str, Any]:
+    """Suggestions shown and accepted this session, overall and per action (acceptance-rate metric)."""
+    by_action: dict[str, dict[str, int]] = {}
+    for entry in log:
+        counts = by_action.setdefault(entry["action"], {"shown": 0, "accepted": 0})
+        counts["shown"] += 1
+        counts["accepted"] += int(entry["accepted"])
+    shown, accepted = len(log), sum(int(e["accepted"]) for e in log)
+    return {"shown": shown, "accepted": accepted, "acceptance_rate": round(accepted / shown, 4) if shown else None,
+            "by_action": by_action}
 
 
 def _answer_quality(session_id: str) -> AnswerQuality:

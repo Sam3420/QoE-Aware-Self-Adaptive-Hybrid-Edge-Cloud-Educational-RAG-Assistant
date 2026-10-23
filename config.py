@@ -97,6 +97,12 @@ class Settings(BaseSettings):
     plan_max_goals: int = Field(default=4, ge=1, le=12)
     plan_low_mastery: float = Field(default=0.5, ge=0.0, le=1.0)  # mastery below this (with attempts) is weak
     coach_match_min_confidence: float = Field(default=0.6, ge=0.0, le=1.0)  # question -> concept, to record it
+    # Coaching layer: rules = plan card, suggestions, formative checks, scaffolding; off = the reactive system
+    # (the tracker still logs mastery in both modes, so they can be compared). Stored with every session.
+    coach_mode: Literal["off", "rules"] = "rules"
+    # real: tracker / matching / formative_pool (stub fallback per function while one is unimplemented);
+    # stub: never call matching / formative_pool (agent/coach_data.py)
+    coach_data_source: Literal["real", "stub"] = "real"
     pretest_num_items: int = Field(default=5, gt=0)
     posttest_num_items: int = Field(default=5, gt=0)
 

@@ -16,6 +16,7 @@ from frontend.components.ui import badge, code_id, page_header, show_step_error
 from frontend.utils import state
 from frontend.utils.formatting import ms, pct
 from knowledge_prep.catalog import topic_label, topic_title
+from metrics.weights import GROUP_KEYS
 
 
 def _remember(step: StepResult, action: str) -> None:
@@ -123,6 +124,8 @@ def _select_video(backend: AgentBackend, thread_id: str, values: dict[str, Any],
             right.caption(f"{item.get('channel_title') or '—'} · {_duration(item.get('duration_s'))} · "
                           f"score {item['score']:.2f} · evidence: {item.get('evidence_level')}{captions}")
             right.caption(item.get("explanation") or "")
+            if item.get("covers") is not None:
+                right.caption(":material/checklist: Covers: " + (", ".join(item["covers"]) or "none of your concepts"))
             if item.get("watched"):
                 right.caption(":green[:material/check_circle: Already watched this session]")
             if item.get("unavailable"):
@@ -296,6 +299,7 @@ def _questions(backend: AgentBackend, thread_id: str, values: dict[str, Any], pa
     for turn in turns:
         chat.agent_turn(turn, threshold)
 
+    _formative_result(pause.get("formative_result"))
     video_title = (pause.get("video") or {}).get("title") or "the video"
     with st.chat_message("assistant", avatar=":material/school:"):
         if turns:
@@ -304,6 +308,7 @@ def _questions(backend: AgentBackend, thread_id: str, values: dict[str, Any], pa
         else:
             st.markdown(f"Watch **{video_title}** above, then ask me anything you didn't understand. When you're "
                         "done, you can watch another video or take the post-test.")
+        _suggestion_button(backend, thread_id, pause.get("suggestion"))
         c1, c2 = st.columns(2)
         if c1.button("Watch another video", icon=":material/video_library:", width="stretch"):
             with st.spinner("Loading the video recommendations…"):
@@ -320,7 +325,7 @@ def _questions(backend: AgentBackend, thread_id: str, values: dict[str, Any], pa
             st.write(prompt)
         with st.chat_message("assistant", avatar=":material/school:"):
             with st.spinner("Finding the answer in the video…"):
-                step = _stream_answer(backend, thread_id, prompt)
+                step = _stream_answer(backend, thread_id, {"query": prompt})
         _remember(step, "Ask question")
         st.rerun()
 
@@ -328,7 +333,7 @@ def _questions(backend: AgentBackend, thread_id: str, values: dict[str, Any], pa
 _DONE = object()
 
 
-def _stream_answer(backend: AgentBackend, thread_id: str, prompt: str) -> StepResult:
+def _stream_answer(backend: AgentBackend, thread_id: str, payload: dict[str, Any]) -> StepResult:
     """Run the question step in a worker thread and show the answer while the model writes it.
 
     The streamed text is a preview: after the rerun the stored turn (with sources and checks) replaces it.
@@ -338,7 +343,7 @@ def _stream_answer(backend: AgentBackend, thread_id: str, prompt: str) -> StepRe
 
     def work() -> None:
         try:
-            result["step"] = backend.resume_streaming(thread_id, {"query": prompt}, texts.put)
+            result["step"] = backend.resume_streaming(thread_id, payload, texts.put)
         finally:
             texts.put(_DONE)
 
@@ -350,6 +355,70 @@ def _stream_answer(backend: AgentBackend, thread_id: str, prompt: str) -> StepRe
         preview.markdown(shown + " ▌" if shown else "")
     worker.join()
     return result["step"]
+
+
+_SUGGESTION_ICONS = {"formative_check": ":material/quiz:", "another_video": ":material/video_library:",
+                     "review": ":material/replay:", "post_test": ":material/flag:", "follow_up": ":material/lightbulb:"}
+
+
+def _suggestion_button(backend: AgentBackend, thread_id: str, suggestion: dict[str, Any] | None) -> None:
+    """The coach's one optional next step (agent/coach.py). Ignoring it is fine: the other buttons and the chat
+    input work as before, and the agent logs whether it was accepted."""
+    if not suggestion:
+        return
+    action = suggestion["action"]
+    if st.button(suggestion["label"], icon=_SUGGESTION_ICONS.get(action), type="primary", width="stretch",
+                 key=f"suggestion-{thread_id}"):
+        if action in ("review", "follow_up"):  # sends a templated question: stream its answer like a typed one
+            with st.spinner("Finding the answer in the video…"):
+                step = _stream_answer(backend, thread_id, {"accept_suggestion": True})
+        else:
+            with st.spinner("One moment…"):
+                step = backend.resume(thread_id, {"accept_suggestion": True})
+        _remember(step, f"Suggestion: {suggestion['label']}")
+        st.rerun()
+    st.caption(f":material/tips_and_updates: {suggestion['reason']}")
+
+
+def _formative_feedback(feedback: dict[str, Any]) -> None:
+    if feedback["correct"]:
+        st.success(f"Correct: **{feedback['answer']}**. {feedback['explanation']}", icon=":material/check_circle:")
+    else:
+        st.error(f"Not quite: you chose {feedback['your_answer'] or '—'}, the answer is **{feedback['answer']}**. "
+                 f"{feedback['explanation']}", icon=":material/cancel:")
+
+
+def _formative_result(result: dict[str, Any] | None) -> None:
+    """The practice check just finished: score, and feedback on its last question (the earlier ones were shown)."""
+    if not result:
+        return
+    with st.container(border=True):
+        if not result.get("total"):
+            st.caption(f"Practice check on **{result.get('concept')}** skipped: {result.get('note')}.")
+            return
+        st.markdown(f"**Practice check on {result['concept']}: {result['correct']} / {result['total']} correct**")
+        _formative_feedback(result["results"][-1])
+
+
+def _formative(backend: AgentBackend, thread_id: str, pause: dict[str, Any]) -> None:
+    """One formative question at a time, with instant feedback on the previous answer."""
+    st.subheader(f"Quick check: {pause['concept']}")
+    st.caption(f"Question {pause['index'] + 1} of {pause['total']}. Practice only: this doesn't change your test "
+               "scores, but it updates how well the agent thinks you know this concept.")
+    if pause.get("feedback"):
+        _formative_feedback(pause["feedback"])
+    item = pause["item"]
+    with st.form(f"formative-{thread_id}-{item['item_id']}"):
+        st.markdown(f"**{item['question']}**")
+        choice = st.radio("Your answer", options=range(len(item["options"])), index=None,
+                          format_func=lambda i: f"{'ABCD'[i]}. {item['options'][i]}", label_visibility="collapsed")
+        if st.form_submit_button("Check my answer", type="primary"):
+            if choice is None:
+                st.error("Choose an answer first.")
+            else:
+                with st.spinner("Checking…"):
+                    _remember(backend.resume(thread_id, {"answer": "ABCD"[choice]}), "Practice answer")
+                st.rerun()
 
 
 def _posttest(backend: AgentBackend, thread_id: str, values: dict[str, Any], pause: dict[str, Any]) -> None:
@@ -384,6 +453,30 @@ def _posttest(backend: AgentBackend, thread_id: str, values: dict[str, Any], pau
                 st.rerun()
 
 
+def _reflection_card(reflection: dict[str, Any]) -> None:
+    """End-of-session reflection (agent reflect node): summary, goals met, mastery change per concept."""
+    if reflection.get("status") != "ok":
+        return
+    with st.container(border=True):
+        st.markdown("**:material/psychology: Looking back on this session**")
+        st.markdown(reflection["summary"])
+        if reflection["goals"]:
+            for goal in reflection["goals"]:
+                icon = ":material/check_circle:" if goal["met"] else ":material/radio_button_unchecked:"
+                st.markdown(f"{icon} **{goal['name']}**: {goal['before']:.0%} → {goal['after']:.0%}")
+        changed = [c for c in reflection["concepts"] if not any(g["concept_id"] == c["concept_id"]
+                                                               for g in reflection["goals"])]
+        if changed:
+            st.caption("Other concepts: " + " · ".join(f"{c['name']} {c['before']:.0%} → {c['after']:.0%}"
+                                                       for c in changed))
+        rates = [f"{reflection['formative_checks']} practice check(s)"]
+        if reflection.get("suggestions_shown"):
+            rates.append(f"{reflection['suggestions_accepted']}/{reflection['suggestions_shown']} suggestions taken")
+        if reflection.get("goal_completion_rate") is not None:
+            rates.append(f"goal completion {reflection['goal_completion_rate']:.0%}")
+        st.caption(" · ".join(rates) + f" · coach mode: {reflection['coach_mode']}")
+
+
 def _summary(backend: AgentBackend, thread_id: str, values: dict[str, Any]) -> None:
     st.success("Session finished.", icon=":material/task_alt:")
     video = values.get("video") or {}
@@ -404,6 +497,7 @@ def _summary(backend: AgentBackend, thread_id: str, values: dict[str, Any]) -> N
     cols[2].metric("Rating", values.get("rating") or "—")
     cols[3].metric("Questions asked", len(values.get("qa_log", [])))
     _review(values)
+    _reflection_card(values.get("reflection") or {})
     st.subheader("Concept mastery after this session")
     st.caption("Your pre-test and post-test answers on each concept of the topic, and your mastery across all "
                "sessions so far.")
@@ -428,7 +522,8 @@ def _summary(backend: AgentBackend, thread_id: str, values: dict[str, Any]) -> N
             comp = ev.get("qoe_components") or {}
             st.caption("QoE components: " + " · ".join(f"{k} {'—' if v is None else f'{v:.2f}'}" for k, v in comp.items())
                        + f" · evidence coverage {pct(ev.get('qoe_coverage'))}")
-            missing = [k for k, v in (ev.get("metrics") or {}).items() if v is None]
+            weighted = {k for keys in GROUP_KEYS.values() for k in keys}  # MG/GC/SA are stored, not weighted
+            missing = [k for k, v in (ev.get("metrics") or {}).items() if v is None and k in weighted]
             if missing:
                 st.caption(f"Unavailable metrics (weights renormalised over the rest): {', '.join(missing)}. "
                            "SQ/TQ have no data source in this build.")
@@ -510,6 +605,8 @@ def render(backend: AgentBackend, learner: dict[str, Any] | None) -> None:
         _pretest(backend, thread_id, pause)
     elif pause and pause["type"] == "ask_question":
         _questions(backend, thread_id, values, pause)
+    elif pause and pause["type"] == "formative_check":
+        _formative(backend, thread_id, pause)
     elif pause and pause["type"] == "post_test_and_feedback":
         _posttest(backend, thread_id, values, pause)
     elif snap["finished"]:

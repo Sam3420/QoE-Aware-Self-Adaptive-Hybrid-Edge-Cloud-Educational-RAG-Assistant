@@ -72,6 +72,7 @@ class QuestionReply(BaseModel):
     query: str | None = Field(default=None, max_length=2000)
     end: bool = False
     more_videos: bool = False
+    accept_suggestion: bool = False  # {"accept_suggestion": true}: do what the coach's suggestion button offers
 
     @model_validator(mode="before")
     @classmethod
@@ -85,9 +86,26 @@ class QuestionReply(BaseModel):
         self.query = (self.query or "").strip() or None
         if self.end and self.more_videos:
             raise ValueError('send either {"more_videos": true} or {"end": true}, not both')
-        if not (self.end or self.more_videos) and self.query is None:
+        if self.accept_suggestion and (self.end or self.more_videos):
+            raise ValueError('send {"accept_suggestion": true} on its own')
+        if not (self.end or self.more_videos or self.accept_suggestion) and self.query is None:
             raise ValueError('send {"query": "<question>"}, {"more_videos": true} or {"end": true}')
         return self
+
+
+class FormativeReply(BaseModel):
+    """Resume value for one formative_check question: {"answer": "A"-"D" or 0-3}."""
+
+    answer: str | int
+
+    @field_validator("answer")
+    @classmethod
+    def _option(cls, value: str | int) -> str | int:
+        from app.services.mcq import normalize_answer
+
+        if normalize_answer(value) is None:
+            raise ValueError('answer with one of "A", "B", "C" or "D"')
+        return value
 
 
 class PreTestReply(BaseModel):
@@ -119,6 +137,8 @@ class QALogEntry(BaseModel):
     gen_latency_ms: float = Field(ge=0.0)  # LLM call only
     error: str | None = None  # retrieval errors, route fallbacks, generation failures
     resource_id: str | None = None  # index the answer was retrieved from (yt_<video_id>)
+    concept_id: str | None = None  # the question's concept (matching, or the accepted suggestion's)
+    scaffold: dict[str, str] | None = None  # answer shape (coach_mode rules): style, support, why
     # P5 (route "escalate") only: whether and why the answer was escalated to the cloud LLM.
     escalated: bool = False
     escalation_stage: Literal["before", "after"] | None = None  # low retrieval confidence / failed check
