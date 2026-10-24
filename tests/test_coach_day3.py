@@ -13,6 +13,9 @@ from knowledge_prep.concepts import Vocabulary, save_vocabulary
 from services.llm_clients import build_request
 from tests.conftest import ANSWERS, pass_pretest
 
+# Formative checks serve fixed items here; the real pool is tested in test_coach_data_contract.py.
+pytestmark = pytest.mark.usefixtures("fixed_formative_items")
+
 TOPIC = "photosynthesis"
 MISS_1 = ["B", *ANSWERS[1:]]  # pre-test: item 1 ("concept 1") wrong
 
@@ -59,7 +62,9 @@ def test_build_reflection():
     assert r["goal_completion_rate"] == 0.5 and r["suggestion_acceptance_rate"] == 0.5
     assert r["mean_mastery_gain"] == pytest.approx((0.2667 - 0.25) / 2, abs=1e-3)  # practised: a and c
     assert r["weak_next_time"] == ["c", "b"]
-    assert r["summary"].startswith("You met 1 of your 2 goals: Alpha.") and "Gamma" in r["summary"]
+    # agent/reflection_template.py: goals met (named), the biggest change, the slip, and what to do next
+    assert r["summary"].startswith("You met 1 of your 2 goals (**Alpha**).") and "**Gamma** slipped" in r["summary"]
+    assert "Next time, start with **Gamma**" in r["summary"]
 
 
 # --- graph -------------------------------------------------------------------------------------------------------------

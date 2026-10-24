@@ -161,6 +161,24 @@ def extend_topic_items(
         return len(fresh)
 
 
+def generate_concept_items(
+    topic_id: str,
+    focus: str,
+    *,
+    avoid_questions: Sequence[str] = (),
+    retriever: KnowledgeRetriever | None = None,
+    llm: LLMProvider | None = None,
+) -> tuple[list[dict[str, Any]], LLMGenerateResult]:
+    """Generate MCQ_N_ITEMS new questions on one concept (`focus`, e.g. "Villi: how they absorb food") without
+    storing them: extend_topic_items' generator (focused retrieval and prompt, top-up temperature, avoid list), for
+    callers that keep the questions outside the topic bank (formative_pool.py).
+    Raises MCQGenerationError like the bank generation."""
+    settings = get_settings()
+    return _generate_mcqs_with_result(
+        topic_id, None, retriever=retriever, llm=llm, focus_concepts=[focus], avoid_questions=avoid_questions,
+        temperature=max(settings.llm_temperature, TOPUP_TEMPERATURE))
+
+
 EXPLAIN_SYSTEM_PROMPT = (
     "You explain the answers to multiple-choice questions for a school learner, using only the study "
     "material given. Reply with JSON only: no prose, no markdown."

@@ -143,7 +143,7 @@ def test_migration_0002_adds_columns_to_a_0001_database():
         conn.execute(text("CREATE TABLE schema_migrations (id VARCHAR(64) PRIMARY KEY, description VARCHAR(200), "
                           "applied_at DATETIME)"))
         conn.execute(text("INSERT INTO schema_migrations VALUES ('0001_concept_tracker', 'x', '2026-10-20')"))
-    assert run_migrations(engine) == ["0002_tracker_coverage"]
+    assert run_migrations(engine) == ["0002_tracker_coverage", "0003_formative_pool"]
     assert run_migrations(engine) == []  # once only
     columns = {c["name"] for c in inspect(engine).get_columns("learner_topic_strength")}
     assert {"covered_video", "asked_count", "last_source"} <= columns
@@ -154,7 +154,7 @@ def test_migration_0002_adds_columns_to_a_0001_database():
 
 def test_fresh_database_runs_both_migrations():
     engine = create_engine("sqlite:///:memory:", future=True)
-    assert run_migrations(engine) == ["0001_concept_tracker", "0002_tracker_coverage"]
+    assert run_migrations(engine) == ["0001_concept_tracker", "0002_tracker_coverage", "0003_formative_pool"]
 
 
 # --- vocabulary file keeps the map -----------------------------------------------------------------------------------

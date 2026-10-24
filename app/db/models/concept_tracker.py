@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import ForeignKey, Index, String, UniqueConstraint
+from sqlalchemy import JSON, ForeignKey, Index, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.ids import new_id
@@ -62,4 +62,33 @@ class ConceptEvent(Base):
     source: Mapped[str] = mapped_column(String(32), nullable=False)  # "pre-test", "post-test", "formative", "question"
     source_ref: Mapped[str] = mapped_column(nullable=False)
     occurred_at: Mapped[datetime] = mapped_column(default=utc_now, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(default=utc_now, nullable=False)
+
+
+class FormativeItem(Base):
+    """One formative-check question on a concept (formative_pool.py).
+
+    Kept apart from topic_question_banks on purpose: any bank item can be a pre- or post-test question, so formative
+    practice drawn from the bank would rehearse the post-test and inflate learning gain. ``question_key`` (normalised
+    text) is unique per topic, so a question is never stored twice.
+    """
+
+    __tablename__ = "formative_items"
+    __table_args__ = (
+        UniqueConstraint("topic_id", "question_key", name="uq_formative_topic_question"),
+        Index("ix_formative_topic_concept", "topic_id", "concept_id"),
+    )
+
+    id: Mapped[str] = mapped_column(String(40), primary_key=True)  # "fp_<hex>", stable: the Item.item_id
+    topic_id: Mapped[str] = mapped_column(nullable=False)
+    concept_id: Mapped[str] = mapped_column(String(64), nullable=False)
+    position: Mapped[int] = mapped_column(nullable=False)  # order within the concept's pool (served oldest first)
+    question: Mapped[str] = mapped_column(nullable=False)
+    question_key: Mapped[str] = mapped_column(nullable=False)
+    options: Mapped[list[str]] = mapped_column(JSON, nullable=False)
+    answer_index: Mapped[int] = mapped_column(nullable=False)
+    explanation: Mapped[str] = mapped_column(default="", nullable=False)
+    concept_check: Mapped[str] = mapped_column(String(16), nullable=False)  # label | matched | unverified
+    model_provider: Mapped[str | None] = mapped_column(nullable=True)
+    model_name: Mapped[str | None] = mapped_column(nullable=True)
     created_at: Mapped[datetime] = mapped_column(default=utc_now, nullable=False)

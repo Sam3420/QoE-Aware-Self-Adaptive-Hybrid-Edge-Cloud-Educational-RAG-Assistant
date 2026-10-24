@@ -114,13 +114,14 @@ def test_plan_from_pretest_misses_shapes_the_video_query(runner, learner, servic
     assert visited.index("pre_test") < visited.index("plan_session") < visited.index("recommend_videos")
 
 
-def test_after_each_answer_tracker_and_progress_run_on_the_stub(runner, learner, vocab_dir, visited):
+def test_after_each_answer_tracker_and_progress_run_without_a_match(runner, learner, vocab_dir, visited):
     tid = runner.start_session(learner, TOPIC)["thread_id"]
     pass_pretest(runner, tid, ["B", *ANSWERS[1:]])
     runner.resume(tid, {"query": "How do plants make glucose from light?"})
     values = runner.get_state(tid)["values"]
     assert visited[-4:] == ["generate_response", "update_tracker", "monitor_progress", "coach"]
-    assert values["tracker_updates"][-1]["status"] == "stub"  # matching.match_question is not implemented yet
+    # The question names no concept and the fake services have no embedder, so match_question finds nothing.
+    assert values["tracker_updates"][-1]["status"] == "no match"
     progress = values["progress"]
     assert progress["after_question"] == 1 and progress["touched"] == 0
     assert progress["suggestion"].startswith("Ask about Concept 1")

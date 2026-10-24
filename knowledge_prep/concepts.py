@@ -124,6 +124,27 @@ def _key(text: str) -> str:
     return " ".join(re.sub(r"[^\w\s]", " ", text.lower().replace("_", " ")).split())
 
 
+def concept_document(concept: Concept) -> str:
+    """The text a concept is embedded as (shared by label matching, question matching and video coverage)."""
+    return f"{concept.name}: {concept.description}" + (
+        f" Also called: {', '.join(concept.aliases)}." if concept.aliases else "")
+
+
+def concept_terms(concept: Concept) -> list[str]:
+    """Normalised name and aliases (3+ characters) to look for in a text as whole words."""
+    return [t for t in dict.fromkeys(_key(x) for x in (concept.name, *concept.aliases)) if len(t) >= 3]
+
+
+def contains_term(normalised_text: str, term: str) -> bool:
+    """Whole-word containment on _key-normalised text."""
+    return f" {term} " in f" {normalised_text} "
+
+
+def normalise(text: str) -> str:
+    """Public alias of the normalisation used for every comparison in this module."""
+    return _key(text)
+
+
 class Match(BaseModel):
     concept_id: str | None
     method: Literal["exact", "alias", "embedding", "none"]
@@ -172,7 +193,6 @@ class ConceptMatcher:
 
     def _concept_vectors(self) -> np.ndarray:
         if self._vectors is None:
-            texts = [f"{c.name}: {c.description}" + (f" Also called: {', '.join(c.aliases)}." if c.aliases else "")
-                     for c in self.vocabulary.concepts]
+            texts = [concept_document(c) for c in self.vocabulary.concepts]
             self._vectors = np.asarray(self.embedder.embed_documents(texts), dtype="float32")
         return self._vectors

@@ -10,6 +10,9 @@ from agent.coach import choose_action, muted_suggestions
 from knowledge_prep.concepts import Vocabulary, save_vocabulary
 from tests.conftest import ANSWERS, pass_pretest
 
+# Formative checks serve fixed items here; the real pool is tested in test_coach_data_contract.py.
+pytestmark = pytest.mark.usefixtures("fixed_formative_items")
+
 GOALS = [{"concept_id": "a", "name": "Alpha"}, {"concept_id": "b", "name": "Beta"}]
 GOOD_ANSWER = {"escalated": False, "check_supported": True, "retrieval_score": 0.9, "threshold": 0.65}
 

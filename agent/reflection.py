@@ -48,8 +48,12 @@ def build_reflection(goals: list[dict[str, Any]], before: dict[str, dict[str, An
         "mean_mastery_gain": round(sum(practised) / len(practised), 4) if practised else None,
         "weak_next_time": weak_next,
     }
-    # TODO(teammate): call the shared reflection template here once it exists; this template is the fallback.
-    reflection["summary"] = summary_text(reflection, names)
+    try:  # the shared template (agent/reflection_template.py); summary_text is the fallback
+        from agent.reflection_template import render
+
+        reflection["summary"] = render(reflection, names)
+    except Exception:  # never lose the reflection over its wording
+        reflection["summary"] = summary_text(reflection, names)
     return reflection
 
 

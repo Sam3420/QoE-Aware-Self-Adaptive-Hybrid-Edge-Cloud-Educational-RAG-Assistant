@@ -57,7 +57,9 @@ def match_question(text: str, topic_id: str) -> tuple[str | None, float]:
     try:
         if not _real():
             raise NotImplementedError
-        return matching.match_question(text, topic_id)
+        result = matching.match_question(text, topic_id)
+        _STUBBED.discard("match_question")
+        return result
     except NotImplementedError:
         _STUBBED.add("match_question")
         return None, 0.0
@@ -68,7 +70,9 @@ def video_coverage(video_id: str, topic_id: str) -> list[str] | None:
     try:
         if not _real():
             raise NotImplementedError
-        return matching.video_coverage(video_id, topic_id)
+        result = matching.video_coverage(video_id, topic_id)
+        _STUBBED.discard("video_coverage")
+        return result
     except NotImplementedError:
         _STUBBED.add("video_coverage")
         return None
@@ -78,14 +82,16 @@ def get_formative_items(topic_id: str, concept_id: str, n: int, exclude_ids: lis
     try:
         if not _real():
             raise NotImplementedError
-        return formative_pool.get_formative_items(topic_id, concept_id, n, exclude_ids)
+        result = formative_pool.get_formative_items(topic_id, concept_id, n, exclude_ids)
+        _STUBBED.discard("get_formative_items")
+        return result
     except NotImplementedError:
         _STUBBED.add("get_formative_items")
         return [item for item in _stub_items(concept_id) if item.item_id not in set(exclude_ids)][:n]
 
 
 def implemented() -> dict[str, bool]:
-    """Which contract functions answered for real (False once a stub fallback was used in this process)."""
+    """Which contract functions answered for real in their latest call (False: that call used the fallback)."""
     return {name: name not in _STUBBED for name in ("match_question", "video_coverage", "get_formative_items")}
 
 

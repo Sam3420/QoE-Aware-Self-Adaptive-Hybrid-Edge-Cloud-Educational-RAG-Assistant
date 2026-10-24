@@ -97,6 +97,15 @@ class Settings(BaseSettings):
     plan_max_goals: int = Field(default=4, ge=1, le=12)
     plan_low_mastery: float = Field(default=0.5, ge=0.0, le=1.0)  # mastery below this (with attempts) is weak
     coach_match_min_confidence: float = Field(default=0.6, ge=0.0, le=1.0)  # question -> concept, to record it
+    # matching.py. A question naming exactly one concept (name or alias, whole words) gets this confidence; otherwise
+    # confidence = cosine similarity, scaled down when the runner-up is within concept_match_min_margin (ambiguous).
+    match_lexical_confidence: float = Field(default=0.9, ge=0.0, le=1.0)
+    # A video covers a concept when a transcript chunk is this similar to it (nomic, document-document), or the
+    # transcript names it at least coverage_min_mentions times. Calibrated on indexed videos (docs/coach_data.md).
+    coverage_min_similarity: float = Field(default=0.7, ge=0.0, le=1.0)
+    coverage_min_mentions: int = Field(default=2, ge=1)
+    # formative_pool.py: questions kept per concept; a request that finds fewer generates more (cloud LLM first).
+    formative_pool_target: int = Field(default=4, ge=1, le=20)
     # Coaching layer: rules = plan card, suggestions, formative checks, scaffolding; off = the reactive system
     # (the tracker still logs mastery in both modes, so they can be compared). Stored with every session.
     coach_mode: Literal["off", "rules"] = "rules"

@@ -44,11 +44,19 @@ def _add_tracker_coverage_columns(conn: Connection) -> None:
             conn.execute(text(f"ALTER TABLE learner_topic_strength ADD COLUMN {name} {ddl}"))
 
 
+def _create_formative_pool(conn: Connection) -> None:
+    from app.db.models.concept_tracker import FormativeItem
+
+    FormativeItem.__table__.create(bind=conn, checkfirst=True)
+
+
 MIGRATIONS: tuple[Migration, ...] = (
     Migration("0001_concept_tracker", "learner_topic_strength + concept_events (concept mastery tracker)",
               _create_concept_tracker),
     Migration("0002_tracker_coverage", "learner_topic_strength.covered_video, asked_count, last_source",
               _add_tracker_coverage_columns),
+    Migration("0003_formative_pool", "formative_items (formative-check questions per concept, outside the bank)",
+              _create_formative_pool),
 )
 
 

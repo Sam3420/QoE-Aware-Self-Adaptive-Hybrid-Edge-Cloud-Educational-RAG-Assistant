@@ -83,8 +83,9 @@ class RouterLLMProvider:
     Small local models write malformed JSON, so requests carry B's MCQ schema; Ollama enforces it.
     """
 
-    def __init__(self, router: LLMRouter) -> None:
+    def __init__(self, router: LLMRouter, providers: tuple[str, ...] = ("cloud", "local")) -> None:
         self.router = router
+        self.providers = providers  # ("cloud",): never fall back to the small local model (offline pool building)
 
     def generate(self, request: LLMGenerateRequest) -> LLMGenerateResult:
         """Generate with the best available real model; raise LLMProviderError if none works."""
@@ -93,7 +94,7 @@ class RouterLLMProvider:
                                 json_schema=request.json_schema or mcq_json_schema(get_app_settings().mcq_n_items),
                                 operation=request.operation or "generate-mcqs")
         errors = []
-        for provider in ("cloud", "local"):
+        for provider in self.providers:
             if not self.router.is_available(provider):
                 continue
             try:

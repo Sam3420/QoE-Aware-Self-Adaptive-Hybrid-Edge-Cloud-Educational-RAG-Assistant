@@ -79,3 +79,16 @@ def seed_experiences(services, rows, context=None):
         record_synthetic_transition(services.experience_store(), services.app, policy_id=policy_id,
                                     runtime_config=POLICIES[policy_id].runtime_config(), context=context or CTX,
                                     qoe=value, sre=value)
+
+
+@pytest.fixture
+def fixed_formative_items(monkeypatch):
+    """Coaching-flow tests: formative checks serve two fixed items per concept (keys A then B; coach_data's fallback
+    items) instead of generating a pool, so the flow assertions do not depend on the question generator. The pool
+    itself is tested in tests/test_coach_data_contract.py."""
+    from agent import coach_data
+
+    def fixed(topic_id, concept_id, n, exclude_ids):
+        return [i for i in coach_data._stub_items(concept_id) if i.item_id not in set(exclude_ids)][:n]
+
+    monkeypatch.setattr("formative_pool.get_formative_items", fixed)
