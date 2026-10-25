@@ -1,6 +1,6 @@
 from typing import Any
 
-from sqlalchemy import select
+from sqlalchemy import inspect, select
 from sqlalchemy.orm import Session
 
 from app.core.config import POLICY_SEED
@@ -10,6 +10,7 @@ from app.db.models import (
     Experience,
     LearnerProfile,
     LearningSession,
+    ParallelTestItem,
     Policy,
     SessionFeedback,
     TopicQuestionBank,
@@ -223,6 +224,16 @@ class AdaptationRepository:
         bank.n_items = len(bank.items)
         self.session.flush()
         return _bank_to_dict(bank)
+
+    def get_parallel_items(self, topic_id: str, pre_item_ids: list[str]) -> dict[str, dict[str, Any]]:
+        """pre-test item content id -> its paired post-test question (answer included); {} without the table."""
+        ids = [i for i in pre_item_ids if i]
+        # inspect the session's own connection: inspecting the engine can borrow and roll back that connection
+        if not ids or not inspect(self.session.connection()).has_table(ParallelTestItem.__tablename__):
+            return {}
+        rows = self.session.scalars(select(ParallelTestItem).where(
+            ParallelTestItem.topic_id == topic_id, ParallelTestItem.pre_item_id.in_(ids)))
+        return {row.pre_item_id: {**row.item, "id": row.id} for row in rows}
 
     def set_question_bank_explanations(self, topic_id: str, explanations: dict[int, str]) -> dict[str, Any]:
         """Set ``explanation`` on the bank items at the given positions and return the bank."""

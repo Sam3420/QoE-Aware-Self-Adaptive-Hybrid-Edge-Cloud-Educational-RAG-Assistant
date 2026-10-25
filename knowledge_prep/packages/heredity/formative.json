@@ -1,0 +1,585 @@
+{
+  "topic_id": "heredity",
+  "kind": "formative",
+  "status": "pending_review",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T11:16:53+00:00",
+  "items": [
+    {
+      "id": "HE-FRM-01",
+      "concept_id": "genetic_variation",
+      "difficulty": "easy",
+      "question": "Which statement about the variations within a species is correct?",
+      "options": [
+        "Different variations can give individuals different kinds of advantages",
+        "Every variation has the same chance of surviving",
+        "Variations are never inherited",
+        "Variations arise only in sexual reproduction"
+      ],
+      "answer_index": 0,
+      "explanation": "How well an individual does depends on the nature of its variation, so not all variants survive equally well.",
+      "source": {
+        "section": "8.1",
+        "page": 128
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-02",
+      "concept_id": "genetic_variation",
+      "difficulty": "medium",
+      "question": "Bacteria that can withstand heat survive better in a heat wave. What is this an example of?",
+      "options": [
+        "Sex determination",
+        "An environmental factor selecting a variant",
+        "A dominant trait",
+        "Restoration of the chromosome number"
+      ],
+      "answer_index": 1,
+      "explanation": "The heat wave favours one variant over others, which is the kind of selection the chapter links to evolution.",
+      "source": {
+        "section": "8.1",
+        "page": 129
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-03",
+      "concept_id": "genetic_variation",
+      "difficulty": "medium",
+      "question": "Which differences does the second generation produced by reproduction show?",
+      "options": [
+        "Only differences inherited from the first generation",
+        "Only newly created differences",
+        "Differences inherited from the first generation as well as newly created ones",
+        "No differences at all"
+      ],
+      "answer_index": 2,
+      "explanation": "Variation builds up: each generation keeps the changes it inherits and adds new ones of its own.",
+      "source": {
+        "section": "8.1",
+        "page": 128
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-04",
+      "concept_id": "sexual_reproduction",
+      "difficulty": "easy",
+      "question": "Free and attached earlobes in people are an example of what?",
+      "options": [
+        "Two different species",
+        "A disease",
+        "Injuries acquired after birth",
+        "Two variants of a trait found in human populations"
+      ],
+      "answer_index": 3,
+      "explanation": "Earlobe type is an inherited trait with two common forms, which is why the chapter suggests comparing students with their parents.",
+      "source": {
+        "section": "8.2.1",
+        "page": 129
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-05",
+      "concept_id": "sexual_reproduction",
+      "difficulty": "easy",
+      "question": "Why does a child not look exactly like either of its parents?",
+      "options": [
+        "Each trait can be influenced by DNA from both the father and the mother",
+        "The child gets DNA only from the mother",
+        "Children receive no DNA from their parents",
+        "Only the environment shapes how a child looks"
+      ],
+      "answer_index": 0,
+      "explanation": "A child's traits are shaped by a mixture of paternal and maternal DNA, so the child resembles both parents without copying either.",
+      "source": {
+        "section": "8.2.2",
+        "page": 129
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-06",
+      "concept_id": "sexual_reproduction",
+      "difficulty": "medium",
+      "question": "If both parents can help determine a trait in their offspring, what must each parent contribute?",
+      "options": [
+        "An extra complete set of chromosomes",
+        "A copy of the same gene",
+        "Only proteins",
+        "Only hormones"
+      ],
+      "answer_index": 1,
+      "explanation": "For both parents to influence one trait, each must pass on its own copy of the gene for that trait.",
+      "source": {
+        "section": "8.2.3",
+        "page": 131
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-07",
+      "concept_id": "dominant_recessive",
+      "difficulty": "easy",
+      "question": "What is a trait like 't' called, which shows only when both copies of the factor are the same?",
+      "options": [
+        "Dominant",
+        "Independent",
+        "Recessive",
+        "Linked"
+      ],
+      "answer_index": 2,
+      "explanation": "A recessive trait stays hidden whenever a dominant copy is present.",
+      "source": {
+        "section": "8.2.2",
+        "page": 130
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-08",
+      "concept_id": "dominant_recessive",
+      "difficulty": "medium",
+      "question": "When tall pea plants are crossed with short ones, what are the first-generation plants like?",
+      "options": [
+        "All of medium height",
+        "Half tall and half short",
+        "All short",
+        "All tall"
+      ],
+      "answer_index": 3,
+      "explanation": "There were no in-between plants; only the tall parental trait appeared.",
+      "source": {
+        "section": "8.2.2",
+        "page": 130
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-09",
+      "concept_id": "dominant_recessive",
+      "difficulty": "medium",
+      "question": "When an organism's two copies of a gene for a trait are not identical, which trait is called dominant?",
+      "options": [
+        "The one that is expressed",
+        "The one that stays hidden",
+        "The one inherited from the mother",
+        "The one that appears in a quarter of the progeny"
+      ],
+      "answer_index": 0,
+      "explanation": "Dominant simply means it is the version that shows when the two copies differ.",
+      "source": {
+        "section": "Summary",
+        "page": 133
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-10",
+      "concept_id": "monohybrid_ratio",
+      "difficulty": "easy",
+      "question": "What did Mendel do that earlier scientists studying inheritance in peas had not done?",
+      "options": [
+        "He grew pea plants",
+        "He counted how many individuals showed a trait in each generation",
+        "He looked at pea flowers",
+        "He used a microscope"
+      ],
+      "answer_index": 1,
+      "explanation": "Mendel brought mathematics to the problem by keeping numbers, which let him find the rules of inheritance.",
+      "source": {
+        "section": "8.2.2",
+        "page": 130
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-11",
+      "concept_id": "monohybrid_ratio",
+      "difficulty": "medium",
+      "question": "How did Mendel test whether the tall F1 plants were the same as the tall parent plants?",
+      "options": [
+        "He measured their height",
+        "He counted their leaves",
+        "He let both kinds reproduce by self-pollination and compared their offspring",
+        "He grew them in different soils"
+      ],
+      "answer_index": 2,
+      "explanation": "The offspring of the tall parents were all tall, but those of the F1 plants included short ones, so the two were different.",
+      "source": {
+        "section": "8.2.2",
+        "page": 130
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-12",
+      "concept_id": "monohybrid_ratio",
+      "difficulty": "hard",
+      "question": "If 100 F2 plants come from self-pollinated tall F1 plants, about how many of them will be short?",
+      "options": [
+        "50",
+        "75",
+        "0",
+        "25"
+      ],
+      "answer_index": 3,
+      "explanation": "A quarter of the F2 are short, so about 25 of 100.",
+      "source": {
+        "section": "8.2.2",
+        "page": 130
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-13",
+      "concept_id": "independent_assortment",
+      "difficulty": "medium",
+      "question": "In the F2 of the round/green x wrinkled/yellow seed cross, which type of seed was the most common?",
+      "options": [
+        "Round, yellow",
+        "Round, green",
+        "Wrinkled, yellow",
+        "Wrinkled, green"
+      ],
+      "answer_index": 0,
+      "explanation": "Round and yellow are both dominant, so seeds showing both traits form the largest group (315 of 556).",
+      "source": {
+        "section": "8.2.2",
+        "page": 131
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-14",
+      "concept_id": "independent_assortment",
+      "difficulty": "medium",
+      "question": "A plant with round, green seeds (RRyy) is crossed with one with wrinkled, yellow seeds (rrYY). What is the make-up of the F1?",
+      "options": [
+        "RRYY (round, yellow, pure-breeding)",
+        "RrYy",
+        "rryy (wrinkled, green)",
+        "RRyy (round, green)"
+      ],
+      "answer_index": 1,
+      "explanation": "Each F1 seed gets R and y from one parent and r and Y from the other, so it is RrYy (round and yellow).",
+      "source": {
+        "section": "8.2.2",
+        "page": 131
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-15",
+      "concept_id": "independent_assortment",
+      "difficulty": "medium",
+      "question": "How do new combinations of traits arise in the F2 offspring of a two-trait cross?",
+      "options": [
+        "The two traits blend together",
+        "The environment changes the seeds",
+        "The factors for seed shape and seed colour recombine when the zygote forms",
+        "The F1 parents undergo mutation"
+      ],
+      "answer_index": 2,
+      "explanation": "Factors for the two traits are shuffled separately and then brought together in new pairings at fertilisation.",
+      "source": {
+        "section": "8.2.2",
+        "page": 131
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-16",
+      "concept_id": "gene_definition",
+      "difficulty": "easy",
+      "question": "What do plants have that can trigger growth?",
+      "options": [
+        "Earlobes",
+        "Sex chromosomes",
+        "Gills",
+        "Hormones"
+      ],
+      "answer_index": 3,
+      "explanation": "Plant hormones trigger growth, so the amount made can influence height.",
+      "source": {
+        "section": "8.2.3",
+        "page": 131
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-17",
+      "concept_id": "gene_definition",
+      "difficulty": "medium",
+      "question": "What does the amount of a growth hormone a plant makes depend on?",
+      "options": [
+        "How efficiently the process of making it works",
+        "The colour of the flowers",
+        "The number of leaves",
+        "The time of year only"
+      ],
+      "answer_index": 0,
+      "explanation": "If the enzyme in the production process works well, more hormone is made.",
+      "source": {
+        "section": "8.2.3",
+        "page": 131
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-18",
+      "concept_id": "gene_definition",
+      "difficulty": "hard",
+      "question": "Which chain correctly links a gene to the height of a plant?",
+      "options": [
+        "Height -> hormone -> gene -> enzyme",
+        "Gene -> enzyme (a protein) -> amount of growth hormone -> height",
+        "Gene -> number of chromosomes -> height",
+        "Enzyme -> gene -> height -> hormone"
+      ],
+      "answer_index": 1,
+      "explanation": "The gene carries the information for the enzyme, the enzyme controls how much hormone is made, and the hormone controls growth.",
+      "source": {
+        "section": "8.2.3",
+        "page": 131
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-19",
+      "concept_id": "chromosome_number_restoration",
+      "difficulty": "easy",
+      "question": "How many sets of all genes does each pea plant have?",
+      "options": [
+        "One",
+        "Three",
+        "Two",
+        "Four"
+      ],
+      "answer_index": 2,
+      "explanation": "A plant has two gene sets, having received one from each parent.",
+      "source": {
+        "section": "8.2.3",
+        "page": 131
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-20",
+      "concept_id": "chromosome_number_restoration",
+      "difficulty": "medium",
+      "question": "Which organisms use the chromosome-based mechanism of inheritance described in this chapter?",
+      "options": [
+        "Only pea plants",
+        "Only human beings",
+        "Only bacteria",
+        "All sexually reproducing organisms"
+      ],
+      "answer_index": 3,
+      "explanation": "The chapter says this mechanism explains Mendel's results and is used by every sexually reproducing organism.",
+      "source": {
+        "section": "8.2.3",
+        "page": 132
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-21",
+      "concept_id": "chromosome_number_restoration",
+      "difficulty": "medium",
+      "question": "What does restoring the normal chromosome number at fertilisation ensure?",
+      "options": [
+        "That the DNA of the species stays stable",
+        "That every cell becomes more varied",
+        "That the sex of the offspring changes",
+        "That recessive traits are lost"
+      ],
+      "answer_index": 0,
+      "explanation": "Keeping the chromosome number constant from generation to generation keeps the species' DNA stable.",
+      "source": {
+        "section": "8.2.3",
+        "page": 132
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-22",
+      "concept_id": "sex_determination",
+      "difficulty": "easy",
+      "question": "In some reptiles, what decides whether the animal developing in an egg will be male or female?",
+      "options": [
+        "The father's sex chromosomes",
+        "The temperature at which the fertilised egg is kept",
+        "The mother's diet",
+        "The size of the egg"
+      ],
+      "answer_index": 1,
+      "explanation": "In these reptiles sex depends on an environmental cue, the incubation temperature, not on genes.",
+      "source": {
+        "section": "8.2.4",
+        "page": 132
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-23",
+      "concept_id": "sex_determination",
+      "difficulty": "medium",
+      "question": "Not counting the sex chromosomes, how many pairs of chromosomes with a maternal and a paternal copy do humans have?",
+      "options": [
+        "23",
+        "46",
+        "22",
+        "11"
+      ],
+      "answer_index": 2,
+      "explanation": "Humans have 22 such matched pairs plus one pair of sex chromosomes.",
+      "source": {
+        "section": "8.2.4",
+        "page": 132
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-FRM-24",
+      "concept_id": "sex_determination",
+      "difficulty": "medium",
+      "question": "In human beings, what proportion of children are expected to be boys?",
+      "options": [
+        "One quarter",
+        "Three quarters",
+        "All of them",
+        "Half"
+      ],
+      "answer_index": 3,
+      "explanation": "Half of a father's sperm carry X and half carry Y, so about half the children are boys.",
+      "source": {
+        "section": "8.2.4",
+        "page": 132
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    }
+  ]
+}

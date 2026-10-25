@@ -1,0 +1,801 @@
+{
+  "topic_id": "life_processes",
+  "kind": "formative",
+  "status": "pending_review",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T10:24:27+00:00",
+  "items": [
+    {
+      "id": "LP-FRM-01",
+      "concept_id": "autotrophic_nutrition_photosynthesis",
+      "difficulty": "easy",
+      "question": "Where is chlorophyll found in the cells of a leaf?",
+      "options": [
+        "Mitochondria",
+        "Vacuoles",
+        "Nucleus",
+        "Chloroplasts"
+      ],
+      "answer_index": 3,
+      "explanation": "The green dots seen in some leaf cells are organelles called chloroplasts, which contain chlorophyll.",
+      "source": {
+        "section": "5.2.1",
+        "page": 82
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-02",
+      "concept_id": "autotrophic_nutrition_photosynthesis",
+      "difficulty": "medium",
+      "question": "In the starch-test activity with a variegated leaf, why is the plant first left in darkness for three days?",
+      "options": [
+        "To use up the starch already in its leaves",
+        "To make more chlorophyll",
+        "To open the stomata",
+        "To remove water from the leaves"
+      ],
+      "answer_index": 0,
+      "explanation": "Keeping the plant in the dark for three days uses up its starch, so any starch found after six hours of sunlight must have been made by photosynthesis.",
+      "source": {
+        "section": "5.2.1",
+        "page": 82
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-03",
+      "concept_id": "autotrophic_nutrition_photosynthesis",
+      "difficulty": "medium",
+      "question": "In what form do plants take up nitrogen from the soil?",
+      "options": [
+        "Only as nitrogen gas from the air",
+        "As starch",
+        "As inorganic nitrates or nitrites, or organic compounds made by bacteria",
+        "As glycogen"
+      ],
+      "answer_index": 2,
+      "explanation": "Nitrogen, needed to make proteins, is taken up as inorganic nitrates or nitrites, or as organic compounds prepared by bacteria from atmospheric nitrogen.",
+      "source": {
+        "section": "5.2.1",
+        "page": 84
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-04",
+      "concept_id": "stomatal_control",
+      "difficulty": "easy",
+      "question": "What are stomata?",
+      "options": [
+        "Cells that store starch",
+        "Tiny pores on the surface of leaves",
+        "Tubes that carry water",
+        "Green dots in leaf cells"
+      ],
+      "answer_index": 1,
+      "explanation": "Stomata are tiny pores on the surface of leaves through which massive amounts of gaseous exchange take place for photosynthesis.",
+      "source": {
+        "section": "5.2.1",
+        "page": 83
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-05",
+      "concept_id": "stomatal_control",
+      "difficulty": "medium",
+      "question": "What happens to the stomatal pore when the guard cells shrink?",
+      "options": [
+        "It opens wider",
+        "It fills with chlorophyll",
+        "Nothing changes",
+        "It closes"
+      ],
+      "answer_index": 3,
+      "explanation": "Guard cells control the pore: it opens when they swell with water and closes when they shrink.",
+      "source": {
+        "section": "5.2.1",
+        "page": 83
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-06",
+      "concept_id": "stomatal_control",
+      "difficulty": "medium",
+      "question": "Apart from the leaves, across which surfaces does exchange of gases occur in plants?",
+      "options": [
+        "Stems and roots",
+        "Only the flowers",
+        "Only the guard cells",
+        "Only the seeds"
+      ],
+      "answer_index": 0,
+      "explanation": "Most gaseous exchange happens through the stomata, but exchange of gases also occurs across the surface of stems and roots.",
+      "source": {
+        "section": "5.2.1",
+        "page": 83
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Concept tag flagged for human review: the wording names 'exchange of gases' (respiratory_structure_mechanics). The tag follows the textbook section; do not accept or reject it on a model's vote."
+      }
+    },
+    {
+      "id": "LP-FRM-07",
+      "concept_id": "heterotrophic_nutrition_types",
+      "difficulty": "medium",
+      "question": "How does Amoeba take in food?",
+      "options": [
+        "Cilia move food to one fixed spot on the cell",
+        "By photosynthesis",
+        "Temporary finger-like extensions of the cell surface fuse over the food, forming a food vacuole",
+        "Through a mouth and a gut"
+      ],
+      "answer_index": 2,
+      "explanation": "Amoeba uses temporary finger-like extensions of its cell surface, which fuse over the food particle to form a food vacuole. Moving food to a fixed spot with cilia describes Paramoecium.",
+      "source": {
+        "section": "5.2.3",
+        "page": 84
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-08",
+      "concept_id": "heterotrophic_nutrition_types",
+      "difficulty": "medium",
+      "question": "In Paramoecium, how is food moved to the specific spot where it is taken in?",
+      "options": [
+        "By the movement of cilia covering the cell surface",
+        "By temporary finger-like extensions",
+        "By peristaltic movements",
+        "By diffusion through the whole surface"
+      ],
+      "answer_index": 0,
+      "explanation": "Paramoecium has a definite shape and takes in food at a specific spot; cilia covering the whole cell surface move the food there.",
+      "source": {
+        "section": "5.2.3",
+        "page": 84
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-09",
+      "concept_id": "heterotrophic_nutrition_types",
+      "difficulty": "easy",
+      "question": "Which organisms are named in the chapter as heterotrophs?",
+      "options": [
+        "Animals and fungi",
+        "Green plants and some bacteria",
+        "Only green plants",
+        "Only bacteria"
+      ],
+      "answer_index": 0,
+      "explanation": "Heterotrophs use complex substances made by others; the chapter names animals and fungi. Green plants and some bacteria are autotrophs.",
+      "source": {
+        "section": "5.2",
+        "page": 81
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-10",
+      "concept_id": "human_digestion_process",
+      "difficulty": "easy",
+      "question": "What moves food forward along the alimentary canal?",
+      "options": [
+        "Gravity alone",
+        "Rhythmic contraction of muscles in the lining of the canal",
+        "The villi",
+        "The flow of saliva"
+      ],
+      "answer_index": 1,
+      "explanation": "Muscles in the wall of the canal contract in rhythmic waves (peristalsis) that push food onward through the whole gut.",
+      "source": {
+        "section": "5.2.4",
+        "page": 85
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-11",
+      "concept_id": "human_digestion_process",
+      "difficulty": "medium",
+      "question": "What protects the inner lining of the stomach from its acid?",
+      "options": [
+        "Pepsin",
+        "Bile",
+        "Saliva",
+        "Mucus"
+      ],
+      "answer_index": 3,
+      "explanation": "The gastric glands release hydrochloric acid, pepsin and mucus; the mucus protects the inner lining of the stomach from the acid under normal conditions.",
+      "source": {
+        "section": "5.2.4",
+        "page": 85
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-12",
+      "concept_id": "human_digestion_process",
+      "difficulty": "medium",
+      "question": "The enzymes in intestinal juice finally convert fats into:",
+      "options": [
+        "Amino acids",
+        "Glucose",
+        "Fatty acids and glycerol",
+        "Starch"
+      ],
+      "answer_index": 2,
+      "explanation": "Intestinal juice enzymes finally convert proteins to amino acids, complex carbohydrates to glucose, and fats to fatty acids and glycerol.",
+      "source": {
+        "section": "5.2.4",
+        "page": 86
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-13",
+      "concept_id": "human_digestion_process",
+      "difficulty": "medium",
+      "question": "Which enzyme in pancreatic juice digests proteins?",
+      "options": [
+        "Trypsin",
+        "Lipase",
+        "Salivary amylase",
+        "Bile"
+      ],
+      "answer_index": 0,
+      "explanation": "Pancreatic juice contains trypsin, which digests proteins, and lipase, which breaks down emulsified fats.",
+      "source": {
+        "section": "5.2.4",
+        "page": 86
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-14",
+      "concept_id": "respiration_aerobic_vs_anaerobic",
+      "difficulty": "easy",
+      "question": "Which kind of respiration releases more energy?",
+      "options": [
+        "Aerobic respiration",
+        "Anaerobic respiration",
+        "Both release the same amount",
+        "Neither releases energy"
+      ],
+      "answer_index": 0,
+      "explanation": "Aerobic respiration, which uses oxygen, releases a lot more energy than the anaerobic process.",
+      "source": {
+        "section": "5.3",
+        "page": 88
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-15",
+      "concept_id": "respiration_aerobic_vs_anaerobic",
+      "difficulty": "easy",
+      "question": "How does the chapter describe ATP?",
+      "options": [
+        "A respiratory pigment",
+        "A digestive enzyme",
+        "The energy currency for most cellular processes",
+        "A waste product of respiration"
+      ],
+      "answer_index": 2,
+      "explanation": "The energy released in respiration is used to make ATP, which fuels activities such as muscle contraction, protein synthesis and conduction of nerve impulses.",
+      "source": {
+        "section": "5.3",
+        "page": 88
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-16",
+      "concept_id": "respiration_aerobic_vs_anaerobic",
+      "difficulty": "medium",
+      "question": "When pyruvate is broken down using oxygen, it gives carbon dioxide and which other product?",
+      "options": [
+        "Ethanol",
+        "Lactic acid",
+        "Glucose",
+        "Water"
+      ],
+      "answer_index": 3,
+      "explanation": "In the mitochondria, aerobic break-down of the three-carbon pyruvate gives three molecules of carbon dioxide; the other product is water.",
+      "source": {
+        "section": "5.3",
+        "page": 88
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-17",
+      "concept_id": "respiratory_structure_mechanics",
+      "difficulty": "medium",
+      "question": "Why is the rate of breathing in aquatic organisms much faster than in terrestrial organisms?",
+      "options": [
+        "The amount of dissolved oxygen in water is fairly low compared to oxygen in air",
+        "Water contains more oxygen than air",
+        "Aquatic organisms do not need oxygen",
+        "Gills cannot absorb carbon dioxide"
+      ],
+      "answer_index": 0,
+      "explanation": "Water holds much less dissolved oxygen than air, so aquatic organisms such as fish must breathe much faster.",
+      "source": {
+        "section": "5.3",
+        "page": 89
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-18",
+      "concept_id": "respiratory_structure_mechanics",
+      "difficulty": "easy",
+      "question": "What stops the air-passage in the throat from collapsing?",
+      "options": [
+        "Fine hairs",
+        "Mucus",
+        "Rings of cartilage",
+        "The diaphragm"
+      ],
+      "answer_index": 2,
+      "explanation": "Rings of cartilage in the throat keep the air-passage open. Fine hairs and mucus filter the air in the nostrils.",
+      "source": {
+        "section": "5.3",
+        "page": 89
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-19",
+      "concept_id": "respiratory_structure_mechanics",
+      "difficulty": "medium",
+      "question": "During the day, why is there no release of carbon dioxide from the leaves of a plant?",
+      "options": [
+        "Plants do not respire during the day",
+        "The carbon dioxide made in respiration is used up for photosynthesis",
+        "The stomata stay closed all day",
+        "Carbon dioxide is stored as starch in the roots"
+      ],
+      "answer_index": 1,
+      "explanation": "Plants respire all the time, but during the day the carbon dioxide from respiration is used for photosynthesis, so oxygen release is the main exchange. At night, carbon dioxide is given out.",
+      "source": {
+        "section": "5.3",
+        "page": 89
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Concept tag flagged for human review: a blind model tagged it autotrophic_nutrition_photosynthesis (2026-10-24); the fact is in section 5.3. The tag follows the textbook section; do not accept or reject it on a model's vote."
+      }
+    },
+    {
+      "id": "LP-FRM-20",
+      "concept_id": "respiratory_structure_mechanics",
+      "difficulty": "hard",
+      "question": "Why do the lungs always contain a residual volume of air?",
+      "options": [
+        "To make the lungs heavier",
+        "So that there is enough time for oxygen to be absorbed and carbon dioxide to be released",
+        "To store food",
+        "To keep the alveoli dry"
+      ],
+      "answer_index": 1,
+      "explanation": "Keeping a residual volume of air in the lungs during the breathing cycle gives enough time for oxygen to be absorbed and carbon dioxide to be released.",
+      "source": {
+        "section": "5.3",
+        "page": 90
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-21",
+      "concept_id": "human_circulatory_system",
+      "difficulty": "easy",
+      "question": "What is the job of platelets?",
+      "options": [
+        "To carry oxygen",
+        "To digest fats",
+        "To filter urine",
+        "To plug leaks by helping blood to clot at points of injury"
+      ],
+      "answer_index": 3,
+      "explanation": "Platelets circulate in the blood and plug leaks by helping blood clot at injuries, which limits blood loss and loss of pressure.",
+      "source": {
+        "section": "5.4.1",
+        "page": 94
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-22",
+      "concept_id": "human_circulatory_system",
+      "difficulty": "medium",
+      "question": "Why do the ventricles of the heart have thicker muscular walls than the atria?",
+      "options": [
+        "They store blood",
+        "They receive blood from the veins",
+        "They pump blood into various organs",
+        "They carry lymph"
+      ],
+      "answer_index": 2,
+      "explanation": "Ventricles have to pump blood out to various organs, so they have thicker muscular walls than the atria, which only collect blood.",
+      "source": {
+        "section": "5.4.1",
+        "page": 92
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-23",
+      "concept_id": "human_circulatory_system",
+      "difficulty": "hard",
+      "question": "How many chambers does a fish heart have, and how many times does blood pass through it in one cycle?",
+      "options": [
+        "Four chambers; twice",
+        "Three chambers; twice",
+        "Two chambers; once",
+        "Two chambers; twice"
+      ],
+      "answer_index": 2,
+      "explanation": "Fish have two-chambered hearts: blood is pumped to the gills, oxygenated, and passes directly to the body, so it goes through the heart only once per cycle. Other vertebrates have double circulation.",
+      "source": {
+        "section": "5.4.1",
+        "page": 92
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-24",
+      "concept_id": "human_circulatory_system",
+      "difficulty": "medium",
+      "question": "What is lymph?",
+      "options": [
+        "A colourless fluid similar to plasma that contains less protein",
+        "A red fluid rich in haemoglobin",
+        "A digestive juice from the pancreas",
+        "Urine before it reaches the bladder"
+      ],
+      "answer_index": 0,
+      "explanation": "Lymph (tissue fluid) forms from plasma that escapes through capillary pores; it is like plasma but colourless with less protein, and it carries absorbed fat and drains excess fluid back into the blood.",
+      "source": {
+        "section": "5.4.1",
+        "page": 94
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-25",
+      "concept_id": "plant_transport_xylem_phloem",
+      "difficulty": "easy",
+      "question": "What is transpiration?",
+      "options": [
+        "Transport of food in phloem",
+        "Absorption of minerals by roots",
+        "Water evaporating as vapour from the leaves and other parts above the ground",
+        "Splitting of water during photosynthesis"
+      ],
+      "answer_index": 2,
+      "explanation": "Transpiration is the loss of water vapour from the aerial parts of a plant; it creates the suction that pulls water up the xylem.",
+      "source": {
+        "section": "5.4.2",
+        "page": 95
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-26",
+      "concept_id": "plant_transport_xylem_phloem",
+      "difficulty": "medium",
+      "question": "Besides helping the upward movement of water and minerals, what else does transpiration help with?",
+      "options": [
+        "Making chlorophyll",
+        "Storing starch",
+        "Producing ATP",
+        "Temperature regulation"
+      ],
+      "answer_index": 3,
+      "explanation": "Transpiration helps absorb and move water and minerals upwards, and it also helps in temperature regulation.",
+      "source": {
+        "section": "5.4.2",
+        "page": 95
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-27",
+      "concept_id": "plant_transport_xylem_phloem",
+      "difficulty": "hard",
+      "question": "How do root cells start the movement of water from the soil into the root?",
+      "options": [
+        "Through the stomata",
+        "By translocation",
+        "By photosynthesis in the roots",
+        "By actively taking up ions, so that water moves in from the soil"
+      ],
+      "answer_index": 3,
+      "explanation": "Root cells actively take up ions, creating a concentration difference between root and soil; water moves into the root to eliminate this difference.",
+      "source": {
+        "section": "5.4.2",
+        "page": 94
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-28",
+      "concept_id": "kidney_filtration",
+      "difficulty": "medium",
+      "question": "Which substances in the initial filtrate are selectively re-absorbed as urine flows along the kidney tube?",
+      "options": [
+        "Only urea",
+        "Glucose, amino acids, salts and much of the water",
+        "Bile salts",
+        "Starch and fats"
+      ],
+      "answer_index": 1,
+      "explanation": "As the filtrate moves along the tubule, useful substances (glucose, amino acids, salts and most of the water) are taken back selectively.",
+      "source": {
+        "section": "5.5.1",
+        "page": 97
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-29",
+      "concept_id": "kidney_filtration",
+      "difficulty": "medium",
+      "question": "What is Bowman's capsule?",
+      "options": [
+        "The cup-shaped end of a coiled tube that collects the filtrate",
+        "The tube that carries urine to the bladder",
+        "The muscle that controls the urethra",
+        "A part of the liver"
+      ],
+      "answer_index": 0,
+      "explanation": "In each nephron, a knot of thin-walled capillaries sits inside Bowman's capsule, the cup-like start of a coiled tubule, which catches the filtrate.",
+      "source": {
+        "section": "5.5.1",
+        "page": 97
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-30",
+      "concept_id": "kidney_filtration",
+      "difficulty": "hard",
+      "question": "How is an artificial kidney (haemodialysis) different from a real kidney?",
+      "options": [
+        "It does not use the patient's blood",
+        "There is no re-absorption involved",
+        "It produces bile",
+        "It filters out oxygen"
+      ],
+      "answer_index": 1,
+      "explanation": "In dialysis, wastes diffuse from the blood into dialysing fluid, similar to the kidney, but nothing is re-absorbed.",
+      "source": {
+        "section": "5.5.1",
+        "page": 97
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-FRM-31",
+      "concept_id": "excretion_in_plants",
+      "difficulty": "medium",
+      "question": "Which substance can be thought of as a waste product of photosynthesis?",
+      "options": [
+        "Glucose",
+        "Oxygen",
+        "Starch",
+        "Chlorophyll"
+      ],
+      "answer_index": 1,
+      "explanation": "Plants release the oxygen produced in photosynthesis, so oxygen can be thought of as a waste product of it.",
+      "source": {
+        "section": "5.5.2",
+        "page": 98
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Concept tag flagged for human review: a blind model tagged it autotrophic_nutrition_photosynthesis (2026-10-24); the fact is in section 5.5.2, Excretion in plants. The tag follows the textbook section; do not accept or reject it on a model's vote."
+      }
+    },
+    {
+      "id": "LP-FRM-32",
+      "concept_id": "excretion_in_plants",
+      "difficulty": "easy",
+      "question": "How can plants get rid of excess water?",
+      "options": [
+        "By translocation",
+        "By storing it as gum",
+        "By transpiration",
+        "Through the phloem sieve tubes"
+      ],
+      "answer_index": 2,
+      "explanation": "Plants get rid of excess water by transpiration, the loss of water vapour from their aerial parts.",
+      "source": {
+        "section": "5.5.2",
+        "page": 98
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Concept tag flagged for human review: a blind model tagged it plant_transport_xylem_phloem, then stomatal_control on a second run (2026-10-24); the fact is in section 5.5.2, Excretion in plants. The tag follows the textbook section; do not accept or reject it on a model's vote."
+      }
+    },
+    {
+      "id": "LP-FRM-33",
+      "concept_id": "excretion_in_plants",
+      "difficulty": "hard",
+      "question": "Which of these is NOT a way in which plants deal with waste?",
+      "options": [
+        "Storing wastes in leaves that fall off",
+        "Excreting some wastes into the soil",
+        "Storing wastes as resins and gums",
+        "Filtering wastes through nephrons"
+      ],
+      "answer_index": 3,
+      "explanation": "Plants store wastes in vacuoles, in leaves that fall off and as resins and gums, and excrete some into the soil. Nephrons are the filtration units of animal kidneys.",
+      "source": {
+        "section": "5.5.2",
+        "page": 98
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    }
+  ]
+}

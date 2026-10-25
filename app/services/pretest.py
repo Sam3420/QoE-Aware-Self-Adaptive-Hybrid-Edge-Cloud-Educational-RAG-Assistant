@@ -90,7 +90,7 @@ def plan_pretest(
 
 
 def _plan(bank_items: list[dict[str, Any]], assessments: list[dict[str, Any]], settings: Any) -> PretestPlan:
-    return plan_items(bank_items, assessments, n=settings.mcq_n_items, retest_max=settings.mcq_retest_max)
+    return plan_items(bank_items, assessments, n=settings.pretest_size, retest_max=settings.mcq_retest_max)
 
 
 def submit_pretest(
@@ -106,7 +106,7 @@ def submit_pretest(
     ``{assessment_id, score, competency}`` (score is a 0-1 fraction).
 
     ``item_ids`` are the bank positions of the questions shown (from ``plan_pretest``); without them the
-    first MCQ_N_ITEMS bank questions are assumed.
+    first PRETEST_ITEMS (default MCQ_N_ITEMS) bank questions are assumed.
 
     Raises LearnerNotFoundError / LearningSessionNotFoundError if the learner or session
     does not exist (or the session belongs to another learner), and
@@ -163,9 +163,9 @@ def ensure_learner_session(session: Session, student_id: str, session_id: str) -
 
 def select_bank_items(bank_items: Sequence[dict[str, Any]],
                       item_ids: Sequence[int] | None) -> list[dict[str, Any]]:
-    """The bank items at ``item_ids`` (in that order), or the first MCQ_N_ITEMS when no ids are given."""
+    """The bank items at ``item_ids`` (in that order), or the first PRETEST_ITEMS (default MCQ_N_ITEMS) when no ids are given."""
     if item_ids is None:
-        return list(bank_items[: get_settings().mcq_n_items])
+        return list(bank_items[: get_settings().pretest_size])
     invalid = [i for i in item_ids if not 0 <= i < len(bank_items)]
     if invalid:
         raise ValueError(f"Unknown question ids {invalid}; the bank has {len(bank_items)} questions.")

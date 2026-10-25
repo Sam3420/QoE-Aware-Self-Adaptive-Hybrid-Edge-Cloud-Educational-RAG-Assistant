@@ -1,0 +1,214 @@
+{
+  "topic_id": "life_processes",
+  "status": "draft",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T10:24:27+00:00",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "concepts": [
+    {
+      "id": "autotrophic_nutrition_photosynthesis",
+      "name": "Photosynthesis",
+      "description": "How autotrophs convert carbon dioxide and water into carbohydrates using sunlight and chlorophyll, the three events of photosynthesis, and storage of unused carbohydrate as starch.",
+      "aliases": [
+        "autotrophic nutrition",
+        "photosynthesis",
+        "chlorophyll",
+        "chloroplasts"
+      ],
+      "evidence": "NCERT Class 10 Science §5.2.1, p.81-84 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "5.2.1",
+        "pages": [
+          81,
+          84
+        ]
+      }
+    },
+    {
+      "id": "stomatal_control",
+      "name": "Stomata and guard cells",
+      "description": "Stomata are tiny leaf pores for gas exchange; guard cells open the pore when they swell with water and close it when they shrink, which limits water loss.",
+      "aliases": [
+        "stomata",
+        "stomatal pore",
+        "guard cells"
+      ],
+      "evidence": "NCERT Class 10 Science §5.2.1, p.83 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "5.2.1",
+        "pages": [
+          83,
+          83
+        ]
+      }
+    },
+    {
+      "id": "heterotrophic_nutrition_types",
+      "name": "Heterotrophic nutrition",
+      "description": "How organisms that cannot make their own food obtain it: breaking food down outside the body (fungi), parasitism, and food intake in single-celled organisms such as Amoeba and Paramoecium.",
+      "aliases": [
+        "heterotrophs",
+        "parasitic nutrition",
+        "Amoeba",
+        "Paramoecium",
+        "food vacuole"
+      ],
+      "evidence": "NCERT Class 10 Science §5.2.2-5.2.3, p.84 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "5.2.2-5.2.3",
+        "pages": [
+          84,
+          84
+        ]
+      }
+    },
+    {
+      "id": "human_digestion_process",
+      "name": "Human digestion",
+      "description": "The path of food through the human alimentary canal and the roles of saliva, gastric secretions, bile, pancreatic and intestinal juices, villi and the large intestine.",
+      "aliases": [
+        "alimentary canal",
+        "digestion",
+        "salivary amylase",
+        "pepsin",
+        "bile",
+        "villi",
+        "peristalsis",
+        "small intestine"
+      ],
+      "evidence": "NCERT Class 10 Science §5.2.4, p.84-86 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "5.2.4",
+        "pages": [
+          84,
+          86
+        ]
+      }
+    },
+    {
+      "id": "respiration_aerobic_vs_anaerobic",
+      "name": "Aerobic and anaerobic respiration",
+      "description": "Break-down of glucose to pyruvate in the cytoplasm, then to carbon dioxide and water (with oxygen, in mitochondria), ethanol (yeast) or lactic acid (muscles), and storage of the energy as ATP.",
+      "aliases": [
+        "aerobic respiration",
+        "anaerobic respiration",
+        "fermentation",
+        "pyruvate",
+        "lactic acid",
+        "ATP"
+      ],
+      "evidence": "NCERT Class 10 Science §5.3, p.87-88 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "5.3",
+        "pages": [
+          87,
+          88
+        ]
+      }
+    },
+    {
+      "id": "respiratory_structure_mechanics",
+      "name": "Breathing and exchange of gases",
+      "description": "How plants, fish and humans take in oxygen and give out carbon dioxide: diffusion in plants, gills, the human respiratory passage, alveoli, residual air and haemoglobin.",
+      "aliases": [
+        "exchange of gases",
+        "breathing",
+        "alveoli",
+        "haemoglobin",
+        "gills",
+        "lungs"
+      ],
+      "evidence": "NCERT Class 10 Science §5.3, p.88-91 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "5.3",
+        "pages": [
+          88,
+          91
+        ]
+      }
+    },
+    {
+      "id": "human_circulatory_system",
+      "name": "Human circulatory system",
+      "description": "Blood and plasma, the four-chambered heart and double circulation, arteries, veins and capillaries, blood pressure, platelets and lymph.",
+      "aliases": [
+        "heart",
+        "double circulation",
+        "blood",
+        "arteries",
+        "veins",
+        "capillaries",
+        "platelets",
+        "lymph"
+      ],
+      "evidence": "NCERT Class 10 Science §5.4.1, p.91-94 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "5.4.1",
+        "pages": [
+          91,
+          94
+        ]
+      }
+    },
+    {
+      "id": "plant_transport_xylem_phloem",
+      "name": "Transport in plants",
+      "description": "How xylem moves water and minerals up from the roots (root pressure and transpiration pull) and how phloem translocates food and other substances using energy.",
+      "aliases": [
+        "xylem",
+        "phloem",
+        "transpiration",
+        "translocation",
+        "root pressure"
+      ],
+      "evidence": "NCERT Class 10 Science §5.4.2, p.94-96 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "5.4.2",
+        "pages": [
+          94,
+          96
+        ]
+      }
+    },
+    {
+      "id": "kidney_filtration",
+      "name": "Excretion in human beings",
+      "description": "How the kidneys, ureters, urinary bladder and urethra remove nitrogenous wastes: filtration in nephrons, selective re-absorption, and the artificial kidney.",
+      "aliases": [
+        "kidneys",
+        "nephron",
+        "Bowman's capsule",
+        "urine",
+        "urinary bladder",
+        "dialysis"
+      ],
+      "evidence": "NCERT Class 10 Science §5.5.1, p.96-97 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "5.5.1",
+        "pages": [
+          96,
+          97
+        ]
+      }
+    },
+    {
+      "id": "excretion_in_plants",
+      "name": "Excretion in plants",
+      "description": "How plants get rid of wastes: releasing oxygen and excess water, storing wastes in vacuoles, in leaves that fall off and as resins and gums, and excreting some into the soil.",
+      "aliases": [
+        "plant excretion",
+        "resins",
+        "gums"
+      ],
+      "evidence": "NCERT Class 10 Science §5.5.2, p.98 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "5.5.2",
+        "pages": [
+          98,
+          98
+        ]
+      }
+    }
+  ]
+}

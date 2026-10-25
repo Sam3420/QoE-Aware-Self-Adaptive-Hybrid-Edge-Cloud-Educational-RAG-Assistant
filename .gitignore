@@ -3,3 +3,8 @@ __pycache__/
 *.pyc
 .env
 data/
+
+# NCERT source material: copyrighted ("not to be republished"); keep local only
+*.pdf
+knowledge_prep/packages/*/chapter.txt
+knowledge_prep/packages/*/*.local.json

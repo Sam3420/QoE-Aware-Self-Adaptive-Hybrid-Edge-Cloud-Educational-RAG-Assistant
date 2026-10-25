@@ -1,0 +1,384 @@
+{
+  "topic_id": "life_processes",
+  "kind": "posttest",
+  "status": "pending_review",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T10:24:27+00:00",
+  "items": [
+    {
+      "id": "LP-POST-01",
+      "concept_id": "autotrophic_nutrition_photosynthesis",
+      "difficulty": "easy",
+      "question": "In plants, in what form are carbohydrates that are not used immediately stored?",
+      "options": [
+        "Glycogen",
+        "Protein",
+        "Fat",
+        "Starch"
+      ],
+      "answer_index": 3,
+      "explanation": "Carbohydrates not used immediately are stored as starch, the plant's internal energy reserve. Glycogen is the storage form in our bodies.",
+      "source": {
+        "section": "5.2.1",
+        "page": 81
+      },
+      "parallel_to": "LP-PRE-01",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-POST-02",
+      "concept_id": "human_digestion_process",
+      "difficulty": "easy",
+      "question": "Which structures in the inner lining of the small intestine increase the surface area for absorption?",
+      "options": [
+        "Alveoli",
+        "Villi",
+        "Nephrons",
+        "Cilia"
+      ],
+      "answer_index": 1,
+      "explanation": "Villi are many finger-shaped projections of the small intestine's inner lining; they enlarge the area for absorbing digested food and are well supplied with blood vessels.",
+      "source": {
+        "section": "5.2.4",
+        "page": 86
+      },
+      "parallel_to": "LP-PRE-02",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-POST-03",
+      "concept_id": "respiration_aerobic_vs_anaerobic",
+      "difficulty": "medium",
+      "question": "In which part of the cell is pyruvate broken down using oxygen during aerobic respiration?",
+      "options": [
+        "Cytoplasm",
+        "Nucleus",
+        "Mitochondria",
+        "Cell wall"
+      ],
+      "answer_index": 2,
+      "explanation": "Glucose is split into pyruvate in the cytoplasm; pyruvate is then broken down with oxygen inside the mitochondria, which releases far more energy.",
+      "source": {
+        "section": "5.3",
+        "page": 87
+      },
+      "parallel_to": "LP-PRE-03",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-POST-04",
+      "concept_id": "human_circulatory_system",
+      "difficulty": "medium",
+      "question": "Which chamber of the human heart pumps de-oxygenated blood to the lungs?",
+      "options": [
+        "Right ventricle",
+        "Left ventricle",
+        "Left atrium",
+        "Right atrium"
+      ],
+      "answer_index": 0,
+      "explanation": "De-oxygenated blood from the body enters the right atrium, passes to the right ventricle, and the right ventricle pumps it to the lungs for oxygenation.",
+      "source": {
+        "section": "5.4.1",
+        "page": 92
+      },
+      "parallel_to": "LP-PRE-04",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-POST-05",
+      "concept_id": "plant_transport_xylem_phloem",
+      "difficulty": "medium",
+      "question": "At night, which effect is more important in moving water into the xylem of a plant?",
+      "options": [
+        "Transpiration pull",
+        "Translocation in phloem",
+        "Root pressure",
+        "Photosynthesis"
+      ],
+      "answer_index": 2,
+      "explanation": "Root cells take up ions, so water moves into the root and is pushed up the xylem (root pressure). This effect is more important at night; during the day transpiration pull dominates.",
+      "source": {
+        "section": "5.4.2",
+        "page": 95
+      },
+      "parallel_to": "LP-PRE-05",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-POST-06",
+      "concept_id": "stomatal_control",
+      "difficulty": "easy",
+      "question": "Why does a plant close its stomata when it does not need carbon dioxide for photosynthesis?",
+      "options": [
+        "To stop large amounts of water from being lost",
+        "To absorb more sunlight",
+        "To make more chlorophyll",
+        "To store starch in the guard cells"
+      ],
+      "answer_index": 0,
+      "explanation": "Large amounts of water can be lost through the stomata, so the plant closes them when it does not need carbon dioxide for photosynthesis.",
+      "source": {
+        "section": "5.2.1",
+        "page": 83
+      },
+      "parallel_to": "LP-PRE-06",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-POST-07",
+      "concept_id": "heterotrophic_nutrition_types",
+      "difficulty": "medium",
+      "question": "Cuscuta (amar-bel), ticks and leeches obtain nutrition from plants or animals without killing them. What is this nutritive strategy called?",
+      "options": [
+        "Autotrophic nutrition",
+        "Photosynthesis",
+        "Breaking food down outside the body and absorbing it",
+        "Parasitic nutrition"
+      ],
+      "answer_index": 3,
+      "explanation": "Organisms that derive nutrition from plants or animals without killing them use the parasitic nutritive strategy; examples include cuscuta, ticks, lice, leeches and tapeworms.",
+      "source": {
+        "section": "5.2.2",
+        "page": 84
+      },
+      "parallel_to": "LP-PRE-07",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-POST-08",
+      "concept_id": "respiratory_structure_mechanics",
+      "difficulty": "medium",
+      "question": "How is most of the carbon dioxide transported in human blood?",
+      "options": [
+        "Bound to haemoglobin in red blood corpuscles",
+        "In the dissolved form",
+        "Inside platelets",
+        "Stored as starch"
+      ],
+      "answer_index": 1,
+      "explanation": "Because carbon dioxide dissolves in water more readily than oxygen, most of it is carried dissolved in the blood; oxygen is carried by haemoglobin.",
+      "source": {
+        "section": "5.3",
+        "page": 90
+      },
+      "parallel_to": "LP-PRE-08",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Answer key flagged for human review: a blind model (2026-10-24) chose 'bound to haemoglobin'; the key follows the textbook (p.90). In fuller physiology most CO2 travels as bicarbonate in plasma. Reviewer: confirm the wording is fair for Class 10. Do not accept or reject it on a model's vote. Also flagged: the wording names 'blood' (human_circulatory_system)."
+      }
+    },
+    {
+      "id": "LP-POST-09",
+      "concept_id": "kidney_filtration",
+      "difficulty": "easy",
+      "question": "Where is urine stored before it is released through the urethra?",
+      "options": [
+        "Kidney",
+        "Ureter",
+        "Large intestine",
+        "Urinary bladder"
+      ],
+      "answer_index": 3,
+      "explanation": "Urine flows from each kidney down a ureter to the urinary bladder, which holds it until it leaves the body through the urethra.",
+      "source": {
+        "section": "5.5.1",
+        "page": 96
+      },
+      "parallel_to": "LP-PRE-09",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-POST-10",
+      "concept_id": "excretion_in_plants",
+      "difficulty": "easy",
+      "question": "In which part of a plant are some waste products stored as resins and gums?",
+      "options": [
+        "Old xylem",
+        "Young leaves",
+        "Root hairs",
+        "Guard cells"
+      ],
+      "answer_index": 0,
+      "explanation": "Plants store some waste products as resins and gums, especially in old xylem.",
+      "source": {
+        "section": "5.5.2",
+        "page": 98
+      },
+      "parallel_to": "LP-PRE-10",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-POST-11",
+      "concept_id": "autotrophic_nutrition_photosynthesis",
+      "difficulty": "hard",
+      "question": "Desert plants take up carbon dioxide at night and use light energy absorbed during the day. What does this show about the events of photosynthesis?",
+      "options": [
+        "Photosynthesis in desert plants does not need chlorophyll",
+        "The steps do not have to happen immediately one after another",
+        "Desert plants use oxygen instead of carbon dioxide",
+        "Light energy is absorbed only at night"
+      ],
+      "answer_index": 1,
+      "explanation": "Desert plants take up carbon dioxide at night and make an intermediate that is acted on by energy absorbed by chlorophyll during the day, showing that the steps need not follow one another immediately.",
+      "source": {
+        "section": "5.2.1",
+        "page": 82
+      },
+      "parallel_to": "LP-PRE-11",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-POST-12",
+      "concept_id": "human_digestion_process",
+      "difficulty": "hard",
+      "question": "What is the role of the hydrochloric acid released by the gastric glands of the stomach?",
+      "options": [
+        "It breaks down starch into sugar",
+        "It creates an acidic medium that helps the enzyme pepsin act",
+        "It breaks fats into smaller globules",
+        "It protects the inner lining of the stomach"
+      ],
+      "answer_index": 1,
+      "explanation": "The acid makes the stomach contents acidic, which pepsin, the protein-digesting enzyme, needs in order to work. Mucus, not the acid, protects the stomach lining.",
+      "source": {
+        "section": "5.2.4",
+        "page": 85
+      },
+      "parallel_to": "LP-PRE-12",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-POST-13",
+      "concept_id": "respiration_aerobic_vs_anaerobic",
+      "difficulty": "hard",
+      "question": "In yeast, during fermentation, pyruvate is converted into:",
+      "options": [
+        "Lactic acid",
+        "Carbon dioxide and water",
+        "Ethanol and carbon dioxide",
+        "Glucose and oxygen"
+      ],
+      "answer_index": 2,
+      "explanation": "In yeast, without oxygen, pyruvate is converted into ethanol and carbon dioxide (fermentation, a kind of anaerobic respiration). Lactic acid is formed in our muscles when oxygen is lacking.",
+      "source": {
+        "section": "5.3",
+        "page": 87
+      },
+      "parallel_to": "LP-PRE-13",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-POST-14",
+      "concept_id": "human_circulatory_system",
+      "difficulty": "medium",
+      "question": "Veins do not need thick walls. What feature do they have instead that keeps blood flowing in one direction?",
+      "options": [
+        "Valves",
+        "Alveoli",
+        "Villi",
+        "Cilia"
+      ],
+      "answer_index": 0,
+      "explanation": "Blood in veins is no longer under high pressure, so veins have thinner walls, but they have valves that ensure the blood flows only in one direction.",
+      "source": {
+        "section": "5.4.1",
+        "page": 93
+      },
+      "parallel_to": "LP-PRE-14",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-POST-15",
+      "concept_id": "plant_transport_xylem_phloem",
+      "difficulty": "hard",
+      "question": "In which directions does the translocation of food take place in the phloem?",
+      "options": [
+        "Only upwards, from roots to leaves",
+        "Only downwards, from leaves to roots",
+        "Both upwards and downwards",
+        "Only sideways, between neighbouring cells"
+      ],
+      "answer_index": 2,
+      "explanation": "Phloem moves food through sieve tubes, helped by neighbouring companion cells, both up and down the plant as needed (for example, to growing buds in spring).",
+      "source": {
+        "section": "5.4.2",
+        "page": 95
+      },
+      "parallel_to": "LP-PRE-15",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    }
+  ]
+}

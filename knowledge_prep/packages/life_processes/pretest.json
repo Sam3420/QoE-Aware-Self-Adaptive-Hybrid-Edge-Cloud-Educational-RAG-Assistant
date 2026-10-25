@@ -1,0 +1,369 @@
+{
+  "topic_id": "life_processes",
+  "kind": "pretest",
+  "status": "pending_review",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T10:24:27+00:00",
+  "items": [
+    {
+      "id": "LP-PRE-01",
+      "concept_id": "autotrophic_nutrition_photosynthesis",
+      "difficulty": "easy",
+      "question": "In autotrophic nutrition, which raw materials are converted into carbohydrates?",
+      "options": [
+        "Carbon dioxide and water",
+        "Oxygen and glucose",
+        "Starch and water",
+        "Nitrogen and oxygen"
+      ],
+      "answer_index": 0,
+      "explanation": "Autotrophs use carbon dioxide and water as raw materials; with sunlight and chlorophyll they turn them into carbohydrates.",
+      "source": {
+        "section": "5.2.1",
+        "page": 81
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-PRE-02",
+      "concept_id": "human_digestion_process",
+      "difficulty": "easy",
+      "question": "Which enzyme in saliva breaks down starch into simple sugar?",
+      "options": [
+        "Pepsin",
+        "Trypsin",
+        "Salivary amylase",
+        "Lipase"
+      ],
+      "answer_index": 2,
+      "explanation": "Saliva contains salivary amylase, which breaks down starch, a complex molecule, into simple sugar. Pepsin acts in the stomach; trypsin and lipase are pancreatic enzymes.",
+      "source": {
+        "section": "5.2.4",
+        "page": 85
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-PRE-03",
+      "concept_id": "respiration_aerobic_vs_anaerobic",
+      "difficulty": "medium",
+      "question": "Where does the first step of respiration, the break-down of glucose into pyruvate, take place?",
+      "options": [
+        "Mitochondria",
+        "Cytoplasm",
+        "Chloroplast",
+        "Nucleus"
+      ],
+      "answer_index": 1,
+      "explanation": "In all organisms the first step, glucose (six carbons) to pyruvate (three carbons), takes place in the cytoplasm. Only the later break-down of pyruvate using oxygen happens in mitochondria.",
+      "source": {
+        "section": "5.3",
+        "page": 87
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-PRE-04",
+      "concept_id": "human_circulatory_system",
+      "difficulty": "medium",
+      "question": "Which chamber of the human heart receives oxygen-rich blood from the lungs?",
+      "options": [
+        "Right atrium",
+        "Left atrium",
+        "Right ventricle",
+        "Left ventricle"
+      ],
+      "answer_index": 1,
+      "explanation": "Oxygen-rich blood from the lungs enters the thin-walled upper chamber on the left, the left atrium; it then passes to the left ventricle, which pumps it to the body.",
+      "source": {
+        "section": "5.4.1",
+        "page": 92
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-PRE-05",
+      "concept_id": "plant_transport_xylem_phloem",
+      "difficulty": "medium",
+      "question": "During the day, when the stomata are open, what is the major driving force for the movement of water in the xylem?",
+      "options": [
+        "Root pressure",
+        "Transpiration pull",
+        "Translocation",
+        "Gravity"
+      ],
+      "answer_index": 1,
+      "explanation": "Evaporation of water from leaf cells creates a suction (transpiration pull), which is the major driving force during the day; root pressure matters more at night.",
+      "source": {
+        "section": "5.4.2",
+        "page": 95
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-PRE-06",
+      "concept_id": "stomatal_control",
+      "difficulty": "easy",
+      "question": "What causes the stomatal pore to open?",
+      "options": [
+        "The guard cells shrink",
+        "Carbon dioxide enters the guard cells",
+        "Water enters the guard cells and they swell",
+        "The leaf loses its chlorophyll"
+      ],
+      "answer_index": 2,
+      "explanation": "Guard cells control the stomatal pore: when water enters them they swell and the pore opens; when they shrink, it closes.",
+      "source": {
+        "section": "5.2.1",
+        "page": 83
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-PRE-07",
+      "concept_id": "heterotrophic_nutrition_types",
+      "difficulty": "medium",
+      "question": "Which of these organisms breaks down food material outside its body and then absorbs it?",
+      "options": [
+        "Cuscuta",
+        "Amoeba",
+        "Tapeworm",
+        "Bread mould"
+      ],
+      "answer_index": 3,
+      "explanation": "Fungi such as bread moulds, yeast and mushrooms break down food outside the body and then absorb it. Cuscuta and tapeworms are parasites; Amoeba takes food into a food vacuole.",
+      "source": {
+        "section": "5.2.2",
+        "page": 84
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-PRE-08",
+      "concept_id": "respiratory_structure_mechanics",
+      "difficulty": "medium",
+      "question": "In human beings, which respiratory pigment carries oxygen from the lungs to the tissues?",
+      "options": [
+        "Chlorophyll",
+        "Pepsin",
+        "Haemoglobin",
+        "Lymph"
+      ],
+      "answer_index": 2,
+      "explanation": "Haemoglobin, present in red blood corpuscles, has a very high affinity for oxygen and carries it from the lungs to tissues that are deficient in oxygen.",
+      "source": {
+        "section": "5.3",
+        "page": 90
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-PRE-09",
+      "concept_id": "kidney_filtration",
+      "difficulty": "easy",
+      "question": "What is the basic filtration unit of the kidney called?",
+      "options": [
+        "Alveolus",
+        "Villus",
+        "Nephron",
+        "Neuron"
+      ],
+      "answer_index": 2,
+      "explanation": "Each kidney contains large numbers of filtration units called nephrons; each begins with Bowman's capsule around a cluster of thin-walled capillaries.",
+      "source": {
+        "section": "5.5.1",
+        "page": 97
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-PRE-10",
+      "concept_id": "excretion_in_plants",
+      "difficulty": "easy",
+      "question": "Which of these is one way in which plants store waste products?",
+      "options": [
+        "In cellular vacuoles",
+        "In the stomata",
+        "In the root hairs",
+        "In chlorophyll"
+      ],
+      "answer_index": 0,
+      "explanation": "Many plant waste products are stored in cellular vacuoles; others are stored in leaves that fall off or as resins and gums.",
+      "source": {
+        "section": "5.5.2",
+        "page": 98
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-PRE-11",
+      "concept_id": "autotrophic_nutrition_photosynthesis",
+      "difficulty": "hard",
+      "question": "Which of the following is NOT one of the events that occur during photosynthesis?",
+      "options": [
+        "Absorption of light energy by chlorophyll",
+        "Splitting of water molecules into hydrogen and oxygen",
+        "Reduction of carbon dioxide to carbohydrates",
+        "Break-down of glucose into pyruvate"
+      ],
+      "answer_index": 3,
+      "explanation": "The three events of photosynthesis are absorption of light by chlorophyll, conversion of light energy to chemical energy with splitting of water, and reduction of carbon dioxide to carbohydrates. Glucose to pyruvate is the first step of respiration (p.87).",
+      "source": {
+        "section": "5.2.1",
+        "page": 82
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-PRE-12",
+      "concept_id": "human_digestion_process",
+      "difficulty": "hard",
+      "question": "Why is bile juice from the liver important for the digestion of fats?",
+      "options": [
+        "It contains pepsin, which digests fats",
+        "It makes the food acidic so that lipase can act",
+        "It makes the food alkaline, and its salts break fats into smaller globules",
+        "It carries fats directly into the blood"
+      ],
+      "answer_index": 2,
+      "explanation": "Food from the stomach is acidic; bile makes it alkaline so pancreatic enzymes can act, and bile salts break large fat globules into smaller ones, increasing the efficiency of enzyme action.",
+      "source": {
+        "section": "5.2.4",
+        "page": 86
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-PRE-13",
+      "concept_id": "respiration_aerobic_vs_anaerobic",
+      "difficulty": "hard",
+      "question": "What causes muscle cramps during sudden vigorous activity?",
+      "options": [
+        "Build-up of lactic acid in the muscles when oxygen is lacking",
+        "Build-up of ethanol in the muscles",
+        "Too much ATP in the muscles",
+        "Excess oxygen in the muscles"
+      ],
+      "answer_index": 0,
+      "explanation": "When muscle cells lack oxygen, pyruvate is converted into lactic acid; its build-up during sudden activity causes cramps. Ethanol is produced by yeast, not muscles.",
+      "source": {
+        "section": "5.3",
+        "page": 88
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-PRE-14",
+      "concept_id": "human_circulatory_system",
+      "difficulty": "medium",
+      "question": "Why do arteries have thick, elastic walls?",
+      "options": [
+        "Because the blood in them flows back towards the heart",
+        "Because blood emerges from the heart under high pressure",
+        "Because materials are exchanged with cells across their walls",
+        "Because they carry lymph"
+      ],
+      "answer_index": 1,
+      "explanation": "Arteries carry blood away from the heart, which pumps it out under high pressure, so they have thick, elastic walls. Exchange with cells happens across one-cell-thick capillary walls.",
+      "source": {
+        "section": "5.4.1",
+        "page": 93
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "LP-PRE-15",
+      "concept_id": "plant_transport_xylem_phloem",
+      "difficulty": "hard",
+      "question": "How is translocation in phloem different from transport of water in xylem?",
+      "options": [
+        "Translocation uses energy from ATP, while xylem transport is largely explained by simple physical forces",
+        "Translocation moves only water and minerals",
+        "Translocation happens only downwards",
+        "Xylem transport needs ATP, but translocation does not"
+      ],
+      "answer_index": 0,
+      "explanation": "Xylem transport can be largely explained by physical forces such as transpiration pull, whereas phloem translocation uses energy: sucrose is moved into phloem using ATP.",
+      "source": {
+        "section": "5.4.2",
+        "page": 96
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    }
+  ]
+}

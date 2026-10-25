@@ -26,7 +26,14 @@ class Settings(BaseSettings):
     default_runtime_configuration_name: str = "huggingface-qwen-text"
     competency_beginner_max: float = Field(default=0.4, ge=0, le=1)
     competency_intermediate_max: float = Field(default=0.75, ge=0, le=1)
-    mcq_n_items: int = Field(default=5, gt=0)
+    mcq_n_items: int = Field(default=5, gt=0)  # questions per LLM generation call (bank creation and top-ups)
+    # Questions shown in a pre-test (and so asked again, or paired, in the post-test). None: MCQ_N_ITEMS, the original
+    # behaviour. A content-package bank can hold more (e.g. 15); set PRETEST_ITEMS to show more in an experiment.
+    pretest_items: int | None = Field(default=None, gt=0)
+
+    @property
+    def pretest_size(self) -> int:
+        return self.pretest_items or self.mcq_n_items
     # A returning learner's pre-test re-asks at most this many previously missed questions.
     mcq_retest_max: int = Field(default=2, ge=0)
     # The topic bank grows with new questions when a returning learner has seen them all; it stops here.

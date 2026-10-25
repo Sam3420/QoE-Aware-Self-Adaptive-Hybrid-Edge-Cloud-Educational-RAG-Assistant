@@ -1,0 +1,181 @@
+{
+  "topic_id": "heredity",
+  "status": "draft",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T11:16:53+00:00",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "concepts": [
+    {
+      "id": "genetic_variation",
+      "name": "Variation in reproduction",
+      "description": "Each generation inherits a common body design with small changes; asexual reproduction creates only minor differences from DNA-copying errors, sexual reproduction creates more, and environmental selection of variants underlies evolution.",
+      "aliases": [
+        "variation",
+        "variations",
+        "diversity",
+        "DNA copying",
+        "evolution",
+        "survive"
+      ],
+      "evidence": "NCERT Class 10 Science §8.1, p.128-129 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "8.1",
+        "pages": [
+          128,
+          129
+        ]
+      }
+    },
+    {
+      "id": "sexual_reproduction",
+      "name": "Inheritance from both parents",
+      "description": "Father and mother contribute about equal genetic material, so every trait can be influenced by paternal and maternal DNA and each child carries two versions of each trait.",
+      "aliases": [
+        "both parents",
+        "paternal",
+        "maternal",
+        "genetic material",
+        "earlobes",
+        "two versions"
+      ],
+      "evidence": "NCERT Class 10 Science §8.2.2, p.129 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "8.2.2",
+        "pages": [
+          129,
+          129
+        ]
+      }
+    },
+    {
+      "id": "dominant_recessive",
+      "name": "Dominant and recessive traits",
+      "description": "When the two copies of a factor differ, the one that is expressed is dominant and the hidden one is recessive (TT and Tt plants are tall; only tt plants are short).",
+      "aliases": [
+        "dominant",
+        "recessive",
+        "TT",
+        "Tt",
+        "tt",
+        "expressed"
+      ],
+      "evidence": "NCERT Class 10 Science §8.2.2, p.130 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "8.2.2",
+        "pages": [
+          130,
+          130
+        ]
+      }
+    },
+    {
+      "id": "monohybrid_ratio",
+      "name": "Mendel's monohybrid cross",
+      "description": "Mendel's tall x short pea cross: all F1 plants are tall, and when they self-pollinate a quarter of the F2 are short (TT:Tt:tt = 1:2:1), which led him to propose two copies of each factor.",
+      "aliases": [
+        "Mendel",
+        "monohybrid",
+        "F1",
+        "F2",
+        "self-pollination",
+        "1:2:1",
+        "one quarter"
+      ],
+      "evidence": "NCERT Class 10 Science §8.2.2, p.130 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "8.2.2",
+        "pages": [
+          130,
+          130
+        ]
+      }
+    },
+    {
+      "id": "independent_assortment",
+      "name": "Independent inheritance of traits",
+      "description": "In a cross involving two traits (seed shape and colour, or height and seed shape), the traits are inherited independently, so new combinations appear in the F2 (about 9:3:3:1).",
+      "aliases": [
+        "independent inheritance",
+        "independently inherited",
+        "new combinations",
+        "round seeds",
+        "wrinkled seeds",
+        "seed colour",
+        "RrYy",
+        "9:3:3:1"
+      ],
+      "evidence": "NCERT Class 10 Science §8.2.2, p.131 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "8.2.2",
+        "pages": [
+          131,
+          131
+        ]
+      }
+    },
+    {
+      "id": "gene_definition",
+      "name": "Genes and how traits are expressed",
+      "description": "A gene is a section of DNA that carries information for one protein; proteins such as enzymes control traits, e.g. an enzyme's efficiency sets how much growth hormone is made and so how tall a plant grows.",
+      "aliases": [
+        "gene",
+        "protein",
+        "enzyme",
+        "hormone"
+      ],
+      "evidence": "NCERT Class 10 Science §8.2.3, p.131 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "8.2.3",
+        "pages": [
+          131,
+          131
+        ]
+      }
+    },
+    {
+      "id": "chromosome_number_restoration",
+      "name": "Chromosomes and germ cells",
+      "description": "Body cells have two gene sets, as separate pieces called chromosomes, one copy of each from each parent; germ cells take one chromosome from every pair, and fertilisation restores the normal number.",
+      "aliases": [
+        "chromosome",
+        "chromosomes",
+        "germ cell",
+        "germ cells",
+        "gene set",
+        "two sets"
+      ],
+      "evidence": "NCERT Class 10 Science §8.2.3, p.131-132 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "8.2.3",
+        "pages": [
+          131,
+          132
+        ]
+      }
+    },
+    {
+      "id": "sex_determination",
+      "name": "Sex determination",
+      "description": "Some species use environmental cues (temperature in some reptiles) or can change sex (snails); in humans sex is largely genetic: women are XX, men XY, and the father's X or Y decides the child's sex.",
+      "aliases": [
+        "sex determination",
+        "sex chromosomes",
+        "X chromosome",
+        "Y chromosome",
+        "XX",
+        "XY",
+        "boy",
+        "girl"
+      ],
+      "evidence": "NCERT Class 10 Science §8.2.4, p.132 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "8.2.4",
+        "pages": [
+          132,
+          132
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,753 @@
+{
+  "topic_id": "our_environment",
+  "kind": "formative",
+  "status": "pending_review",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T11:20:29+00:00",
+  "items": [
+    {
+      "id": "OE-FRM-01",
+      "concept_id": "ecosystem_definition",
+      "difficulty": "easy",
+      "question": "Which of these is an abiotic component of an ecosystem?",
+      "options": [
+        "Frogs",
+        "Temperature",
+        "Grass",
+        "Bacteria"
+      ],
+      "answer_index": 1,
+      "explanation": "Abiotic components are non-living physical factors such as temperature, rainfall, wind, soil and minerals.",
+      "source": {
+        "section": "13.1",
+        "page": 208
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-02",
+      "concept_id": "ecosystem_definition",
+      "difficulty": "easy",
+      "question": "Which of these is a natural ecosystem?",
+      "options": [
+        "A garden",
+        "A crop-field",
+        "A pond",
+        "An aquarium"
+      ],
+      "answer_index": 2,
+      "explanation": "Ponds, lakes and forests form naturally; gardens, crop-fields and aquaria are set up by people.",
+      "source": {
+        "section": "13.1",
+        "page": 208
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-03",
+      "concept_id": "ecosystem_definition",
+      "difficulty": "medium",
+      "question": "Why is a garden considered an ecosystem?",
+      "options": [
+        "It contains only plants",
+        "It is made by people",
+        "It has no animals",
+        "Its organisms interact with each other and are affected by its non-living components"
+      ],
+      "answer_index": 3,
+      "explanation": "Plants and animals in a garden interact, and their growth and activities depend on abiotic factors.",
+      "source": {
+        "section": "13.1",
+        "page": 208
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-04",
+      "concept_id": "producers",
+      "difficulty": "easy",
+      "question": "By which process do producers make their food?",
+      "options": [
+        "Photosynthesis",
+        "Decomposition",
+        "Biological magnification",
+        "Digestion"
+      ],
+      "answer_index": 0,
+      "explanation": "Green plants and some bacteria use sunlight to make food by photosynthesis.",
+      "source": {
+        "section": "13.1",
+        "page": 209
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-05",
+      "concept_id": "producers",
+      "difficulty": "medium",
+      "question": "In a balanced aquarium, which organisms play the role of the producers?",
+      "options": [
+        "Fish",
+        "Aquatic plants",
+        "Snails",
+        "Bacteria breaking down dead fish"
+      ],
+      "answer_index": 1,
+      "explanation": "Aquatic plants photosynthesise, providing food (and oxygen) for the animals in the tank.",
+      "source": {
+        "section": "13.1",
+        "page": 209
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-06",
+      "concept_id": "producers",
+      "difficulty": "medium",
+      "question": "What do producers do with the Sun's energy?",
+      "options": [
+        "Reflect all of it back into space",
+        "Pass it to decomposers only",
+        "Fix it as food energy and make it available to consumers",
+        "Turn it into UV radiation"
+      ],
+      "answer_index": 2,
+      "explanation": "Producers capture solar energy and store it in food that heterotrophs then eat.",
+      "source": {
+        "section": "13.1.1",
+        "page": 210
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-07",
+      "concept_id": "consumers",
+      "difficulty": "easy",
+      "question": "An organism lives in or on another living organism and feeds on it. Which type of consumer is it?",
+      "options": [
+        "A herbivore",
+        "A producer",
+        "A decomposer",
+        "A parasite"
+      ],
+      "answer_index": 3,
+      "explanation": "Parasites are one of the four groups of consumers, alongside herbivores, carnivores and omnivores.",
+      "source": {
+        "section": "13.1",
+        "page": 209
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-08",
+      "concept_id": "consumers",
+      "difficulty": "medium",
+      "question": "What are organisms that eat both plants and animals called?",
+      "options": [
+        "Omnivores",
+        "Herbivores",
+        "Producers",
+        "Decomposers"
+      ],
+      "answer_index": 0,
+      "explanation": "Omnivores feed on both plant and animal food.",
+      "source": {
+        "section": "13.1",
+        "page": 209
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-09",
+      "concept_id": "consumers",
+      "difficulty": "medium",
+      "question": "Why do consumers depend on producers?",
+      "options": [
+        "Producers shield them from UV radiation",
+        "They cannot make their own food and get it from producers directly or indirectly",
+        "Producers break down their wastes",
+        "Producers make their bodies' minerals"
+      ],
+      "answer_index": 1,
+      "explanation": "All the food consumers eat starts with producers, even when it passes through other consumers first.",
+      "source": {
+        "section": "13.1",
+        "page": 209
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-10",
+      "concept_id": "decomposers",
+      "difficulty": "easy",
+      "question": "If there were no decomposers, what would happen to garbage and to dead plants and animals?",
+      "options": [
+        "They would turn into producers",
+        "They would become ozone",
+        "They would pile up and the soil would not be replenished",
+        "Nothing would change"
+      ],
+      "answer_index": 2,
+      "explanation": "Without decomposers dead matter would not be broken down, and its nutrients would not return to the soil.",
+      "source": {
+        "section": "13.1",
+        "page": 209
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-11",
+      "concept_id": "decomposers",
+      "difficulty": "medium",
+      "question": "What happens to the simple inorganic substances released by decomposers?",
+      "options": [
+        "They rise to the ozone layer",
+        "Herbivores eat them directly",
+        "They turn into plastics",
+        "They go into the soil and are used again by plants"
+      ],
+      "answer_index": 3,
+      "explanation": "Decomposers recycle nutrients: plants take up what they release into the soil.",
+      "source": {
+        "section": "13.1",
+        "page": 209
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-12",
+      "concept_id": "decomposers",
+      "difficulty": "medium",
+      "question": "Which change describes what decomposers do to the substances in dead remains?",
+      "options": [
+        "Complex organic to simple inorganic",
+        "Simple inorganic to complex organic",
+        "Solar energy to chemical energy",
+        "Oxygen to ozone"
+      ],
+      "answer_index": 0,
+      "explanation": "They break large organic molecules down into simple inorganic ones; producers do the reverse.",
+      "source": {
+        "section": "13.1",
+        "page": 209
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-13",
+      "concept_id": "trophic_levels",
+      "difficulty": "easy",
+      "question": "What is each step or level of a food chain called?",
+      "options": [
+        "A food web",
+        "A trophic level",
+        "An ecosystem",
+        "A decomposer"
+      ],
+      "answer_index": 1,
+      "explanation": "Each feeding step in a food chain is a trophic level.",
+      "source": {
+        "section": "13.1.1",
+        "page": 210
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-14",
+      "concept_id": "trophic_levels",
+      "difficulty": "medium",
+      "question": "Which trophic level usually has the greatest number of individuals?",
+      "options": [
+        "The tertiary consumers",
+        "The secondary consumers",
+        "The producers at the first level",
+        "The top carnivores"
+      ],
+      "answer_index": 2,
+      "explanation": "Lower levels generally hold more individuals, and the producers are the most numerous.",
+      "source": {
+        "section": "13.1.1",
+        "page": 210
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-15",
+      "concept_id": "trophic_levels",
+      "difficulty": "medium",
+      "question": "Small carnivores that feed on herbivores belong to which group?",
+      "options": [
+        "Producers at the first trophic level",
+        "Primary consumers at the second trophic level",
+        "Decomposers",
+        "Secondary consumers at the third trophic level"
+      ],
+      "answer_index": 3,
+      "explanation": "Herbivores are primary consumers; animals that eat them are secondary consumers on the third level.",
+      "source": {
+        "section": "13.1.1",
+        "page": 210
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-16",
+      "concept_id": "ten_percent_law",
+      "difficulty": "easy",
+      "question": "When primary consumers eat green plants, where does a great deal of the energy in the food go?",
+      "options": [
+        "It is lost as heat to the environment",
+        "It goes back to the Sun",
+        "It is stored in the ozone layer",
+        "All of it becomes body mass"
+      ],
+      "answer_index": 0,
+      "explanation": "Much of the energy escapes as heat, and some is used in digestion and work, leaving only a little for growth.",
+      "source": {
+        "section": "13.1.1",
+        "page": 210
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-17",
+      "concept_id": "ten_percent_law",
+      "difficulty": "medium",
+      "question": "Why do food chains generally have only three or four steps?",
+      "options": [
+        "There are too few producers",
+        "So much energy is lost at each step that little usable energy is left after four levels",
+        "Decomposers end every chain after three steps",
+        "Animals cannot eat more than four kinds of food"
+      ],
+      "answer_index": 1,
+      "explanation": "With only about 10% passed on each time, the energy left after four levels is too small to support another.",
+      "source": {
+        "section": "13.1.1",
+        "page": 210
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-18",
+      "concept_id": "ten_percent_law",
+      "difficulty": "medium",
+      "question": "The flow of energy in an ecosystem is unidirectional. What does this mean?",
+      "options": [
+        "Energy cycles back to the Sun",
+        "Energy moves only from consumers to producers",
+        "Energy moves forward through the trophic levels and does not return to earlier ones",
+        "New energy is created at each level"
+      ],
+      "answer_index": 2,
+      "explanation": "Energy captured by plants passes on to herbivores and beyond but never flows back to the earlier level.",
+      "source": {
+        "section": "13.1.1",
+        "page": 211
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-19",
+      "concept_id": "food_web",
+      "difficulty": "easy",
+      "question": "What is a food web made up of?",
+      "options": [
+        "A single food chain",
+        "Producers only",
+        "Decomposers only",
+        "Many interconnected food chains"
+      ],
+      "answer_index": 3,
+      "explanation": "A food web is a network formed by many food chains that share organisms.",
+      "source": {
+        "section": "13.1.1",
+        "page": 211
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-20",
+      "concept_id": "food_web",
+      "difficulty": "medium",
+      "question": "Which statement about the length and complexity of food chains is correct?",
+      "options": [
+        "They vary greatly",
+        "They always have exactly three steps",
+        "They are identical in every ecosystem",
+        "They never branch"
+      ],
+      "answer_index": 0,
+      "explanation": "Food chains differ widely from one ecosystem to another, and they branch into food webs.",
+      "source": {
+        "section": "13.1.1",
+        "page": 210
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-21",
+      "concept_id": "food_web",
+      "difficulty": "hard",
+      "question": "In a food web, one kind of prey disappears. What will most likely happen to a predator that feeds on several kinds of prey?",
+      "options": [
+        "It dies immediately",
+        "It survives by feeding more on its other prey",
+        "It becomes a producer",
+        "It stops needing energy"
+      ],
+      "answer_index": 1,
+      "explanation": "Because organisms in a web have several food sources, losing one does not necessarily starve the predator.",
+      "source": {
+        "section": "13.1.1",
+        "page": 210
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-22",
+      "concept_id": "biological_magnification",
+      "difficulty": "easy",
+      "question": "How do pesticides sprayed on crops get into the food chain?",
+      "options": [
+        "They fall from the ozone layer",
+        "Decomposers produce them",
+        "They are washed into soil and water and taken up by plants",
+        "Animals make them in their bodies"
+      ],
+      "answer_index": 2,
+      "explanation": "Plants absorb the chemicals with water and minerals from the soil, and aquatic plants take them up from water.",
+      "source": {
+        "section": "13.1.1",
+        "page": 211
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-23",
+      "concept_id": "biological_magnification",
+      "difficulty": "medium",
+      "question": "Why do food grains, vegetables and even meat contain pesticide residues?",
+      "options": [
+        "Pesticides are added while cooking",
+        "Animals make pesticides",
+        "Rainwater produces pesticides",
+        "Pesticides used on crops enter food chains and accumulate in them"
+      ],
+      "answer_index": 3,
+      "explanation": "Pesticides from farming reach our food through the food chain and are stored along the way.",
+      "source": {
+        "section": "13.1.1",
+        "page": 212
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-24",
+      "concept_id": "biological_magnification",
+      "difficulty": "medium",
+      "question": "Can pesticide residues in food always be removed by washing?",
+      "options": [
+        "No, washing and other methods do not always get rid of them",
+        "Yes, washing removes all of them",
+        "Yes, boiling destroys all of them",
+        "Pesticides never reach food"
+      ],
+      "answer_index": 0,
+      "explanation": "Residues are inside the food itself, so washing does not always get rid of them.",
+      "source": {
+        "section": "13.1.1",
+        "page": 212
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-25",
+      "concept_id": "ozone_layer",
+      "difficulty": "easy",
+      "question": "Which harmful effect of UV radiation on humans does the chapter mention?",
+      "options": [
+        "The common cold",
+        "Skin cancer",
+        "Tooth decay",
+        "Night blindness"
+      ],
+      "answer_index": 1,
+      "explanation": "UV radiation damages organisms; in humans it is known to cause skin cancer.",
+      "source": {
+        "section": "13.2.1",
+        "page": 213
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-26",
+      "concept_id": "ozone_layer",
+      "difficulty": "medium",
+      "question": "What did the agreement forged by UNEP in 1987 do?",
+      "options": [
+        "Banned all refrigerators",
+        "Increased CFC production",
+        "Froze CFC production at 1986 levels",
+        "Banned all pesticides"
+      ],
+      "answer_index": 2,
+      "explanation": "The UN Environment Programme agreement capped CFC production; CFC-free refrigerators are now mandatory.",
+      "source": {
+        "section": "13.2.1",
+        "page": 213
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-27",
+      "concept_id": "ozone_layer",
+      "difficulty": "medium",
+      "question": "Ozone is a deadly poison, yet the ozone layer is essential. Why?",
+      "options": [
+        "It provides the oxygen we breathe",
+        "It traps heat that plants need",
+        "It feeds decomposers",
+        "High in the atmosphere it shields the Earth from UV radiation"
+      ],
+      "answer_index": 3,
+      "explanation": "Ozone would be harmful to breathe, but at high altitude it blocks damaging UV radiation.",
+      "source": {
+        "section": "13.2.1",
+        "page": 212
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-28",
+      "concept_id": "biodegradable_waste",
+      "difficulty": "easy",
+      "question": "Which item of household waste would be broken down by microorganisms in the soil?",
+      "options": [
+        "Used tea leaves",
+        "A plastic milk packet",
+        "A broken glass bottle",
+        "An empty plastic medicine strip"
+      ],
+      "answer_index": 0,
+      "explanation": "Tea leaves are biodegradable; plastic and glass are not broken down by biological processes.",
+      "source": {
+        "section": "13.2.2",
+        "page": 214
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-29",
+      "concept_id": "biodegradable_waste",
+      "difficulty": "medium",
+      "question": "What can non-biodegradable substances do in the environment?",
+      "options": [
+        "Always disappear within a few days",
+        "Persist for a long time or harm members of the ecosystem",
+        "Become producers",
+        "Turn into ozone"
+      ],
+      "answer_index": 1,
+      "explanation": "Such substances may be inert and simply remain, or they may harm living things in the ecosystem.",
+      "source": {
+        "section": "13.2.2",
+        "page": 214
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-30",
+      "concept_id": "biodegradable_waste",
+      "difficulty": "medium",
+      "question": "Clay cups (kulhads) were suggested to replace plastic cups on trains. What problem would making them on a large scale cause?",
+      "options": [
+        "More plastic waste",
+        "Depletion of the ozone layer",
+        "Loss of fertile top-soil",
+        "Biological magnification"
+      ],
+      "answer_index": 2,
+      "explanation": "Clay for millions of cups would come from the top-soil, so a 'natural' alternative can still harm the environment.",
+      "source": {
+        "section": "13.2.2",
+        "page": 215
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-FRM-31",
+      "concept_id": "biodegradable_waste",
+      "difficulty": "medium",
+      "question": "What has caused much of our waste to become non-biodegradable?",
+      "options": [
+        "More composting",
+        "More decomposers",
+        "The ozone layer",
+        "Changes in packaging"
+      ],
+      "answer_index": 3,
+      "explanation": "New kinds of packaging, and the habit of using disposable things, add non-biodegradable waste.",
+      "source": {
+        "section": "13.2.2",
+        "page": 215
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    }
+  ]
+}

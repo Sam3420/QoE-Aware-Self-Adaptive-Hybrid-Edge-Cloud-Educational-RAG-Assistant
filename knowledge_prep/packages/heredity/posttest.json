@@ -1,0 +1,384 @@
+{
+  "topic_id": "heredity",
+  "kind": "posttest",
+  "status": "pending_review",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T11:16:53+00:00",
+  "items": [
+    {
+      "id": "HE-POST-01",
+      "concept_id": "dominant_recessive",
+      "difficulty": "easy",
+      "question": "Which combination of factors gives a short pea plant?",
+      "options": [
+        "Both factors short-type (tt)",
+        "Both factors tall-type (TT)",
+        "One T and one t (Tt)",
+        "Either TT or Tt"
+      ],
+      "answer_index": 0,
+      "explanation": "Shortness is recessive, so a plant is short only when both copies are t.",
+      "source": {
+        "section": "8.2.2",
+        "page": 130
+      },
+      "parallel_to": "HE-PRE-01",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-POST-02",
+      "concept_id": "sex_determination",
+      "difficulty": "easy",
+      "question": "From which parent does every child, boy or girl, receive an X chromosome?",
+      "options": [
+        "Only the father",
+        "Neither parent",
+        "The mother",
+        "The father for boys and the mother for girls"
+      ],
+      "answer_index": 2,
+      "explanation": "A mother is XX and can pass on only an X, so all children get an X from her.",
+      "source": {
+        "section": "8.2.4",
+        "page": 132
+      },
+      "parallel_to": "HE-PRE-02",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-POST-03",
+      "concept_id": "genetic_variation",
+      "difficulty": "medium",
+      "question": "Compared with asexual reproduction, how much diversity does sexual reproduction create?",
+      "options": [
+        "Less diversity",
+        "No variation at all",
+        "Even greater diversity",
+        "Exactly the same amount"
+      ],
+      "answer_index": 2,
+      "explanation": "Asexual reproduction only adds copying errors; sexual reproduction also mixes the DNA of two parents, so it produces more variety.",
+      "source": {
+        "section": "8.1",
+        "page": 128
+      },
+      "parallel_to": "HE-PRE-03",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-POST-04",
+      "concept_id": "gene_definition",
+      "difficulty": "medium",
+      "question": "A change in a gene makes the enzyme needed to produce a growth hormone work less efficiently. The plant will most likely be",
+      "options": [
+        "taller than usual",
+        "unchanged in height",
+        "unable to make any protein",
+        "short"
+      ],
+      "answer_index": 3,
+      "explanation": "A less efficient enzyme means less hormone, and less growth hormone means a shorter plant.",
+      "source": {
+        "section": "8.2.3",
+        "page": 131
+      },
+      "parallel_to": "HE-PRE-04",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-POST-05",
+      "concept_id": "monohybrid_ratio",
+      "difficulty": "medium",
+      "question": "In the F2 generation of the tall x short cross, in what ratio do TT, Tt and tt plants occur?",
+      "options": [
+        "1:2:1",
+        "3:1:0",
+        "1:1:2",
+        "2:1:1"
+      ],
+      "answer_index": 0,
+      "explanation": "One quarter are TT, half are Tt and one quarter are tt.",
+      "source": {
+        "section": "8.2.2",
+        "page": 130
+      },
+      "parallel_to": "HE-PRE-05",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-POST-06",
+      "concept_id": "independent_assortment",
+      "difficulty": "medium",
+      "question": "Some F2 offspring of a tall/round x short/wrinkled cross are short with round seeds, a combination neither original parent had. Why?",
+      "options": [
+        "Round seeds are recessive",
+        "All the F1 plants were short",
+        "The factors for the two traits are inherited separately and recombine",
+        "The two traits blend together in the F1"
+      ],
+      "answer_index": 2,
+      "explanation": "Height and seed-shape factors are sorted independently, so they can come together in new ways in the F2.",
+      "source": {
+        "section": "8.2.2",
+        "page": 131
+      },
+      "parallel_to": "HE-PRE-06",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-POST-07",
+      "concept_id": "chromosome_number_restoration",
+      "difficulty": "medium",
+      "question": "What happens to the chromosome number when two germ cells combine?",
+      "options": [
+        "It is halved",
+        "It becomes double the normal number",
+        "The normal number is restored in the progeny",
+        "It changes randomly"
+      ],
+      "answer_index": 2,
+      "explanation": "Each germ cell brings one set, so their union gives the offspring the usual two sets.",
+      "source": {
+        "section": "8.2.3",
+        "page": 132
+      },
+      "parallel_to": "HE-PRE-07",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-POST-08",
+      "concept_id": "sexual_reproduction",
+      "difficulty": "easy",
+      "question": "Each trait can be influenced by DNA from both the father and the mother. How many versions of each trait does a child therefore have?",
+      "options": [
+        "One",
+        "Two",
+        "Three",
+        "Four"
+      ],
+      "answer_index": 1,
+      "explanation": "One version comes from each parent, so a child has two versions of every trait.",
+      "source": {
+        "section": "8.2.2",
+        "page": 129
+      },
+      "parallel_to": "HE-PRE-08",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-POST-09",
+      "concept_id": "genetic_variation",
+      "difficulty": "easy",
+      "question": "According to the chapter, what forms the basis for evolutionary processes?",
+      "options": [
+        "Exact copying of DNA",
+        "All individuals surviving equally",
+        "A complete absence of variation",
+        "Environmental factors selecting among variants"
+      ],
+      "answer_index": 3,
+      "explanation": "Variants with useful differences survive better in their environment; this selection is what drives evolution.",
+      "source": {
+        "section": "8.1",
+        "page": 129
+      },
+      "parallel_to": "HE-PRE-09",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-POST-10",
+      "concept_id": "gene_definition",
+      "difficulty": "easy",
+      "question": "What is the information source for making proteins in a cell?",
+      "options": [
+        "Hormones",
+        "Cellular DNA",
+        "The cell membrane",
+        "Starch"
+      ],
+      "answer_index": 1,
+      "explanation": "The DNA in a cell holds the instructions used to make its proteins.",
+      "source": {
+        "section": "8.2.3",
+        "page": 131
+      },
+      "parallel_to": "HE-PRE-10",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-POST-11",
+      "concept_id": "dominant_recessive",
+      "difficulty": "hard",
+      "question": "A pea plant is tall. Which statement about its height factors must be true?",
+      "options": [
+        "Both factors are tall-type (TT)",
+        "It has at least one T factor",
+        "Both factors are short-type (tt)",
+        "It has exactly one T and one t (Tt)"
+      ],
+      "answer_index": 1,
+      "explanation": "TT and Tt plants are both tall, so a tall plant must carry at least one T, but we cannot tell which of the two it is from its height alone.",
+      "source": {
+        "section": "8.2.2",
+        "page": 130
+      },
+      "parallel_to": "HE-PRE-11",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-POST-12",
+      "concept_id": "monohybrid_ratio",
+      "difficulty": "hard",
+      "question": "Tall F1 plants from a tall x short cross self-pollinate and give 400 F2 plants. About how many would you expect to be TT?",
+      "options": [
+        "100",
+        "200",
+        "300",
+        "400"
+      ],
+      "answer_index": 0,
+      "explanation": "The F2 ratio TT:Tt:tt is 1:2:1, so a quarter of 400, about 100 plants, are TT.",
+      "source": {
+        "section": "8.2.2",
+        "page": 130
+      },
+      "parallel_to": "HE-PRE-12",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-POST-13",
+      "concept_id": "independent_assortment",
+      "difficulty": "hard",
+      "question": "F1 plants (RrYy) from a round/green x wrinkled/yellow cross self-pollinate. The F2 seeds fall into four types in roughly a 9:3:3:1 ratio. Which type is the smallest group?",
+      "options": [
+        "Round, yellow",
+        "Round, green",
+        "Wrinkled, yellow",
+        "Wrinkled, green"
+      ],
+      "answer_index": 3,
+      "explanation": "Wrinkled and green are both recessive, so seeds showing both are the rarest (32 of 556 in the chapter's figure).",
+      "source": {
+        "section": "8.2.2",
+        "page": 131
+      },
+      "parallel_to": "HE-PRE-13",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-POST-14",
+      "concept_id": "chromosome_number_restoration",
+      "difficulty": "hard",
+      "question": "What explains how two traits such as seed shape and seed colour can be inherited independently?",
+      "options": [
+        "Each gene set is a single long thread of DNA",
+        "Germ cells carry two complete gene sets",
+        "Genes blend together in the progeny",
+        "Each gene set exists as separate, independent pieces called chromosomes"
+      ],
+      "answer_index": 3,
+      "explanation": "Because genes sit on separate chromosomes and a germ cell picks one chromosome from each pair on its own, factors on different chromosomes are passed on independently.",
+      "source": {
+        "section": "8.2.3",
+        "page": 132
+      },
+      "parallel_to": "HE-PRE-14",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-POST-15",
+      "concept_id": "sex_determination",
+      "difficulty": "medium",
+      "question": "A child inherits a Y chromosome from the father. The child will be",
+      "options": [
+        "a girl",
+        "a boy",
+        "either, depending on the mother",
+        "either, depending on the temperature"
+      ],
+      "answer_index": 1,
+      "explanation": "Children always get an X from the mother; a Y from the father makes the child XY, a boy.",
+      "source": {
+        "section": "8.2.4",
+        "page": 132
+      },
+      "parallel_to": "HE-PRE-15",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    }
+  ]
+}

@@ -7,6 +7,7 @@ from app.db.models.experience import Experience
 from app.db.models.interaction import Interaction
 from app.db.models.learner import LearnerProfile
 from app.db.models.learning_session import LearningSession
+from app.db.models.parallel_test_item import ParallelTestItem
 from app.db.models.policy import Policy
 from app.db.models.recommendation import RecommendationEvent, RecommendationItem, RecommendationRun
 from app.db.models.runtime_configuration import RuntimeConfiguration
@@ -34,4 +35,5 @@ __all__ = [
     "LearnerTopicStrength",
     "ConceptEvent",
     "FormativeItem",
+    "ParallelTestItem",
 ]

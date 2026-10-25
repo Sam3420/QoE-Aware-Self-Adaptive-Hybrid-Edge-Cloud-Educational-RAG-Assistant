@@ -141,7 +141,8 @@ def test_returning_learner_always_gets_a_pretest_planned_from_history(runner, le
     # The two missed questions are re-checked; the rest are new questions generated into the bank.
     assert sorted(ids[:2]) == [0, 2]
     assert all(i >= 5 for i in ids[2:]) and len(ids) == 5
-    assert all("wrong last time" in i["reason"] for i in pause["items"][:2])
+    assert all("similar question on the same idea" in i["reason"] for i in pause["items"][:2])
+    assert not any("got this wrong" in i["reason"] for i in pause["items"])  # no claim about the exact question
     assert all(i["reason"].startswith("New question") for i in pause["items"][2:])
 
 

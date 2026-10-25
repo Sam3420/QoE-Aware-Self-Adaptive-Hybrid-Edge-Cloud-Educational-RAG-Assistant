@@ -1,0 +1,51 @@
+{
+  "topic_id": "heredity",
+  "title": "Heredity",
+  "class": 10,
+  "subject": "Science (Biology)",
+  "chapter": 8,
+  "package_version": "0.1.0-draft",
+  "review_status": "pending",
+  "source": {
+    "publisher": "NCERT",
+    "book": "Science, Textbook for Class X",
+    "file": "jesc108.pdf",
+    "edition": "Reprint 2026-27",
+    "pages": [
+      128,
+      133
+    ],
+    "sha256": "b0357c0bcc860190c9d3dccc7c91ee31a65012442e795be5bc00cd9f621bff5b",
+    "extracted_with": "pypdf 6.21.2 via scripts/extract_chapter_text.py (p.130 retried with a larger parsing budget)",
+    "local_text": "knowledge_prep/packages/heredity/chapter.txt (gitignored, not committed)"
+  },
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T11:16:53+00:00",
+  "files": [
+    "concepts.json",
+    "pretest.json",
+    "posttest.json",
+    "formative.json",
+    "videos.json",
+    "validation.json"
+  ],
+  "local_only_files": [
+    "chapter.txt",
+    "evidence.local.json"
+  ],
+  "counts": {
+    "concepts": 8,
+    "pretest": 15,
+    "posttest": 15,
+    "formative": 24
+  },
+  "copyright": "The NCERT PDF pages carry '(c) NCERT not to be republished'. Committed files hold section/page references only; the verbatim evidence excerpts (evidence.local.json) and the chapter text (chapter.txt) stay local and are gitignored, pending mentor confirmation. Use in a research evaluation and any public release still need checking with the mentor/NCERT.",
+  "notes": [
+    "Concept ids keep the five ids already used by concept-tracker rows (sexual_reproduction, genetic_variation, gene_definition, independent_assortment, sex_determination), plus three ids from the earlier draft vocabulary (dominant_recessive, monohybrid_ratio, chromosome_number_restoration). asexual_reproduction and dihybrid_ratio are dropped: asexual reproduction belongs to Chapter 7, and the dihybrid ratio is covered under independent_assortment.",
+    "The id sexual_reproduction is kept for compatibility with existing tracker rows although the concept is now named 'Inheritance from both parents'.",
+    "The Mendel figure labelled 'Figure 9.5' in the PDF is the Figure 8.5 dihybrid cross; HE-POST-13, HE-FRM-13 and HE-FRM-14 use its seed counts.",
+    "Pre/post questions are ordered so that the first five cover five different concepts: a new learner is shown PRETEST_ITEMS questions (default MCQ_N_ITEMS = 5); the full 15-question bank is kept for experiments.",
+    "Each post-test question is stored apart from the bank (parallel_test_items), paired by parallel_to with its pre-test question, and read only when a post-test begins.",
+    "Blind LLM cross-checks (answer keys, concept tags) are INCOMPLETE: the Groq API key was rejected (HTTP 401) when this package was built."
+  ]
+}

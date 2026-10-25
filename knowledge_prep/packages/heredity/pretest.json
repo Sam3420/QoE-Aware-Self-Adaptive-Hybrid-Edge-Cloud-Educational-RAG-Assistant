@@ -1,0 +1,369 @@
+{
+  "topic_id": "heredity",
+  "kind": "pretest",
+  "status": "pending_review",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T11:16:53+00:00",
+  "items": [
+    {
+      "id": "HE-PRE-01",
+      "concept_id": "dominant_recessive",
+      "difficulty": "easy",
+      "question": "A pea plant carries one 'T' factor and one 't' factor (Tt). What height will it be?",
+      "options": [
+        "Short",
+        "Medium height",
+        "Tall",
+        "It cannot be predicted"
+      ],
+      "answer_index": 2,
+      "explanation": "One T is enough for tallness, so Tt plants are tall just like TT plants; only tt plants are short.",
+      "source": {
+        "section": "8.2.2",
+        "page": 130
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-PRE-02",
+      "concept_id": "sex_determination",
+      "difficulty": "easy",
+      "question": "Which pair of sex chromosomes does a human female have?",
+      "options": [
+        "XY",
+        "XX",
+        "YY",
+        "A single X"
+      ],
+      "answer_index": 1,
+      "explanation": "Women have a matched pair of sex chromosomes, both X; men have one X and one shorter Y.",
+      "source": {
+        "section": "8.2.4",
+        "page": 132
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-PRE-03",
+      "concept_id": "genetic_variation",
+      "difficulty": "medium",
+      "question": "One bacterium divides, and both daughter cells divide again. Why do the four bacteria differ only very slightly?",
+      "options": [
+        "They were produced by sexual reproduction",
+        "The environment rewrote their DNA",
+        "Each received genes from two parents",
+        "Small errors happen when DNA is copied"
+      ],
+      "answer_index": 3,
+      "explanation": "In asexual reproduction the only source of difference is the occasional mistake made while copying DNA, so the offspring are nearly identical.",
+      "source": {
+        "section": "8.1",
+        "page": 128
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-PRE-04",
+      "concept_id": "gene_definition",
+      "difficulty": "medium",
+      "question": "According to the chapter, how can a gene control the height of a plant?",
+      "options": [
+        "By building the stem directly",
+        "By carrying information for an enzyme that affects how much growth hormone is made",
+        "By deciding how much water the roots absorb",
+        "By changing the number of chromosomes in the plant"
+      ],
+      "answer_index": 1,
+      "explanation": "A gene codes for a protein. If that protein is an enzyme in the pathway that makes a growth hormone, its efficiency decides the hormone level and therefore the height.",
+      "source": {
+        "section": "8.2.3",
+        "page": 131
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-PRE-05",
+      "concept_id": "monohybrid_ratio",
+      "difficulty": "medium",
+      "question": "Mendel let the tall F1 plants from a tall x short cross self-pollinate. What did he find in the F2 generation?",
+      "options": [
+        "Every plant was tall",
+        "Every plant was of medium height",
+        "About a quarter of the plants were short",
+        "Exactly half of the plants were short"
+      ],
+      "answer_index": 2,
+      "explanation": "Shortness reappeared in roughly one in four F2 plants, showing it had been carried, hidden, by the F1 plants.",
+      "source": {
+        "section": "8.2.2",
+        "page": 130
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-PRE-06",
+      "concept_id": "independent_assortment",
+      "difficulty": "medium",
+      "question": "Tall plants with round seeds are crossed with short plants with wrinkled seeds. In the F2, some plants are tall but have wrinkled seeds. What does this show?",
+      "options": [
+        "Height and seed shape are inherited independently of each other",
+        "Wrinkled seeds are dominant",
+        "Height and seed shape are always passed on together",
+        "A mutation occurred in the F1 plants"
+      ],
+      "answer_index": 0,
+      "explanation": "A combination that neither parent had can only appear if the factors for height and for seed shape are sorted separately.",
+      "source": {
+        "section": "8.2.2",
+        "page": 131
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-PRE-07",
+      "concept_id": "chromosome_number_restoration",
+      "difficulty": "medium",
+      "question": "How many sets of genes does each germ cell carry?",
+      "options": [
+        "Two",
+        "Four",
+        "None",
+        "One"
+      ],
+      "answer_index": 3,
+      "explanation": "Body cells carry two gene sets, one from each parent; a germ cell carries only one so that fertilisation brings the total back to two.",
+      "source": {
+        "section": "8.2.3",
+        "page": 131
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-PRE-08",
+      "concept_id": "sexual_reproduction",
+      "difficulty": "easy",
+      "question": "How much genetic material do the father and the mother each contribute to a child?",
+      "options": [
+        "Practically equal amounts",
+        "Most of it comes from the father",
+        "Most of it comes from the mother",
+        "Only the mother contributes"
+      ],
+      "answer_index": 0,
+      "explanation": "Both parents give almost the same amount of genetic material, which is why any trait can be shaped by DNA from either side.",
+      "source": {
+        "section": "8.2.2",
+        "page": 129
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-PRE-09",
+      "concept_id": "genetic_variation",
+      "difficulty": "easy",
+      "question": "In which of these would you expect to see the least variation among individuals?",
+      "options": [
+        "A class of students",
+        "A litter of puppies",
+        "A group of human siblings",
+        "A field of sugarcane"
+      ],
+      "answer_index": 3,
+      "explanation": "Sugarcane plants in a field differ very little from one another, whereas sexually reproducing animals such as humans show clear differences.",
+      "source": {
+        "section": "8.1",
+        "page": 128
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-PRE-10",
+      "concept_id": "gene_definition",
+      "difficulty": "easy",
+      "question": "What is a section of DNA that carries the information for one protein called?",
+      "options": [
+        "A chromosome",
+        "A germ cell",
+        "A gene",
+        "A hormone"
+      ],
+      "answer_index": 2,
+      "explanation": "A gene is the stretch of DNA holding the instructions for one particular protein; a chromosome is a much larger piece of DNA containing many genes.",
+      "source": {
+        "section": "8.2.3",
+        "page": 131
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-PRE-11",
+      "concept_id": "dominant_recessive",
+      "difficulty": "hard",
+      "question": "All F1 plants from a tall x short cross are tall, yet some F2 plants are short. What does this tell us about the F1 plants?",
+      "options": [
+        "They carried only the factor for tallness",
+        "They carried factors for both tallness and shortness, but only tallness showed",
+        "Shortness appeared because of a new mutation",
+        "The factor for tallness was lost in the F1"
+      ],
+      "answer_index": 1,
+      "explanation": "Shortness could only come back in the F2 if the F1 plants carried it; it was hidden because tallness is dominant over it.",
+      "source": {
+        "section": "8.2.2",
+        "page": 130
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-PRE-12",
+      "concept_id": "monohybrid_ratio",
+      "difficulty": "hard",
+      "question": "In the F2 generation of Mendel's tall x short cross, what fraction of the plants are tall?",
+      "options": [
+        "Three quarters",
+        "One quarter",
+        "One half",
+        "All of them"
+      ],
+      "answer_index": 0,
+      "explanation": "One quarter are short (tt), so the other three quarters (TT and Tt) are tall.",
+      "source": {
+        "section": "8.2.2",
+        "page": 130
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-PRE-13",
+      "concept_id": "independent_assortment",
+      "difficulty": "hard",
+      "question": "If each parent passed on its genes as one single, whole unit, why would the round/green x wrinkled/yellow seed experiment not give new combinations?",
+      "options": [
+        "Seed colour would always be green",
+        "Dominant traits would disappear",
+        "The number of chromosomes would double",
+        "R and y would stay linked and could not be inherited separately"
+      ],
+      "answer_index": 3,
+      "explanation": "Independent inheritance needs the factors for shape and colour to travel separately; if a whole gene set moved as one unit, R would always go with y.",
+      "source": {
+        "section": "8.2.3",
+        "page": 131
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-PRE-14",
+      "concept_id": "chromosome_number_restoration",
+      "difficulty": "hard",
+      "question": "A body cell has two copies of every chromosome. Which statement about the chromosomes in a germ cell is correct?",
+      "options": [
+        "It takes both chromosomes of every pair",
+        "It takes only the chromosomes that came from the father",
+        "It takes one chromosome of each pair, which may be of maternal or paternal origin",
+        "It takes only the chromosomes that came from the mother"
+      ],
+      "answer_index": 2,
+      "explanation": "From each pair a germ cell receives just one chromosome, and for any pair it may be the mother's copy or the father's.",
+      "source": {
+        "section": "8.2.3",
+        "page": 132
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HE-PRE-15",
+      "concept_id": "sex_determination",
+      "difficulty": "medium",
+      "question": "In human beings, what decides whether a child will be a boy or a girl?",
+      "options": [
+        "The temperature during early development",
+        "Whether the child inherits an X or a Y from the father",
+        "Which chromosome the child inherits from the mother",
+        "The mother's diet during pregnancy"
+      ],
+      "answer_index": 1,
+      "explanation": "Every child gets an X from the mother, so the father's contribution decides: X gives a girl, Y gives a boy.",
+      "source": {
+        "section": "8.2.4",
+        "page": 132
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    }
+  ]
+}

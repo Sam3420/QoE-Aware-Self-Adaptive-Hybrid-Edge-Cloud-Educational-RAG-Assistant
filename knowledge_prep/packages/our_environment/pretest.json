@@ -1,0 +1,369 @@
+{
+  "topic_id": "our_environment",
+  "kind": "pretest",
+  "status": "pending_review",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T11:20:29+00:00",
+  "items": [
+    {
+      "id": "OE-PRE-01",
+      "concept_id": "ecosystem_definition",
+      "difficulty": "easy",
+      "question": "What does an ecosystem consist of?",
+      "options": [
+        "All the interacting organisms of an area together with the non-living parts of their environment",
+        "Only the plants and animals of an area",
+        "Only physical factors such as soil, wind and rainfall",
+        "Only human-made places such as gardens"
+      ],
+      "answer_index": 0,
+      "explanation": "An ecosystem includes both its living (biotic) members and its non-living (abiotic) factors, which interact.",
+      "source": {
+        "section": "13.1",
+        "page": 208
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-PRE-02",
+      "concept_id": "producers",
+      "difficulty": "easy",
+      "question": "Which organisms are called producers?",
+      "options": [
+        "Animals that eat plants",
+        "Green plants and certain bacteria that make food by photosynthesis",
+        "Fungi that break down dead remains",
+        "Animals that eat other animals"
+      ],
+      "answer_index": 1,
+      "explanation": "Producers make their own food from inorganic substances using sunlight; every other organism depends on them.",
+      "source": {
+        "section": "13.1",
+        "page": 209
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-PRE-03",
+      "concept_id": "trophic_levels",
+      "difficulty": "easy",
+      "question": "At which trophic level are the producers (autotrophs) found?",
+      "options": [
+        "Second",
+        "Third",
+        "First",
+        "Fourth"
+      ],
+      "answer_index": 2,
+      "explanation": "A food chain starts with the producers, which form the first trophic level.",
+      "source": {
+        "section": "13.1.1",
+        "page": 210
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-PRE-04",
+      "concept_id": "ozone_layer",
+      "difficulty": "easy",
+      "question": "How many oxygen atoms make up one molecule of ozone?",
+      "options": [
+        "Two",
+        "One",
+        "Four",
+        "Three"
+      ],
+      "answer_index": 3,
+      "explanation": "Ozone is O3, three oxygen atoms; the oxygen we breathe is O2.",
+      "source": {
+        "section": "13.2.1",
+        "page": 212
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-PRE-05",
+      "concept_id": "biodegradable_waste",
+      "difficulty": "easy",
+      "question": "What are substances that can be broken down by biological processes called?",
+      "options": [
+        "Biodegradable",
+        "Non-biodegradable",
+        "Inert",
+        "Synthetic"
+      ],
+      "answer_index": 0,
+      "explanation": "If living things such as bacteria can break a substance down, it is biodegradable.",
+      "source": {
+        "section": "13.2.2",
+        "page": 214
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-PRE-06",
+      "concept_id": "ten_percent_law",
+      "difficulty": "medium",
+      "question": "On average, what percentage of the food eaten at one trophic level becomes body mass available to the next level?",
+      "options": [
+        "1%",
+        "10%",
+        "50%",
+        "90%"
+      ],
+      "answer_index": 1,
+      "explanation": "Most energy is lost as heat or used for digestion and work, so only about a tenth is passed on.",
+      "source": {
+        "section": "13.1.1",
+        "page": 210
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-PRE-07",
+      "concept_id": "biological_magnification",
+      "difficulty": "medium",
+      "question": "Why do pesticides build up at each trophic level of a food chain?",
+      "options": [
+        "They break down quickly at every level",
+        "Plants use them as a source of energy",
+        "They are not degradable, so they accumulate progressively",
+        "Decomposers produce more of them"
+      ],
+      "answer_index": 2,
+      "explanation": "Because these chemicals are not broken down, each feeder keeps what was in its food, so concentrations rise up the chain.",
+      "source": {
+        "section": "13.1.1",
+        "page": 212
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-PRE-08",
+      "concept_id": "consumers",
+      "difficulty": "medium",
+      "question": "Consumers are organisms that",
+      "options": [
+        "make their own food using sunlight",
+        "break dead remains down into inorganic substances",
+        "only take up minerals from the soil",
+        "eat food made by producers, either directly or by feeding on other consumers"
+      ],
+      "answer_index": 3,
+      "explanation": "Consumers cannot make their own food; they rely on producers, directly or through other consumers.",
+      "source": {
+        "section": "13.1",
+        "page": 209
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-PRE-09",
+      "concept_id": "decomposers",
+      "difficulty": "medium",
+      "question": "What do decomposers do in an ecosystem?",
+      "options": [
+        "Break complex organic substances in dead remains into simple inorganic substances",
+        "Make food by photosynthesis",
+        "Feed only on living plants",
+        "Produce ozone in the atmosphere"
+      ],
+      "answer_index": 0,
+      "explanation": "Decomposers return the materials locked in dead organisms and wastes to the soil in a simple form.",
+      "source": {
+        "section": "13.1",
+        "page": 209
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-PRE-10",
+      "concept_id": "food_web",
+      "difficulty": "medium",
+      "question": "Why are feeding relationships in an ecosystem usually shown as a food web rather than as one straight chain?",
+      "options": [
+        "Energy flows backwards from consumers to producers",
+        "Most organisms are eaten by two or more kinds of organisms, so the links branch",
+        "Every food chain has only one step",
+        "Producers feed on consumers"
+      ],
+      "answer_index": 1,
+      "explanation": "Since organisms usually have several predators and prey, the chains cross and branch into a web.",
+      "source": {
+        "section": "13.1.1",
+        "page": 210
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-PRE-11",
+      "concept_id": "trophic_levels",
+      "difficulty": "hard",
+      "question": "In the food chain grass -> grasshopper -> frog -> snake, which trophic level does the frog occupy?",
+      "options": [
+        "Second (primary consumer)",
+        "First (producer)",
+        "Third (secondary consumer)",
+        "Fourth (tertiary consumer)"
+      ],
+      "answer_index": 2,
+      "explanation": "Grass is first, the plant-eating grasshopper second, and the frog, a small carnivore eating the herbivore, third.",
+      "source": {
+        "section": "13.1.1",
+        "page": 210
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-PRE-12",
+      "concept_id": "ten_percent_law",
+      "difficulty": "hard",
+      "question": "The producers in a food chain hold 10,000 J of energy. Using the 10 percent law, about how much reaches the secondary consumers?",
+      "options": [
+        "1,000 J",
+        "10 J",
+        "10,000 J",
+        "100 J"
+      ],
+      "answer_index": 3,
+      "explanation": "About 10% passes each step: 10,000 J to 1,000 J for the herbivores, then 100 J for the secondary consumers.",
+      "source": {
+        "section": "13.1.1",
+        "page": 210
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-PRE-13",
+      "concept_id": "biological_magnification",
+      "difficulty": "hard",
+      "question": "Why do human beings usually carry the highest concentration of pesticide residues among the organisms in a food chain?",
+      "options": [
+        "Humans are at the top of food chains, where these chemicals have accumulated most",
+        "Humans eat less food than other animals",
+        "Humans absorb pesticides from the ozone layer",
+        "Human enzymes produce pesticides"
+      ],
+      "answer_index": 0,
+      "explanation": "Concentrations increase at each trophic level, and humans feed at the top level.",
+      "source": {
+        "section": "13.1.1",
+        "page": 212
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-PRE-14",
+      "concept_id": "ozone_layer",
+      "difficulty": "medium",
+      "question": "Which chemicals have been linked to the fall in the amount of ozone in the atmosphere?",
+      "options": [
+        "Oxygen (O2)",
+        "Chlorofluorocarbons (CFCs)",
+        "Carbon dioxide from respiration",
+        "Pesticides"
+      ],
+      "answer_index": 1,
+      "explanation": "CFCs, used as refrigerants and in fire extinguishers, were linked to the sharp drop in ozone from the 1980s.",
+      "source": {
+        "section": "13.2.1",
+        "page": 213
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "OE-PRE-15",
+      "concept_id": "biodegradable_waste",
+      "difficulty": "medium",
+      "question": "Why are many human-made materials such as plastics not broken down by bacteria?",
+      "options": [
+        "Plastics are too hot for bacteria",
+        "Bacteria are killed by sunlight",
+        "Enzymes are specific, and none of their enzymes can break these materials down",
+        "Plastics are biodegradable"
+      ],
+      "answer_index": 2,
+      "explanation": "Each enzyme acts only on particular substances; bacteria and other saprophytes lack enzymes that act on most plastics, so these persist.",
+      "source": {
+        "section": "13.2.2",
+        "page": 214
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    }
+  ]
+}

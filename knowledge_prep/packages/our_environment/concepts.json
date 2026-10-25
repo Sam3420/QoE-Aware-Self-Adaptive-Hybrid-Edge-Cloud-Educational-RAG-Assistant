@@ -1,0 +1,216 @@
+{
+  "topic_id": "our_environment",
+  "status": "draft",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T11:20:29+00:00",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "concepts": [
+    {
+      "id": "ecosystem_definition",
+      "name": "Ecosystem and its components",
+      "description": "An ecosystem is all the interacting organisms of an area (biotic components) together with its non-living physical factors (abiotic components); forests, ponds and lakes are natural, gardens, crop-fields and aquaria human-made.",
+      "aliases": [
+        "ecosystem",
+        "biotic",
+        "abiotic",
+        "natural ecosystem",
+        "artificial ecosystem",
+        "aquarium",
+        "garden"
+      ],
+      "evidence": "NCERT Class 10 Science §13.1, p.208-209 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "13.1",
+        "pages": [
+          208,
+          209
+        ]
+      }
+    },
+    {
+      "id": "producers",
+      "name": "Producers",
+      "description": "Green plants and certain bacteria make organic compounds from inorganic substances by photosynthesis, fixing the Sun's energy for the rest of the ecosystem.",
+      "aliases": [
+        "producers",
+        "producer",
+        "autotrophs",
+        "green plants",
+        "photosynthesis",
+        "chlorophyll"
+      ],
+      "evidence": "NCERT Class 10 Science §13.1, p.209 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "13.1",
+        "pages": [
+          209,
+          209
+        ]
+      }
+    },
+    {
+      "id": "consumers",
+      "name": "Consumers",
+      "description": "Organisms that consume food made by producers, directly or by feeding on other consumers; classed as herbivores, carnivores, omnivores and parasites.",
+      "aliases": [
+        "consumers",
+        "herbivores",
+        "carnivores",
+        "omnivores",
+        "parasites"
+      ],
+      "evidence": "NCERT Class 10 Science §13.1, p.209 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "13.1",
+        "pages": [
+          209,
+          209
+        ]
+      }
+    },
+    {
+      "id": "decomposers",
+      "name": "Decomposers",
+      "description": "Microorganisms (bacteria and fungi) break down dead remains and wastes from complex organic into simple inorganic substances that return to the soil for plants.",
+      "aliases": [
+        "decomposers",
+        "bacteria and fungi",
+        "dead remains",
+        "replenishment"
+      ],
+      "evidence": "NCERT Class 10 Science §13.1, p.209 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "13.1",
+        "pages": [
+          209,
+          209
+        ]
+      }
+    },
+    {
+      "id": "trophic_levels",
+      "name": "Food chains and trophic levels",
+      "description": "Each step of a food chain is a trophic level: producers first, herbivores (primary consumers) second, small carnivores (secondary) third, large carnivores (tertiary) fourth; lower levels have more individuals.",
+      "aliases": [
+        "trophic level",
+        "trophic levels",
+        "primary consumers",
+        "secondary consumers",
+        "tertiary consumers"
+      ],
+      "evidence": "NCERT Class 10 Science §13.1.1, p.210 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "13.1.1",
+        "pages": [
+          210,
+          210
+        ]
+      }
+    },
+    {
+      "id": "ten_percent_law",
+      "name": "Energy flow and the 10 percent law",
+      "description": "Plants capture about 1% of sunlight as food energy; about 10% of the food at one level reaches the next, so energy flow is unidirectional, diminishes at each level and limits chains to three or four steps.",
+      "aliases": [
+        "10%",
+        "ten percent",
+        "energy flow",
+        "lost as heat",
+        "unidirectional",
+        "1%",
+        "three or four steps"
+      ],
+      "evidence": "NCERT Class 10 Science §13.1.1, p.210-211 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "13.1.1",
+        "pages": [
+          210,
+          211
+        ]
+      }
+    },
+    {
+      "id": "food_web",
+      "name": "Food webs",
+      "description": "Because each organism is usually eaten by two or more kinds of organisms, feeding relationships form branching lines, a food web of many interconnected food chains.",
+      "aliases": [
+        "food web",
+        "branching lines",
+        "many food chains"
+      ],
+      "evidence": "NCERT Class 10 Science §13.1.1, p.210-211 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "13.1.1",
+        "pages": [
+          210,
+          211
+        ]
+      }
+    },
+    {
+      "id": "biological_magnification",
+      "name": "Biological magnification",
+      "description": "Non-degradable chemicals such as pesticides enter food chains from soil and water and accumulate progressively at each trophic level, reaching the highest concentration in humans at the top.",
+      "aliases": [
+        "biological magnification",
+        "pesticides",
+        "pesticide residues",
+        "accumulated",
+        "harmful chemicals"
+      ],
+      "evidence": "NCERT Class 10 Science §13.1.1, p.211-212 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "13.1.1",
+        "pages": [
+          211,
+          212
+        ]
+      }
+    },
+    {
+      "id": "ozone_layer",
+      "name": "Ozone layer and its depletion",
+      "description": "Ozone (O3), formed when UV radiation splits O2, shields the Earth from the Sun's UV radiation in the upper atmosphere; CFCs have depleted it, and a 1987 UNEP agreement froze CFC production.",
+      "aliases": [
+        "ozone",
+        "ozone layer",
+        "UV radiation",
+        "ultraviolet",
+        "CFCs",
+        "chlorofluorocarbons",
+        "UNEP"
+      ],
+      "evidence": "NCERT Class 10 Science §13.2.1, p.212-213 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "13.2.1",
+        "pages": [
+          212,
+          213
+        ]
+      }
+    },
+    {
+      "id": "biodegradable_waste",
+      "name": "Biodegradable and non-biodegradable substances",
+      "description": "Substances broken down by biological processes are biodegradable; others, such as many plastics that enzymes cannot act on, are non-biodegradable and persist or harm the ecosystem; managing the garbage we produce.",
+      "aliases": [
+        "biodegradable",
+        "non-biodegradable",
+        "plastics",
+        "garbage",
+        "waste",
+        "disposable",
+        "packaging"
+      ],
+      "evidence": "NCERT Class 10 Science §13.2.2, p.213-215 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "13.2.2",
+        "pages": [
+          213,
+          215
+        ]
+      }
+    }
+  ]
+}

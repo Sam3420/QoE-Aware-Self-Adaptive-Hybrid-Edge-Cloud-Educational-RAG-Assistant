@@ -1,0 +1,606 @@
+{
+  "topic_id": "our_environment",
+  "status": "pending_review",
+  "generated_at": "2026-10-25T11:21:47+00:00",
+  "method": {
+    "source": "YouTube Data API v3 (search.list, videos.list) + youtube-transcript-api (en)",
+    "queries": [
+      "Our Environment class 10",
+      "food chain ten percent law class 10",
+      "ozone layer depletion class 10",
+      "biodegradable non-biodegradable waste class 10",
+      "biological magnification class 10"
+    ],
+    "duration_s": [
+      180,
+      2700
+    ],
+    "coverage": "lexical: concept name/alias mentioned >= 2 times in the transcript",
+    "embedding_coverage": "not run: Ollama (nomic-embed-text) unavailable; matching.video_coverage must be run before relying on coverage",
+    "transcript_text_stored": false
+  },
+  "concepts_covered": [
+    "biodegradable_waste",
+    "biological_magnification",
+    "consumers",
+    "decomposers",
+    "ecosystem_definition",
+    "food_web",
+    "ozone_layer",
+    "producers",
+    "ten_percent_law",
+    "trophic_levels"
+  ],
+  "concepts_not_covered": [],
+  "candidates": [
+    {
+      "video_id": "ovRADKfYgkE",
+      "url": "https://www.youtube.com/watch?v=ovRADKfYgkE",
+      "title": "class 10 Our Environment Full chapter in Animation  | CBSE Class 10 Biology ch 13 | NCERT Science",
+      "channel_title": "Grade booster",
+      "channel_id": "UCj1KaZtIXFBdc35sAVZzbLQ",
+      "published_at": "2024-01-24T14:30:12+00:00",
+      "duration_s": 1193,
+      "search_query": "Our Environment class 10",
+      "search_rank": 4,
+      "api_caption_flag": false,
+      "default_audio_language": "en",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 2665,
+        "checked_at": "2026-10-25T11:21:13+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "ecosystem_definition",
+          "method": "lexical",
+          "mentions": {
+            "ecosystem": 12,
+            "biotic": 4,
+            "abiotic": 3,
+            "natural ecosystem": 1
+          }
+        },
+        {
+          "concept_id": "producers",
+          "method": "lexical",
+          "mentions": {
+            "producers": 4,
+            "producer": 1,
+            "green plants": 1,
+            "chlorophyll": 1
+          }
+        },
+        {
+          "concept_id": "consumers",
+          "method": "lexical",
+          "mentions": {
+            "consumers": 11,
+            "herbivores": 3,
+            "carnivores": 2,
+            "omnivores": 2
+          }
+        },
+        {
+          "concept_id": "decomposers",
+          "method": "lexical",
+          "mentions": {
+            "decomposers": 2,
+            "bacteria and fungi": 1,
+            "dead remains": 2
+          }
+        },
+        {
+          "concept_id": "trophic_levels",
+          "method": "lexical",
+          "mentions": {
+            "trophic level": 2,
+            "primary consumers": 3,
+            "secondary consumers": 3,
+            "tertiary consumers": 1
+          }
+        },
+        {
+          "concept_id": "food_web",
+          "method": "lexical",
+          "mentions": {
+            "food webs": 2,
+            "food web": 3,
+            "many food chains": 1
+          }
+        },
+        {
+          "concept_id": "biological_magnification",
+          "method": "lexical",
+          "mentions": {
+            "biological magnification": 5,
+            "pesticides": 13,
+            "pesticide residues": 3,
+            "accumulated": 1
+          }
+        },
+        {
+          "concept_id": "ozone_layer",
+          "method": "lexical",
+          "mentions": {
+            "ozone": 18,
+            "ozone layer": 6,
+            "uv radiation": 3,
+            "cfcs": 1,
+            "unep": 1
+          }
+        },
+        {
+          "concept_id": "biodegradable_waste",
+          "method": "lexical",
+          "mentions": {
+            "biodegradable": 9,
+            "non biodegradable": 5,
+            "plastics": 1,
+            "garbage": 5,
+            "waste": 10,
+            "disposable": 2
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "video_id": "1z6hrVdDDb4",
+      "url": "https://www.youtube.com/watch?v=1z6hrVdDDb4",
+      "title": "Energy flow in food chains & webs | Our environment | Class 10 EVS | Khan Academy",
+      "channel_title": "Khan Academy India - English",
+      "channel_id": "UCg4BkaHyyE_4-RvEMJ2PTtA",
+      "published_at": "2023-09-13T10:56:42+00:00",
+      "duration_s": 456,
+      "search_query": "food chain ten percent law class 10",
+      "search_rank": 5,
+      "api_caption_flag": false,
+      "default_audio_language": "en",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 1334,
+        "checked_at": "2026-10-25T11:21:22+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "producers",
+          "method": "lexical",
+          "mentions": {
+            "producers": 12,
+            "photosynthesis": 1
+          }
+        },
+        {
+          "concept_id": "consumers",
+          "method": "lexical",
+          "mentions": {
+            "consumers": 14,
+            "herbivores": 3,
+            "carnivores": 6
+          }
+        },
+        {
+          "concept_id": "decomposers",
+          "method": "lexical",
+          "mentions": {
+            "decomposers": 2
+          }
+        },
+        {
+          "concept_id": "trophic_levels",
+          "method": "lexical",
+          "mentions": {
+            "primary consumers": 6,
+            "secondary consumers": 4,
+            "tertiary consumers": 3
+          }
+        },
+        {
+          "concept_id": "ten_percent_law",
+          "method": "lexical",
+          "mentions": {
+            "ten percent": 1,
+            "energy flow": 1
+          }
+        },
+        {
+          "concept_id": "food_web",
+          "method": "lexical",
+          "mentions": {
+            "food web": 2
+          }
+        },
+        {
+          "concept_id": "biological_magnification",
+          "method": "lexical",
+          "mentions": {
+            "biological magnification": 2,
+            "pesticides": 11
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Labelled 'Class 10 EVS' (Khan Academy India), not NCERT-specific: check it matches the chapter."
+      }
+    },
+    {
+      "video_id": "n7sTD5G0o1g",
+      "url": "https://www.youtube.com/watch?v=n7sTD5G0o1g",
+      "title": "Ten Percent Law",
+      "channel_title": "Rachna Sagar",
+      "channel_id": "UCZLEQGHOYxnXIgufyK0EATQ",
+      "published_at": "2021-02-18T12:21:20+00:00",
+      "duration_s": 211,
+      "search_query": "food chain ten percent law class 10",
+      "search_rank": 1,
+      "api_caption_flag": false,
+      "default_audio_language": "en",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 445,
+        "checked_at": "2026-10-25T11:21:18+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "producers",
+          "method": "lexical",
+          "mentions": {
+            "producers": 1,
+            "green plants": 1
+          }
+        },
+        {
+          "concept_id": "consumers",
+          "method": "lexical",
+          "mentions": {
+            "consumers": 2
+          }
+        },
+        {
+          "concept_id": "trophic_levels",
+          "method": "lexical",
+          "mentions": {
+            "trophic level": 9,
+            "trophic levels": 2
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "video_id": "llriOtqt11o",
+      "url": "https://www.youtube.com/watch?v=llriOtqt11o",
+      "title": "Class 10 Biology Chapter 15 | Ozone Layer and How It is Getting Depleted-Our Environment",
+      "channel_title": "Magnet Brains",
+      "channel_id": "UC3HS6gQ79jjn4xHxogw0HiA",
+      "published_at": "2020-08-31T15:30:11+00:00",
+      "duration_s": 1022,
+      "search_query": "ozone layer depletion class 10",
+      "search_rank": 0,
+      "api_caption_flag": false,
+      "default_audio_language": "hi",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 443,
+        "checked_at": "2026-10-25T11:21:24+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "ozone_layer",
+          "method": "lexical",
+          "mentions": {
+            "ozone": 8,
+            "ozone layer": 5,
+            "uv radiation": 2,
+            "ultraviolet": 1
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Edition mismatch: the title uses an older NCERT chapter number ('Chapter 15'); current Reprint 2026-27 numbering is Chapter 13. Check the content matches the current chapter."
+      }
+    },
+    {
+      "video_id": "ckULkfv3Hb0",
+      "url": "https://www.youtube.com/watch?v=ckULkfv3Hb0",
+      "title": "What Is The Ozone Layer? | Ozone Layer Depletion | Dr Binocs Show |Kids Learning Video|Peekaboo Kidz",
+      "channel_title": "Peekaboo Kidz",
+      "channel_id": "UCxlJ45KjG4XVcQ_hd8j227A",
+      "published_at": "2019-12-27T13:39:11+00:00",
+      "duration_s": 409,
+      "search_query": "ozone layer depletion class 10",
+      "search_rank": 1,
+      "api_caption_flag": false,
+      "default_audio_language": "en",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 756,
+        "checked_at": "2026-10-25T11:21:26+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "ozone_layer",
+          "method": "lexical",
+          "mentions": {
+            "ozone": 13,
+            "ozone layer": 11,
+            "ultraviolet": 1,
+            "cfcs": 1,
+            "chlorofluorocarbons": 1
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Audience level: a children's show; check it suits Class 10."
+      }
+    }
+  ],
+  "examined": [
+    {
+      "video_id": "fKZDHRTbu8Q",
+      "title": "Our Environment Complete Chapter🔥|Class 10 Science| NCERT covered| Prashant Kirad",
+      "search_query": "Our Environment class 10",
+      "search_rank": 0,
+      "rejected": "duration 3596 s outside 180-2700 s"
+    },
+    {
+      "video_id": "OWohRoKvmlU",
+      "title": "Our Environment Complete Chapter Abhay Batch (2025) CLASS 10",
+      "search_query": "Our Environment class 10",
+      "search_rank": 1,
+      "rejected": "duration 6224 s outside 180-2700 s"
+    },
+    {
+      "video_id": "OS69CcCrvf0",
+      "title": "Our Environment In ONE SHOT | Class 10 Science Chapter 13 (Theory + PYQs) | Samridhi Sharma",
+      "search_query": "Our Environment class 10",
+      "search_rank": 2,
+      "rejected": "duration 4640 s outside 180-2700 s"
+    },
+    {
+      "video_id": "WGdQZoMYSjk",
+      "title": "Our Environment in 15 Minutes🔥| Class 10th | Rapid Revision | Prashant Kirad",
+      "search_query": "Our Environment class 10",
+      "search_rank": 3,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "cxNs6EnXLOU",
+      "title": "Our Environment full chapter (Animation) | Class 10 Science chapter 14 | CBSE | NCERT",
+      "search_query": "Our Environment class 10",
+      "search_rank": 5,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "um-_3SuqAvY",
+      "title": "JKBOSE Class 10th Biology | Our Environment | ONE SHOT Series 🎯 | JKBOSE Wallah",
+      "search_query": "Our Environment class 10",
+      "search_rank": 6,
+      "rejected": "duration 4983 s outside 180-2700 s"
+    },
+    {
+      "video_id": "3pKVJwFZ--w",
+      "title": "Our Environment  | Full Chapter in ONE SHOT | CBSE Class 10 Science Chapter 13 | NCERT | 2025-26",
+      "search_query": "Our Environment class 10",
+      "search_rank": 7,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "wBIaMeVXS4o",
+      "title": "#ConceptChamkega  | Ten Percent Law of Energy Transfer | Our environment  | biology | #10%law | 10th",
+      "search_query": "food chain ten percent law class 10",
+      "search_rank": 0,
+      "rejected": "duration 52 s outside 180-2700 s"
+    },
+    {
+      "video_id": "wWV-l9Rc5m0",
+      "title": "Class 12 Biology Chapter 14 | Ten Percent Law - Ecosystem (2022-23)",
+      "search_query": "food chain ten percent law class 10",
+      "search_rank": 2,
+      "rejected": "transcript transcripts_disabled: TranscriptsDisabled: Could not retrieve a transcript for the video https://www.youtube.com/watch?v=wWV-l9Rc5m0! This is "
+    },
+    {
+      "video_id": "6iRwgrc2YKc",
+      "title": "Ten Percent Law - Our Environment | Class 10 Biology Chapter 13 | CBSE 2024-25",
+      "search_query": "food chain ten percent law class 10",
+      "search_rank": 3,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "dtZvWpontpE",
+      "title": "Fatafat objectives Ep-33 Ten Percent Law | Krushi mam #rankplus #pyq #Sciencemcq #class10pyqs #cbse",
+      "search_query": "food chain ten percent law class 10",
+      "search_rank": 4,
+      "rejected": "duration 44 s outside 180-2700 s"
+    },
+    {
+      "video_id": "H5-TVWkFcUk",
+      "title": "#10%rule, #ourenvironment #ourenvironmentclass10 #foodchain",
+      "search_query": "food chain ten percent law class 10",
+      "search_rank": 6,
+      "rejected": "duration 58 s outside 180-2700 s"
+    },
+    {
+      "video_id": "wx4cpcRQTFs",
+      "title": "Ozone Layer Depletion | Global Environmental Issue | Ecology | Environmental Science | EVS",
+      "search_query": "ozone layer depletion class 10",
+      "search_rank": 2,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "vrXweCjRi9w",
+      "title": "Ozone Layer Depletion | Advantages, Depletion and Preventive Measures | Class 10 Science",
+      "search_query": "ozone layer depletion class 10",
+      "search_rank": 3,
+      "rejected": "transcript transcripts_disabled: TranscriptsDisabled: Could not retrieve a transcript for the video https://www.youtube.com/watch?v=vrXweCjRi9w! This is "
+    },
+    {
+      "video_id": "1sQbz1IZ1Ys",
+      "title": "What is Ozone Depletion? Facts, causes and effects of Ozone Depletion explained #UPSC #IAS",
+      "search_query": "ozone layer depletion class 10",
+      "search_rank": 5,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "kykwzaJp4Ps",
+      "title": "About Ozone layer depletion in Telugu..",
+      "search_query": "ozone layer depletion class 10",
+      "search_rank": 6,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "DFbKB27sxgc",
+      "title": "Biodegradable & Non biodegradable Wastes - Our Environment | Class 10 Biology Chapter 13 | CBSE 2024",
+      "search_query": "biodegradable non-biodegradable waste class 10",
+      "search_rank": 0,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "rpcha-bYbyk",
+      "title": "Biodegradable and Non Biodegradable waste | Environmental Management | Class 9 | Science",
+      "search_query": "biodegradable non-biodegradable waste class 10",
+      "search_rank": 2,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "6nMdVOpTbJI",
+      "title": "Biodegradable and Non-Biodegradable Wastes: Simple Explanation with Examples!",
+      "search_query": "biodegradable non-biodegradable waste class 10",
+      "search_rank": 3,
+      "rejected": "duration 33 s outside 180-2700 s"
+    },
+    {
+      "video_id": "DqQ9GeU5dtk",
+      "title": "biodegradable and non-biodegradable waste.#ytshorts #waste #biodegradable #nonbiodegradable",
+      "search_query": "biodegradable non-biodegradable waste class 10",
+      "search_rank": 4,
+      "rejected": "duration 10 s outside 180-2700 s"
+    },
+    {
+      "video_id": "80GutGIrDCQ",
+      "title": "Diff. b/w Biodegradable & Non-Biodegradable 🌎♻️| #science #shorts #biodegradable #nonbiodegradable",
+      "search_query": "biodegradable non-biodegradable waste class 10",
+      "search_rank": 7,
+      "rejected": "duration 6 s outside 180-2700 s"
+    },
+    {
+      "video_id": "I6n4MsEAt90",
+      "title": "Biological Magnification #class10 #biomagnification #class10science #phoolifaacademy",
+      "search_query": "biological magnification class 10",
+      "search_rank": 0,
+      "rejected": "duration 45 s outside 180-2700 s"
+    },
+    {
+      "video_id": "XOi5kEI6qg4",
+      "title": "What is Biological Magnification? | Class 10 Science | CBSE",
+      "search_query": "biological magnification class 10",
+      "search_rank": 1,
+      "rejected": "duration 144 s outside 180-2700 s"
+    },
+    {
+      "video_id": "ojSue3rYChU",
+      "title": "Biomagnification Biology Capsule | CBSE Class 10 Topic Under 10 Minute by Sonam Maam",
+      "search_query": "biological magnification class 10",
+      "search_rank": 2,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "2f-Ww6ScJlI",
+      "title": "What is Biological Magnification? | Class 10 Science | CBSE",
+      "search_query": "biological magnification class 10",
+      "search_rank": 3,
+      "rejected": "duration 144 s outside 180-2700 s"
+    },
+    {
+      "video_id": "v2sdwNoEjrQ",
+      "title": "Ch:13 - Pg:217 - Q.6) What is biological magnification? Will level of this magnification be differen",
+      "search_query": "biological magnification class 10",
+      "search_rank": 4,
+      "rejected": "transcript transcripts_disabled: TranscriptsDisabled: Could not retrieve a transcript for the video https://www.youtube.com/watch?v=v2sdwNoEjrQ! This is "
+    },
+    {
+      "video_id": "1qEqkxc7pGE",
+      "title": "Biological Magnification (जैव आवर्धन ) | 10 Minute Show",
+      "search_query": "biological magnification class 10",
+      "search_rank": 7,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "W0sy5WdhoS0",
+      "title": "Ozone Layer Depletion: Causes, Effects, and Solutions",
+      "search_query": "ozone layer depletion class 10",
+      "search_rank": 4,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "hn7W_C2nbwE",
+      "title": "What Is The Ozone Layer? | Ozone Layer Depletion | Class 12 Biology | Extraclass.com",
+      "search_query": "ozone layer depletion class 10",
+      "search_rank": 7,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "Gboh2yaAinM",
+      "title": "Biodegradable and Non-Biodegradable Waste | Waste Management | How to Recycle Waste",
+      "search_query": "biodegradable non-biodegradable waste class 10",
+      "search_rank": 1,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "h29n8_LwQaQ",
+      "title": "biodegradable and non biodegradable waste/ recycle/compost/Keep Our Planet Clean/ Green and blue bin",
+      "search_query": "biodegradable non-biodegradable waste class 10",
+      "search_rank": 5,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "Dhi78_Xspak",
+      "title": "Biodegradable and Non biodegradable things | 10 Examples | Biodegradable and non biodegradable waste",
+      "search_query": "biodegradable non-biodegradable waste class 10",
+      "search_rank": 6,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "Bm9qyuD5v4g",
+      "title": "Our Environment Part-3 | CBSE Class 10 Science (Biology) Explanation| ecosystem | NCERT",
+      "search_query": "biological magnification class 10",
+      "search_rank": 5,
+      "rejected": "usable, not among the best-covering --keep"
+    }
+  ],
+  "review_flags": [
+    "Concept coverage is LEXICAL ONLY (concept names/aliases counted in transcripts); it is not evidence that a video teaches a concept correctly or completely. Semantic coverage is NOT verified.",
+    "Embedding verification is INCOMPLETE: Ollama is unavailable (reinstall deferred).",
+    "Edition mismatches and unrelated-topic coverage are flagged per video in review.notes and stay flagged until a human reviews them."
+  ]
+}

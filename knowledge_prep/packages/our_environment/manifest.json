@@ -1,0 +1,50 @@
+{
+  "topic_id": "our_environment",
+  "title": "Our Environment",
+  "class": 10,
+  "subject": "Science (Biology)",
+  "chapter": 13,
+  "package_version": "0.1.0-draft",
+  "review_status": "pending",
+  "source": {
+    "publisher": "NCERT",
+    "book": "Science, Textbook for Class X",
+    "file": "jesc113.pdf",
+    "edition": "Reprint 2026-27",
+    "pages": [
+      208,
+      217
+    ],
+    "sha256": "3f61f0574e60bb8fc41feb3cc13f818621d9c17a5d5f51634154a5de35918b2d",
+    "extracted_with": "pypdf 6.21.2 via scripts/extract_chapter_text.py",
+    "local_text": "knowledge_prep/packages/our_environment/chapter.txt (gitignored, not committed)"
+  },
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T11:20:29+00:00",
+  "files": [
+    "concepts.json",
+    "pretest.json",
+    "posttest.json",
+    "formative.json",
+    "videos.json",
+    "validation.json"
+  ],
+  "local_only_files": [
+    "chapter.txt",
+    "evidence.local.json"
+  ],
+  "counts": {
+    "concepts": 10,
+    "pretest": 15,
+    "posttest": 15,
+    "formative": 31
+  },
+  "copyright": "The NCERT PDF pages carry '(c) NCERT not to be republished'. Committed files hold section/page references only; the verbatim evidence excerpts (evidence.local.json) and the chapter text (chapter.txt) stay local and are gitignored, pending mentor confirmation. Use in a research evaluation and any public release still need checking with the mentor/NCERT.",
+  "notes": [
+    "Concept ids reuse the earlier draft vocabulary's ids. non_biodegradable_waste is merged into biodegradable_waste (now named 'Biodegradable and non-biodegradable substances'), giving 10 concepts. No concept-tracker rows or assessments exist for this topic.",
+    "Numeric options in OE-PRE-12/OE-POST-12 are rotated by the builder, so they are not in size order.",
+    "Pre/post questions are ordered so that the first five cover five different concepts: a new learner is shown PRETEST_ITEMS questions (default MCQ_N_ITEMS = 5); the full 15-question bank is kept for experiments.",
+    "Each post-test question is stored apart from the bank (parallel_test_items), paired by parallel_to with its pre-test question, and read only when a post-test begins.",
+    "Blind LLM cross-checks (answer keys, concept tags) are INCOMPLETE: the Groq API key was rejected (HTTP 401) when this package was built."
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "topic_id": "heredity",
+  "validated_at": "2026-10-25T20:10:12+00:00",
+  "valid": true,
+  "errors": [],
+  "warnings": [
+    "videos: concept coverage is lexical only; the embedding check (Ollama) has not run",
+    "HE-POST-03: blind model tagged sexual_reproduction, assigned genetic_variation",
+    "HE-POST-14: blind model tagged independent_assortment, assigned chromosome_number_restoration",
+    "HE-FRM-04: blind model tagged genetic_variation, assigned sexual_reproduction",
+    "HE-FRM-08: blind model tagged monohybrid_ratio, assigned dominant_recessive",
+    "HE-FRM-23: blind model tagged chromosome_number_restoration, assigned sex_determination"
+  ],
+  "summary": {
+    "verbatim": {
+      "max_run": 9,
+      "items_with_run_>=_10": 0
+    },
+    "videos": {
+      "candidates": 5,
+      "concepts_covered": [
+        "chromosome_number_restoration",
+        "dominant_recessive",
+        "gene_definition",
+        "genetic_variation",
+        "independent_assortment",
+        "monohybrid_ratio",
+        "sex_determination",
+        "sexual_reproduction"
+      ],
+      "examined": 39
+    },
+    "concepts": 8,
+    "pretest": 15,
+    "posttest": 15,
+    "formative": 24,
+    "formative_per_concept": {
+      "genetic_variation": 3,
+      "sexual_reproduction": 3,
+      "dominant_recessive": 3,
+      "monohybrid_ratio": 3,
+      "independent_assortment": 3,
+      "gene_definition": 3,
+      "chromosome_number_restoration": 3,
+      "sex_determination": 3
+    },
+    "difficulty": {
+      "pretest": {
+        "easy": 5,
+        "medium": 6,
+        "hard": 4
+      },
+      "posttest": {
+        "easy": 5,
+        "medium": 6,
+        "hard": 4
+      },
+      "formative": {
+        "easy": 8,
+        "medium": 14,
+        "hard": 2
+      }
+    },
+    "answer_positions": {
+      "pretest": {
+        "0": 3,
+        "1": 4,
+        "2": 4,
+        "3": 4
+      },
+      "posttest": {
+        "0": 3,
+        "1": 4,
+        "2": 4,
+        "3": 4
+      },
+      "formative": {
+        "0": 6,
+        "1": 6,
+        "2": 6,
+        "3": 6
+      }
+    },
+    "pre_items_per_concept": {
+      "dominant_recessive": 2,
+      "sex_determination": 2,
+      "genetic_variation": 2,
+      "gene_definition": 2,
+      "monohybrid_ratio": 2,
+      "independent_assortment": 2,
+      "chromosome_number_restoration": 2,
+      "sexual_reproduction": 1
+    }
+  },
+  "lexical_tag_flags": [],
+  "near_duplicates": [],
+  "evidence_checked": true,
+  "first_shown_pretest_concepts": [
+    "dominant_recessive",
+    "sex_determination",
+    "genetic_variation",
+    "gene_definition",
+    "monohybrid_ratio"
+  ],
+  "llm_checks": {
+    "ran": true,
+    "model": "groq:openai/gpt-oss-120b",
+    "checked": 54,
+    "answered": 54,
+    "answer_disagreements": [],
+    "concept_disagreements": [
+      {
+        "id": "HE-POST-03",
+        "assigned": "genetic_variation",
+        "model_concept": "sexual_reproduction"
+      },
+      {
+        "id": "HE-POST-14",
+        "assigned": "chromosome_number_restoration",
+        "model_concept": "independent_assortment"
+      },
+      {
+        "id": "HE-FRM-04",
+        "assigned": "sexual_reproduction",
+        "model_concept": "genetic_variation"
+      },
+      {
+        "id": "HE-FRM-08",
+        "assigned": "dominant_recessive",
+        "model_concept": "monohybrid_ratio"
+      },
+      {
+        "id": "HE-FRM-23",
+        "assigned": "sex_determination",
+        "model_concept": "chromosome_number_restoration"
+      }
+    ],
+    "failures": [],
+    "note": "A disagreement flags the item for human review; agreement does not prove it correct."
+  }
+}

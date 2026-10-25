@@ -50,6 +50,12 @@ def _create_formative_pool(conn: Connection) -> None:
     FormativeItem.__table__.create(bind=conn, checkfirst=True)
 
 
+def _create_parallel_test_items(conn: Connection) -> None:
+    from app.db.models.parallel_test_item import ParallelTestItem
+
+    ParallelTestItem.__table__.create(bind=conn, checkfirst=True)
+
+
 MIGRATIONS: tuple[Migration, ...] = (
     Migration("0001_concept_tracker", "learner_topic_strength + concept_events (concept mastery tracker)",
               _create_concept_tracker),
@@ -57,6 +63,8 @@ MIGRATIONS: tuple[Migration, ...] = (
               _add_tracker_coverage_columns),
     Migration("0003_formative_pool", "formative_items (formative-check questions per concept, outside the bank)",
               _create_formative_pool),
+    Migration("0004_parallel_test_items", "parallel_test_items (post-test questions paired with pre-test items)",
+              _create_parallel_test_items),
 )
 
 

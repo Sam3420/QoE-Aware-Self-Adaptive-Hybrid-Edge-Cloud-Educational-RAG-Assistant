@@ -1,123 +1,157 @@
 {
   "topic_id": "our_environment",
   "status": "draft",
-  "generated_by": "groq:openai/gpt-oss-120b",
-  "generated_at": "2026-10-20T12:50:00.766655Z",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T11:20:29Z",
   "reviewed_by": null,
   "reviewed_at": null,
   "concepts": [
     {
       "id": "ecosystem_definition",
-      "name": "Ecosystem Definition",
-      "description": "Learner should understand what constitutes an ecosystem, including biotic and abiotic components.",
+      "name": "Ecosystem and its components",
+      "description": "An ecosystem is all the interacting organisms of an area (biotic components) together with its non-living physical factors (abiotic components); forests, ponds and lakes are natural, gardens, crop-fields and aquaria human-made.",
       "aliases": [
         "ecosystem",
-        "environment definition"
+        "biotic",
+        "abiotic",
+        "natural ecosystem",
+        "artificial ecosystem",
+        "aquarium",
+        "garden"
       ],
-      "evidence": "All the interacting organisms in an area, together with the non-living constituents of the environment, form an ecosystem."
+      "evidence": "NCERT Class 10 Science §13.1, p.208-209 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "producers",
       "name": "Producers",
-      "description": "Learner should know which organisms produce their own food and the term used for them.",
+      "description": "Green plants and certain bacteria make organic compounds from inorganic substances by photosynthesis, fixing the Sun's energy for the rest of the ecosystem.",
       "aliases": [
+        "producers",
+        "producer",
         "autotrophs",
-        "photosynthetic organisms"
+        "green plants",
+        "photosynthesis",
+        "chlorophyll"
       ],
-      "evidence": "All green plants and certain blue-green algae, which can produce their own food by photosynthesis, are called producers."
+      "evidence": "NCERT Class 10 Science §13.1, p.209 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "consumers",
       "name": "Consumers",
-      "description": "Learner should recognize organisms that obtain food from producers and their categories.",
+      "description": "Organisms that consume food made by producers, directly or by feeding on other consumers; classed as herbivores, carnivores, omnivores and parasites.",
       "aliases": [
-        "heterotrophs",
+        "consumers",
         "herbivores",
         "carnivores",
         "omnivores",
         "parasites"
       ],
-      "evidence": "Organisms that depend on the producers, directly or indirectly, for sustenance are called consumers; they can be classed as herbivores, carnivores, omnivores and parasites."
+      "evidence": "NCERT Class 10 Science §13.1, p.209 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "decomposers",
       "name": "Decomposers",
-      "description": "Learner should understand the role of microorganisms in breaking down dead material.",
+      "description": "Microorganisms (bacteria and fungi) break down dead remains and wastes from complex organic into simple inorganic substances that return to the soil for plants.",
       "aliases": [
-        "saprophytes",
-        "bacteria",
-        "fungi"
+        "decomposers",
+        "bacteria and fungi",
+        "dead remains",
+        "replenishment"
       ],
-      "evidence": "Microorganisms such as bacteria and fungi break down the dead remains and waste products of organisms; they are called decomposers."
+      "evidence": "NCERT Class 10 Science §13.1, p.209 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "trophic_levels",
-      "name": "Trophic Levels",
-      "description": "Learner should identify the hierarchical levels in a food chain.",
+      "name": "Food chains and trophic levels",
+      "description": "Each step of a food chain is a trophic level: producers first, herbivores (primary consumers) second, small carnivores (secondary) third, large carnivores (tertiary) fourth; lower levels have more individuals.",
       "aliases": [
-        "food chain levels",
-        "energy levels"
+        "trophic level",
+        "trophic levels",
+        "primary consumers",
+        "secondary consumers",
+        "tertiary consumers"
       ],
-      "evidence": "Each step or level of the food chain forms a trophic level."
+      "evidence": "NCERT Class 10 Science §13.1.1, p.210 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "ten_percent_law",
-      "name": "Ten Percent Law",
-      "description": "Learner should know the approximate energy transfer efficiency between trophic levels.",
+      "name": "Energy flow and the 10 percent law",
+      "description": "Plants capture about 1% of sunlight as food energy; about 10% of the food at one level reaches the next, so energy flow is unidirectional, diminishes at each level and limits chains to three or four steps.",
       "aliases": [
-        "10% rule",
-        "energy transfer efficiency"
+        "10%",
+        "ten percent",
+        "energy flow",
+        "lost as heat",
+        "unidirectional",
+        "1%",
+        "three or four steps"
       ],
-      "evidence": "On average, about ten percent of the organic matter of each trophic level reaches the next level of consumers; this is known as the ten percent law."
+      "evidence": "NCERT Class 10 Science §13.1.1, p.210-211 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "food_web",
-      "name": "Food Web",
-      "description": "Learner should understand that feeding relationships form an interconnected network.",
+      "name": "Food webs",
+      "description": "Because each organism is usually eaten by two or more kinds of organisms, feeding relationships form branching lines, a food web of many interconnected food chains.",
       "aliases": [
-        "interconnected food chains"
+        "food web",
+        "branching lines",
+        "many food chains"
       ],
-      "evidence": "In nature, feeding relationships are interconnected rather than isolated, forming a network of food chains called a food web."
+      "evidence": "NCERT Class 10 Science §13.1.1, p.210-211 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "biological_magnification",
-      "name": "Biological Magnification",
-      "description": "Learner should grasp how non‑degradable chemicals accumulate up the food chain.",
+      "name": "Biological magnification",
+      "description": "Non-degradable chemicals such as pesticides enter food chains from soil and water and accumulate progressively at each trophic level, reaching the highest concentration in humans at the top.",
       "aliases": [
-        "biomagnification",
-        "chemical accumulation"
+        "biological magnification",
+        "pesticides",
+        "pesticide residues",
+        "accumulated",
+        "harmful chemicals"
       ],
-      "evidence": "This increase in the concentration of harmful chemicals at successive trophic levels is called biological magnification."
+      "evidence": "NCERT Class 10 Science §13.1.1, p.211-212 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "ozone_layer",
-      "name": "Ozone Layer",
-      "description": "Learner should know the protective role of stratospheric ozone against UV radiation.",
+      "name": "Ozone layer and its depletion",
+      "description": "Ozone (O3), formed when UV radiation splits O2, shields the Earth from the Sun's UV radiation in the upper atmosphere; CFCs have depleted it, and a 1987 UNEP agreement froze CFC production.",
       "aliases": [
-        "stratospheric ozone",
-        "UV shield"
+        "ozone",
+        "ozone layer",
+        "UV radiation",
+        "ultraviolet",
+        "CFCs",
+        "chlorofluorocarbons",
+        "UNEP"
       ],
-      "evidence": "Ozone at higher levels is a product of UV radiation acting on oxygen."
+      "evidence": "NCERT Class 10 Science §13.2.1, p.212-213 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "biodegradable_waste",
-      "name": "Biodegradable Waste",
-      "description": "Learner should identify materials that can be broken down by biological processes.",
+      "name": "Biodegradable and non-biodegradable substances",
+      "description": "Substances broken down by biological processes are biodegradable; others, such as many plastics that enzymes cannot act on, are non-biodegradable and persist or harm the ecosystem; managing the garbage we produce.",
       "aliases": [
-        "biodegradable substances",
-        "organic waste"
+        "biodegradable",
+        "non-biodegradable",
+        "plastics",
+        "garbage",
+        "waste",
+        "disposable",
+        "packaging"
       ],
-      "evidence": "Substances that are broken down by biological processes, such as the action of bacteria or other saprophytes, are said to be biodegradable; examples include vegetable peels, paper and cotton."
-    },
-    {
-      "id": "non_biodegradable_waste",
-      "name": "Non‑Biodegradable Waste",
-      "description": "Learner should recognize materials that persist in the environment and do not decompose biologically.",
-      "aliases": [
-        "non‑degradable substances",
-        "inert waste"
-      ],
-      "evidence": "Substances that are not broken down in this manner, such as plastics, glass and many synthetic chemicals, are said to be non-biodegradable; they may be inert and simply persist in the environment for a long time, or they may harm the various members of the ecosystem."
+      "evidence": "NCERT Class 10 Science §13.2.2, p.213-215 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     }
-  ]
+  ],
+  "question_concept_map": {}
 }

@@ -1,0 +1,49 @@
+{
+  "topic_id": "life_processes",
+  "title": "Life Processes",
+  "class": 10,
+  "subject": "Science (Biology)",
+  "chapter": 5,
+  "package_version": "0.1.0-draft",
+  "review_status": "pending",
+  "source": {
+    "publisher": "NCERT",
+    "book": "Science, Textbook for Class X",
+    "file": "jesc105.pdf",
+    "edition": "Reprint 2026-27",
+    "pages": [
+      79,
+      99
+    ],
+    "sha256": "685ec7228afeb79d7bc9b989648e381e5eb4b5a6d290d6a13374489c9284054f",
+    "extracted_with": "pypdf 6.21.2 (scripts/extract_chapter_text.py); p.82 needed a raised parsing budget",
+    "local_text": "knowledge_prep/packages/life_processes/chapter.txt (gitignored, not committed)"
+  },
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T10:24:27+00:00",
+  "files": [
+    "concepts.json",
+    "pretest.json",
+    "posttest.json",
+    "formative.json",
+    "videos.json",
+    "validation.json"
+  ],
+  "local_only_files": [
+    "chapter.txt",
+    "evidence.local.json"
+  ],
+  "counts": {
+    "concepts": 10,
+    "pretest": 15,
+    "posttest": 15,
+    "formative": 33
+  },
+  "copyright": "The NCERT PDF pages carry '(c) NCERT not to be republished'. Committed files hold section/page references only; the verbatim evidence excerpts (evidence.local.json) and the chapter text (chapter.txt) stay local and are gitignored, pending mentor confirmation. Use in a research evaluation and any public release still need checking with the mentor/NCERT.",
+  "notes": [
+    "Section 5.1 (why life processes are needed) has no concept of its own: it is introductory, and its key idea (diffusion is not enough in large multicellular organisms) is tested within breathing and transport.",
+    "Concept ids reuse 9 ids of the earlier life_processes vocabulary where the meaning matches; life_processes_overview is dropped and excretion_in_plants is new. The real data/app.db holds no tracker rows or assessments for life_processes, so nothing is orphaned.",
+    "Pre/post questions are ordered so that the first five cover five different concepts: a new learner is shown PRETEST_ITEMS questions (default MCQ_N_ITEMS = 5); the full 15-question bank is kept for experiments.",
+    "Each post-test question is stored apart from the bank (parallel_test_items), paired by parallel_to with its pre-test question, and read only when a post-test begins."
+  ]
+}

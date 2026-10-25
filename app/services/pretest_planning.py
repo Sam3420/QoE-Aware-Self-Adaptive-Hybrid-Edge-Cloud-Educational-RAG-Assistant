@@ -17,7 +17,7 @@ from typing import Any
 from app.services.mcq import normalize_answer, question_key
 
 REASON_NEW_LEARNER = "Starting quiz for this topic."
-REASON_RETEST = "You got this wrong last time. Let's check it again."
+REASON_RETEST = "Last time you found this, or a similar question on the same idea, difficult. Let's check it again."
 REASON_WEAK = "New question on {concept}, which you found difficult."
 REASON_UNSEEN = "New question."
 REASON_REVIEW_WRONG = "You got this wrong before."
@@ -51,13 +51,22 @@ class PretestPlan:
 
 def item_histories(bank_items: Sequence[dict[str, Any]],
                    assessments: Sequence[dict[str, Any]]) -> dict[int, ItemHistory]:
-    """Latest outcome per bank item; assessments are newest first and matched to the bank by question text."""
+    """Latest outcome per bank item; assessments are newest first and matched to the bank by question text.
+
+    A paired post-test question (``form == "parallel"``, app/services/posttest.py) is a different question on the
+    same concept and difficulty: its outcome counts for the pre-test item it is paired with (``parallel_to`` = that
+    item's content id), so a learner who missed it is re-tested on that objective. It is scored with its own key.
+    """
     index_by_key = {question_key(item["question"]): i for i, item in enumerate(bank_items)}
+    index_by_id = {item["id"]: i for i, item in enumerate(bank_items) if item.get("id")}
     histories: dict[int, ItemHistory] = {}
     for assessment in assessments:
         answers = assessment["answers"]
         for position, item in enumerate(assessment["items"]):
-            index = index_by_key.get(question_key(item["question"]))
+            if item.get("form") == "parallel":
+                index = index_by_id.get(item.get("parallel_to") or "")
+            else:
+                index = index_by_key.get(question_key(item["question"]))
             if index is None:
                 continue
             answer = answers[position] if position < len(answers) else None

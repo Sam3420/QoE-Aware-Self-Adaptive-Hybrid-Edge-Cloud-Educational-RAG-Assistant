@@ -1,0 +1,195 @@
+{
+  "topic_id": "life_processes",
+  "validated_at": "2026-10-25T20:09:28+00:00",
+  "valid": true,
+  "errors": [],
+  "warnings": [
+    "LP-POST-08: tagged respiratory_structure_mechanics, wording names ['human_circulatory_system']",
+    "LP-FRM-06: tagged stomatal_control, wording names ['respiratory_structure_mechanics']",
+    "LP-FRM-19: tagged respiratory_structure_mechanics, wording names ['autotrophic_nutrition_photosynthesis']",
+    "LP-FRM-31: tagged excretion_in_plants, wording names ['autotrophic_nutrition_photosynthesis']",
+    "LP-FRM-32: tagged excretion_in_plants, wording names ['plant_transport_xylem_phloem']",
+    "videos: concept coverage is lexical only; the embedding check (Ollama) has not run",
+    "LP-POST-08: blind model answered A, key is B",
+    "LP-POST-08: blind model tagged human_circulatory_system, assigned respiratory_structure_mechanics",
+    "LP-FRM-03: blind model tagged heterotrophic_nutrition_types, assigned autotrophic_nutrition_photosynthesis",
+    "LP-FRM-19: blind model tagged autotrophic_nutrition_photosynthesis, assigned respiratory_structure_mechanics",
+    "LP-FRM-31: blind model tagged autotrophic_nutrition_photosynthesis, assigned excretion_in_plants",
+    "LP-FRM-32: blind model tagged plant_transport_xylem_phloem, assigned excretion_in_plants"
+  ],
+  "summary": {
+    "verbatim": {
+      "max_run": 9,
+      "items_with_run_>=_10": 0
+    },
+    "videos": {
+      "candidates": 5,
+      "concepts_covered": [
+        "autotrophic_nutrition_photosynthesis",
+        "excretion_in_plants",
+        "heterotrophic_nutrition_types",
+        "human_circulatory_system",
+        "human_digestion_process",
+        "kidney_filtration",
+        "plant_transport_xylem_phloem",
+        "respiration_aerobic_vs_anaerobic",
+        "respiratory_structure_mechanics",
+        "stomatal_control"
+      ],
+      "examined": 35
+    },
+    "concepts": 10,
+    "pretest": 15,
+    "posttest": 15,
+    "formative": 33,
+    "formative_per_concept": {
+      "autotrophic_nutrition_photosynthesis": 3,
+      "stomatal_control": 3,
+      "heterotrophic_nutrition_types": 3,
+      "human_digestion_process": 4,
+      "respiration_aerobic_vs_anaerobic": 3,
+      "respiratory_structure_mechanics": 4,
+      "human_circulatory_system": 4,
+      "plant_transport_xylem_phloem": 3,
+      "kidney_filtration": 3,
+      "excretion_in_plants": 3
+    },
+    "difficulty": {
+      "pretest": {
+        "easy": 5,
+        "medium": 6,
+        "hard": 4
+      },
+      "posttest": {
+        "easy": 5,
+        "medium": 6,
+        "hard": 4
+      },
+      "formative": {
+        "easy": 10,
+        "medium": 18,
+        "hard": 5
+      }
+    },
+    "answer_positions": {
+      "pretest": {
+        "0": 4,
+        "1": 4,
+        "2": 5,
+        "3": 2
+      },
+      "posttest": {
+        "0": 4,
+        "1": 4,
+        "2": 4,
+        "3": 3
+      },
+      "formative": {
+        "0": 9,
+        "1": 7,
+        "2": 9,
+        "3": 8
+      }
+    },
+    "pre_items_per_concept": {
+      "autotrophic_nutrition_photosynthesis": 2,
+      "human_digestion_process": 2,
+      "respiration_aerobic_vs_anaerobic": 2,
+      "human_circulatory_system": 2,
+      "plant_transport_xylem_phloem": 2,
+      "stomatal_control": 1,
+      "heterotrophic_nutrition_types": 1,
+      "respiratory_structure_mechanics": 1,
+      "kidney_filtration": 1,
+      "excretion_in_plants": 1
+    }
+  },
+  "lexical_tag_flags": [
+    {
+      "id": "LP-POST-08",
+      "assigned": "respiratory_structure_mechanics",
+      "named_in_text": [
+        "human_circulatory_system"
+      ]
+    },
+    {
+      "id": "LP-FRM-06",
+      "assigned": "stomatal_control",
+      "named_in_text": [
+        "respiratory_structure_mechanics"
+      ]
+    },
+    {
+      "id": "LP-FRM-19",
+      "assigned": "respiratory_structure_mechanics",
+      "named_in_text": [
+        "autotrophic_nutrition_photosynthesis"
+      ]
+    },
+    {
+      "id": "LP-FRM-31",
+      "assigned": "excretion_in_plants",
+      "named_in_text": [
+        "autotrophic_nutrition_photosynthesis"
+      ]
+    },
+    {
+      "id": "LP-FRM-32",
+      "assigned": "excretion_in_plants",
+      "named_in_text": [
+        "plant_transport_xylem_phloem"
+      ]
+    }
+  ],
+  "near_duplicates": [],
+  "evidence_checked": true,
+  "first_shown_pretest_concepts": [
+    "autotrophic_nutrition_photosynthesis",
+    "human_digestion_process",
+    "respiration_aerobic_vs_anaerobic",
+    "human_circulatory_system",
+    "plant_transport_xylem_phloem"
+  ],
+  "llm_checks": {
+    "ran": true,
+    "model": "groq:openai/gpt-oss-120b",
+    "checked": 63,
+    "answered": 63,
+    "answer_disagreements": [
+      {
+        "id": "LP-POST-08",
+        "key": "B",
+        "model_answer": "A"
+      }
+    ],
+    "concept_disagreements": [
+      {
+        "id": "LP-POST-08",
+        "assigned": "respiratory_structure_mechanics",
+        "model_concept": "human_circulatory_system"
+      },
+      {
+        "id": "LP-FRM-03",
+        "assigned": "autotrophic_nutrition_photosynthesis",
+        "model_concept": "heterotrophic_nutrition_types"
+      },
+      {
+        "id": "LP-FRM-19",
+        "assigned": "respiratory_structure_mechanics",
+        "model_concept": "autotrophic_nutrition_photosynthesis"
+      },
+      {
+        "id": "LP-FRM-31",
+        "assigned": "excretion_in_plants",
+        "model_concept": "autotrophic_nutrition_photosynthesis"
+      },
+      {
+        "id": "LP-FRM-32",
+        "assigned": "excretion_in_plants",
+        "model_concept": "plant_transport_xylem_phloem"
+      }
+    ],
+    "failures": [],
+    "note": "A disagreement flags the item for human review; agreement does not prove it correct."
+  }
+}

@@ -1,0 +1,705 @@
+{
+  "topic_id": "heredity",
+  "status": "pending_review",
+  "generated_at": "2026-10-25T11:21:06+00:00",
+  "method": {
+    "source": "YouTube Data API v3 (search.list, videos.list) + youtube-transcript-api (en)",
+    "queries": [
+      "Heredity class 10 NCERT",
+      "Mendel experiments class 10",
+      "sex determination class 10",
+      "Mendel dihybrid cross independent inheritance",
+      "heredity class 10 science explanation in english",
+      "Mendel monohybrid cross explained"
+    ],
+    "duration_s": [
+      180,
+      2700
+    ],
+    "coverage": "lexical: concept name/alias mentioned >= 2 times in the transcript",
+    "embedding_coverage": "not run: Ollama (nomic-embed-text) unavailable; matching.video_coverage must be run before relying on coverage",
+    "transcript_text_stored": false
+  },
+  "concepts_covered": [
+    "chromosome_number_restoration",
+    "dominant_recessive",
+    "gene_definition",
+    "genetic_variation",
+    "independent_assortment",
+    "monohybrid_ratio",
+    "sex_determination",
+    "sexual_reproduction"
+  ],
+  "concepts_not_covered": [],
+  "candidates": [
+    {
+      "video_id": "as157ZmxHzM",
+      "url": "https://www.youtube.com/watch?v=as157ZmxHzM",
+      "title": "CLASS 10 HEREDITY & EVOLUTION Full chapter explanation (Animation) | NCERT Class 10 Chapter 8",
+      "channel_title": "Grade booster",
+      "channel_id": "UCj1KaZtIXFBdc35sAVZzbLQ",
+      "published_at": "2023-10-27T14:30:08+00:00",
+      "duration_s": 1018,
+      "search_query": "Heredity class 10 NCERT",
+      "search_rank": 1,
+      "api_caption_flag": false,
+      "default_audio_language": "zxx",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 2363,
+        "checked_at": "2026-10-25T11:20:33+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "genetic_variation",
+          "method": "lexical",
+          "mentions": {
+            "variation": 1,
+            "variations": 14,
+            "evolution": 3,
+            "survive": 1
+          }
+        },
+        {
+          "concept_id": "sexual_reproduction",
+          "method": "lexical",
+          "mentions": {
+            "genetic material": 2
+          }
+        },
+        {
+          "concept_id": "dominant_recessive",
+          "method": "lexical",
+          "mentions": {
+            "dominant": 11,
+            "recessive": 6,
+            "expressed": 6
+          }
+        },
+        {
+          "concept_id": "monohybrid_ratio",
+          "method": "lexical",
+          "mentions": {
+            "monohybrid": 2,
+            "self pollination": 1
+          }
+        },
+        {
+          "concept_id": "gene_definition",
+          "method": "lexical",
+          "mentions": {
+            "gene": 12,
+            "protein": 4,
+            "enzyme": 3,
+            "hormone": 4
+          }
+        },
+        {
+          "concept_id": "chromosome_number_restoration",
+          "method": "lexical",
+          "mentions": {
+            "chromosome": 5,
+            "chromosomes": 12,
+            "two sets": 1
+          }
+        },
+        {
+          "concept_id": "sex_determination",
+          "method": "lexical",
+          "mentions": {
+            "sex determination": 1,
+            "sex chromosomes": 5,
+            "boy": 1,
+            "girl": 1
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Unrelated-topic coverage: also covers Evolution, which is not in the current Chapter 8 (Heredity); learners may see material outside the syllabus."
+      }
+    },
+    {
+      "video_id": "Hd_0ACuX9Vw",
+      "url": "https://www.youtube.com/watch?v=Hd_0ACuX9Vw",
+      "title": "Heredity | Learn with BYJU'S",
+      "channel_title": "BYJU'S",
+      "channel_id": "UCkDw-LPU1Nnd2WRsfnDbUcA",
+      "published_at": "2015-06-30T10:51:35+00:00",
+      "duration_s": 1192,
+      "search_query": "heredity class 10 science explanation in english",
+      "search_rank": 3,
+      "api_caption_flag": false,
+      "default_audio_language": null,
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 3061,
+        "checked_at": "2026-10-25T11:20:57+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "genetic_variation",
+          "method": "lexical",
+          "mentions": {
+            "variation": 4,
+            "evolution": 1
+          }
+        },
+        {
+          "concept_id": "dominant_recessive",
+          "method": "lexical",
+          "mentions": {
+            "dominant": 14,
+            "recessive": 5,
+            "expressed": 5
+          }
+        },
+        {
+          "concept_id": "monohybrid_ratio",
+          "method": "lexical",
+          "mentions": {
+            "mendel": 3
+          }
+        },
+        {
+          "concept_id": "independent_assortment",
+          "method": "lexical",
+          "mentions": {
+            "round seeds": 1,
+            "wrinkled seeds": 1
+          }
+        },
+        {
+          "concept_id": "gene_definition",
+          "method": "lexical",
+          "mentions": {
+            "gene": 12,
+            "protein": 4,
+            "enzyme": 4,
+            "hormone": 4
+          }
+        },
+        {
+          "concept_id": "chromosome_number_restoration",
+          "method": "lexical",
+          "mentions": {
+            "chromosome": 3,
+            "chromosomes": 17
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "video_id": "8q8gflMzQ0Y",
+      "url": "https://www.youtube.com/watch?v=8q8gflMzQ0Y",
+      "title": "NCERT Class 10 Science Chapter 9: Hereditary and Evolution (Dr. Manishika) | English | CBSE",
+      "channel_title": "Examrace (UPSC, NET, NCERT, ICSE ...)",
+      "channel_id": "UCja2jnO4XXv3WszxNIMwBIQ",
+      "published_at": "2019-07-26T14:00:00+00:00",
+      "duration_s": 2383,
+      "search_query": "heredity class 10 science explanation in english",
+      "search_rank": 4,
+      "api_caption_flag": false,
+      "default_audio_language": "en",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 5820,
+        "checked_at": "2026-10-25T11:20:58+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "genetic_variation",
+          "method": "lexical",
+          "mentions": {
+            "variation": 4,
+            "variations": 12,
+            "diversity": 4,
+            "evolution": 18
+          }
+        },
+        {
+          "concept_id": "sexual_reproduction",
+          "method": "lexical",
+          "mentions": {
+            "paternal": 1,
+            "maternal": 1,
+            "earlobes": 1
+          }
+        },
+        {
+          "concept_id": "dominant_recessive",
+          "method": "lexical",
+          "mentions": {
+            "dominant": 8,
+            "recessive": 2
+          }
+        },
+        {
+          "concept_id": "monohybrid_ratio",
+          "method": "lexical",
+          "mentions": {
+            "mendel": 8,
+            "monohybrid": 2,
+            "self pollination": 6
+          }
+        },
+        {
+          "concept_id": "gene_definition",
+          "method": "lexical",
+          "mentions": {
+            "gene": 6,
+            "protein": 7,
+            "hormone": 1
+          }
+        },
+        {
+          "concept_id": "chromosome_number_restoration",
+          "method": "lexical",
+          "mentions": {
+            "chromosome": 2,
+            "germ cells": 1
+          }
+        },
+        {
+          "concept_id": "sex_determination",
+          "method": "lexical",
+          "mentions": {
+            "boy": 1,
+            "girl": 1
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Edition mismatch: the title uses an older NCERT chapter number ('Chapter 9: Hereditary and Evolution'); current Reprint 2026-27 numbering is Chapter 8, Heredity. Check the content matches the current chapter. Unrelated-topic coverage: also covers Evolution, which is not in the current Chapter 8 (Heredity); learners may see material outside the syllabus."
+      }
+    },
+    {
+      "video_id": "ZkyX3TmmMag",
+      "url": "https://www.youtube.com/watch?v=ZkyX3TmmMag",
+      "title": "Dihybrid cross and the Law of Independent Assortment | High school biology | Khan Academy",
+      "channel_title": "Khan Academy",
+      "channel_id": "UC4a-Gbdw7vOaccHmFo40b9g",
+      "published_at": "2021-07-13T20:29:50+00:00",
+      "duration_s": 548,
+      "search_query": "Mendel dihybrid cross independent inheritance",
+      "search_rank": 1,
+      "api_caption_flag": true,
+      "default_audio_language": "en-US",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "manual",
+        "words": 1585,
+        "checked_at": "2026-10-25T11:20:49+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "sexual_reproduction",
+          "method": "lexical",
+          "mentions": {
+            "both parents": 3
+          }
+        },
+        {
+          "concept_id": "dominant_recessive",
+          "method": "lexical",
+          "mentions": {
+            "dominant": 4,
+            "recessive": 2
+          }
+        },
+        {
+          "concept_id": "monohybrid_ratio",
+          "method": "lexical",
+          "mentions": {
+            "mendel": 4
+          }
+        },
+        {
+          "concept_id": "gene_definition",
+          "method": "lexical",
+          "mentions": {
+            "gene": 12
+          }
+        },
+        {
+          "concept_id": "chromosome_number_restoration",
+          "method": "lexical",
+          "mentions": {
+            "chromosome": 2,
+            "chromosomes": 2
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Not NCERT-specific (Khan Academy, US high-school biology): may use terms beyond the chapter (Punnett squares, alleles); check the level."
+      }
+    },
+    {
+      "video_id": "MeabdAXHJQs",
+      "url": "https://www.youtube.com/watch?v=MeabdAXHJQs",
+      "title": "Heredity and Evolution Class 10 | CBSE | NCERT | #1",
+      "channel_title": "LearnoHub - Class 9,10",
+      "channel_id": "UCWtKeCH3qnbq6GZpDiqgsKg",
+      "published_at": "2020-10-20T11:29:55+00:00",
+      "duration_s": 1798,
+      "search_query": "heredity class 10 science explanation in english",
+      "search_rank": 1,
+      "api_caption_flag": false,
+      "default_audio_language": "hi",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 4680,
+        "checked_at": "2026-10-25T11:20:56+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "genetic_variation",
+          "method": "lexical",
+          "mentions": {
+            "variation": 1,
+            "evolution": 4
+          }
+        },
+        {
+          "concept_id": "sexual_reproduction",
+          "method": "lexical",
+          "mentions": {
+            "both parents": 3,
+            "earlobes": 1
+          }
+        },
+        {
+          "concept_id": "dominant_recessive",
+          "method": "lexical",
+          "mentions": {
+            "expressed": 6
+          }
+        },
+        {
+          "concept_id": "monohybrid_ratio",
+          "method": "lexical",
+          "mentions": {
+            "mendel": 10,
+            "self pollination": 1
+          }
+        },
+        {
+          "concept_id": "chromosome_number_restoration",
+          "method": "lexical",
+          "mentions": {
+            "chromosomes": 2
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Unrelated-topic coverage: also covers Evolution, which is not in the current Chapter 8 (Heredity); learners may see material outside the syllabus."
+      }
+    }
+  ],
+  "examined": [
+    {
+      "video_id": "LE3PUf5ueS4",
+      "title": "Heredity 🔥| Class 10th Science| NCERT covered| Prashant Kirad",
+      "search_query": "Heredity class 10 NCERT",
+      "search_rank": 0,
+      "rejected": "duration 5542 s outside 180-2700 s"
+    },
+    {
+      "video_id": "WJ08NIoqC3Q",
+      "title": "Heredity and Evolution Chapter 8 In ONE SHOT | Class 10 Science (Theory + PYQs) | Samridhi Sharma",
+      "search_query": "Heredity class 10 NCERT",
+      "search_rank": 2,
+      "rejected": "duration 7720 s outside 180-2700 s"
+    },
+    {
+      "video_id": "m1vfHJaaf4E",
+      "title": "Heredity and Evolution in 20 Minutes🔥| Class 10th | Rapid Revision | Prashant Kirad",
+      "search_query": "Heredity class 10 NCERT",
+      "search_rank": 3,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "tAJkacN88ic",
+      "title": "HEREDITY Class 10  || Complete CHAPTER IN ONE SHOT || NCERT Covered || Alakh Pandey",
+      "search_query": "Heredity class 10 NCERT",
+      "search_rank": 4,
+      "rejected": "duration 8506 s outside 180-2700 s"
+    },
+    {
+      "video_id": "aYDdk0E00bU",
+      "title": "Heredity ONE SHOT || Full Chapter Line by Line || Class 10th Science || Chapter 9",
+      "search_query": "Heredity class 10 NCERT",
+      "search_rank": 5,
+      "rejected": "duration 13048 s outside 180-2700 s"
+    },
+    {
+      "video_id": "NnA-xiI09fo",
+      "title": "Heredity and Evolution Class 10 | Full Chapter in ONE SHOT | CBSE Class 10 Science Chapter 8",
+      "search_query": "Heredity class 10 NCERT",
+      "search_rank": 6,
+      "rejected": "duration 3468 s outside 180-2700 s"
+    },
+    {
+      "video_id": "8aVuouaxw6A",
+      "title": "Heredity Class 10 One Shot | NCERT 10th Science (Biology) Chapter 9 Heredity And Evolution #Cbse2024",
+      "search_query": "Heredity class 10 NCERT",
+      "search_rank": 7,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "wTZJUdTVGI8",
+      "title": "SSLC Biology : Genetics -ലെ  വല്ലുട്ടിയും കുഞ്ഞുട്ടിയും TT ❌ tt | Xylem SSLC",
+      "search_query": "Mendel experiments class 10",
+      "search_rank": 1,
+      "rejected": "transcript no_transcript: no track in ['en']; available: ml*"
+    },
+    {
+      "video_id": "E7Fr7JILPCI",
+      "title": "Gregor Mendel experiment class 10th board  #youtubeshorts #biology #board #class10 #class10th",
+      "search_query": "Mendel experiments class 10",
+      "search_rank": 2,
+      "rejected": "duration 56 s outside 180-2700 s"
+    },
+    {
+      "video_id": "KikHV5eVP1Q",
+      "title": "DIHYBRID CROSS |  Mendel's Experiment in Hindi  | Class 10 | Biology 2022-23 By Akshay Sir",
+      "search_query": "Mendel experiments class 10",
+      "search_rank": 3,
+      "rejected": "transcript no_transcript: no track in ['en']; available: bn*, en-US*, hi*"
+    },
+    {
+      "video_id": "oOzYNyVY42w",
+      "title": "Intro| About Mendel & reason for his success| Class 10 Science Unit 18 Genetics",
+      "search_query": "Mendel experiments class 10",
+      "search_rank": 4,
+      "rejected": "transcript no_transcript: no track in ['en']; available: ta*"
+    },
+    {
+      "video_id": "H5oYDSwz2jA",
+      "title": "Mendel's Law of segregation l Biology 10th in Urdu/Hindi l Ch: Inheritance l Grade/Class 10",
+      "search_query": "Mendel experiments class 10",
+      "search_rank": 5,
+      "rejected": "transcript no_transcript: no track in ['en']; available: en-US*, hi*"
+    },
+    {
+      "video_id": "nEfiOTE4x3g",
+      "title": "Class 10th Biology Laws of Mendel Quick Recall with Sonam Maam",
+      "search_query": "Mendel experiments class 10",
+      "search_rank": 6,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "4qktY_Yv0yk",
+      "title": "Mendle's law of inheritancs  | Chapter # 15 | Biology Class 10th | Lec.# 07",
+      "search_query": "Mendel experiments class 10",
+      "search_rank": 7,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*, ko*, ml*, nl-NL*"
+    },
+    {
+      "video_id": "QWoAyKlCbCE",
+      "title": "Sex determination in Humans (Animation) | Heredity | CBSE class 10th biology | ncert class 10",
+      "search_query": "sex determination class 10",
+      "search_rank": 0,
+      "rejected": "duration 156 s outside 180-2700 s"
+    },
+    {
+      "video_id": "1tPjXyAM3Y8",
+      "title": "Sex Determination| Class 10 Science Unit 18 Genetics",
+      "search_query": "sex determination class 10",
+      "search_rank": 1,
+      "rejected": "transcript no_transcript: no track in ['en']; available: ta*"
+    },
+    {
+      "video_id": "EUWVo9h-_DI",
+      "title": "SEX DETERMINATION IN HUMAN BEINGS",
+      "search_query": "sex determination class 10",
+      "search_rank": 2,
+      "rejected": "duration 18 s outside 180-2700 s"
+    },
+    {
+      "video_id": "ZFGRIZCXteU",
+      "title": "How a Baby’s Sex is Determined | Chromosome Inheritance🧬(XY vs XX) #dna #chromosome#biology#genetics",
+      "search_query": "sex determination class 10",
+      "search_rank": 3,
+      "rejected": "duration 9 s outside 180-2700 s"
+    },
+    {
+      "video_id": "v2vABuG1M9w",
+      "title": "Sex Determination (Reproduction) Class 10 #shorts #cbse #class10 #science #sexdetermination",
+      "search_query": "sex determination class 10",
+      "search_rank": 6,
+      "rejected": "duration 38 s outside 180-2700 s"
+    },
+    {
+      "video_id": "XJq2YCDEuWM",
+      "title": "Heredity and Evolution 02 | Sex Determination | Class 10 | NCERT | Udaan",
+      "search_query": "sex determination class 10",
+      "search_rank": 7,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "2Cf3oMZCnoI",
+      "title": "Mendel's experiment | Dihybrid Cross | Law of Independent Assortment",
+      "search_query": "Mendel dihybrid cross independent inheritance",
+      "search_rank": 0,
+      "rejected": "transcript no_transcript: no track in ['en']; available: ar*, bn*, de-DE*, es-US*, hi*, id*, iw*, ja*, ko*, ml*, nl-NL*, pa*, pl*, pt-BR*, ru*, ta"
+    },
+    {
+      "video_id": "-VD6yFtCzbw",
+      "title": "Mendel’s Dihybrid cross 🔥How to produce gamete #shorts #shortsfeed #trending #neet",
+      "search_query": "Mendel dihybrid cross independent inheritance",
+      "search_rank": 4,
+      "rejected": "duration 58 s outside 180-2700 s"
+    },
+    {
+      "video_id": "F3WjE8Hp95o",
+      "title": "#Shorts #Dihybrid Cross #Biology #Class-10 #Easy Explanation #Class-12",
+      "search_query": "Mendel dihybrid cross independent inheritance",
+      "search_rank": 5,
+      "rejected": "duration 60 s outside 180-2700 s"
+    },
+    {
+      "video_id": "Any_oyQNcG8",
+      "title": "#dihybrid cross#shorts #neet2022#pea plant #round and wrinkled #yellow and green #9:3:3:1",
+      "search_query": "Mendel dihybrid cross independent inheritance",
+      "search_rank": 6,
+      "rejected": "duration 6 s outside 180-2700 s"
+    },
+    {
+      "video_id": "2bok9-nzwn0",
+      "title": "Class 10 CBSE Biology | HEREDITY - FULL CHAPTER REVISION | Xylem Class 10 CBSE",
+      "search_query": "heredity class 10 science explanation in english",
+      "search_rank": 2,
+      "rejected": "duration 3455 s outside 180-2700 s"
+    },
+    {
+      "video_id": "jmjRZsK_-LY",
+      "title": "Heredity Class 10 Science Chapter 8 Line by Line Explanation",
+      "search_query": "heredity class 10 science explanation in english",
+      "search_rank": 7,
+      "rejected": "duration 6325 s outside 180-2700 s"
+    },
+    {
+      "video_id": "lq3XT17y9dQ",
+      "title": "Let's Learn About Monohybrid Cross !! 👩🏻‍🔬 #Class10 #Biology #Shorts #Concept",
+      "search_query": "Mendel monohybrid cross explained",
+      "search_rank": 0,
+      "rejected": "duration 127 s outside 180-2700 s"
+    },
+    {
+      "video_id": "J2J5v861CTI",
+      "title": "Monohybrid Cross Explained",
+      "search_query": "Mendel monohybrid cross explained",
+      "search_rank": 1,
+      "rejected": "duration 166 s outside 180-2700 s"
+    },
+    {
+      "video_id": "6WnDaapjV58",
+      "title": "Monohybrid Cross || Mendel's Experiment || (Easy !)  [HINDI]",
+      "search_query": "Mendel monohybrid cross explained",
+      "search_rank": 3,
+      "rejected": "transcript transcripts_disabled: TranscriptsDisabled: Could not retrieve a transcript for the video https://www.youtube.com/watch?v=6WnDaapjV58! This is "
+    },
+    {
+      "video_id": "NHdZT_IPoV8",
+      "title": "Mendel's experiment | Monohybrid Cross | Law of Segregation",
+      "search_query": "Mendel monohybrid cross explained",
+      "search_rank": 5,
+      "rejected": "transcript transcripts_disabled: TranscriptsDisabled: Could not retrieve a transcript for the video https://www.youtube.com/watch?v=NHdZT_IPoV8! This is "
+    },
+    {
+      "video_id": "tDT-13FAQdc",
+      "title": "Law of segregation / Monohybrid cross detailed explanation | Chapter Genetics / Inheritance",
+      "search_query": "Mendel monohybrid cross explained",
+      "search_rank": 6,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "lMMVP-l62UA",
+      "title": "Monohybrid cross | Genetics | Quick notes | Senthilnathan | Tamil",
+      "search_query": "Mendel monohybrid cross explained",
+      "search_rank": 7,
+      "rejected": "transcript transcripts_disabled: TranscriptsDisabled: Could not retrieve a transcript for the video https://www.youtube.com/watch?v=lMMVP-l62UA! This is "
+    },
+    {
+      "video_id": "BnCNmFAq184",
+      "title": "Independent assortment (dihybrid cross) | Heredity & Evolution | Khan Academy",
+      "search_query": "Mendel dihybrid cross independent inheritance",
+      "search_rank": 3,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "VhLOLXSxCYk",
+      "title": "Sex determination | Heredity and evolution | 10th CBSE Syllabus | Explanation",
+      "search_query": "sex determination class 10",
+      "search_rank": 5,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "JoOGRPIsML4",
+      "title": "Basics of Heredity | Part 1/1 | English | Class 10",
+      "search_query": "heredity class 10 science explanation in english",
+      "search_rank": 0,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "xTOMgXeGizU",
+      "title": "Genetics - Mendelian Experiments - Monohybrid and Dihybrid Crosses - Lesson 3 | Don't Memorise",
+      "search_query": "Mendel monohybrid cross explained",
+      "search_rank": 4,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "uOR2zaV_qNQ",
+      "title": "Master Dihybrid Crosses: The Step-by-Step Guide to Punnett Squares & Genetic Ratios",
+      "search_query": "Mendel dihybrid cross independent inheritance",
+      "search_rank": 2,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "B7inULtRO-I",
+      "title": "Dihybrid cross....Mendel's laws of inheritance....cl 10//12//CBSE//NEET//EAMCET",
+      "search_query": "Mendel dihybrid cross independent inheritance",
+      "search_rank": 7,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "B7VMXUk6TEg",
+      "title": "Mendel's experiment (monohybrid cross) | Heredity & Evolution | Biology | Khan Academy",
+      "search_query": "Mendel monohybrid cross explained",
+      "search_rank": 2,
+      "rejected": "usable, not among the best-covering --keep"
+    }
+  ],
+  "review_flags": [
+    "Concept coverage is LEXICAL ONLY (concept names/aliases counted in transcripts); it is not evidence that a video teaches a concept correctly or completely. Semantic coverage is NOT verified.",
+    "Embedding verification is INCOMPLETE: Ollama is unavailable (reinstall deferred).",
+    "Edition mismatches and unrelated-topic coverage are flagged per video in review.notes and stay flagged until a human reviews them."
+  ]
+}

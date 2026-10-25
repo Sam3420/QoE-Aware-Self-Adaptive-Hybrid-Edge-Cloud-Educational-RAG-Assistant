@@ -17,3 +17,5 @@ pandas>=2.2,<3.0
 langfuse>=5.0.1,<6
 # dev
 pytest>=8.0
+# content prep only (scripts that read NCERT chapter PDFs); not needed to run the app
+pypdf>=5,<7

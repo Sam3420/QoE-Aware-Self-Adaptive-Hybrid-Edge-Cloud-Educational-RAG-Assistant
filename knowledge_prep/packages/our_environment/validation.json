@@ -1,0 +1,153 @@
+{
+  "topic_id": "our_environment",
+  "validated_at": "2026-10-25T20:11:25+00:00",
+  "valid": true,
+  "errors": [],
+  "warnings": [
+    "OE-PRE-06: tagged ten_percent_law, wording names ['trophic_levels']",
+    "OE-PRE-12: tagged ten_percent_law, wording names ['producers', 'consumers', 'trophic_levels']",
+    "OE-POST-06: tagged ten_percent_law, wording names ['ecosystem_definition', 'producers']",
+    "OE-POST-12: tagged ten_percent_law, wording names ['consumers', 'trophic_levels']",
+    "videos: concept coverage is lexical only; the embedding check (Ollama) has not run"
+  ],
+  "summary": {
+    "verbatim": {
+      "max_run": 7,
+      "items_with_run_>=_10": 0
+    },
+    "videos": {
+      "candidates": 5,
+      "concepts_covered": [
+        "biodegradable_waste",
+        "biological_magnification",
+        "consumers",
+        "decomposers",
+        "ecosystem_definition",
+        "food_web",
+        "ozone_layer",
+        "producers",
+        "ten_percent_law",
+        "trophic_levels"
+      ],
+      "examined": 33
+    },
+    "concepts": 10,
+    "pretest": 15,
+    "posttest": 15,
+    "formative": 31,
+    "formative_per_concept": {
+      "ecosystem_definition": 3,
+      "producers": 3,
+      "consumers": 3,
+      "decomposers": 3,
+      "trophic_levels": 3,
+      "ten_percent_law": 3,
+      "food_web": 3,
+      "biological_magnification": 3,
+      "ozone_layer": 3,
+      "biodegradable_waste": 4
+    },
+    "difficulty": {
+      "pretest": {
+        "easy": 5,
+        "medium": 7,
+        "hard": 3
+      },
+      "posttest": {
+        "easy": 5,
+        "medium": 7,
+        "hard": 3
+      },
+      "formative": {
+        "easy": 11,
+        "medium": 19,
+        "hard": 1
+      }
+    },
+    "answer_positions": {
+      "pretest": {
+        "0": 4,
+        "1": 4,
+        "2": 4,
+        "3": 3
+      },
+      "posttest": {
+        "0": 4,
+        "1": 3,
+        "2": 4,
+        "3": 4
+      },
+      "formative": {
+        "0": 7,
+        "1": 8,
+        "2": 8,
+        "3": 8
+      }
+    },
+    "pre_items_per_concept": {
+      "ecosystem_definition": 1,
+      "producers": 1,
+      "trophic_levels": 2,
+      "ozone_layer": 2,
+      "biodegradable_waste": 2,
+      "ten_percent_law": 2,
+      "biological_magnification": 2,
+      "consumers": 1,
+      "decomposers": 1,
+      "food_web": 1
+    }
+  },
+  "lexical_tag_flags": [
+    {
+      "id": "OE-PRE-06",
+      "assigned": "ten_percent_law",
+      "named_in_text": [
+        "trophic_levels"
+      ]
+    },
+    {
+      "id": "OE-PRE-12",
+      "assigned": "ten_percent_law",
+      "named_in_text": [
+        "producers",
+        "consumers",
+        "trophic_levels"
+      ]
+    },
+    {
+      "id": "OE-POST-06",
+      "assigned": "ten_percent_law",
+      "named_in_text": [
+        "ecosystem_definition",
+        "producers"
+      ]
+    },
+    {
+      "id": "OE-POST-12",
+      "assigned": "ten_percent_law",
+      "named_in_text": [
+        "consumers",
+        "trophic_levels"
+      ]
+    }
+  ],
+  "near_duplicates": [],
+  "evidence_checked": true,
+  "first_shown_pretest_concepts": [
+    "ecosystem_definition",
+    "producers",
+    "trophic_levels",
+    "ozone_layer",
+    "biodegradable_waste"
+  ],
+  "llm_checks": {
+    "ran": true,
+    "model": "groq:openai/gpt-oss-120b",
+    "checked": 61,
+    "answered": 61,
+    "answer_disagreements": [],
+    "concept_disagreements": [],
+    "failures": [],
+    "note": "A disagreement flags the item for human review; agreement does not prove it correct."
+  }
+}

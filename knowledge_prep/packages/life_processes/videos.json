@@ -1,0 +1,638 @@
+{
+  "topic_id": "life_processes",
+  "status": "pending_review",
+  "generated_at": "2026-10-24T17:46:32+00:00",
+  "method": {
+    "source": "YouTube Data API v3 (search.list, videos.list) + youtube-transcript-api (en)",
+    "queries": [
+      "Life Processes class 10 NCERT",
+      "nutrition in human beings class 10 life processes",
+      "respiration class 10 life processes",
+      "transportation in human beings and plants class 10",
+      "excretion class 10 life processes",
+      "excretion in plants class 10 resins gums vacuoles"
+    ],
+    "duration_s": [
+      180,
+      2700
+    ],
+    "coverage": "lexical: concept name/alias mentioned >= 2 times in the transcript",
+    "embedding_coverage": "not run: Ollama (nomic-embed-text) unavailable; matching.video_coverage must be run before relying on coverage",
+    "transcript_text_stored": false
+  },
+  "concepts_covered": [
+    "autotrophic_nutrition_photosynthesis",
+    "excretion_in_plants",
+    "heterotrophic_nutrition_types",
+    "human_circulatory_system",
+    "human_digestion_process",
+    "kidney_filtration",
+    "plant_transport_xylem_phloem",
+    "respiration_aerobic_vs_anaerobic",
+    "respiratory_structure_mechanics",
+    "stomatal_control"
+  ],
+  "concepts_not_covered": [],
+  "candidates": [
+    {
+      "video_id": "JzihOwFW3gI",
+      "url": "https://www.youtube.com/watch?v=JzihOwFW3gI",
+      "title": "Life processes Full chapter | class 10 Animated video | 10th BIOLOGY | ncert #science | Chapter 7",
+      "channel_title": "Grade booster",
+      "channel_id": "UCj1KaZtIXFBdc35sAVZzbLQ",
+      "published_at": "2023-07-29T14:30:09+00:00",
+      "duration_s": 1285,
+      "search_query": "Life Processes class 10 NCERT",
+      "search_rank": 4,
+      "api_caption_flag": false,
+      "default_audio_language": "zxx",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 2876,
+        "checked_at": "2026-10-24T17:46:19+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "autotrophic_nutrition_photosynthesis",
+          "method": "lexical",
+          "mentions": {
+            "photosynthesis": 9,
+            "chlorophyll": 3,
+            "chloroplasts": 2
+          }
+        },
+        {
+          "concept_id": "stomatal_control",
+          "method": "lexical",
+          "mentions": {
+            "stomata": 3
+          }
+        },
+        {
+          "concept_id": "human_digestion_process",
+          "method": "lexical",
+          "mentions": {
+            "digestion": 6,
+            "salivary amylase": 1,
+            "pepsin": 3,
+            "bile": 3,
+            "villi": 2,
+            "small intestine": 5
+          }
+        },
+        {
+          "concept_id": "respiration_aerobic_vs_anaerobic",
+          "method": "lexical",
+          "mentions": {
+            "aerobic respiration": 7,
+            "anaerobic respiration": 7,
+            "fermentation": 1,
+            "lactic acid": 2,
+            "atp": 4
+          }
+        },
+        {
+          "concept_id": "respiratory_structure_mechanics",
+          "method": "lexical",
+          "mentions": {
+            "exchange of gases": 4,
+            "breathing": 3,
+            "alveoli": 5,
+            "lungs": 5
+          }
+        },
+        {
+          "concept_id": "human_circulatory_system",
+          "method": "lexical",
+          "mentions": {
+            "heart": 12,
+            "double circulation": 1,
+            "blood": 44,
+            "arteries": 5,
+            "veins": 7,
+            "capillaries": 7,
+            "platelets": 1,
+            "lymph": 8
+          }
+        },
+        {
+          "concept_id": "plant_transport_xylem_phloem",
+          "method": "lexical",
+          "mentions": {
+            "xylem": 4,
+            "phloem": 7,
+            "transpiration": 2,
+            "translocation": 4,
+            "root pressure": 1
+          }
+        },
+        {
+          "concept_id": "kidney_filtration",
+          "method": "lexical",
+          "mentions": {
+            "kidneys": 1,
+            "nephron": 1,
+            "bowman s capsule": 2,
+            "urine": 2,
+            "urinary bladder": 3
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Edition mismatch: the title uses an older NCERT chapter number ('Chapter 7'); current Reprint 2026-27 numbering is Chapter 5. Check the content matches the current chapter."
+      }
+    },
+    {
+      "video_id": "yE3GlzspUJk",
+      "url": "https://www.youtube.com/watch?v=yE3GlzspUJk",
+      "title": "CLASS 10 LIFE PROCESSES FULL CHAPTER (Animation)| PART - 1  | NCERT Science chapter 6| Nutrition",
+      "channel_title": "Grade booster",
+      "channel_id": "UCj1KaZtIXFBdc35sAVZzbLQ",
+      "published_at": "2024-04-09T14:30:07+00:00",
+      "duration_s": 1016,
+      "search_query": "nutrition in human beings class 10 life processes",
+      "search_rank": 7,
+      "api_caption_flag": false,
+      "default_audio_language": "zxx",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 2111,
+        "checked_at": "2026-10-24T17:46:23+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "autotrophic_nutrition_photosynthesis",
+          "method": "lexical",
+          "mentions": {
+            "photosynthesis": 14,
+            "autotrophic nutrition": 3,
+            "chlorophyll": 11,
+            "chloroplasts": 1
+          }
+        },
+        {
+          "concept_id": "heterotrophic_nutrition_types",
+          "method": "lexical",
+          "mentions": {
+            "heterotrophic nutrition": 1,
+            "parasitic nutrition": 3
+          }
+        },
+        {
+          "concept_id": "human_digestion_process",
+          "method": "lexical",
+          "mentions": {
+            "digestion": 8,
+            "pepsin": 3,
+            "bile": 3,
+            "small intestine": 6
+          }
+        },
+        {
+          "concept_id": "human_circulatory_system",
+          "method": "lexical",
+          "mentions": {
+            "blood": 4,
+            "lymph": 1
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Edition mismatch: the title uses an older NCERT chapter number ('chapter 6'); current Reprint 2026-27 numbering is Chapter 5. Check the content matches the current chapter."
+      }
+    },
+    {
+      "video_id": "V44QlrTs7Mo",
+      "url": "https://www.youtube.com/watch?v=V44QlrTs7Mo",
+      "title": "Excretion In Plants | The Dr. Binocs Show | Learn Videos For Kids",
+      "channel_title": "Peekaboo Kidz",
+      "channel_id": "UCxlJ45KjG4XVcQ_hd8j227A",
+      "published_at": "2016-08-19T11:38:39+00:00",
+      "duration_s": 201,
+      "search_query": "excretion in plants class 10 resins gums vacuoles",
+      "search_rank": 6,
+      "api_caption_flag": true,
+      "default_audio_language": "en",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "manual",
+        "words": 351,
+        "checked_at": "2026-10-24T17:46:31+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "excretion_in_plants",
+          "method": "lexical",
+          "mentions": {
+            "excretion in plants": 1,
+            "resins": 1,
+            "gums": 1
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Only candidate whose transcript covers excretion_in_plants, but it is a children's show (\"Learn Videos For Kids\", 201 s): check it suits Class 10, or find another."
+      }
+    },
+    {
+      "video_id": "LVVbKoN8Duo",
+      "url": "https://www.youtube.com/watch?v=LVVbKoN8Duo",
+      "title": "CLASS 10 LIFE PROCESSES FULL CHAPTER (Animation)| PART - 3  | NCERT Science ch 6| Transportation",
+      "channel_title": "Grade booster",
+      "channel_id": "UCj1KaZtIXFBdc35sAVZzbLQ",
+      "published_at": "2024-04-23T14:30:07+00:00",
+      "duration_s": 651,
+      "search_query": "transportation in human beings and plants class 10",
+      "search_rank": 3,
+      "api_caption_flag": false,
+      "default_audio_language": "zxx",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 1495,
+        "checked_at": "2026-10-24T17:46:28+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "respiration_aerobic_vs_anaerobic",
+          "method": "lexical",
+          "mentions": {
+            "atp": 2
+          }
+        },
+        {
+          "concept_id": "respiratory_structure_mechanics",
+          "method": "lexical",
+          "mentions": {
+            "gills": 1,
+            "lungs": 5
+          }
+        },
+        {
+          "concept_id": "human_circulatory_system",
+          "method": "lexical",
+          "mentions": {
+            "heart": 15,
+            "double circulation": 1,
+            "blood": 61,
+            "arteries": 8,
+            "veins": 8,
+            "capillaries": 5,
+            "platelets": 2,
+            "lymph": 8
+          }
+        },
+        {
+          "concept_id": "plant_transport_xylem_phloem",
+          "method": "lexical",
+          "mentions": {
+            "xylem": 1,
+            "transpiration": 4,
+            "translocation": 4,
+            "root pressure": 1
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Edition mismatch: the title uses an older NCERT chapter number ('ch 6'); current Reprint 2026-27 numbering is Chapter 5. Check the content matches the current chapter."
+      }
+    },
+    {
+      "video_id": "CZc-UGsXXRA",
+      "url": "https://www.youtube.com/watch?v=CZc-UGsXXRA",
+      "title": "Life process class 10 Animated video | 10th BIOLOGY | ncert #science | Chapter 7 #transportation",
+      "channel_title": "Grade booster",
+      "channel_id": "UCj1KaZtIXFBdc35sAVZzbLQ",
+      "published_at": "2023-07-26T14:30:10+00:00",
+      "duration_s": 384,
+      "search_query": "transportation in human beings and plants class 10",
+      "search_rank": 5,
+      "api_caption_flag": false,
+      "default_audio_language": "en-US",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 922,
+        "checked_at": "2026-10-24T17:46:28+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "respiration_aerobic_vs_anaerobic",
+          "method": "lexical",
+          "mentions": {
+            "atp": 2
+          }
+        },
+        {
+          "concept_id": "respiratory_structure_mechanics",
+          "method": "lexical",
+          "mentions": {
+            "lungs": 5
+          }
+        },
+        {
+          "concept_id": "human_circulatory_system",
+          "method": "lexical",
+          "mentions": {
+            "heart": 13,
+            "double circulation": 1,
+            "blood": 30,
+            "arteries": 5,
+            "veins": 7,
+            "capillaries": 5,
+            "platelets": 1,
+            "lymph": 7
+          }
+        },
+        {
+          "concept_id": "plant_transport_xylem_phloem",
+          "method": "lexical",
+          "mentions": {
+            "xylem": 4,
+            "phloem": 7,
+            "transpiration": 2,
+            "translocation": 4,
+            "root pressure": 1
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Edition mismatch: the title uses an older NCERT chapter number ('Chapter 7'); current Reprint 2026-27 numbering is Chapter 5. Check the content matches the current chapter."
+      }
+    }
+  ],
+  "examined": [
+    {
+      "video_id": "2anxgj0TUgQ",
+      "title": "Life Processes Complete Chapter🔥| CLASS 10 Science | NCERT Covered| Prashant Kirad",
+      "search_query": "Life Processes class 10 NCERT",
+      "search_rank": 0,
+      "rejected": "duration 6900 s outside 180-2700 s"
+    },
+    {
+      "video_id": "fu6GuSN0p9I",
+      "title": "Life Processes - Class 10 Science Chapter 5 | 2025-26 Session | Full Chapter",
+      "search_query": "Life Processes class 10 NCERT",
+      "search_rank": 1,
+      "rejected": "duration 16701 s outside 180-2700 s"
+    },
+    {
+      "video_id": "PqXvVt-MOlo",
+      "title": "Life Processes | Class 10 Science Chapter 5 | 2026-27 | Full Chapter | CBSE | NCERT",
+      "search_query": "Life Processes class 10 NCERT",
+      "search_rank": 2,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "B62PCjgo_d0",
+      "title": "Life Processes Class 10 NCERT Chapter 5 Line by Line Explanation | CBSE Guidance",
+      "search_query": "Life Processes class 10 NCERT",
+      "search_rank": 3,
+      "rejected": "duration 8852 s outside 180-2700 s"
+    },
+    {
+      "video_id": "5YOf-Rm4B7I",
+      "title": "Life Processes in 20 Minutes🔥| Class 10th | Rapid Revision | Prashant Kirad",
+      "search_query": "Life Processes class 10 NCERT",
+      "search_rank": 5,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "ISGZMf2iiJ4",
+      "title": "Life Processes | Complete NCERT WITH BACK EXERCISE in 1 Video | Class 10th Board",
+      "search_query": "Life Processes class 10 NCERT",
+      "search_rank": 6,
+      "rejected": "duration 6301 s outside 180-2700 s"
+    },
+    {
+      "video_id": "5pmteAlYMUg",
+      "title": "Class 10th Science - Life Processes🔥| NCERT Exercise Solved | Prashant Kirad",
+      "search_query": "Life Processes class 10 NCERT",
+      "search_rank": 7,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "fBTsiJJk5sk",
+      "title": "Life Processes: Nutrition Part 2 | Class 10 NCERT Science Biology Explained |CBSE 2026-27 Batch",
+      "search_query": "nutrition in human beings class 10 life processes",
+      "search_rank": 0,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "VF8ORgF1OBo",
+      "title": "NUTRITION IN HUMAN BEINGS: Complete Topic in 10 Minutes | Class 10th Board Exam ⚡",
+      "search_query": "nutrition in human beings class 10 life processes",
+      "search_rank": 1,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "atyomRXsPmw",
+      "title": "Nutrition In Human Beings class10 / Animated / Digestive System / Life Processes / Ncert Part-2",
+      "search_query": "nutrition in human beings class 10 life processes",
+      "search_rank": 3,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "-2D-x4h3C8Y",
+      "title": "Respiration One Shot Revision in 10 Mins | Life Processes Class 10 Science Biology #CBSE2024",
+      "search_query": "respiration class 10 life processes",
+      "search_rank": 3,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "uRk8OdqnxZ8",
+      "title": "Respiration class10 / animation / Aerobic and Anaerobic Respiration / Respiration in Plant & Animals",
+      "search_query": "respiration class 10 life processes",
+      "search_rank": 4,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "wKxnx91L5gA",
+      "title": "Life Processes - Respiration Class 10 Biology One Shot in 5 Minute | Jhatpat Gyaan | CBSE",
+      "search_query": "respiration class 10 life processes",
+      "search_rank": 5,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "UyxKGYsWr94",
+      "title": "Human Respiratory System class10 / Animated / life processes class10 biology / respiration in human",
+      "search_query": "respiration class 10 life processes",
+      "search_rank": 6,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "NoKM1-6YaXo",
+      "title": "Respiration - Life Process | Class 10 Science Chapter 5",
+      "search_query": "respiration class 10 life processes",
+      "search_rank": 7,
+      "rejected": "transcript transcripts_disabled: TranscriptsDisabled: Could not retrieve a transcript for the video https://www.youtube.com/watch?v=NoKM1-6YaXo! This is "
+    },
+    {
+      "video_id": "4UumDfo4utw",
+      "title": "Transportation class10 / transportation in human beings / transportation in plants / Life Processes",
+      "search_query": "transportation in human beings and plants class 10",
+      "search_rank": 1,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "2Ore5jKedrU",
+      "title": "Working Of Human Heart 🔥| Life Processes | Class 10 Science | Prashant Kirad",
+      "search_query": "transportation in human beings and plants class 10",
+      "search_rank": 2,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "Nt8qAGcsXoo",
+      "title": "Structure and Working Of Kidney | Life Process |  Biology class 10 | Prashant Kirad",
+      "search_query": "excretion class 10 life processes",
+      "search_rank": 0,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "i0GKj3pMtM0",
+      "title": "EXCRETORY SYSTEM Complete Chapter | ICSE Class 10 Biology",
+      "search_query": "excretion class 10 life processes",
+      "search_rank": 5,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "HTUUUU6bgZU",
+      "title": "Excretion in Human Beings & Plants  Class10 / Animated / Nephron class10 / Excretion/ Life Processes",
+      "search_query": "excretion class 10 life processes",
+      "search_rank": 7,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "_1dam8tghic",
+      "title": "Class 10 Biology Chapter 6 | Excretion in Plants - Life Processes",
+      "search_query": "excretion in plants class 10 resins gums vacuoles",
+      "search_rank": 1,
+      "rejected": "duration 3032 s outside 180-2700 s"
+    },
+    {
+      "video_id": "nip7SKXml7U",
+      "title": "Excretion in Plants - Life Processes | Class 10 National Science Olympiad (Biology) 2022-23",
+      "search_query": "excretion in plants class 10 resins gums vacuoles",
+      "search_rank": 2,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "WP1Vh2ZL_LU",
+      "title": "Life Processes - Lesson 18 | Excretion in Plants - in Hindi (हिंदी में ) | Infinity Learn",
+      "search_query": "excretion in plants class 10 resins gums vacuoles",
+      "search_rank": 3,
+      "rejected": "duration 137 s outside 180-2700 s"
+    },
+    {
+      "video_id": "O6kt6We93fI",
+      "title": "Class 10 | Life process😎 biology | Sure shot🎯 | Prashant Kirad 🤘| Next toppers | How plants excrete ",
+      "search_query": "excretion in plants class 10 resins gums vacuoles",
+      "search_rank": 4,
+      "rejected": "duration 147 s outside 180-2700 s"
+    },
+    {
+      "video_id": "yrhILMhEuFA",
+      "title": "How do Plants Excrete? | Excretion in Plants | Life Processes Class10 Science Biology #CBSE2024",
+      "search_query": "excretion in plants class 10 resins gums vacuoles",
+      "search_rank": 5,
+      "rejected": "duration 45 s outside 180-2700 s"
+    },
+    {
+      "video_id": "zMGMI_JdCeo",
+      "title": "Class 10 Science | Biology | Chapter - 6 | Life Processes - Excretion in Plants",
+      "search_query": "excretion in plants class 10 resins gums vacuoles",
+      "search_rank": 7,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "L85bKEsUv3g",
+      "title": "CLASS 10 LIFE PROCESSES FULL CHAPTER (Animation)| PART - 2  | NCERT Science chapter 6| Respiration",
+      "search_query": "respiration class 10 life processes",
+      "search_rank": 2,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "ECdQAH9btnc",
+      "title": "Transportation in humans & plants | Life processes | Class 10 Biology | Khan Academy",
+      "search_query": "transportation in human beings and plants class 10",
+      "search_rank": 4,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "qJ4z25ofX7g",
+      "title": "NUTRITION IN HUMAN BEINGS",
+      "search_query": "nutrition in human beings class 10 life processes",
+      "search_rank": 2,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "AUaVINUiO2I",
+      "title": "HOW HUMAN DIGESTIVE SYSTEM WORKS? | #lifeprocessesclass10  science NCERT chapter 6",
+      "search_query": "nutrition in human beings class 10 life processes",
+      "search_rank": 5,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "sNf81G_ivTA",
+      "title": "Human #excretory system| Life Processes | CBSE Class 10 Science Syllabus | NCERT Class 10 | Biology",
+      "search_query": "excretion class 10 life processes",
+      "search_rank": 1,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "6idTmDG_sDw",
+      "title": "Excretion in humans and plants | Life processes | Class 10 Biology | Khan Academy",
+      "search_query": "excretion class 10 life processes",
+      "search_rank": 3,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "hPHnvxZZ4w0",
+      "title": "Excretion in plants | life processes | Class 10 | Science - biology | How do plants excrete",
+      "search_query": "excretion in plants class 10 resins gums vacuoles",
+      "search_rank": 0,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "ML2WX84gsGE",
+      "title": "Transportation In Human Beings",
+      "search_query": "transportation in human beings and plants class 10",
+      "search_rank": 7,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "dtGuJM67hzs",
+      "title": "CLASS10: LIFE PROCESSES: PART 6: EXCRETION (MALAYALAM)",
+      "search_query": "excretion class 10 life processes",
+      "search_rank": 4,
+      "rejected": "usable, not among the best-covering --keep"
+    }
+  ],
+  "review_flags": [
+    "Concept coverage is LEXICAL ONLY (concept names/aliases counted in transcripts); it is not evidence that a video teaches a concept correctly or completely. Semantic coverage is NOT verified.",
+    "Embedding verification is INCOMPLETE: Ollama is unavailable (reinstall deferred).",
+    "Edition mismatches and unrelated-topic coverage are flagged per video in review.notes and stay flagged until a human reviews them."
+  ]
+}
