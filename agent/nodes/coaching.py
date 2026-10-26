@@ -284,19 +284,21 @@ def log_suggestion(state: AgentState, accepted: bool) -> list[dict[str, Any]]:
 
 
 def _coverage(state: AgentState) -> tuple[list[str] | None, dict[str, Any]]:
-    """Concepts the current video covers (cached per video in the state; None while unknown)."""
+    """Concepts the current video covers, or None while unknown.
+
+    Only known coverage is cached (video_concepts). "Unknown" is asked again on the next turn: a video recommended
+    before its transcript was indexed becomes known once it is chosen and indexed, and rule 2 must see that.
+    """
     video_id = (state.get("video") or {}).get("video_id")
     cached = dict(state.get("video_concepts") or {})
     if not video_id:
         return None, cached
-    if video_id in cached:
+    if cached.get(video_id) is not None:
         return cached[video_id], cached
-    try:
-        coverage = coach_data.video_coverage(video_id, state["topic_id"])
-    except Exception as exc:  # unknown coverage: rule 2 is skipped
-        logger.info("video coverage unavailable: %s", exc)
-        coverage = None
-    return coverage, {**cached, video_id: coverage}
+    coverage = _known_coverage(video_id, state["topic_id"])
+    if coverage is not None:
+        cached[video_id] = coverage
+    return coverage, cached
 
 
 def video_covers(state: AgentState, items: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
@@ -309,15 +311,22 @@ def video_covers(state: AgentState, items: list[dict[str, Any]]) -> tuple[list[d
     names = {c.id: c.name for c in vocabulary.concepts}
     out = []
     for item in items:
-        if item["video_id"] not in cache:
-            try:
-                cache[item["video_id"]] = coach_data.video_coverage(item["video_id"], state["topic_id"])
-            except Exception as exc:  # unknown coverage: no line on the card
-                logger.info("video coverage of %s unavailable: %s", item["video_id"], exc)
-                cache[item["video_id"]] = None
-        covered = cache[item["video_id"]]
+        covered = cache.get(item["video_id"])
+        if covered is None:
+            covered = _known_coverage(item["video_id"], state["topic_id"])
+            if covered is not None:  # only known coverage is cached; unknown is asked again later
+                cache[item["video_id"]] = covered
         out.append({**item, "covers": [names.get(c, c) for c in covered] if covered is not None else None})
     return out, cache
+
+
+def _known_coverage(video_id: str, topic_id: str) -> list[str] | None:
+    """The video's concept ids, or None when coverage is unknown (no transcript index yet, stub, error)."""
+    try:
+        return coach_data.video_coverage(video_id, topic_id)
+    except Exception as exc:
+        logger.info("video coverage of %s unavailable: %s", video_id, exc)
+        return None
 
 
 def _concept_name(state: AgentState, concept_id: str | None) -> str:

@@ -70,6 +70,12 @@ def test_build_reflection():
 # --- graph -------------------------------------------------------------------------------------------------------------
 
 @pytest.fixture
+def video_covers_all(monkeypatch):
+    """The chosen video covers every concept, so rule 2 (another_video) stays out of the way."""
+    monkeypatch.setattr("matching.video_coverage", lambda video_id, topic_id: [f"concept_{i}" for i in range(1, 7)])
+
+
+@pytest.fixture
 def vocab_dir(tmp_path, monkeypatch):
     concepts = [{"id": f"concept_{i}", "name": f"Concept {i}", "description": f"What concept {i} is about.",
                  "aliases": [], "evidence": "Plants make food from light."} for i in range(1, 7)]
@@ -197,7 +203,7 @@ def test_video_cards_show_coverage_in_rules_mode_only(runner, learner, vocab_dir
     assert "covers" not in out["interrupt"]["items"][0]
 
 
-def test_demo_path_on_stubs_follow_up_then_formative_check(runner, learner, vocab_dir):
+def test_demo_path_on_stubs_follow_up_then_formative_check(runner, learner, vocab_dir, video_covers_all):
     """With the stub matcher, accepting a follow_up tags its question with the goal concept, so a weak goal gets
     a formative check next: the demo path works before matching.py is implemented."""
     tid = runner.start_session(learner, TOPIC)["thread_id"]
@@ -208,3 +214,35 @@ def test_demo_path_on_stubs_follow_up_then_formative_check(runner, learner, voca
     assert runner.get_state(tid)["values"]["tracker_updates"][-1]["status"] == "recorded"
     suggestion = out["interrupt"]["suggestion"]
     assert suggestion["action"] == "formative_check" and suggestion["concept_id"] == "concept_1"
+
+
+def test_coverage_unknown_at_recommendation_is_rechecked_once_the_video_is_indexed(runner, learner, vocab_dir,
+                                                                                    monkeypatch):
+    """Live bug: coverage was "unknown" when the videos were recommended (no transcript index yet) and that unknown
+    was cached for the session, so rule 2 (another_video) never fired for the chosen video."""
+    import matching
+    from tests.conftest import pick_video
+
+    indexed = {"done": False}
+
+    def coverage(video_id, topic_id):
+        if not indexed["done"]:
+            raise matching.CoverageUnknownError(f"No transcript index 'yt_{video_id}' yet.")
+        return ["concept_1"]  # the chosen video covers only concept_1
+
+    monkeypatch.setattr("matching.video_coverage", coverage)
+    tid = runner.start_session(learner, TOPIC)["thread_id"]
+    out = runner.resume(tid, {"answers": MISS_1})
+    assert out["interrupt"]["type"] == "select_video"
+    assert all(item["covers"] is None for item in out["interrupt"]["items"])  # unknown: no line on the cards
+    assert runner.get_state(tid)["values"]["video_concepts"] == {}  # and unknown is not cached
+
+    indexed["done"] = True  # prepare_knowledge indexes the chosen video
+    pick_video(runner, tid, out)
+    out = runner.resume(tid, {"query": "Why are leaves green?"})  # names no concept: rule 1 does not apply
+    suggestion = out["interrupt"]["suggestion"]
+    goals = [g["concept_id"] for g in runner.get_state(tid)["values"]["session_plan"]["goals"]]
+    uncovered = next(g for g in goals if g != "concept_1")
+    assert (suggestion["action"], suggestion["concept_id"]) == ("another_video", uncovered)
+    video_id = runner.get_state(tid)["values"]["video"]["video_id"]
+    assert runner.get_state(tid)["values"]["video_concepts"][video_id] == ["concept_1"]  # known: cached now

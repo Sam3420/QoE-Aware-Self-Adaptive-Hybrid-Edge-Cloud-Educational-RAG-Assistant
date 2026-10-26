@@ -102,6 +102,12 @@ TOPIC = "photosynthesis"  # FakeMCQProvider labels its 5 bank items "concept 1".
 
 
 @pytest.fixture
+def video_covers_all(monkeypatch):
+    """The chosen video covers every concept, so rule 2 (another_video) stays out of the way."""
+    monkeypatch.setattr("matching.video_coverage", lambda video_id, topic_id: [f"concept_{i}" for i in range(1, 7)])
+
+
+@pytest.fixture
 def vocab_dir(tmp_path, monkeypatch):
     concepts = [{"id": f"concept_{i}", "name": f"Concept {i}", "description": f"What concept {i} is about.",
                  "aliases": [], "evidence": "Plants make food from light."} for i in range(1, 7)]
@@ -187,7 +193,7 @@ def test_formative_items_are_not_repeated_in_a_session(runner, learner, services
         "formative_result"]["note"]
 
 
-def test_ignored_suggestions_are_logged_and_summarised(runner, learner, vocab_dir):
+def test_ignored_suggestions_are_logged_and_summarised(runner, learner, vocab_dir, video_covers_all):
     tid, out = _first_answer(runner, learner)  # match_question is a stub: rule 5 follow_up
     assert out["interrupt"]["suggestion"]["action"] == "follow_up"
     runner.resume(tid, {"query": "Why are leaves green?"})  # ignored
@@ -198,7 +204,7 @@ def test_ignored_suggestions_are_logged_and_summarised(runner, learner, vocab_di
     assert final["evaluation"]["coach"]["shown"] == 2 and final["evaluation"]["coach"]["acceptance_rate"] == 0.0
 
 
-def test_accepted_follow_up_asks_the_templated_question(runner, learner, vocab_dir):
+def test_accepted_follow_up_asks_the_templated_question(runner, learner, vocab_dir, video_covers_all):
     tid, out = _first_answer(runner, learner)
     suggestion = out["interrupt"]["suggestion"]
     runner.resume(tid, {"accept_suggestion": True})
