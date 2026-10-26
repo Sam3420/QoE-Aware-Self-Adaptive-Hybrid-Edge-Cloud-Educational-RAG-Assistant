@@ -9,7 +9,7 @@ import streamlit as st
 from config import settings
 from frontend.clients import data_access
 from frontend.clients.agent_backend import AgentBackend, StepResult
-from frontend.components import chat
+from frontend.components import chat, speech
 from frontend.components.mastery import mastery_panel
 from frontend.components.mcq import mcq_inputs
 from frontend.components.ui import badge, code_id, page_header, show_step_error
@@ -320,9 +320,13 @@ def _questions(backend: AgentBackend, thread_id: str, values: dict[str, Any], pa
             st.rerun()
     st.caption(f"Question {pause['question_no']} of at most {settings.max_questions_per_session} this session.")
 
-    if prompt := st.chat_input(f"Ask a doubt about {video_title}…", max_chars=2000):
+    if turns:  # Accessibility setting: read the newest answer aloud once
+        speech.read_aloud_once(turns[-1]["response"], key=speech.answer_key(thread_id, len(turns)))
+    prompt, spoken = speech.question_box(f"Ask a doubt about {video_title}…", key=f"ask-{thread_id}")
+    if prompt:
         with st.chat_message("user"):
             st.write(prompt)
+            speech.spoken_caption(spoken)
         with st.chat_message("assistant", avatar=":material/school:"):
             with st.spinner("Finding the answer in the video…"):
                 step = _stream_answer(backend, thread_id, {"query": prompt})
@@ -408,6 +412,8 @@ def _formative(backend: AgentBackend, thread_id: str, pause: dict[str, Any]) -> 
     if pause.get("feedback"):
         _formative_feedback(pause["feedback"])
     item = pause["item"]
+    speech.listen_button(f"{item['question']} " + " ".join(f"Option {'ABCD'[i]}: {o}." for i, o in
+                                                          enumerate(item["options"])), key=f"form-{item['item_id']}")
     with st.form(f"formative-{thread_id}-{item['item_id']}"):
         st.markdown(f"**{item['question']}**")
         choice = st.radio("Your answer", options=range(len(item["options"])), index=None,

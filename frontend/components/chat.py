@@ -20,6 +20,9 @@ def agent_turn(turn: dict[str, Any], threshold: float) -> None:
     with st.chat_message("assistant", avatar=":material/school:"):
         if turn["response"]:
             st.markdown(turn["response"])
+            from frontend.components.speech import answer_key, listen_button
+
+            listen_button(turn["response"], key=answer_key(log["question_no"], log["query"], turn["response"][:80]))
         scaffold = log.get("scaffold") or {}
         if scaffold.get("style") == "step_by_step" or scaffold.get("support") == "hint_first":
             shape = " + ".join(s.replace("_", " ") for s in (scaffold.get("style"), scaffold.get("support"))

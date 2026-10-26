@@ -94,6 +94,9 @@ def render(backend: AgentBackend, db: data_access.DatabaseStatus) -> str:
                 st.caption(f"API chat session `{short_id(api)}`")
         st.divider()
         _status_block(backend, db)
+        from frontend.components.speech import settings_panel
+
+        settings_panel()
         with st.expander("Runtime configuration"):
             st.caption("Read from config.py / app/core/config.py (.env). Restart Streamlit after editing .env.")
             st.json({

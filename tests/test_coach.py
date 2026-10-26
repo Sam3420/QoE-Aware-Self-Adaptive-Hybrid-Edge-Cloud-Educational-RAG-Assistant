@@ -280,10 +280,10 @@ def test_suggestion_button_runs_a_formative_check_in_the_ui(services, vocab_dir,
     at = suggestion.click().run()
     assert not at.exception and at.subheader[0].value == "Quick check: Concept 1"
     at.radio[0].set_value(0)
-    at = at.button[0].click().run()  # "Check my answer": A is right for stub item 1
+    at = next(b for b in at.button if b.label == "Check my answer").click().run()  # "Check my answer": A is right for stub item 1
     assert not at.exception and any("Correct" in s.value for s in at.success)
     at.radio[0].set_value(2)
-    at = at.button[0].click().run()  # C is wrong for stub item 2
+    at = next(b for b in at.button if b.label == "Check my answer").click().run()  # C is wrong for stub item 2
     assert not at.exception
     assert any("Practice check on Concept 1: 1 / 2 correct" in m.value for m in at.markdown)
     assert any("Not quite" in e.value for e in at.error)

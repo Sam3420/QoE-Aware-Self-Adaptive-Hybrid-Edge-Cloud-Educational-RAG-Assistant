@@ -290,3 +290,47 @@ def test_tracing_off_or_broken_never_affects_the_app(runner, learner, services, 
         assert final["final_state"]["evaluation"]["status"] == "completed"
     finally:
         tracing.set_client(None)
+
+
+def test_speech_traces_join_the_learners_session_with_load_and_latency(traced):
+    """Mic questions and read-aloud are their own traces in the learner's Langfuse session, with the model load
+    (first use) and the inference as child spans, and latency / real-time factor in the output."""
+    from types import SimpleNamespace as NS
+
+    import numpy as np
+
+    from services.speech.audio import AudioError, encode_wav
+    from services.speech.stt import WhisperSTT
+    from services.speech.tts import KokoroTTS
+
+    client, exporter, _ = traced
+    speech_wav = encode_wav((0.5 * np.sin(np.arange(16000) / 5)).astype(np.float32), 16000)
+    stt = WhisperSTT(model_id="distil-whisper/distil-small.en")
+
+    def fake_load():
+        stt._pipe, stt.device_used = (lambda inputs: {"text": "What is photosynthesis?"}), "cpu"
+        return 1.5
+
+    stt.load = fake_load
+    stt.transcribe(speech_wav, user_id="learner-1", session_id="session-1")
+    stt.transcribe(speech_wav, user_id="learner-1", session_id="session-1")  # model already loaded
+    tts = KokoroTTS(repo_id="onnx-community/Kokoro-82M-v1.0-ONNX", model_file="onnx/model_quantized.onnx",
+                    engine=NS(create=lambda *a, **k: (np.zeros(12000, dtype=np.float32), 24000)))
+    tts.synthesize("**Plants** make food.", user_id="learner-1", session_id="session-1")
+    with pytest.raises(AudioError):
+        stt.transcribe(b"not audio", user_id="learner-1", session_id="session-1")
+
+    traces = sorted(spans_by_trace(client, exporter).values(), key=lambda s: root(s).start_time)
+    assert [root(s).name for s in traces] == ["transcribe-question", "transcribe-question", "read-aloud",
+                                              "transcribe-question"]
+    for spans in traces:
+        assert all(s.attributes.get("session.id") == "session-1" and s.attributes.get("user.id") == "learner-1"
+                   for s in spans)
+    first, second, read, failed = traces
+    assert {s.name for s in first} == {"transcribe-question", "load-stt-model", "transcribe-speech"}
+    assert load(by_name(first, "load-stt-model")[0], OUTPUT) == {"seconds": 1.5, "device": "cpu"}
+    assert {s.name for s in second} == {"transcribe-question", "transcribe-speech"}  # no reload
+    out = load(root(second), OUTPUT)
+    assert out["text"] == "What is photosynthesis?" and out["audio_s"] == 1.0 and "real_time_factor" in out
+    assert load(root(read), OUTPUT)["audio_s"] == 0.5 and by_name(read, "synthesize-speech")
+    assert root(failed).attributes.get(LEVEL) == "ERROR"  # an unreadable recording is visible as an error
