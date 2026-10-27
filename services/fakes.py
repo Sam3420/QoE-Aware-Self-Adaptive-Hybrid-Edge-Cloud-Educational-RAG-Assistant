@@ -116,6 +116,11 @@ class FakeTranscriptFetcher:
                                 segments=[TranscriptSegment(start=10.0 * i, duration=10.0, text=t)
                                           for i, t in enumerate(lines)])
 
+    def available(self, video_id: str, languages):
+        from services.youtube.models import TranscriptStatus
+
+        return TranscriptStatus.NO_TRANSCRIPT if video_id in self.missing else TranscriptStatus.OK
+
 
 class FakeVideoRecommender:
     """Offline stand-in for agent.recommendations.RecommendationCoordinator (stub runs only).

@@ -77,7 +77,7 @@ class TranscriptRecord(BaseModel):
     status: TranscriptStatus
     language_code: str | None = None
     language: str | None = None
-    caption_type: str | None = None  # "manual" | "auto"
+    caption_type: str | None = None  # "manual" | "auto" | "<manual|auto>-translated from <lang>" (YouTube's translation)
     segments: list[TranscriptSegment] = Field(default_factory=list)
     retrieved_at: datetime | None = None
     error: str | None = None

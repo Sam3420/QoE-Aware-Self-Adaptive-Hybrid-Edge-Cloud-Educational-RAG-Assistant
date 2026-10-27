@@ -1,117 +1,167 @@
 {
   "topic_id": "control_and_coordination",
-  "status": "draft",
-  "generated_by": "groq:openai/gpt-oss-120b",
-  "generated_at": "2026-10-20T12:52:08.914713Z",
-  "reviewed_by": null,
-  "reviewed_at": null,
+  "status": "approved",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T21:19:15Z",
+  "reviewed_by": "Project team",
+  "reviewed_at": "2026-10-25T21:29:12.281125Z",
   "concepts": [
     {
-      "id": "sensory_receptors",
-      "name": "Sensory Receptors",
-      "description": "Learners should identify where and how organisms detect environmental stimuli.",
-      "aliases": [
-        "receptors",
-        "sense organs"
-      ],
-      "evidence": "Information from the environment is detected by specialised tips of nerve cells called receptors, located in the sense organs: the inner ear, the nose, the tongue, the eyes and the skin."
-    },
-    {
       "id": "neuron_structure",
-      "name": "Neuron Structure",
-      "description": "Learners should know the three main parts of a neuron and their functions.",
+      "name": "Receptors, neurons and nerve impulses",
+      "description": "Receptors at the tips of nerve cells, mostly in sense organs, detect information; impulses pass dendrite -> cell body -> axon; nervous tissue conducts information as electrical impulses.",
       "aliases": [
-        "nerve cell parts"
+        "neuron",
+        "neurons",
+        "nerve cell",
+        "dendrite",
+        "axon",
+        "cell body",
+        "receptors",
+        "nerve impulse"
       ],
-      "evidence": "A neuron, or nerve cell, has three parts: dendrites, which acquire information; the cell body; and the axon, a long extension along which information travels as an electrical impulse."
+      "evidence": "NCERT Class 10 Science §6.1, p.101 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "synaptic_transmission",
-      "name": "Synaptic Transmission",
-      "description": "Learners should understand how an electrical impulse triggers chemical release across a synapse.",
+      "name": "Synapse",
+      "description": "At the end of an axon the electrical impulse releases chemicals that cross the gap (synapse) and start an impulse in the next neuron, or deliver it to muscle or gland cells.",
       "aliases": [
         "synapse",
-        "chemical transmission"
+        "neuromuscular junction",
+        "chemical signal"
       ],
-      "evidence": "At the end of the axon, the electrical impulse sets off the release of chemicals, which cross a small gap called the synapse and start a similar electrical impulse in the dendrite of the next neuron."
+      "evidence": "NCERT Class 10 Science §6.1, p.101 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "reflex_arc",
-      "name": "Reflex Arc",
-      "description": "Learners should describe the pathway that produces a rapid involuntary response.",
+      "name": "Reflex actions and the reflex arc",
+      "description": "A reflex is a quick response made without thinking; the reflex arc links input and output nerves in the spinal cord, which is faster than waiting for the brain, although the input still reaches the brain.",
       "aliases": [
-        "reflex pathway"
+        "reflex",
+        "reflex action",
+        "reflex arc",
+        "reflexly"
       ],
-      "evidence": "Nerves that detect heat are connected to nerves that move muscles, and this pathway, from the input nerve to the output nerve through the spinal cord, is called a reflex arc."
+      "evidence": "NCERT Class 10 Science §6.1.1, p.102-103 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "brain_regions",
-      "name": "Brain Regions",
-      "description": "Learners should identify the three major parts of the brain.",
+      "name": "Human brain and nervous system",
+      "description": "Brain and spinal cord form the central nervous system, cranial and spinal nerves the peripheral one; the fore-brain thinks and decides, the medulla in the hind-brain controls involuntary actions; skull, fluid and vertebral column protect them.",
       "aliases": [
-        "fore‑brain",
-        "mid‑brain",
-        "hind‑brain"
+        "brain",
+        "fore-brain",
+        "mid-brain",
+        "hind-brain",
+        "medulla",
+        "central nervous system",
+        "peripheral nervous system",
+        "vertebral column"
       ],
-      "evidence": "The brain has three major parts: the fore-brain, the mid-brain and the hind-brain."
+      "evidence": "NCERT Class 10 Science §6.1.2-6.1.3, p.103-105 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "cerebellum_function",
-      "name": "Cerebellum Function",
-      "description": "Learners should explain the role of the cerebellum in coordinating voluntary movements and balance.",
+      "name": "Cerebellum",
+      "description": "The cerebellum, part of the hind-brain, is responsible for the precision of voluntary actions and for keeping posture and balance (walking straight, riding a bicycle, picking up a pencil).",
       "aliases": [
-        "cerebellum"
+        "cerebellum",
+        "balance",
+        "posture"
       ],
-      "evidence": "The cerebellum, also in the hind-brain, is responsible for precision of voluntary actions and for maintaining posture and balance, such as walking in a straight line, riding a bicycle or picking up a pencil."
-    },
-    {
-      "id": "plant_tropisms",
-      "name": "Plant Tropisms",
-      "description": "Learners should recognize different growth‑directed movements of plants toward stimuli.",
-      "aliases": [
-        "phototropism",
-        "geotropism",
-        "hydrotropism",
-        "chemotropism"
-      ],
-      "evidence": "Shoots bend towards light (phototropism); roots grow downwards towards the pull of the earth (geotropism, or gravitropism) and towards water (hydrotropism); and pollen tubes grow towards ovules (chemotropism)."
-    },
-    {
-      "id": "auxin_mechanism",
-      "name": "Auxin Mechanism",
-      "description": "Learners should understand how auxin distribution causes phototropic bending.",
-      "aliases": [
-        "auxin",
-        "phototropism hormone"
-      ],
-      "evidence": "When light comes from one side, auxin diffuses towards the shady side of the shoot, which stimulates the cells there to grow longer, so the shoot bends towards light."
-    },
-    {
-      "id": "animal_hormones",
-      "name": "Animal Hormones",
-      "description": "Learners should define hormones as chemical messengers released by endocrine glands into the blood.",
-      "aliases": [
-        "endocrine hormones"
-      ],
-      "evidence": "Hormones are chemical messengers secreted by endocrine glands directly into the blood, which carries them to target organs."
-    },
-    {
-      "id": "hormonal_feedback",
-      "name": "Hormonal Feedback",
-      "description": "Learners should describe how hormone release is regulated by feedback mechanisms.",
-      "aliases": [
-        "feedback regulation"
-      ],
-      "evidence": "The timing and amount of hormone released are regulated by feedback mechanisms: for example, if sugar levels in the blood rise, the cells of the pancreas detect it and produce more insulin, and as the sugar level falls, insulin secretion is reduced."
+      "evidence": "NCERT Class 10 Science §6.1.2, p.104 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "muscle_contraction",
-      "name": "Muscle Contraction",
-      "description": "Learners should explain how nervous impulses cause muscle fibers to shorten.",
+      "name": "How muscles move",
+      "description": "Muscle tissue does the final job of movement: in response to nerve impulses, special proteins in muscle cells change shape and arrangement so the cells shorten; voluntary and involuntary muscles.",
       "aliases": [
-        "muscle action"
+        "muscle",
+        "muscles",
+        "muscle cells",
+        "muscle fibre",
+        "voluntary muscles",
+        "involuntary muscles"
       ],
-      "evidence": "Muscle cells contain special proteins that change their shape and arrangement in response to nervous electrical impulses, which makes the muscle cells shorter."
+      "evidence": "NCERT Class 10 Science §6.1.4, p.105 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
+    },
+    {
+      "id": "plant_tropisms",
+      "name": "Plant movements and tropisms",
+      "description": "Plants move without nerves or muscles: the sensitive plant folds its leaves without growth (cells change water content), while tendrils and tropisms (photo-, geo-, chemo-, hydrotropism) are directional growth movements.",
+      "aliases": [
+        "tropism",
+        "tropic",
+        "phototropism",
+        "phototropic",
+        "geotropism",
+        "chemotropism",
+        "hydrotropism",
+        "sensitive plant",
+        "touch-me-not",
+        "tendril",
+        "tendrils"
+      ],
+      "evidence": "NCERT Class 10 Science §6.2-6.2.2, p.105-107 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
+    },
+    {
+      "id": "auxin_mechanism",
+      "name": "Plant hormones",
+      "description": "Plant hormones are made away from where they act and diffuse there: auxin moves to the shady side so the shoot bends towards light; gibberellins and cytokinins promote growth; abscisic acid inhibits it.",
+      "aliases": [
+        "plant hormones",
+        "plant hormone",
+        "auxin",
+        "auxins",
+        "gibberellins",
+        "cytokinins",
+        "abscisic acid"
+      ],
+      "evidence": "NCERT Class 10 Science §6.2.2, p.108 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
+    },
+    {
+      "id": "animal_hormones",
+      "name": "Hormones in animals",
+      "description": "Endocrine glands secrete hormones into the blood: adrenaline (adrenal glands) prepares the body for emergencies, thyroxin needs iodine, growth hormone (pituitary), testosterone and oestrogen at puberty, insulin (pancreas).",
+      "aliases": [
+        "endocrine",
+        "endocrine glands",
+        "adrenaline",
+        "thyroxin",
+        "insulin",
+        "growth hormone",
+        "testosterone",
+        "oestrogen",
+        "iodine",
+        "goitre",
+        "pituitary"
+      ],
+      "evidence": "NCERT Class 10 Science §6.3, p.109-110 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
+    },
+    {
+      "id": "hormonal_feedback",
+      "name": "Feedback control of hormones",
+      "description": "Hormones must be secreted in precise amounts; feedback mechanisms regulate the timing and amount (e.g. rising blood sugar leads the pancreas to make more insulin), and the hypothalamus releases releasing factors.",
+      "aliases": [
+        "feedback",
+        "feedback mechanism",
+        "feedback mechanisms",
+        "hypothalamus",
+        "releasing factor"
+      ],
+      "evidence": "NCERT Class 10 Science §6.3, p.110-111 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     }
-  ]
+  ],
+  "question_concept_map": {}
 }

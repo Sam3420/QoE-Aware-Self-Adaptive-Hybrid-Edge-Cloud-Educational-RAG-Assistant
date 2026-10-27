@@ -1,0 +1,71 @@
+{
+  "topic_id": "heredity",
+  "reviewed_at": "2026-10-26",
+  "reviewer": null,
+  "reviewer_note": "Reviewer not named in the sheet; decisions entered by the project team in evaluation/review/flagged_items.csv.xlsx. A 'keep' resolves that flag only; it is not an approval of the item, which stays pending review.",
+  "decisions": [
+    {
+      "id": "HE-POST-03",
+      "flag": "concept tag",
+      "why_flagged": "blind model tagged sexual_reproduction",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "HE-POST-14",
+      "flag": "concept tag",
+      "why_flagged": "blind model tagged independent_assortment",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "HE-FRM-04",
+      "flag": "concept tag",
+      "why_flagged": "blind model tagged genetic_variation",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "HE-FRM-08",
+      "flag": "concept tag",
+      "why_flagged": "blind model tagged monohybrid_ratio",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "HE-FRM-23",
+      "flag": "concept tag",
+      "why_flagged": "blind model tagged chromosome_number_restoration",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "as157ZmxHzM",
+      "flag": "video",
+      "why_flagged": "Unrelated-topic coverage: also covers Evolution, which is not in the current Chapter 8 (Heredity); learners may see material outside the syllabus.",
+      "decision": "drop",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "8q8gflMzQ0Y",
+      "flag": "video",
+      "why_flagged": "Edition mismatch: the title uses an older NCERT chapter number ('Chapter 9: Hereditary and Evolution'); current Reprint 2026-27 numbering is Chapter 8, Heredity. Check the content matches the current chapter. Unrelated-topic coverage: also covers Evolution, which is not in the current Chapter 8 (Heredity); learners may see material outside the syllabus.",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "ZkyX3TmmMag",
+      "flag": "video",
+      "why_flagged": "Not NCERT-specific (Khan Academy, US high-school biology): may use terms beyond the chapter (Punnett squares, alleles); check the level.",
+      "decision": "drop",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "MeabdAXHJQs",
+      "flag": "video",
+      "why_flagged": "Unrelated-topic coverage: also covers Evolution, which is not in the current Chapter 8 (Heredity); learners may see material outside the syllabus.",
+      "decision": "drop",
+      "reviewer_notes": ""
+    }
+  ]
+}

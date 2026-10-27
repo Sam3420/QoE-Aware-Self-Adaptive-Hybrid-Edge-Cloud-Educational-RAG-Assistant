@@ -15,7 +15,7 @@ from tests.youtube_fakes import OBJECTIVE, FakeTranscripts, FakeYouTubeApi, api_
 def cfg(tmp_path):
     return Settings(_env_file=None, rec_similarity_floor=0.0, rec_similarity_ceil=0.6, youtube_cache_dir=tmp_path,
                     transcript_chunk_words=20, transcript_chunk_overlap_words=5, rec_concept_cover_threshold=0.5,
-                    epsilon=0.0)
+                    epsilon=0.0, rec_require_transcript=False)  # runs and events here; the filter: test_youtube_ranking
 
 
 @pytest.fixture

@@ -1,0 +1,811 @@
+{
+  "topic_id": "how_do_organisms_reproduce",
+  "status": "pending_review",
+  "generated_at": "2026-10-27T15:49:07+00:00",
+  "method": {
+    "source": "YouTube Data API v3 (search.list, videos.list) + youtube-transcript-api (en)",
+    "queries": [
+      "How do organisms reproduce class 10 NCERT",
+      "asexual reproduction fission budding class 10",
+      "sexual reproduction in flowering plants class 10",
+      "human reproductive system class 10",
+      "menstruation reproductive health contraception class 10",
+      "DNA copying variation reproduction class 10"
+    ],
+    "duration_s": [
+      180,
+      2700
+    ],
+    "coverage": "lexical: concept name/alias mentioned >= 2 times in the transcript",
+    "embedding_coverage": "ran 2026-10-27T15:52:01+00:00 on all 5 videos: best transcript-chunk cosine similarity per concept (nomic-embed-text); covered when >= 0.7. The threshold is NOT calibrated, so this is indicative only and does not verify that a video teaches a concept correctly.",
+    "transcript_text_stored": false
+  },
+  "concepts_covered": [
+    "asexual_fission",
+    "dna_replication_basics",
+    "human_puberty_and_reproductive_systems",
+    "menstruation_cycle",
+    "pollination_and_fertilisation",
+    "regeneration_and_budding",
+    "sexual_mode_significance",
+    "spore_formation_and_protection",
+    "vegetative_propagation"
+  ],
+  "concepts_not_covered": [
+    "reproductive_health_methods"
+  ],
+  "candidates": [
+    {
+      "video_id": "68fVEQcftTw",
+      "url": "https://www.youtube.com/watch?v=68fVEQcftTw",
+      "title": "How Do Organisms Reproduce (Animation)  PART-1|  CBSE Class 10 Biology Chapter 7 | NCERT",
+      "channel_title": "Grade booster",
+      "channel_id": "UCj1KaZtIXFBdc35sAVZzbLQ",
+      "published_at": "2023-11-02T14:30:12+00:00",
+      "duration_s": 342,
+      "search_query": "asexual reproduction fission budding class 10",
+      "search_rank": 0,
+      "api_caption_flag": false,
+      "default_audio_language": "zxx",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 685,
+        "checked_at": "2026-10-27T15:48:48+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "regeneration_and_budding",
+          "method": "lexical",
+          "mentions": {
+            "fragmentation": 2,
+            "fragments": 1,
+            "regeneration": 2,
+            "budding": 4,
+            "hydra": 2,
+            "planaria": 1,
+            "yeast": 1
+          }
+        },
+        {
+          "concept_id": "vegetative_propagation",
+          "method": "lexical",
+          "mentions": {
+            "vegetative propagation": 6,
+            "layering": 2,
+            "grafting": 2
+          }
+        },
+        {
+          "concept_id": "spore_formation_and_protection",
+          "method": "lexical",
+          "mentions": {
+            "spore formation": 1,
+            "spores": 3,
+            "spore": 1,
+            "sporangia": 3
+          }
+        },
+        {
+          "concept_id": "sexual_mode_significance",
+          "method": "lexical",
+          "mentions": {
+            "sexual reproduction": 2
+          }
+        },
+        {
+          "concept_id": "pollination_and_fertilisation",
+          "method": "lexical",
+          "mentions": {
+            "fruit": 2
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 6,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "dna_replication_basics": 0.728,
+          "asexual_fission": 0.831,
+          "regeneration_and_budding": 0.858,
+          "vegetative_propagation": 0.868,
+          "spore_formation_and_protection": 0.834,
+          "sexual_mode_significance": 0.791,
+          "pollination_and_fertilisation": 0.776,
+          "human_puberty_and_reproductive_systems": 0.712,
+          "menstruation_cycle": 0.686,
+          "reproductive_health_methods": 0.673
+        },
+        "covered": [
+          "dna_replication_basics",
+          "asexual_fission",
+          "regeneration_and_budding",
+          "vegetative_propagation",
+          "spore_formation_and_protection",
+          "sexual_mode_significance",
+          "pollination_and_fertilisation",
+          "human_puberty_and_reproductive_systems"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "dna_replication_basics",
+          "asexual_fission",
+          "human_puberty_and_reproductive_systems"
+        ]
+      }
+    },
+    {
+      "video_id": "oGZMIQ8Oa9M",
+      "url": "https://www.youtube.com/watch?v=oGZMIQ8Oa9M",
+      "title": "GCSE Biology - The Menstrual Cycle & Puberty (2027/28 exams)",
+      "channel_title": "Cognito",
+      "channel_id": "UCaGEe4KXZrjou9kQx6ezG2w",
+      "published_at": "2025-04-08T13:58:02+00:00",
+      "duration_s": 426,
+      "search_query": "menstruation reproductive health contraception class 10",
+      "search_rank": 0,
+      "api_caption_flag": false,
+      "default_audio_language": "en",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 937,
+        "checked_at": "2026-10-27T15:48:56+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "human_puberty_and_reproductive_systems",
+          "method": "lexical",
+          "mentions": {
+            "puberty": 4,
+            "testes": 1,
+            "ovaries": 8,
+            "uterus": 18
+          }
+        },
+        {
+          "concept_id": "menstruation_cycle",
+          "method": "lexical",
+          "mentions": {
+            "menstruation": 1,
+            "menstrual cycle": 12,
+            "uterus lining": 11
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Not NCERT-specific: a UK GCSE video (Cognito); terms and depth may differ from the chapter. Check the level. Only English-captioned video found for menstruation."
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 9,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "dna_replication_basics": 0.625,
+          "asexual_fission": 0.647,
+          "regeneration_and_budding": 0.646,
+          "vegetative_propagation": 0.642,
+          "spore_formation_and_protection": 0.632,
+          "sexual_mode_significance": 0.741,
+          "pollination_and_fertilisation": 0.741,
+          "human_puberty_and_reproductive_systems": 0.863,
+          "menstruation_cycle": 0.895,
+          "reproductive_health_methods": 0.734
+        },
+        "covered": [
+          "sexual_mode_significance",
+          "pollination_and_fertilisation",
+          "human_puberty_and_reproductive_systems",
+          "menstruation_cycle",
+          "reproductive_health_methods"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "sexual_mode_significance",
+          "pollination_and_fertilisation",
+          "reproductive_health_methods"
+        ]
+      }
+    },
+    {
+      "video_id": "xUBfuBmN5i4",
+      "url": "https://www.youtube.com/watch?v=xUBfuBmN5i4",
+      "title": "Fission, fragmentation, regeneration, budding, spores | Reproduction | Class 10 Bio | Khan Academy",
+      "channel_title": "Khan Academy India - English",
+      "channel_id": "UCg4BkaHyyE_4-RvEMJ2PTtA",
+      "published_at": "2023-08-01T12:55:11+00:00",
+      "duration_s": 267,
+      "search_query": "asexual reproduction fission budding class 10",
+      "search_rank": 1,
+      "api_caption_flag": false,
+      "default_audio_language": "en",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 715,
+        "checked_at": "2026-10-27T15:48:48+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "asexual_fission",
+          "method": "lexical",
+          "mentions": {
+            "fission": 4,
+            "binary fission": 1,
+            "multiple fission": 1,
+            "amoeba": 2,
+            "plasmodium": 2
+          }
+        },
+        {
+          "concept_id": "regeneration_and_budding",
+          "method": "lexical",
+          "mentions": {
+            "fragmentation": 3,
+            "fragments": 2,
+            "regeneration": 2,
+            "regenerate": 3,
+            "budding": 1,
+            "bud": 3,
+            "hydra": 1,
+            "planaria": 3,
+            "spirogyra": 4,
+            "yeast": 3
+          }
+        },
+        {
+          "concept_id": "spore_formation_and_protection",
+          "method": "lexical",
+          "mentions": {
+            "spore formation": 1,
+            "spores": 2,
+            "spore": 1,
+            "sporangia": 1,
+            "rhizopus": 1
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 6,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "dna_replication_basics": 0.746,
+          "asexual_fission": 0.916,
+          "regeneration_and_budding": 0.893,
+          "vegetative_propagation": 0.752,
+          "spore_formation_and_protection": 0.881,
+          "sexual_mode_significance": 0.806,
+          "pollination_and_fertilisation": 0.734,
+          "human_puberty_and_reproductive_systems": 0.719,
+          "menstruation_cycle": 0.69,
+          "reproductive_health_methods": 0.685
+        },
+        "covered": [
+          "dna_replication_basics",
+          "asexual_fission",
+          "regeneration_and_budding",
+          "vegetative_propagation",
+          "spore_formation_and_protection",
+          "sexual_mode_significance",
+          "pollination_and_fertilisation",
+          "human_puberty_and_reproductive_systems"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "dna_replication_basics",
+          "vegetative_propagation",
+          "sexual_mode_significance",
+          "pollination_and_fertilisation",
+          "human_puberty_and_reproductive_systems"
+        ]
+      }
+    },
+    {
+      "video_id": "hOdytoKyoZU",
+      "url": "https://www.youtube.com/watch?v=hOdytoKyoZU",
+      "title": "Reproduction, DNA, sexual & asexual | How do organisms reproduce | Biology | Khan Academy",
+      "channel_title": "Khan Academy India - English",
+      "channel_id": "UCg4BkaHyyE_4-RvEMJ2PTtA",
+      "published_at": "2019-10-31T07:06:16+00:00",
+      "duration_s": 627,
+      "search_query": "DNA copying variation reproduction class 10",
+      "search_rank": 3,
+      "api_caption_flag": false,
+      "default_audio_language": "en",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 1777,
+        "checked_at": "2026-10-27T15:49:05+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "dna_replication_basics",
+          "method": "lexical",
+          "mentions": {
+            "dna copy": 1,
+            "copies of dna": 1
+          }
+        },
+        {
+          "concept_id": "sexual_mode_significance",
+          "method": "lexical",
+          "mentions": {
+            "sexual reproduction": 4,
+            "sexual mode": 1
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 16,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "dna_replication_basics": 0.863,
+          "asexual_fission": 0.799,
+          "regeneration_and_budding": 0.744,
+          "vegetative_propagation": 0.7,
+          "spore_formation_and_protection": 0.664,
+          "sexual_mode_significance": 0.831,
+          "pollination_and_fertilisation": 0.745,
+          "human_puberty_and_reproductive_systems": 0.739,
+          "menstruation_cycle": 0.672,
+          "reproductive_health_methods": 0.682
+        },
+        "covered": [
+          "dna_replication_basics",
+          "asexual_fission",
+          "regeneration_and_budding",
+          "vegetative_propagation",
+          "sexual_mode_significance",
+          "pollination_and_fertilisation",
+          "human_puberty_and_reproductive_systems"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "asexual_fission",
+          "regeneration_and_budding",
+          "vegetative_propagation",
+          "pollination_and_fertilisation",
+          "human_puberty_and_reproductive_systems"
+        ]
+      }
+    },
+    {
+      "video_id": "SakyW8-iu_Y",
+      "url": "https://www.youtube.com/watch?v=SakyW8-iu_Y",
+      "title": "Budding, spores, fragmentation & regeneration | How do organisms reproduce | Biology | Khan Academy",
+      "channel_title": "Khan Academy India - English",
+      "channel_id": "UCg4BkaHyyE_4-RvEMJ2PTtA",
+      "published_at": "2019-10-18T04:21:44+00:00",
+      "duration_s": 719,
+      "search_query": "asexual reproduction fission budding class 10",
+      "search_rank": 3,
+      "api_caption_flag": false,
+      "default_audio_language": "en",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 1896,
+        "checked_at": "2026-10-27T15:48:49+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "asexual_fission",
+          "method": "lexical",
+          "mentions": {
+            "fission": 9,
+            "multiple fission": 1
+          }
+        },
+        {
+          "concept_id": "regeneration_and_budding",
+          "method": "lexical",
+          "mentions": {
+            "fragmentation": 6,
+            "fragments": 2,
+            "regeneration": 9,
+            "regenerate": 8,
+            "budding": 9,
+            "bud": 2,
+            "hydra": 9,
+            "planaria": 2,
+            "yeast": 1
+          }
+        },
+        {
+          "concept_id": "spore_formation_and_protection",
+          "method": "lexical",
+          "mentions": {
+            "spore formation": 3,
+            "spores": 7,
+            "spore": 4,
+            "sporangia": 3,
+            "rhizopus": 3
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 17,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "dna_replication_basics": 0.743,
+          "asexual_fission": 0.883,
+          "regeneration_and_budding": 0.87,
+          "vegetative_propagation": 0.727,
+          "spore_formation_and_protection": 0.902,
+          "sexual_mode_significance": 0.791,
+          "pollination_and_fertilisation": 0.749,
+          "human_puberty_and_reproductive_systems": 0.722,
+          "menstruation_cycle": 0.669,
+          "reproductive_health_methods": 0.655
+        },
+        "covered": [
+          "dna_replication_basics",
+          "asexual_fission",
+          "regeneration_and_budding",
+          "vegetative_propagation",
+          "spore_formation_and_protection",
+          "sexual_mode_significance",
+          "pollination_and_fertilisation",
+          "human_puberty_and_reproductive_systems"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "dna_replication_basics",
+          "vegetative_propagation",
+          "sexual_mode_significance",
+          "pollination_and_fertilisation",
+          "human_puberty_and_reproductive_systems"
+        ]
+      }
+    }
+  ],
+  "examined": [
+    {
+      "video_id": "RxXsUm8pwaA",
+      "title": "How Do Organisms Reproduce 🔥| Class 10th Science| NCERT covered| Prashant Kirad",
+      "search_query": "How do organisms reproduce class 10 NCERT",
+      "search_rank": 0,
+      "rejected": "duration 6995 s outside 180-2700 s"
+    },
+    {
+      "video_id": "n4LLUcXOYgc",
+      "title": "How Do Organisms Reproduce in 25 Minutes🔥| Class 10th | Rapid Revision | Prashant Kirad",
+      "search_query": "How do organisms reproduce class 10 NCERT",
+      "search_rank": 1,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "3OsR87A-h08",
+      "title": "How Do Organisms Reproduce | Class 10 Science Chapter 7 | 2026-27 | Full Chapter",
+      "search_query": "How do organisms reproduce class 10 NCERT",
+      "search_rank": 2,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "zH4dZ7AcbDk",
+      "title": "How Do Organisms Reproduce -06 | One Shot | SSLC | Class 10 | Karnataka | in Kannada",
+      "search_query": "How do organisms reproduce class 10 NCERT",
+      "search_rank": 3,
+      "rejected": "duration 6544 s outside 180-2700 s"
+    },
+    {
+      "video_id": "Sqz_U1oNPIY",
+      "title": "How Do Organisms Reproduce ONE SHOT || Full Chapter Line by Line || Class 10th Science || Chapter 8",
+      "search_query": "How do organisms reproduce class 10 NCERT",
+      "search_rank": 4,
+      "rejected": "duration 16372 s outside 180-2700 s"
+    },
+    {
+      "video_id": "7B8vL6Bjbiw",
+      "title": "How do Organisms Reproduce | Class 10 Science Chapter 8 [Full Chapter]",
+      "search_query": "How do organisms reproduce class 10 NCERT",
+      "search_rank": 5,
+      "rejected": "duration 11376 s outside 180-2700 s"
+    },
+    {
+      "video_id": "PPPej5Bcszc",
+      "title": "How do Organisms Reproduce Class 10 Complete Chapter Line by Line NCERT Explanation",
+      "search_query": "How do organisms reproduce class 10 NCERT",
+      "search_rank": 6,
+      "rejected": "duration 7335 s outside 180-2700 s"
+    },
+    {
+      "video_id": "sp_WqvDqZyk",
+      "title": "How Do Organisms Reproduce ? | Complete NCERT WITH BACK EXERCISE in 1 Video | Class 10th Board",
+      "search_query": "How do organisms reproduce class 10 NCERT",
+      "search_rank": 7,
+      "rejected": "duration 3602 s outside 180-2700 s"
+    },
+    {
+      "video_id": "lFbQuVYjb0o",
+      "title": "Sexual vs Asexual Reproduction?! 😱 | Class 10 Science | How Organisms Reproduce",
+      "search_query": "asexual reproduction fission budding class 10",
+      "search_rank": 2,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "kGhBellB5GQ",
+      "title": "Asexual Reproduction Class 10 One Shot | How Do Organisms Reproduce | CBSE 10th Biology Chapter-8",
+      "search_query": "asexual reproduction fission budding class 10",
+      "search_rank": 6,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "F89XgjHyt0Q",
+      "title": "Asexual Reproduction-Fission-Budding-Fragmentation-Spores",
+      "search_query": "asexual reproduction fission budding class 10",
+      "search_rank": 7,
+      "rejected": "duration 178 s outside 180-2700 s"
+    },
+    {
+      "video_id": "iz_jHareG0s",
+      "title": "Sexual Reproduction in Plants | CBSE Class 10 Science | Free Education",
+      "search_query": "sexual reproduction in flowering plants class 10",
+      "search_rank": 2,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "AT_Jqc-E1Eg",
+      "title": "Sexual Reproduction in Flowering Plants FULL CHAPTER || NCERT Line by Line || Vipin Sir",
+      "search_query": "sexual reproduction in flowering plants class 10",
+      "search_rank": 4,
+      "rejected": "duration 13405 s outside 180-2700 s"
+    },
+    {
+      "video_id": "J4iReG4yfDc",
+      "title": "SEXUAL REPRODUCTION IN FLOWERING PLANTS in ONE SHOT | All Concepts, Tricks & PYQs | NEET 2026",
+      "search_query": "sexual reproduction in flowering plants class 10",
+      "search_rank": 5,
+      "rejected": "duration 7860 s outside 180-2700 s"
+    },
+    {
+      "video_id": "lpAowrwWCbQ",
+      "title": "Sexual  Reproduction in flowering plants | Class 10 CBSE 2026 | Sandra Ma'am",
+      "search_query": "sexual reproduction in flowering plants class 10",
+      "search_rank": 6,
+      "rejected": "duration 2719 s outside 180-2700 s"
+    },
+    {
+      "video_id": "lW8hbdNGhBE",
+      "title": "Sexual Reproduction In Flowering Plants Class 12 🔥| NCERT + Diagram + PYQs | Biology chapter 1",
+      "search_query": "sexual reproduction in flowering plants class 10",
+      "search_rank": 7,
+      "rejected": "duration 6911 s outside 180-2700 s"
+    },
+    {
+      "video_id": "3sJ6VshFMTs",
+      "title": "The Reproductive System Complete Chapter in One Shot | Class 10 Biology | ICSE Board | LEGEND 2026",
+      "search_query": "human reproductive system class 10",
+      "search_rank": 1,
+      "rejected": "duration 7111 s outside 180-2700 s"
+    },
+    {
+      "video_id": "_9PWfnOGryM",
+      "title": "Female Reproductive System Explained in 5 Minutes | ICSE Class 10 Biology | Pallavi Ma’am",
+      "search_query": "human reproductive system class 10",
+      "search_rank": 5,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "Su1G1xvSp8s",
+      "title": "Learn Female Reproductive System in 5 mins | Science For Class 5th to Class 8th",
+      "search_query": "human reproductive system class 10",
+      "search_rank": 6,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "6F99IhU7CLo",
+      "title": "The Reproductive System | Human Reproduction ICSE Class 10 | @sirtarunrupani",
+      "search_query": "human reproductive system class 10",
+      "search_rank": 7,
+      "rejected": "duration 4516 s outside 180-2700 s"
+    },
+    {
+      "video_id": "xORnM38PNUc",
+      "title": "Reproductive Health in 44 Minutes | Class 12th Zoology | Mind Map Series",
+      "search_query": "menstruation reproductive health contraception class 10",
+      "search_rank": 1,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "xdfuBkiGnEU",
+      "title": "Birth Control Methods | Reproduction | Class 10 | Biology | Telangana | Khan Academy",
+      "search_query": "menstruation reproductive health contraception class 10",
+      "search_rank": 2,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "SYOKQc8XwYw",
+      "title": "Contraceptive Methods (Natural Method) - Reproductive Health | Class 12 Biology (2022-23)",
+      "search_query": "menstruation reproductive health contraception class 10",
+      "search_rank": 3,
+      "rejected": "transcript transcripts_disabled: TranscriptsDisabled: Could not retrieve a transcript for the video https://www.youtube.com/watch?v=SYOKQc8XwYw! This is "
+    },
+    {
+      "video_id": "EsnYNvvAUTA",
+      "title": "REPRODUCTIVE HEALTH in ONE SHOT | All Concept & PYQ | Basics to Advanced | Class 12 NEET",
+      "search_query": "menstruation reproductive health contraception class 10",
+      "search_rank": 4,
+      "rejected": "duration 9049 s outside 180-2700 s"
+    },
+    {
+      "video_id": "48gImtbYLsQ",
+      "title": "Reproductive Health Class 12 One Shot 🔥 | NCERT + PYQs | Biology Chapter 3 | By Aarushi Ma'am",
+      "search_query": "menstruation reproductive health contraception class 10",
+      "search_rank": 5,
+      "rejected": "duration 4693 s outside 180-2700 s"
+    },
+    {
+      "video_id": "a9tZkgoNItw",
+      "title": "Contraceptive Pills | Implants | Reproductive Health #shorts #neet #biology",
+      "search_query": "menstruation reproductive health contraception class 10",
+      "search_rank": 6,
+      "rejected": "duration 47 s outside 180-2700 s"
+    },
+    {
+      "video_id": "99AxTGSoXGc",
+      "title": "Class 10 Biology Chapter 8 | Do Organisms Create Exact Copies of Themselves?",
+      "search_query": "DNA copying variation reproduction class 10",
+      "search_rank": 0,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "mOaELfVqU0w",
+      "title": "DNA Copying and Variations",
+      "search_query": "DNA copying variation reproduction class 10",
+      "search_rank": 1,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "-sljrQBTShs",
+      "title": "Do Organisms Create Exact Copies? | Chapter 8 | Class 10 | PuStack",
+      "search_query": "DNA copying variation reproduction class 10",
+      "search_rank": 4,
+      "rejected": "transcript no_transcript: no track in ['en']; available: bn*, en-US*, hi*"
+    },
+    {
+      "video_id": "Ywff3eMGdTk",
+      "title": "HOW DO ORGANISMS REPRODUCE - DNA COPYING AND VARIATION",
+      "search_query": "DNA copying variation reproduction class 10",
+      "search_rank": 5,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "yZF9cRwXcyo",
+      "title": "Why is DNA copying an essential part of the process of reproduction?",
+      "search_query": "DNA copying variation reproduction class 10",
+      "search_rank": 6,
+      "rejected": "duration 111 s outside 180-2700 s"
+    },
+    {
+      "video_id": "2A-2PazDyd8",
+      "title": "DNA copying before cell division class 10 animated",
+      "search_query": "DNA copying variation reproduction class 10",
+      "search_rank": 7,
+      "rejected": "duration 5 s outside 180-2700 s"
+    },
+    {
+      "video_id": "4HPWFZuqu0g",
+      "title": "Sexual Reproduction in plants | Part 1/1 | English | Class 10",
+      "search_query": "sexual reproduction in flowering plants class 10",
+      "search_rank": 1,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "PtP_5k0tB_M",
+      "title": "Sexual reproduction in #flowering plants ncert class 10 :How do organisms reproduce : CBSE: Biology",
+      "search_query": "sexual reproduction in flowering plants class 10",
+      "search_rank": 0,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "ktWirmb6rQw",
+      "title": "Human #male reproductive system class 10 | sexual reproduction | Biology : CBSE : NCERT X Science",
+      "search_query": "human reproductive system class 10",
+      "search_rank": 2,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "7HlHGLr1hTA",
+      "title": "The menstrual cycle",
+      "search_query": "menstruation reproductive health contraception class 10",
+      "search_rank": 7,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "kKiz8Wzcfc8",
+      "title": "Binary Fission - How Do Bacteria Divide? (2026/27 exams)",
+      "search_query": "asexual reproduction fission budding class 10",
+      "search_rank": 5,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "SMYf4ipXpCI",
+      "title": "Sexual Reproduction in Plants 3D Animation | Class 10 Sexual Reproduction in Plants | 10th Science",
+      "search_query": "sexual reproduction in flowering plants class 10",
+      "search_rank": 3,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "LjwqNB-WDZE",
+      "title": "Female reproductive system | Reproduction | Biology class 10 | Khan Academy",
+      "search_query": "human reproductive system class 10",
+      "search_rank": 0,
+      "rejected": "usable, not among the best-covering --keep"
+    }
+  ],
+  "embedding_coverage_summary": {
+    "videos_checked": 5,
+    "videos_total": 5,
+    "complete": true,
+    "covered_by_checked_videos": [
+      "dna_replication_basics",
+      "asexual_fission",
+      "regeneration_and_budding",
+      "vegetative_propagation",
+      "spore_formation_and_protection",
+      "sexual_mode_significance",
+      "pollination_and_fertilisation",
+      "human_puberty_and_reproductive_systems",
+      "menstruation_cycle",
+      "reproductive_health_methods"
+    ],
+    "not_covered_by_checked_videos": []
+  },
+  "review_flags": [
+    "Embedding check ran on all 5 videos with an UNCALIBRATED threshold (0.7): indicative only.",
+    "No English-captioned video covering reproductive health and contraception (reproductive_health_methods) was found."
+  ]
+}

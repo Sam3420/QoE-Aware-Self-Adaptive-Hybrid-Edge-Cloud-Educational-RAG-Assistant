@@ -21,6 +21,7 @@ questions it tagged with a different concept. Disagreements are flagged for revi
 is right.
 """
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -293,8 +294,13 @@ def validate(topic_id: str) -> dict[str, Any]:
                 errors.append(f"video {c.get('video_id')}: must be pending review")
         if videos.get("concepts_not_covered"):
             warnings.append(f"videos: no candidate covers {videos['concepts_not_covered']}")
-        if "not run" in str(videos.get("method", {}).get("embedding_coverage", "")):
+        embedding = str(videos.get("method", {}).get("embedding_coverage", ""))
+        if "not run" in embedding:
             warnings.append("videos: concept coverage is lexical only; the embedding check (Ollama) has not run")
+        elif "INCOMPLETE" in embedding:
+            summary = videos.get("embedding_coverage_summary", {})
+            warnings.append(f"videos: embedding coverage INCOMPLETE ({summary.get('videos_checked', '?')}/"
+                            f"{summary.get('videos_total', '?')} videos checked); coverage is otherwise lexical only")
         video_summary = {"candidates": len(candidates), "concepts_covered": videos.get("concepts_covered"),
                          "examined": len(videos.get("examined", []))}
     else:
@@ -390,28 +396,49 @@ def llm_checks(items: list[Question], concepts: list[dict[str, Any]], batch: int
             "note": "A disagreement flags the item for human review; agreement does not prove it correct."}
 
 
+def items_fingerprint(items: list[Question]) -> str:
+    """Hash of what the blind checks look at, to tell whether a stored run still matches the questions."""
+    content = [(q.id, q.question, q.options, q.answer_index, q.concept_id) for q in items]
+    return hashlib.sha256(json.dumps(content, ensure_ascii=False).encode("utf-8")).hexdigest()
+
+
+def llm_warnings(checks: dict[str, Any], suffix: str = "") -> list[str]:
+    if not checks.get("ran"):
+        return [f"blind checks did not run: {checks.get('reason')}{suffix}"]
+    warnings = []
+    if checks["answered"] < checks["checked"]:
+        warnings.append(
+            f"blind checks INCOMPLETE: {checks['answered']}/{checks['checked']} questions answered "
+            f"({len(checks['failures'])} failed batches, first: {checks['failures'][0] if checks['failures'] else '-'}"
+            f"); missing answers are not agreements{suffix}")
+    warnings += [f"{f['id']}: blind model answered {f['model_answer']}, key is {f['key']}{suffix}"
+                 for f in checks.get("answer_disagreements", [])]
+    warnings += [f"{f['id']}: blind model tagged {f['model_concept']}, assigned {f['assigned']}{suffix}"
+                 for f in checks.get("concept_disagreements", [])]
+    return warnings
+
+
 def main() -> int:
     sys.stdout.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(description="Validate a topic content package.")
     parser.add_argument("topic_id")
     parser.add_argument("--llm", action="store_true", help="also run blind answer/concept checks with the cloud model")
     args = parser.parse_args()
+    path = PACKAGES / args.topic_id / "validation.json"
     result = validate(args.topic_id)
     items, concepts = result.pop("_items"), result.pop("_concepts")
+    fingerprint = items_fingerprint(items)
     if args.llm:
         result["llm_checks"] = checks = llm_checks(items, concepts)
-        if not checks.get("ran"):
-            result["warnings"].append(f"blind checks did not run: {checks.get('reason')}")
-        elif checks["answered"] < checks["checked"]:
-            result["warnings"].append(
-                f"blind checks INCOMPLETE: {checks['answered']}/{checks['checked']} questions answered "
-                f"({len(checks['failures'])} failed batches, first: {checks['failures'][0] if checks['failures'] else '-'}"
-                "); missing answers are not agreements")
-        for f in result["llm_checks"].get("answer_disagreements", []):
-            result["warnings"].append(f"{f['id']}: blind model answered {f['model_answer']}, key is {f['key']}")
-        for f in result["llm_checks"].get("concept_disagreements", []):
-            result["warnings"].append(f"{f['id']}: blind model tagged {f['model_concept']}, assigned {f['assigned']}")
-    path = PACKAGES / args.topic_id / "validation.json"
+        checks |= {"ran_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "items_sha256": fingerprint}
+        result["warnings"] += llm_warnings(checks)
+    elif path.exists() and (previous := json.loads(path.read_text(encoding="utf-8")).get("llm_checks")):
+        # keep the last blind-check run rather than erasing it; say so, and whether the questions changed since
+        result["llm_checks"] = {**previous, "carried_over": True}
+        result["warnings"] += llm_warnings(previous, " (from the last --llm run)")
+        if previous.get("items_sha256") != fingerprint:
+            result["warnings"].append("blind checks STALE: the questions changed since the last --llm run (or the run "
+                                      "predates this check); rerun with --llm")
     path.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"{args.topic_id}: {'VALID' if result['valid'] else 'INVALID'} | {len(result['errors'])} errors, "
           f"{len(result['warnings'])} warnings")

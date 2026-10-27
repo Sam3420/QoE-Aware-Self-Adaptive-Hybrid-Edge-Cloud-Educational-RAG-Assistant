@@ -1,10 +1,10 @@
 {
   "topic_id": "heredity",
-  "validated_at": "2026-10-25T20:10:12+00:00",
+  "validated_at": "2026-10-27T15:55:58+00:00",
   "valid": true,
   "errors": [],
   "warnings": [
-    "videos: concept coverage is lexical only; the embedding check (Ollama) has not run",
+    "HE-POST-13: blind model answered C, key is D",
     "HE-POST-03: blind model tagged sexual_reproduction, assigned genetic_variation",
     "HE-POST-14: blind model tagged independent_assortment, assigned chromosome_number_restoration",
     "HE-FRM-04: blind model tagged genetic_variation, assigned sexual_reproduction",
@@ -17,16 +17,16 @@
       "items_with_run_>=_10": 0
     },
     "videos": {
-      "candidates": 5,
+      "candidates": 4,
       "concepts_covered": [
-        "chromosome_number_restoration",
-        "dominant_recessive",
-        "gene_definition",
         "genetic_variation",
-        "independent_assortment",
+        "sexual_reproduction",
+        "dominant_recessive",
         "monohybrid_ratio",
-        "sex_determination",
-        "sexual_reproduction"
+        "independent_assortment",
+        "gene_definition",
+        "chromosome_number_restoration",
+        "sex_determination"
       ],
       "examined": 39
     },
@@ -107,7 +107,13 @@
     "model": "groq:openai/gpt-oss-120b",
     "checked": 54,
     "answered": 54,
-    "answer_disagreements": [],
+    "answer_disagreements": [
+      {
+        "id": "HE-POST-13",
+        "key": "D",
+        "model_answer": "C"
+      }
+    ],
     "concept_disagreements": [
       {
         "id": "HE-POST-03",
@@ -136,6 +142,8 @@
       }
     ],
     "failures": [],
-    "note": "A disagreement flags the item for human review; agreement does not prove it correct."
+    "note": "A disagreement flags the item for human review; agreement does not prove it correct.",
+    "ran_at": "2026-10-27T15:56:26+00:00",
+    "items_sha256": "6fbe07181bf858416c70b71a8edc60d2abd481a73963d9f980379c5298cbc674"
   }
 }

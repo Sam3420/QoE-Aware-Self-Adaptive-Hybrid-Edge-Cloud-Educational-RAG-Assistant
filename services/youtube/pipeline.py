@@ -9,7 +9,7 @@ overlap; no transcript → metadata-only evidence. Only a failed search returns 
 """
 import logging
 import time
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from concurrent.futures import ThreadPoolExecutor, wait
 from dataclasses import dataclass, field
 from typing import Any
@@ -48,6 +48,8 @@ from telemetry import tracing
 
 logger = logging.getLogger(__name__)
 _LEVEL_HINTS = {"beginner": "explained simply", "intermediate": "", "advanced": "in depth"}
+# no track the session could index for answers: such a video cannot be taught from
+UNUSABLE_TRANSCRIPT = {TranscriptStatus.NO_TRANSCRIPT, TranscriptStatus.TRANSCRIPTS_DISABLED}
 
 
 class RecommendationStrategy(BaseModel):
@@ -125,6 +127,7 @@ class PipelineSettings:
     default_weights: dict[str, float] = field(default_factory=dict)
     transcript_workers: int = 4
     transcript_time_budget_s: float = 20.0
+    require_transcript: bool = False  # recommend only videos with a track the session can index (lists tracks)
 
 
 def build_query(request: RecommendationRequest) -> str:
@@ -260,7 +263,10 @@ class RecommendationPipeline:
         selected_chunks: list[tuple[ScoredVideo, list]] = []
         for video in scored[budget:]:
             video.transcript = TranscriptRecord(video_id=video.candidate.video_id, status=not_attempted)
-        records = self._fetch_transcripts([v.candidate.video_id for v in scored[:budget]]) if budget else {}
+        # the learner's language only, as when the chosen video is indexed for answers (agent.knowledge.
+        # transcript_languages): a transcript the session cannot use must not count as transcript evidence
+        languages = [request.language_code] if request.language_code else list(s.transcript_languages)
+        records = self._fetch_transcripts([v.candidate.video_id for v in scored[:budget]], languages) if budget else {}
         timings.transcript_ms = records.pop("__elapsed_ms__", None) if budget else None
         for video in scored[:budget]:
             record = records[video.candidate.video_id]
@@ -308,7 +314,9 @@ class RecommendationPipeline:
                 else:
                     results.append(video)
             results.sort(key=lambda v: (v.score, v.coverage), reverse=True)
-            recs = [self._to_recommendation(rank, v, request, learner) for rank, v in enumerate(results[:request.count], 1)]
+            best = (self._with_usable_transcripts(results, languages, request.count, filtered)
+                    if s.require_transcript and s.transcripts_enabled else results[:request.count])
+            recs = [self._to_recommendation(rank, v, request, learner) for rank, v in enumerate(best, 1)]
             rank_obs.update(output={"ranked": [{"video_id": r.video_id, "score": r.score,
                                                 "evidence": r.evidence_level} for r in recs],
                                     "filtered": [f.model_dump() for f in filtered]})
@@ -318,7 +326,7 @@ class RecommendationPipeline:
         status = "empty" if not recs else "degraded" if degraded else "ok"
         return finish(status, recs, filtered, {"weights": weights.weights, "duration_range_s": [lo, hi]})
 
-    def _fetch_transcripts(self, video_ids: list[str]) -> dict[str, Any]:
+    def _fetch_transcripts(self, video_ids: list[str], languages: Sequence[str]) -> dict[str, Any]:
         """Fetch transcripts in parallel within TRANSCRIPT_TIME_BUDGET_S; late ones count as failed.
 
         The transcript library sets no request timeout, so the budget is what bounds latency. A
@@ -329,7 +337,8 @@ class RecommendationPipeline:
         pool = ThreadPoolExecutor(max_workers=min(s.transcript_workers, len(video_ids)), thread_name_prefix="transcript")
         # Worker threads do not inherit the tracing context: bind each task to a copy of it, so the
         # transcript observations nest under this request instead of starting orphan traces.
-        futures = {pool.submit(tracing.with_current_context(self._traced_fetch), vid): vid for vid in video_ids}
+        futures = {pool.submit(tracing.with_current_context(self._traced_fetch), vid, languages): vid
+                   for vid in video_ids}
         done, _ = wait(futures, timeout=s.transcript_time_budget_s)
         pool.shutdown(wait=False, cancel_futures=True)
         out: dict[str, Any] = {}
@@ -343,9 +352,45 @@ class RecommendationPipeline:
         out["__elapsed_ms__"] = round((time.perf_counter() - started) * 1000, 1)
         return out
 
-    def _traced_fetch(self, video_id: str) -> tuple[TranscriptRecord, float]:
+    def _with_usable_transcripts(self, ranked: list[ScoredVideo], languages: Sequence[str], count: int,
+                                 filtered: list[FilteredVideo]) -> list[ScoredVideo]:
+        """The best `count` videos, in rank order, that have a transcript track the session can index for answers.
+
+        Videos whose transcript was fetched in stage 2 are already known; for the rest the tracks are only listed
+        (nothing downloaded), in rank order and only as far as needed. Videos with no track in `languages` go to
+        `filtered`; a check that cannot tell (network error, block, time budget) keeps the video.
+        """
+        kept: list[ScoredVideo] = []
+        i = 0
+        while len(kept) < count and i < len(ranked):
+            batch = ranked[i:i + count - len(kept) + 2]  # a little ahead: some will be unusable
+            i += len(batch)
+            unknown = [v.candidate.video_id for v in batch
+                       if v.transcript is None or v.transcript.status == TranscriptStatus.NOT_ATTEMPTED]
+            checked = self._check_tracks(unknown, languages) if unknown else {}
+            for video in batch:
+                status = checked.get(video.candidate.video_id, video.transcript.status if video.transcript else None)
+                if status in UNUSABLE_TRANSCRIPT:
+                    filtered.append(_filtered(video, f"no transcript track in {'/'.join(languages)} "
+                                                     f"({status.value.replace('_', ' ')})"))
+                elif len(kept) < count:
+                    kept.append(video)
+        return kept
+
+    def _check_tracks(self, video_ids: list[str], languages: Sequence[str]) -> dict[str, TranscriptStatus]:
+        """Track listings in parallel within TRANSCRIPT_TIME_BUDGET_S; videos not answered in time are left out."""
+        check = getattr(self.transcripts, "available", None)
+        if check is None:
+            return {}
+        s = self.settings
+        pool = ThreadPoolExecutor(max_workers=min(s.transcript_workers, len(video_ids)), thread_name_prefix="captions")
+        futures = {pool.submit(tracing.with_current_context(check), vid, languages): vid for vid in video_ids}
+        done, _ = wait(futures, timeout=s.transcript_time_budget_s)
+        pool.shutdown(wait=False, cancel_futures=True)
+        return {vid: future.result() for future, vid in futures.items() if future in done and not future.exception()}
+
+    def _traced_fetch(self, video_id: str, languages: Sequence[str]) -> tuple[TranscriptRecord, float]:
         """One transcript fetch as a `tool` observation (WARNING when no usable transcript)."""
-        languages = self.settings.transcript_languages
         with tracing.observation("fetch-transcript", as_type="tool",
                                  input={"video_id": video_id, "languages": list(languages)},
                                  metadata={"source": "youtube-transcript-api"}) as obs:

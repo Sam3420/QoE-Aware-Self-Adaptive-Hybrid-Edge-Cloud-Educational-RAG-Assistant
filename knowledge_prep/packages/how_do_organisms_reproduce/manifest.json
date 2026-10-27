@@ -1,0 +1,50 @@
+{
+  "topic_id": "how_do_organisms_reproduce",
+  "title": "How do Organisms Reproduce?",
+  "class": 10,
+  "subject": "Science (Biology)",
+  "chapter": 7,
+  "package_version": "0.1.0-draft",
+  "review_status": "pending",
+  "source": {
+    "publisher": "NCERT",
+    "book": "Science, Textbook for Class X",
+    "file": "jesc107.pdf",
+    "edition": "Reprint 2026-27",
+    "pages": [
+      113,
+      127
+    ],
+    "sha256": "575cb5a50b488a46715e500d4cbeaf3b687bf01f9da7989c928d35f1a3a88ec0",
+    "extracted_with": "pypdf 6.21.2 via scripts/extract_chapter_text.py",
+    "local_text": "knowledge_prep/packages/how_do_organisms_reproduce/chapter.txt (gitignored, not committed)"
+  },
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T21:21:06+00:00",
+  "files": [
+    "concepts.json",
+    "pretest.json",
+    "posttest.json",
+    "formative.json",
+    "videos.json",
+    "validation.json"
+  ],
+  "local_only_files": [
+    "chapter.txt",
+    "evidence.local.json"
+  ],
+  "counts": {
+    "concepts": 10,
+    "pretest": 15,
+    "posttest": 15,
+    "formative": 30
+  },
+  "copyright": "The NCERT PDF pages carry '(c) NCERT not to be republished'. Committed files hold section/page references only; the verbatim evidence excerpts (evidence.local.json) and the chapter text (chapter.txt) stay local and are gitignored, pending mentor confirmation. Use in a research evaluation and any public release still need checking with the mentor/NCERT.",
+  "notes": [
+    "Concept ids reuse nine ids from the earlier draft vocabulary. Merged: multiple_fission into asexual_fission (now 'Fission'), fragmentation_reproduction into regeneration_and_budding, and flower_anatomy_pistil into pollination_and_fertilisation (now 'Sexual reproduction in flowering plants'). New: sexual_mode_significance for section 7.3.1, which no draft concept covered. No concept-tracker rows or assessments exist for this topic.",
+    "Sensitive content (human reproduction, contraception, sexually transmitted infections) is written factually at the textbook's level; a reviewer should still confirm it suits the intended learners.",
+    "Pre/post questions are ordered so that the first five cover five different concepts: a new learner is shown PRETEST_ITEMS questions (default MCQ_N_ITEMS = 5); the full 15-question bank is kept for experiments.",
+    "Each post-test question is stored apart from the bank (parallel_test_items), paired by parallel_to with its pre-test question, and read only when a post-test begins.",
+    "Blind LLM cross-checks (answer keys, concept tags) are INCOMPLETE: the Groq API key was rejected (HTTP 401) when this package was built."
+  ]
+}

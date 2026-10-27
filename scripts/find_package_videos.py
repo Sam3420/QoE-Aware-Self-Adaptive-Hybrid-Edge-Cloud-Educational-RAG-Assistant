@@ -57,7 +57,8 @@ def main() -> int:
         raise SystemExit("YOUTUBE_API_KEY is not set.")
     cache = JsonFileCache(settings.youtube_cache_dir, {"search": settings.youtube_search_cache_ttl_s,
                                                        "videos": settings.youtube_video_cache_ttl_s,
-                                                       "transcripts": settings.transcript_cache_ttl_s})
+                                                       "transcripts": settings.transcript_cache_ttl_s,
+                                                       "captions": settings.transcript_cache_ttl_s})
     client = YouTubeDataClient(api_key=settings.youtube_api_key.get_secret_value(),
                                base_url=settings.youtube_api_base_url, timeout_s=settings.youtube_timeout_s,
                                cache=cache, quota=QuotaTracker(settings.youtube_cache_dir / "quota.json",

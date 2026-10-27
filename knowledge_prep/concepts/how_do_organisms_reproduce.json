@@ -1,130 +1,189 @@
 {
   "topic_id": "how_do_organisms_reproduce",
-  "status": "draft",
-  "generated_by": "groq:openai/gpt-oss-120b",
-  "generated_at": "2026-10-20T12:48:20.042347Z",
-  "reviewed_by": null,
-  "reviewed_at": null,
+  "status": "approved",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T21:21:06Z",
+  "reviewed_by": "Project team",
+  "reviewed_at": "2026-10-25T21:29:13.648605Z",
   "concepts": [
     {
       "id": "dna_replication_basics",
-      "name": "DNA replication",
-      "description": "Learners should understand that reproduction involves making a copy of DNA, which is not perfectly accurate and leads to variation.",
+      "name": "DNA copying and variation",
+      "description": "Reproduction copies the DNA blueprint along with extra cell apparatus; copying is never perfectly accurate, so offspring vary slightly, and variation helps a species survive when its niche changes.",
       "aliases": [
         "DNA copying",
-        "genetic duplication"
+        "DNA copy",
+        "copies of DNA",
+        "variation",
+        "variations",
+        "niche"
       ],
-      "evidence": "The basic event in reproduction is the creation of a DNA copy."
+      "evidence": "NCERT Class 10 Science §7.1-7.1.1, p.113-114 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "asexual_fission",
-      "name": "Binary fission",
-      "description": "Learners should know that unicellular organisms reproduce by splitting into two daughter cells.",
+      "name": "Fission",
+      "description": "Unicellular organisms reproduce by cell division: binary fission into two (bacteria, Amoeba in any plane, Leishmania in a set orientation) or multiple fission into many cells at once (Plasmodium).",
       "aliases": [
-        "cell division",
-        "binary splitting"
+        "fission",
+        "binary fission",
+        "multiple fission",
+        "Amoeba",
+        "Leishmania",
+        "Plasmodium"
       ],
-      "evidence": "Amoeba splits into two halves during cell division; this is binary fission."
-    },
-    {
-      "id": "multiple_fission",
-      "name": "Multiple fission",
-      "description": "Learners should recognize that some parasites produce many daughter cells simultaneously.",
-      "aliases": [
-        "schizogony",
-        "multiple splitting"
-      ],
-      "evidence": "The malarial parasite Plasmodium divides into many daughter cells at the same time; this is multiple fission."
-    },
-    {
-      "id": "fragmentation_reproduction",
-      "name": "Fragmentation",
-      "description": "Learners should understand that multicellular filaments can break into pieces, each developing into a new individual.",
-      "aliases": [
-        "filament breakage",
-        "fragmented growth"
-      ],
-      "evidence": "In simple multicellular organisms such as Spirogyra, the filament breaks into smaller pieces, and each piece grows into a new individual."
+      "evidence": "NCERT Class 10 Science §7.2.1, p.115-116 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "regeneration_and_budding",
-      "name": "Regeneration & budding",
-      "description": "Learners should be able to differentiate regeneration (whole organism from a piece) from budding (outgrowth that detaches).",
+      "name": "Fragmentation, regeneration and budding",
+      "description": "Spirogyra breaks into fragments that each grow; Hydra and Planaria regenerate whole organisms from pieces using specialised cells; Hydra and yeast also reproduce by buds that detach.",
       "aliases": [
-        "regenerative growth",
-        "budding process"
+        "fragmentation",
+        "fragments",
+        "regeneration",
+        "regenerate",
+        "budding",
+        "bud",
+        "Hydra",
+        "Planaria",
+        "Spirogyra",
+        "yeast"
       ],
-      "evidence": "In budding, as in Hydra and yeast, a bud develops as an outgrowth due to repeated cell division at one site; the bud develops into a tiny individual, and when fully mature, it detaches from the parent and becomes a new independent individual."
+      "evidence": "NCERT Class 10 Science §7.2.2-7.2.4, p.116-117 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "vegetative_propagation",
       "name": "Vegetative propagation",
-      "description": "Learners should know that many plants reproduce asexually from roots, stems, or leaves, producing genetically similar offspring.",
+      "description": "Roots, stems or leaves grow into new plants (layering, grafting, Bryophyllum leaf buds); such plants flower earlier, keep the parent's characteristics and include seedless kinds; tissue culture grows many from one.",
       "aliases": [
-        "clonal propagation",
-        "asexual plant reproduction"
+        "vegetative propagation",
+        "layering",
+        "grafting",
+        "Bryophyllum",
+        "tissue culture",
+        "callus"
       ],
-      "evidence": "In many plants, new plants develop from parts such as the root, stem and leaves."
+      "evidence": "NCERT Class 10 Science §7.2.5, p.117-118 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "spore_formation_and_protection",
-      "name": "Spore protection",
-      "description": "Learners should understand that spores are enclosed in thick walls that safeguard them until favorable conditions arise.",
+      "name": "Spore formation",
+      "description": "In bread mould (Rhizopus) the sporangia hold spores with thick protective walls that grow into new individuals on a moist surface; the threads are hyphae.",
       "aliases": [
-        "spore coat",
-        "spore durability"
+        "spores",
+        "spore",
+        "spore formation",
+        "sporangia",
+        "Rhizopus",
+        "hyphae",
+        "bread mould"
       ],
-      "evidence": "Spores are covered by thick walls that protect them until they come into contact with a moist surface and can begin to grow."
+      "evidence": "NCERT Class 10 Science §7.2.6, p.118 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
-      "id": "flower_anatomy_pistil",
-      "name": "Pistil anatomy",
-      "description": "Learners should identify the three parts of the pistil: ovary, style, and stigma.",
+      "id": "sexual_mode_significance",
+      "name": "Why sexual reproduction",
+      "description": "Combining DNA from two individuals creates new combinations of variants faster; meiosis halves the chromosome number in germ-cells so fertilisation restores it; gametes specialise into a motile male and a food-storing female gamete.",
       "aliases": [
-        "female flower parts",
-        "pistil structure"
+        "sexual reproduction",
+        "sexual mode",
+        "meiosis",
+        "gametes",
+        "gamete",
+        "germ-cells",
+        "male gamete",
+        "female gamete"
       ],
-      "evidence": "The pistil, in the centre of the flower, is the female reproductive part; it has three parts: the swollen bottom part is the ovary, the middle elongated part is the style, and the terminal sticky part is the stigma."
+      "evidence": "NCERT Class 10 Science §7.3-7.3.1, p.119-120 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "pollination_and_fertilisation",
-      "name": "Pollination & fertilisation",
-      "description": "Learners should distinguish self‑pollination from cross‑pollination and describe the pollen tube pathway leading to fertilisation.",
+      "name": "Sexual reproduction in flowering plants",
+      "description": "Stamens (pollen) and pistil (ovary, style, stigma) are the reproductive parts; self- and cross-pollination; a pollen tube reaches the ovule for fertilisation; the ovule becomes a seed and the ovary a fruit; germination.",
       "aliases": [
-        "pollen transfer",
-        "fertilisation process"
+        "pollination",
+        "self-pollination",
+        "cross-pollination",
+        "pollen",
+        "stamen",
+        "stamens",
+        "pistil",
+        "stigma",
+        "style",
+        "ovule",
+        "seed",
+        "fruit",
+        "germination",
+        "unisexual",
+        "bisexual"
       ],
-      "evidence": "The transfer of pollen grains from the stamen to the stigma is called pollination. If it happens within the same flower it is self-pollination; if pollen is transferred from one flower to another, it is cross-pollination."
+      "evidence": "NCERT Class 10 Science §7.3.2, p.120-121 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "human_puberty_and_reproductive_systems",
-      "name": "Human puberty & reproduction",
-      "description": "Learners should recognize the physiological changes at puberty and the basic structure of male and female reproductive systems.",
+      "name": "Puberty and human reproductive systems",
+      "description": "Changes at puberty signal sexual maturation; the male system (testes, vas deferens, prostate, seminal vesicles, urethra) and female system (ovaries, oviducts, uterus, vagina); fertilisation in the oviduct; the placenta nourishes the embryo.",
       "aliases": [
-        "adolescence changes",
-        "human reproductive anatomy"
+        "puberty",
+        "sexual maturation",
+        "testes",
+        "sperms",
+        "vas deferens",
+        "prostate",
+        "seminal vesicles",
+        "ovaries",
+        "oviduct",
+        "fallopian tube",
+        "uterus",
+        "placenta",
+        "embryo",
+        "foetus"
       ],
-      "evidence": "The period of adolescence during which the reproductive tissues begin to mature is called puberty."
+      "evidence": "NCERT Class 10 Science §7.3.3, p.121-124 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "menstruation_cycle",
-      "name": "Menstruation cycle",
-      "description": "Learners should know the monthly cycle of egg release, possible fertilisation, and shedding of the uterine lining if fertilisation does not occur.",
+      "name": "Menstruation",
+      "description": "One egg is released each month and the uterus lining thickens to receive it; if the egg is not fertilised, the lining breaks down and leaves as blood and mucus, roughly monthly, for two to eight days.",
       "aliases": [
+        "menstruation",
         "menstrual cycle",
-        "uterine lining shedding"
+        "uterus lining",
+        "egg is not fertilised"
       ],
-      "evidence": "If the egg is not fertilised, it lives for about one day; the thick, spongy lining of the uterus is then not needed and slowly breaks and comes out through the vagina as blood and mucus."
+      "evidence": "NCERT Class 10 Science §7.3.3(c), p.124 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     },
     {
       "id": "reproductive_health_methods",
-      "name": "Reproductive health methods",
-      "description": "Learners should identify various contraceptive and disease‑prevention methods, including barriers, hormonal, intra‑uterine, and surgical options.",
+      "name": "Reproductive health and contraception",
+      "description": "Readiness for sex and parenthood, sexually transmitted infections (gonorrhoea, syphilis, warts, HIV-AIDS), contraception (condoms, pills, copper-T, surgery), and protecting the sex ratio against female foeticide.",
       "aliases": [
+        "reproductive health",
         "contraception",
-        "birth control methods"
+        "contraceptive",
+        "contraceptives",
+        "condom",
+        "copper-T",
+        "oral pills",
+        "sexually transmitted",
+        "HIV-AIDS",
+        "gonorrhoea",
+        "syphilis",
+        "sex ratio"
       ],
-      "evidence": "Methods to avoid pregnancy include mechanical barriers such as condoms; hormonal methods such as oral pills, which change the hormonal balance of the body so that eggs are not released; devices such as the loop or the copper‑T placed in the uterus; and surgical methods, in which the vas deferens in males or the fallopian tube in females is blocked."
+      "evidence": "NCERT Class 10 Science §7.3.3(d), p.124-125 (excerpt kept in evidence.local.json)",
+      "source_question_ids": []
     }
-  ]
+  ],
+  "question_concept_map": {}
 }

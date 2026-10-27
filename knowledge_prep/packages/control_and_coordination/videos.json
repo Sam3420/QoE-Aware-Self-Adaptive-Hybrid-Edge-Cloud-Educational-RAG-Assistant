@@ -1,0 +1,729 @@
+{
+  "topic_id": "control_and_coordination",
+  "status": "pending_review",
+  "generated_at": "2026-10-27T15:48:42+00:00",
+  "method": {
+    "source": "YouTube Data API v3 (search.list, videos.list) + youtube-transcript-api (en)",
+    "queries": [
+      "Control and Coordination class 10 NCERT",
+      "reflex arc human brain class 10",
+      "plant hormones tropism class 10",
+      "hormones in animals endocrine glands class 10",
+      "neuron synapse nerve impulse class 10"
+    ],
+    "duration_s": [
+      180,
+      2700
+    ],
+    "coverage": "lexical: concept name/alias mentioned >= 2 times in the transcript",
+    "embedding_coverage": "ran 2026-10-27T15:52:01+00:00 on all 5 videos: best transcript-chunk cosine similarity per concept (nomic-embed-text); covered when >= 0.7. The threshold is NOT calibrated, so this is indicative only and does not verify that a video teaches a concept correctly.",
+    "transcript_text_stored": false
+  },
+  "concepts_covered": [
+    "animal_hormones",
+    "auxin_mechanism",
+    "brain_regions",
+    "cerebellum_function",
+    "hormonal_feedback",
+    "muscle_contraction",
+    "neuron_structure",
+    "plant_tropisms",
+    "reflex_arc",
+    "synaptic_transmission"
+  ],
+  "concepts_not_covered": [],
+  "candidates": [
+    {
+      "video_id": "kiMVa36aqv8",
+      "url": "https://www.youtube.com/watch?v=kiMVa36aqv8",
+      "title": "Human Brain and its parts (Structure and Functions)",
+      "channel_title": "Grade booster",
+      "channel_id": "UCj1KaZtIXFBdc35sAVZzbLQ",
+      "published_at": "2023-08-16T14:30:28+00:00",
+      "duration_s": 264,
+      "search_query": "reflex arc human brain class 10",
+      "search_rank": 2,
+      "api_caption_flag": false,
+      "default_audio_language": "en",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 531,
+        "checked_at": "2026-10-27T15:48:21+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "brain_regions",
+          "method": "lexical",
+          "mentions": {
+            "brain": 14,
+            "medulla": 2
+          }
+        },
+        {
+          "concept_id": "cerebellum_function",
+          "method": "lexical",
+          "mentions": {
+            "cerebellum": 3,
+            "balance": 1,
+            "posture": 1
+          }
+        },
+        {
+          "concept_id": "muscle_contraction",
+          "method": "lexical",
+          "mentions": {
+            "muscles": 2,
+            "voluntary muscles": 1
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 5,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "neuron_structure": 0.784,
+          "synaptic_transmission": 0.717,
+          "reflex_arc": 0.692,
+          "brain_regions": 0.811,
+          "cerebellum_function": 0.844,
+          "muscle_contraction": 0.733,
+          "plant_tropisms": 0.62,
+          "auxin_mechanism": 0.639,
+          "animal_hormones": 0.65,
+          "hormonal_feedback": 0.745
+        },
+        "covered": [
+          "neuron_structure",
+          "synaptic_transmission",
+          "brain_regions",
+          "cerebellum_function",
+          "muscle_contraction",
+          "hormonal_feedback"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "neuron_structure",
+          "synaptic_transmission",
+          "hormonal_feedback"
+        ]
+      }
+    },
+    {
+      "video_id": "dV9QcGs58l0",
+      "url": "https://www.youtube.com/watch?v=dV9QcGs58l0",
+      "title": "Major plant hormones (& how to remember) | Control & Coordination | class 10| Biology | Khan Academy",
+      "channel_title": "Khan Academy India - English",
+      "channel_id": "UCg4BkaHyyE_4-RvEMJ2PTtA",
+      "published_at": "2019-10-03T09:07:09+00:00",
+      "duration_s": 875,
+      "search_query": "plant hormones tropism class 10",
+      "search_rank": 1,
+      "api_caption_flag": false,
+      "default_audio_language": "en",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 2652,
+        "checked_at": "2026-10-27T15:48:24+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "plant_tropisms",
+          "method": "lexical",
+          "mentions": {
+            "tropism": 1,
+            "phototropism": 2
+          }
+        },
+        {
+          "concept_id": "auxin_mechanism",
+          "method": "lexical",
+          "mentions": {
+            "plant hormones": 1,
+            "auxin": 10,
+            "auxins": 2,
+            "gibberellins": 1,
+            "abscisic acid": 6
+          }
+        },
+        {
+          "concept_id": "animal_hormones",
+          "method": "lexical",
+          "mentions": {
+            "growth hormone": 5
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 23,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "neuron_structure": 0.66,
+          "synaptic_transmission": 0.67,
+          "reflex_arc": 0.633,
+          "brain_regions": 0.652,
+          "cerebellum_function": 0.663,
+          "muscle_contraction": 0.66,
+          "plant_tropisms": 0.762,
+          "auxin_mechanism": 0.85,
+          "animal_hormones": 0.748,
+          "hormonal_feedback": 0.711
+        },
+        "covered": [
+          "plant_tropisms",
+          "auxin_mechanism",
+          "animal_hormones",
+          "hormonal_feedback"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "hormonal_feedback"
+        ]
+      }
+    },
+    {
+      "video_id": "BnsZo4j1YvU",
+      "url": "https://www.youtube.com/watch?v=BnsZo4j1YvU",
+      "title": "GCSE Biology - The Nervous System | Reflex Arcs Explained (2027/28 exams)",
+      "channel_title": "Cognito",
+      "channel_id": "UCaGEe4KXZrjou9kQx6ezG2w",
+      "published_at": "2025-04-04T16:17:38+00:00",
+      "duration_s": 308,
+      "search_query": "reflex arc human brain class 10",
+      "search_rank": 7,
+      "api_caption_flag": false,
+      "default_audio_language": "en",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "auto",
+        "words": 779,
+        "checked_at": "2026-10-27T15:48:24+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "neuron_structure",
+          "method": "lexical",
+          "mentions": {
+            "neuron": 6,
+            "neurons": 4,
+            "nerve cell": 5,
+            "receptors": 1
+          }
+        },
+        {
+          "concept_id": "reflex_arc",
+          "method": "lexical",
+          "mentions": {
+            "reflex": 2,
+            "reflex arc": 2
+          }
+        },
+        {
+          "concept_id": "brain_regions",
+          "method": "lexical",
+          "mentions": {
+            "brain": 1,
+            "central nervous system": 4
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Not NCERT-specific: a UK GCSE video (Cognito); terms and depth may differ from the chapter. Check the level."
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 7,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "neuron_structure": 0.833,
+          "synaptic_transmission": 0.852,
+          "reflex_arc": 0.882,
+          "brain_regions": 0.793,
+          "cerebellum_function": 0.702,
+          "muscle_contraction": 0.756,
+          "plant_tropisms": 0.706,
+          "auxin_mechanism": 0.69,
+          "animal_hormones": 0.705,
+          "hormonal_feedback": 0.736
+        },
+        "covered": [
+          "neuron_structure",
+          "synaptic_transmission",
+          "reflex_arc",
+          "brain_regions",
+          "cerebellum_function",
+          "muscle_contraction",
+          "plant_tropisms",
+          "animal_hormones",
+          "hormonal_feedback"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "synaptic_transmission",
+          "cerebellum_function",
+          "muscle_contraction",
+          "plant_tropisms",
+          "animal_hormones",
+          "hormonal_feedback"
+        ]
+      }
+    },
+    {
+      "video_id": "emvHaBiRY8Q",
+      "url": "https://www.youtube.com/watch?v=emvHaBiRY8Q",
+      "title": "Endocrine System",
+      "channel_title": "Amoeba Sisters",
+      "channel_id": "UCb2GCoLSBXjmI_Qj1vk-44g",
+      "published_at": "2022-09-16T00:30:13+00:00",
+      "duration_s": 564,
+      "search_query": "hormones in animals endocrine glands class 10",
+      "search_rank": 5,
+      "api_caption_flag": true,
+      "default_audio_language": "en",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "manual",
+        "words": 1666,
+        "checked_at": "2026-10-27T15:48:28+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "brain_regions",
+          "method": "lexical",
+          "mentions": {
+            "brain": 3,
+            "medulla": 2
+          }
+        },
+        {
+          "concept_id": "animal_hormones",
+          "method": "lexical",
+          "mentions": {
+            "endocrine": 16,
+            "endocrine glands": 3,
+            "insulin": 4,
+            "growth hormone": 1,
+            "testosterone": 2,
+            "pituitary": 11
+          }
+        },
+        {
+          "concept_id": "hormonal_feedback",
+          "method": "lexical",
+          "mentions": {
+            "hypothalamus": 6
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Not NCERT-specific (Amoeba Sisters, US high-school biology); check it matches the chapter."
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 16,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "neuron_structure": 0.724,
+          "synaptic_transmission": 0.68,
+          "reflex_arc": 0.665,
+          "brain_regions": 0.733,
+          "cerebellum_function": 0.671,
+          "muscle_contraction": 0.735,
+          "plant_tropisms": 0.649,
+          "auxin_mechanism": 0.795,
+          "animal_hormones": 0.843,
+          "hormonal_feedback": 0.771
+        },
+        "covered": [
+          "neuron_structure",
+          "brain_regions",
+          "muscle_contraction",
+          "auxin_mechanism",
+          "animal_hormones",
+          "hormonal_feedback"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "neuron_structure",
+          "muscle_contraction",
+          "auxin_mechanism"
+        ]
+      }
+    },
+    {
+      "video_id": "qB2kXsF68uw",
+      "url": "https://www.youtube.com/watch?v=qB2kXsF68uw",
+      "title": "How do neurons work ? control and coordination | 10th Biology #CBSE | NCERT class 10 | Xth Science",
+      "channel_title": "Grade booster",
+      "channel_id": "UCj1KaZtIXFBdc35sAVZzbLQ",
+      "published_at": "2018-06-15T11:02:14+00:00",
+      "duration_s": 259,
+      "search_query": "neuron synapse nerve impulse class 10",
+      "search_rank": 2,
+      "api_caption_flag": true,
+      "default_audio_language": "en",
+      "transcript": {
+        "status": "ok",
+        "language_code": "en",
+        "caption_type": "manual",
+        "words": 568,
+        "checked_at": "2026-10-27T15:48:40+00:00"
+      },
+      "covers": [
+        {
+          "concept_id": "neuron_structure",
+          "method": "lexical",
+          "mentions": {
+            "neuron": 18,
+            "neurons": 1,
+            "nerve cell": 3,
+            "dendrite": 3,
+            "axon": 9,
+            "cell body": 8
+          }
+        },
+        {
+          "concept_id": "synaptic_transmission",
+          "method": "lexical",
+          "mentions": {
+            "synapse": 3
+          }
+        },
+        {
+          "concept_id": "brain_regions",
+          "method": "lexical",
+          "mentions": {
+            "brain": 2
+          }
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 5,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "neuron_structure": 0.864,
+          "synaptic_transmission": 0.891,
+          "reflex_arc": 0.687,
+          "brain_regions": 0.74,
+          "cerebellum_function": 0.675,
+          "muscle_contraction": 0.748,
+          "plant_tropisms": 0.646,
+          "auxin_mechanism": 0.67,
+          "animal_hormones": 0.651,
+          "hormonal_feedback": 0.653
+        },
+        "covered": [
+          "neuron_structure",
+          "synaptic_transmission",
+          "brain_regions",
+          "muscle_contraction"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "muscle_contraction"
+        ]
+      }
+    }
+  ],
+  "examined": [
+    {
+      "video_id": "2SvKmS99xhM",
+      "title": "Control and Coordination 🔥| CLASS 10 Science | NCERT Covered| Prashant Kirad",
+      "search_query": "Control and Coordination class 10 NCERT",
+      "search_rank": 0,
+      "rejected": "duration 6418 s outside 180-2700 s"
+    },
+    {
+      "video_id": "jz4fzgC20Gg",
+      "title": "Control and Coordination in 25 Minutes🔥| Class 10th | Rapid Revision | Prashant Kirad",
+      "search_query": "Control and Coordination class 10 NCERT",
+      "search_rank": 1,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "ZgfIqNQ6Fww",
+      "title": "Control and Coordination | Class 10 Science Chapter 6 | 2026-27 | Full Chapter",
+      "search_query": "Control and Coordination class 10 NCERT",
+      "search_rank": 2,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "HiLWgSWqyhY",
+      "title": "Control and Coordination Class 10 NCERT Line by Line Explanation",
+      "search_query": "Control and Coordination class 10 NCERT",
+      "search_rank": 3,
+      "rejected": "duration 6571 s outside 180-2700 s"
+    },
+    {
+      "video_id": "XZml-C1xWI4",
+      "title": "Control and Coordination - Class 10 Science Chapter 6 [Full Chapter]",
+      "search_query": "Control and Coordination class 10 NCERT",
+      "search_rank": 4,
+      "rejected": "duration 8682 s outside 180-2700 s"
+    },
+    {
+      "video_id": "_YUmu4ceJyQ",
+      "title": "Control and Coordination in ONE SHOT  ✅ | Class 10 Science Chapter 6 | NCERT + PYQs | Samridhi S.",
+      "search_query": "Control and Coordination class 10 NCERT",
+      "search_rank": 5,
+      "rejected": "duration 6288 s outside 180-2700 s"
+    },
+    {
+      "video_id": "vKfpJ2QejNA",
+      "title": "Control And Coordination Class 10 || Complete Chapter in One Shot || NCERT Covered || Alakh Pandey",
+      "search_query": "Control and Coordination class 10 NCERT",
+      "search_rank": 6,
+      "rejected": "duration 6746 s outside 180-2700 s"
+    },
+    {
+      "video_id": "SJitt6OV8C4",
+      "title": "Control and Coordination : Class 10 Science Chapter 6 | 2024-25 Session",
+      "search_query": "Control and Coordination class 10 NCERT",
+      "search_rank": 7,
+      "rejected": "duration 10268 s outside 180-2700 s"
+    },
+    {
+      "video_id": "Pj2WQt3Kqts",
+      "title": "Human Brain |  Control and Coordination Class 10 | NTSE Biology | ATP STAR KOTA",
+      "search_query": "reflex arc human brain class 10",
+      "search_rank": 0,
+      "rejected": "transcript no_transcript: no track in ['en']; available: bn*, en-US*, hi*"
+    },
+    {
+      "video_id": "LX_kuBHi2yo",
+      "title": "🧠 The Human Nervous System! 🧠 #brain #spinalcord #humanbody #anatomy #science #teacher #education",
+      "search_query": "reflex arc human brain class 10",
+      "search_rank": 3,
+      "rejected": "duration 60 s outside 180-2700 s"
+    },
+    {
+      "video_id": "Nn2RHLWST-k",
+      "title": "What is a Reflex Arc | Physiology | Biology | FuseSchool",
+      "search_query": "reflex arc human brain class 10",
+      "search_rank": 4,
+      "rejected": "duration 155 s outside 180-2700 s"
+    },
+    {
+      "video_id": "zkcVIU4UdAg",
+      "title": "Reflex Action and Reflex Arc | Control and Coordination Class 10 | NTSE Biology | ATP STAR KOTA",
+      "search_query": "reflex arc human brain class 10",
+      "search_rank": 5,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "xfpayPqj3KM",
+      "title": "Structure and Functions Of Neuron 🔥|| Control and Coordination| Class 10 science | Prashant kirad",
+      "search_query": "reflex arc human brain class 10",
+      "search_rank": 6,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "nl2JYtUGBxw",
+      "title": "🔥 Plant Hormones 🥳10 Minutes में | Railway Exams",
+      "search_query": "plant hormones tropism class 10",
+      "search_rank": 2,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "xIVL51kxwco",
+      "title": "🌿 Plant Hormones Class 10 Animation | Plant Hormones 3D Animation | Class 10th Science Biology",
+      "search_query": "plant hormones tropism class 10",
+      "search_rank": 3,
+      "rejected": "duration 134 s outside 180-2700 s"
+    },
+    {
+      "video_id": "vgfVbLFoqv4",
+      "title": "CHEMICAL COORDINATION IN PLANTS Complete Chapter | ICSE Class 10 Biology",
+      "search_query": "plant hormones tropism class 10",
+      "search_rank": 4,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "MZCZTaCiMqk",
+      "title": "Plant Hormones in One Shot | Control and Coordination | Class 10 Biology | CBSE Boards 2026",
+      "search_query": "plant hormones tropism class 10",
+      "search_rank": 5,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "8Ji3g4yp4VE",
+      "title": "PLANT HORMONES - Auxin Gibberellin Cytokinin Ethylene Abscisic Acid",
+      "search_query": "plant hormones tropism class 10",
+      "search_rank": 6,
+      "rejected": "duration 173 s outside 180-2700 s"
+    },
+    {
+      "video_id": "QZK8R1TL20Q",
+      "title": "Hormones in Animals Class 10 (Control and Coordination) | Class 10 Biology Chapter 2",
+      "search_query": "hormones in animals endocrine glands class 10",
+      "search_rank": 2,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "IVy2Ihm5Bgo",
+      "title": "Hormones in Animals - Control and Coordination Class 10 Science (Biology) Topics | Class 10 Midterm",
+      "search_query": "hormones in animals endocrine glands class 10",
+      "search_rank": 3,
+      "rejected": "duration 3218 s outside 180-2700 s"
+    },
+    {
+      "video_id": "Riy2d5F37RI",
+      "title": "The Endocrine System - Pituitary, Thyroid, And Adrenal Glands | Class 10 | Learn With BYJU'S",
+      "search_query": "hormones in animals endocrine glands class 10",
+      "search_rank": 4,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "adQnwbt4478",
+      "title": "Endocrine System Complete Chapter in One Shot | Class 10 Biology | ICSE Board | LEGEND 2026",
+      "search_query": "hormones in animals endocrine glands class 10",
+      "search_rank": 6,
+      "rejected": "duration 6210 s outside 180-2700 s"
+    },
+    {
+      "video_id": "yYycbw3JbLU",
+      "title": "Hormones in animals || 3D animated explanation || class 10th || Control and Coordination || hindi",
+      "search_query": "hormones in animals endocrine glands class 10",
+      "search_rank": 7,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "WhowH0kb7n0",
+      "title": "2-Minute Neuroscience: Synaptic Transmission",
+      "search_query": "neuron synapse nerve impulse class 10",
+      "search_rank": 3,
+      "rejected": "duration 111 s outside 180-2700 s"
+    },
+    {
+      "video_id": "NdKNA19crVs",
+      "title": "Generation & Conduction of Nerve Impulse #shorts #neet #ytshorts #biology #class11 #study #exam #yt",
+      "search_query": "neuron synapse nerve impulse class 10",
+      "search_rank": 4,
+      "rejected": "duration 179 s outside 180-2700 s"
+    },
+    {
+      "video_id": "YbmGHE4ulL0",
+      "title": "Synaptic Transmission #detailenjoyer #didyouknow #nowyouknow #nervoussystem #neuron #neurology #bio",
+      "search_query": "neuron synapse nerve impulse class 10",
+      "search_rank": 5,
+      "rejected": "duration 31 s outside 180-2700 s"
+    },
+    {
+      "video_id": "u1QC1MTDmOM",
+      "title": "Nerve Impulse Conduction : भूलना Impossible🔥    #neet #neet2026 #neettricks",
+      "search_query": "neuron synapse nerve impulse class 10",
+      "search_rank": 6,
+      "rejected": "transcript no_transcript: no track in ['en']; available: hi*"
+    },
+    {
+      "video_id": "rKHIfsHX1aA",
+      "title": "GCSE Biology - Plant Hormones - Tropisms & Auxins",
+      "search_query": "plant hormones tropism class 10",
+      "search_rank": 0,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "XMnRkbghmwI",
+      "title": "#controlandcoordination| Hormones in Animals | cbse Biology | NCERT class 10 science chapter 7",
+      "search_query": "hormones in animals endocrine glands class 10",
+      "search_rank": 0,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "oa6rvUJlg7o",
+      "title": "Action Potential in the Neuron",
+      "search_query": "neuron synapse nerve impulse class 10",
+      "search_rank": 7,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "HNZtYa_hDhQ",
+      "title": "Plant Hormones | Auxins | Short trick | TNSCERT CLASS 10",
+      "search_query": "plant hormones tropism class 10",
+      "search_rank": 7,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "dFDB5azaTOY",
+      "title": "Hormones in animals (Endocrine glands) | Control & coordination | Class 10 Biology | Khan Academy",
+      "search_query": "hormones in animals endocrine glands class 10",
+      "search_rank": 1,
+      "rejected": "usable, not among the best-covering --keep"
+    },
+    {
+      "video_id": "yn8RqIuP1zA",
+      "title": "SSLC Onam Exam Biology | SYNAPSE 2 മിനുട്ടിൽ പഠിക്കാം. | Full Chapter Revision",
+      "search_query": "neuron synapse nerve impulse class 10",
+      "search_rank": 1,
+      "rejected": "usable, not among the best-covering --keep"
+    }
+  ],
+  "embedding_coverage_summary": {
+    "videos_checked": 5,
+    "videos_total": 5,
+    "complete": true,
+    "covered_by_checked_videos": [
+      "neuron_structure",
+      "synaptic_transmission",
+      "reflex_arc",
+      "brain_regions",
+      "cerebellum_function",
+      "muscle_contraction",
+      "plant_tropisms",
+      "auxin_mechanism",
+      "animal_hormones",
+      "hormonal_feedback"
+    ],
+    "not_covered_by_checked_videos": []
+  },
+  "review_flags": [
+    "Embedding check ran on all 5 videos with an UNCALIBRATED threshold (0.7): indicative only."
+  ]
+}

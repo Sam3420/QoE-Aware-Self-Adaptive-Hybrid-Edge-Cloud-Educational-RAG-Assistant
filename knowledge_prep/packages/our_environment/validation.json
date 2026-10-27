@@ -1,14 +1,13 @@
 {
   "topic_id": "our_environment",
-  "validated_at": "2026-10-25T20:11:25+00:00",
+  "validated_at": "2026-10-27T15:53:25+00:00",
   "valid": true,
   "errors": [],
   "warnings": [
     "OE-PRE-06: tagged ten_percent_law, wording names ['trophic_levels']",
     "OE-PRE-12: tagged ten_percent_law, wording names ['producers', 'consumers', 'trophic_levels']",
     "OE-POST-06: tagged ten_percent_law, wording names ['ecosystem_definition', 'producers']",
-    "OE-POST-12: tagged ten_percent_law, wording names ['consumers', 'trophic_levels']",
-    "videos: concept coverage is lexical only; the embedding check (Ollama) has not run"
+    "OE-POST-12: tagged ten_percent_law, wording names ['consumers', 'trophic_levels']"
   ],
   "summary": {
     "verbatim": {
@@ -18,16 +17,16 @@
     "videos": {
       "candidates": 5,
       "concepts_covered": [
-        "biodegradable_waste",
-        "biological_magnification",
+        "ecosystem_definition",
+        "producers",
         "consumers",
         "decomposers",
-        "ecosystem_definition",
-        "food_web",
-        "ozone_layer",
-        "producers",
+        "trophic_levels",
         "ten_percent_law",
-        "trophic_levels"
+        "food_web",
+        "biological_magnification",
+        "ozone_layer",
+        "biodegradable_waste"
       ],
       "examined": 33
     },
@@ -148,6 +147,9 @@
     "answer_disagreements": [],
     "concept_disagreements": [],
     "failures": [],
-    "note": "A disagreement flags the item for human review; agreement does not prove it correct."
+    "note": "A disagreement flags the item for human review; agreement does not prove it correct.",
+    "ran_at": "2026-10-25T21:11:01+00:00",
+    "items_sha256": "69174148a8334f8d885784a8e0e4412c13004b3fc966773fe7aee508595cfe8d",
+    "carried_over": true
   }
 }

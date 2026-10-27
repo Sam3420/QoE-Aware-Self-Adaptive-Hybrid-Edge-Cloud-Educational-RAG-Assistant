@@ -1,0 +1,170 @@
+{
+  "topic_id": "control_and_coordination",
+  "validated_at": "2026-10-27T15:53:26+00:00",
+  "valid": true,
+  "errors": [],
+  "warnings": [
+    "CC-PRE-08: tagged synaptic_transmission, wording names ['neuron_structure']",
+    "CC-PRE-10: tagged hormonal_feedback, wording names ['animal_hormones']",
+    "CC-FRM-09: tagged reflex_arc, wording names ['brain_regions']",
+    "CC-FRM-28: tagged hormonal_feedback, wording names ['animal_hormones']",
+    "CC-PRE-03: blind model tagged auxin_mechanism, assigned plant_tropisms (from the last --llm run)",
+    "CC-FRM-09: blind model tagged brain_regions, assigned reflex_arc (from the last --llm run)",
+    "CC-FRM-15: blind model tagged brain_regions, assigned cerebellum_function (from the last --llm run)"
+  ],
+  "summary": {
+    "verbatim": {
+      "max_run": 9,
+      "items_with_run_>=_10": 0
+    },
+    "videos": {
+      "candidates": 5,
+      "concepts_covered": [
+        "animal_hormones",
+        "auxin_mechanism",
+        "brain_regions",
+        "cerebellum_function",
+        "hormonal_feedback",
+        "muscle_contraction",
+        "neuron_structure",
+        "plant_tropisms",
+        "reflex_arc",
+        "synaptic_transmission"
+      ],
+      "examined": 33
+    },
+    "concepts": 10,
+    "pretest": 15,
+    "posttest": 15,
+    "formative": 30,
+    "formative_per_concept": {
+      "neuron_structure": 3,
+      "synaptic_transmission": 3,
+      "reflex_arc": 3,
+      "brain_regions": 3,
+      "cerebellum_function": 3,
+      "muscle_contraction": 3,
+      "plant_tropisms": 3,
+      "auxin_mechanism": 3,
+      "animal_hormones": 3,
+      "hormonal_feedback": 3
+    },
+    "difficulty": {
+      "pretest": {
+        "easy": 5,
+        "medium": 6,
+        "hard": 4
+      },
+      "posttest": {
+        "easy": 5,
+        "medium": 6,
+        "hard": 4
+      },
+      "formative": {
+        "easy": 10,
+        "medium": 19,
+        "hard": 1
+      }
+    },
+    "answer_positions": {
+      "pretest": {
+        "0": 4,
+        "1": 4,
+        "2": 4,
+        "3": 3
+      },
+      "posttest": {
+        "0": 4,
+        "1": 3,
+        "2": 4,
+        "3": 4
+      },
+      "formative": {
+        "0": 7,
+        "1": 8,
+        "2": 8,
+        "3": 7
+      }
+    },
+    "pre_items_per_concept": {
+      "reflex_arc": 2,
+      "neuron_structure": 1,
+      "plant_tropisms": 2,
+      "animal_hormones": 2,
+      "cerebellum_function": 1,
+      "brain_regions": 2,
+      "auxin_mechanism": 2,
+      "synaptic_transmission": 1,
+      "muscle_contraction": 1,
+      "hormonal_feedback": 1
+    }
+  },
+  "lexical_tag_flags": [
+    {
+      "id": "CC-PRE-08",
+      "assigned": "synaptic_transmission",
+      "named_in_text": [
+        "neuron_structure"
+      ]
+    },
+    {
+      "id": "CC-PRE-10",
+      "assigned": "hormonal_feedback",
+      "named_in_text": [
+        "animal_hormones"
+      ]
+    },
+    {
+      "id": "CC-FRM-09",
+      "assigned": "reflex_arc",
+      "named_in_text": [
+        "brain_regions"
+      ]
+    },
+    {
+      "id": "CC-FRM-28",
+      "assigned": "hormonal_feedback",
+      "named_in_text": [
+        "animal_hormones"
+      ]
+    }
+  ],
+  "near_duplicates": [],
+  "evidence_checked": true,
+  "first_shown_pretest_concepts": [
+    "reflex_arc",
+    "neuron_structure",
+    "plant_tropisms",
+    "animal_hormones",
+    "cerebellum_function"
+  ],
+  "llm_checks": {
+    "ran": true,
+    "model": "groq:openai/gpt-oss-120b",
+    "checked": 60,
+    "answered": 60,
+    "answer_disagreements": [],
+    "concept_disagreements": [
+      {
+        "id": "CC-PRE-03",
+        "assigned": "plant_tropisms",
+        "model_concept": "auxin_mechanism"
+      },
+      {
+        "id": "CC-FRM-09",
+        "assigned": "reflex_arc",
+        "model_concept": "brain_regions"
+      },
+      {
+        "id": "CC-FRM-15",
+        "assigned": "cerebellum_function",
+        "model_concept": "brain_regions"
+      }
+    ],
+    "failures": [],
+    "note": "A disagreement flags the item for human review; agreement does not prove it correct.",
+    "ran_at": "2026-10-25T21:21:54+00:00",
+    "items_sha256": "df0905e1fcac7583576b04ddbe31595198d54b55ac9c8b412b1f66b3dbcecc80",
+    "carried_over": true
+  }
+}

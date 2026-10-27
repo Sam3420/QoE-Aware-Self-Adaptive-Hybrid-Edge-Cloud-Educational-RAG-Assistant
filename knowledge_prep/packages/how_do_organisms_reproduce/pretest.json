@@ -1,0 +1,369 @@
+{
+  "topic_id": "how_do_organisms_reproduce",
+  "kind": "pretest",
+  "status": "pending_review",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T21:21:06+00:00",
+  "items": [
+    {
+      "id": "HR-PRE-01",
+      "concept_id": "asexual_fission",
+      "difficulty": "easy",
+      "question": "Many bacteria and protozoa split into two equal halves to reproduce. What is this called?",
+      "options": [
+        "Binary fission",
+        "Multiple fission",
+        "Budding",
+        "Fragmentation"
+      ],
+      "answer_index": 0,
+      "explanation": "Splitting one cell into two is binary fission; splitting into many at once is multiple fission.",
+      "source": {
+        "section": "7.2.1",
+        "page": 115
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-PRE-02",
+      "concept_id": "vegetative_propagation",
+      "difficulty": "easy",
+      "question": "Which of these is a method of vegetative propagation used by farmers?",
+      "options": [
+        "Pollination",
+        "Grafting",
+        "Binary fission",
+        "Spore formation"
+      ],
+      "answer_index": 1,
+      "explanation": "Layering and grafting grow new plants from plant parts, as with sugarcane, roses or grapes.",
+      "source": {
+        "section": "7.2.5",
+        "page": 117
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-PRE-03",
+      "concept_id": "pollination_and_fertilisation",
+      "difficulty": "easy",
+      "question": "Which part of a flower is the male reproductive part that produces pollen grains?",
+      "options": [
+        "Pistil",
+        "Sepal",
+        "Stamen",
+        "Petal"
+      ],
+      "answer_index": 2,
+      "explanation": "The stamen makes the yellowish pollen; the pistil in the centre is the female part.",
+      "source": {
+        "section": "7.3.2",
+        "page": 120
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-PRE-04",
+      "concept_id": "human_puberty_and_reproductive_systems",
+      "difficulty": "easy",
+      "question": "Where are sperms formed in the human male?",
+      "options": [
+        "In the prostate gland",
+        "In the urinary bladder",
+        "In the seminal vesicles",
+        "In the testes"
+      ],
+      "answer_index": 3,
+      "explanation": "The testes form the sperms; the prostate and seminal vesicles only add fluid.",
+      "source": {
+        "section": "7.3.3(a)",
+        "page": 123
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-PRE-05",
+      "concept_id": "reproductive_health_methods",
+      "difficulty": "easy",
+      "question": "Which method of avoiding pregnancy also helps prevent the spread of many sexually transmitted infections?",
+      "options": [
+        "Condom",
+        "Oral pills",
+        "Copper-T",
+        "Surgical blocking of the fallopian tubes"
+      ],
+      "answer_index": 0,
+      "explanation": "A condom is a physical barrier, so it also reduces the passing on of many infections; the others do not.",
+      "source": {
+        "section": "7.3.3(d)",
+        "page": 125
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-PRE-06",
+      "concept_id": "dna_replication_basics",
+      "difficulty": "medium",
+      "question": "Why are the two cells formed by cell division similar but not always identical?",
+      "options": [
+        "Each cell receives DNA from two parents",
+        "The reactions that copy DNA are never absolutely accurate",
+        "The environment rewrites their DNA every time",
+        "One of the cells receives no DNA"
+      ],
+      "answer_index": 1,
+      "explanation": "Small errors in copying DNA mean the copies can differ slightly from the original.",
+      "source": {
+        "section": "7.1",
+        "page": 114
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-PRE-07",
+      "concept_id": "regeneration_and_budding",
+      "difficulty": "medium",
+      "question": "How does Hydra reproduce by budding?",
+      "options": [
+        "It splits into two equal halves",
+        "It forms spores",
+        "An outgrowth forms by repeated cell division at one spot, then detaches as a new individual",
+        "Its body breaks into many fragments"
+      ],
+      "answer_index": 2,
+      "explanation": "The bud grows into a tiny Hydra on the parent and separates when it is mature.",
+      "source": {
+        "section": "7.2.4",
+        "page": 117
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-PRE-08",
+      "concept_id": "spore_formation_and_protection",
+      "difficulty": "medium",
+      "question": "In bread mould (Rhizopus), which structures hold the spores?",
+      "options": [
+        "Hyphae",
+        "Buds",
+        "Fragments",
+        "Sporangia"
+      ],
+      "answer_index": 3,
+      "explanation": "The tiny blob-on-a-stick structures are sporangia; the threads are hyphae, which do not reproduce.",
+      "source": {
+        "section": "7.2.6",
+        "page": 118
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-PRE-09",
+      "concept_id": "sexual_mode_significance",
+      "difficulty": "medium",
+      "question": "How does sexual reproduction speed up the creation of variation?",
+      "options": [
+        "It combines DNA from two different individuals, making new combinations of variants",
+        "It makes DNA copying much less accurate",
+        "It copies the DNA of one parent exactly",
+        "It removes all the variations that exist"
+      ],
+      "answer_index": 0,
+      "explanation": "Each parent carries different accumulated variations, so mixing them produces new combinations.",
+      "source": {
+        "section": "7.3.1",
+        "page": 119
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-PRE-10",
+      "concept_id": "menstruation_cycle",
+      "difficulty": "medium",
+      "question": "What happens to the thickened lining of the uterus if the egg is not fertilised?",
+      "options": [
+        "It turns into the placenta",
+        "It slowly breaks down and leaves the body as blood and mucus",
+        "It stays for nine months",
+        "It forms a new egg"
+      ],
+      "answer_index": 1,
+      "explanation": "The lining is no longer needed, so it is shed; this is menstruation.",
+      "source": {
+        "section": "7.3.3(c)",
+        "page": 124
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-PRE-11",
+      "concept_id": "asexual_fission",
+      "difficulty": "hard",
+      "question": "How is binary fission in Leishmania different from binary fission in Amoeba?",
+      "options": [
+        "Leishmania divides into many cells at once",
+        "Amoeba can split only along one plane",
+        "Leishmania splits in a definite orientation relative to its whip-like structure; Amoeba can split in any plane",
+        "Leishmania reproduces by budding"
+      ],
+      "answer_index": 2,
+      "explanation": "Leishmania has a whip-like structure at one end, and its division is lined up with it.",
+      "source": {
+        "section": "7.2.1",
+        "page": 115
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-PRE-12",
+      "concept_id": "vegetative_propagation",
+      "difficulty": "hard",
+      "question": "A grower wants new rose plants that keep every feature of a prized parent plant and flower sooner. Which method fits best, and why?",
+      "options": [
+        "Growing from seed, because seeds always give identical plants",
+        "Cross-pollination, because it creates new varieties",
+        "Spore formation, because roses make spores",
+        "Vegetative propagation, because the new plants are genetically similar to the parent and flower earlier"
+      ],
+      "answer_index": 3,
+      "explanation": "Plants from vegetative propagation keep the parent's characteristics and bear flowers earlier than seedlings.",
+      "source": {
+        "section": "7.2.5",
+        "page": 117
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-PRE-13",
+      "concept_id": "pollination_and_fertilisation",
+      "difficulty": "hard",
+      "question": "After fertilisation in a flower, what do the ovule and the ovary become?",
+      "options": [
+        "The ovule becomes a seed and the ovary ripens into a fruit",
+        "The ovule becomes a fruit and the ovary becomes a seed",
+        "Both turn into petals",
+        "Both shrivel and fall off"
+      ],
+      "answer_index": 0,
+      "explanation": "The ovule, with the embryo inside, develops a tough coat and becomes the seed; the ovary grows into the fruit.",
+      "source": {
+        "section": "7.3.2",
+        "page": 121
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-PRE-14",
+      "concept_id": "human_puberty_and_reproductive_systems",
+      "difficulty": "hard",
+      "question": "What is the role of the placenta?",
+      "options": [
+        "It produces the eggs",
+        "It lets glucose and oxygen pass from the mother's blood to the embryo, and wastes pass back",
+        "It makes the sperms",
+        "It releases an egg every month"
+      ],
+      "answer_index": 1,
+      "explanation": "The placenta's villi give a large surface where materials pass between the mother's blood and the embryo.",
+      "source": {
+        "section": "7.3.3(b)",
+        "page": 124
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-PRE-15",
+      "concept_id": "reproductive_health_methods",
+      "difficulty": "medium",
+      "question": "How do oral contraceptive pills prevent pregnancy?",
+      "options": [
+        "They block the vas deferens",
+        "They form a physical barrier",
+        "They change the body's hormonal balance so that eggs are not released",
+        "They are placed in the uterus"
+      ],
+      "answer_index": 2,
+      "explanation": "Pills act on hormones, so no egg is released; because of this they can also have side-effects.",
+      "source": {
+        "section": "7.3.3(d)",
+        "page": 125
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    }
+  ]
+}

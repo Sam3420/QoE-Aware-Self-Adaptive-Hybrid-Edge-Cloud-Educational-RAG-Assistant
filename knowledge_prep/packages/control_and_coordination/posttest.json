@@ -1,0 +1,384 @@
+{
+  "topic_id": "control_and_coordination",
+  "kind": "posttest",
+  "status": "pending_review",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T21:19:15+00:00",
+  "items": [
+    {
+      "id": "CC-POST-01",
+      "concept_id": "reflex_arc",
+      "difficulty": "easy",
+      "question": "Where in the body are reflex arcs formed?",
+      "options": [
+        "In the fore-brain",
+        "In the muscles",
+        "In the spinal cord",
+        "In the sense organs"
+      ],
+      "answer_index": 2,
+      "explanation": "Nerves from the body meet in the spinal cord, so the reflex link is made there.",
+      "source": {
+        "section": "6.1.1",
+        "page": 102
+      },
+      "parallel_to": "CC-PRE-01",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-POST-02",
+      "concept_id": "neuron_structure",
+      "difficulty": "easy",
+      "question": "Where are the receptors that detect information from our surroundings usually found?",
+      "options": [
+        "In the blood",
+        "In the bones",
+        "Only in the muscles",
+        "In the sense organs, such as the inner ear, nose and tongue"
+      ],
+      "answer_index": 3,
+      "explanation": "Receptors are the specialised tips of nerve cells, mostly in our sense organs.",
+      "source": {
+        "section": "6.1",
+        "page": 101
+      },
+      "parallel_to": "CC-PRE-02",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-POST-03",
+      "concept_id": "plant_tropisms",
+      "difficulty": "easy",
+      "question": "Roots grow downwards in response to the pull of gravity. What is this called?",
+      "options": [
+        "Geotropism",
+        "Phototropism",
+        "Hydrotropism",
+        "Chemotropism"
+      ],
+      "answer_index": 0,
+      "explanation": "A growth response to gravity is geotropism: roots grow down and shoots grow up.",
+      "source": {
+        "section": "6.2.2",
+        "page": 107
+      },
+      "parallel_to": "CC-PRE-03",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-POST-04",
+      "concept_id": "animal_hormones",
+      "difficulty": "easy",
+      "question": "Which glands secrete adrenaline?",
+      "options": [
+        "The thyroid gland",
+        "The adrenal glands",
+        "The pancreas",
+        "The pituitary gland"
+      ],
+      "answer_index": 1,
+      "explanation": "Adrenaline comes from the adrenal glands and goes straight into the blood.",
+      "source": {
+        "section": "6.3",
+        "page": 109
+      },
+      "parallel_to": "CC-PRE-04",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-POST-05",
+      "concept_id": "cerebellum_function",
+      "difficulty": "easy",
+      "question": "Riding a bicycle and picking up a pencil depend on which part of the hind-brain?",
+      "options": [
+        "Medulla",
+        "Fore-brain",
+        "Cerebellum",
+        "Spinal cord"
+      ],
+      "answer_index": 2,
+      "explanation": "The cerebellum makes such voluntary movements precise and keeps the body balanced.",
+      "source": {
+        "section": "6.1.2",
+        "page": 104
+      },
+      "parallel_to": "CC-PRE-05",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-POST-06",
+      "concept_id": "brain_regions",
+      "difficulty": "medium",
+      "question": "What does the peripheral nervous system consist of?",
+      "options": [
+        "The brain and the spinal cord",
+        "Only the fore-brain",
+        "The endocrine glands",
+        "Cranial nerves from the brain and spinal nerves from the spinal cord"
+      ],
+      "answer_index": 3,
+      "explanation": "These nerves connect the central nervous system with the rest of the body.",
+      "source": {
+        "section": "6.1.2",
+        "page": 103
+      },
+      "parallel_to": "CC-PRE-06",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-POST-07",
+      "concept_id": "auxin_mechanism",
+      "difficulty": "medium",
+      "question": "Which plant hormone inhibits growth, with effects such as wilting of leaves?",
+      "options": [
+        "Abscisic acid",
+        "Auxin",
+        "Gibberellin",
+        "Cytokinin"
+      ],
+      "answer_index": 0,
+      "explanation": "Plants need stop signals as well as growth signals; abscisic acid is one.",
+      "source": {
+        "section": "6.2.2",
+        "page": 108
+      },
+      "parallel_to": "CC-PRE-07",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-POST-08",
+      "concept_id": "synaptic_transmission",
+      "difficulty": "medium",
+      "question": "Chemicals released at the end of one neuron cross a small gap and start an impulse in the next neuron. What is the gap called?",
+      "options": [
+        "Dendrite",
+        "Synapse",
+        "Axon",
+        "Receptor"
+      ],
+      "answer_index": 1,
+      "explanation": "The synapse is the gap between neurons that the signal crosses as chemicals.",
+      "source": {
+        "section": "6.1",
+        "page": 101
+      },
+      "parallel_to": "CC-PRE-08",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-POST-09",
+      "concept_id": "muscle_contraction",
+      "difficulty": "medium",
+      "question": "Which statement about how muscle cells cause movement is correct?",
+      "options": [
+        "They grow longer",
+        "They change their water content",
+        "They change shape so that they become shorter",
+        "They move only when a hormone reaches them"
+      ],
+      "answer_index": 2,
+      "explanation": "Movement at the cell level means muscle cells shortening; plant cells use changes in water instead.",
+      "source": {
+        "section": "6.1.4",
+        "page": 105
+      },
+      "parallel_to": "CC-PRE-09",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-POST-10",
+      "concept_id": "hormonal_feedback",
+      "difficulty": "medium",
+      "question": "What regulates the timing and amount of a hormone that is released?",
+      "options": [
+        "Reflex arcs",
+        "The cerebellum",
+        "Tropic movements",
+        "Feedback mechanisms"
+      ],
+      "answer_index": 3,
+      "explanation": "The body senses the effect of a hormone and adjusts how much more is released.",
+      "source": {
+        "section": "6.3",
+        "page": 111
+      },
+      "parallel_to": "CC-PRE-10",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-POST-11",
+      "concept_id": "reflex_arc",
+      "difficulty": "hard",
+      "question": "During a reflex action, does information about the stimulus still reach the brain?",
+      "options": [
+        "Yes, it travels on to the brain, but the response is made in the spinal cord",
+        "No, the brain never receives it",
+        "Yes, and the brain must decide before the muscle moves",
+        "No, reflexes take place only in the muscles"
+      ],
+      "answer_index": 0,
+      "explanation": "The reflex response is made in the spinal cord, but the input also goes on to the brain.",
+      "source": {
+        "section": "6.1.1",
+        "page": 102
+      },
+      "parallel_to": "CC-PRE-11",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-POST-12",
+      "concept_id": "brain_regions",
+      "difficulty": "hard",
+      "question": "Blood pressure, salivation and vomiting happen without our thinking about them. Which part of the brain controls them?",
+      "options": [
+        "The cerebellum",
+        "The medulla in the hind-brain",
+        "The fore-brain",
+        "The spinal cord"
+      ],
+      "answer_index": 1,
+      "explanation": "These involuntary actions are controlled by the medulla, not by the thinking fore-brain.",
+      "source": {
+        "section": "6.1.2",
+        "page": 104
+      },
+      "parallel_to": "CC-PRE-12",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-POST-13",
+      "concept_id": "plant_tropisms",
+      "difficulty": "hard",
+      "question": "Plants have no muscles. How do the leaves of the sensitive plant move when touched?",
+      "options": [
+        "Muscle proteins in the leaves contract",
+        "The leaves grow faster on one side",
+        "Their cells swell or shrink as water moves in or out",
+        "Auxin makes the leaves grow longer"
+      ],
+      "answer_index": 2,
+      "explanation": "Swelling or shrinking with water changes the shape of the cells, and so the leaves droop.",
+      "source": {
+        "section": "6.2.1",
+        "page": 106
+      },
+      "parallel_to": "CC-PRE-13",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-POST-14",
+      "concept_id": "auxin_mechanism",
+      "difficulty": "hard",
+      "question": "A shoot is lit only from its left side. Where does auxin collect, and which way does the shoot bend?",
+      "options": [
+        "On the left side, so the shoot bends to the right",
+        "On the right side, so the shoot bends to the right",
+        "Evenly on both sides, so the shoot grows straight",
+        "On the right (shaded) side, so the shoot bends to the left, towards the light"
+      ],
+      "answer_index": 3,
+      "explanation": "Auxin goes to the shaded side, cells there lengthen more, and the shoot curves towards the light.",
+      "source": {
+        "section": "6.2.2",
+        "page": 108
+      },
+      "parallel_to": "CC-PRE-14",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-POST-15",
+      "concept_id": "animal_hormones",
+      "difficulty": "medium",
+      "question": "A child's body makes too little growth hormone. What can this lead to?",
+      "options": [
+        "Dwarfism",
+        "Goitre",
+        "Diabetes",
+        "Unusually tall height"
+      ],
+      "answer_index": 0,
+      "explanation": "Growth hormone from the pituitary controls growth, so a shortage in childhood causes dwarfism.",
+      "source": {
+        "section": "6.3",
+        "page": 110
+      },
+      "parallel_to": "CC-PRE-15",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,384 @@
+{
+  "topic_id": "how_do_organisms_reproduce",
+  "kind": "posttest",
+  "status": "pending_review",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T21:21:06+00:00",
+  "items": [
+    {
+      "id": "HR-POST-01",
+      "concept_id": "asexual_fission",
+      "difficulty": "easy",
+      "question": "The malarial parasite Plasmodium divides into many daughter cells at the same time. What is this called?",
+      "options": [
+        "Binary fission",
+        "Budding",
+        "Multiple fission",
+        "Regeneration"
+      ],
+      "answer_index": 2,
+      "explanation": "Dividing into many cells at once is multiple fission.",
+      "source": {
+        "section": "7.2.1",
+        "page": 116
+      },
+      "parallel_to": "HR-PRE-01",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-POST-02",
+      "concept_id": "vegetative_propagation",
+      "difficulty": "easy",
+      "question": "In Bryophyllum, from which part do new plants develop?",
+      "options": [
+        "Seeds",
+        "Spores",
+        "Pollen grains",
+        "Buds in the notches along the edge of the leaf"
+      ],
+      "answer_index": 3,
+      "explanation": "The leaf-margin buds fall on the soil and grow into new plants.",
+      "source": {
+        "section": "7.2.5",
+        "page": 118
+      },
+      "parallel_to": "HR-PRE-02",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-POST-03",
+      "concept_id": "pollination_and_fertilisation",
+      "difficulty": "easy",
+      "question": "Which part of a flower is the female reproductive part?",
+      "options": [
+        "Pistil",
+        "Stamen",
+        "Sepal",
+        "Petal"
+      ],
+      "answer_index": 0,
+      "explanation": "The pistil, in the centre of the flower, is made of the ovary, style and stigma.",
+      "source": {
+        "section": "7.3.2",
+        "page": 120
+      },
+      "parallel_to": "HR-PRE-03",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-POST-04",
+      "concept_id": "human_puberty_and_reproductive_systems",
+      "difficulty": "easy",
+      "question": "Where are the female germ-cells, or eggs, made?",
+      "options": [
+        "In the uterus",
+        "In the ovaries",
+        "In the vagina",
+        "In the placenta"
+      ],
+      "answer_index": 1,
+      "explanation": "Eggs are made in the ovaries, which also produce some hormones.",
+      "source": {
+        "section": "7.3.3(b)",
+        "page": 123
+      },
+      "parallel_to": "HR-PRE-04",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-POST-05",
+      "concept_id": "reproductive_health_methods",
+      "difficulty": "easy",
+      "question": "Which of these is a sexually transmitted infection caused by a virus?",
+      "options": [
+        "Gonorrhoea",
+        "Syphilis",
+        "HIV-AIDS",
+        "Malaria"
+      ],
+      "answer_index": 2,
+      "explanation": "Warts and HIV-AIDS are viral; gonorrhoea and syphilis are bacterial; malaria is not sexually transmitted.",
+      "source": {
+        "section": "7.3.3(d)",
+        "page": 125
+      },
+      "parallel_to": "HR-PRE-05",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-POST-06",
+      "concept_id": "dna_replication_basics",
+      "difficulty": "medium",
+      "question": "Why is variation useful for a species?",
+      "options": [
+        "It makes every individual live longer",
+        "It keeps all individuals identical",
+        "It stops DNA from being copied",
+        "If its niche changes drastically, some variants may still survive"
+      ],
+      "answer_index": 3,
+      "explanation": "When conditions change, the few individuals with suitable variations survive and keep the species going.",
+      "source": {
+        "section": "7.1.1",
+        "page": 114
+      },
+      "parallel_to": "HR-PRE-06",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-POST-07",
+      "concept_id": "regeneration_and_budding",
+      "difficulty": "medium",
+      "question": "Spirogyra breaks up into smaller pieces when it matures, and each piece grows into a new individual. What is this called?",
+      "options": [
+        "Fragmentation",
+        "Regeneration",
+        "Budding",
+        "Multiple fission"
+      ],
+      "answer_index": 0,
+      "explanation": "Breaking into fragments that each grow works for organisms with a simple body organisation.",
+      "source": {
+        "section": "7.2.2",
+        "page": 116
+      },
+      "parallel_to": "HR-PRE-07",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-POST-08",
+      "concept_id": "spore_formation_and_protection",
+      "difficulty": "medium",
+      "question": "What protects Rhizopus spores until they reach a moist surface?",
+      "options": [
+        "Hyphae",
+        "Thick walls",
+        "A fluid-filled sac",
+        "Pollen tubes"
+      ],
+      "answer_index": 1,
+      "explanation": "The thick wall shields each spore until conditions are right for it to grow.",
+      "source": {
+        "section": "7.2.6",
+        "page": 118
+      },
+      "parallel_to": "HR-PRE-08",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-POST-09",
+      "concept_id": "sexual_mode_significance",
+      "difficulty": "medium",
+      "question": "Germ-cells have half the chromosomes and half the DNA of body cells. Which kind of cell division produces them?",
+      "options": [
+        "Binary fission",
+        "Budding",
+        "Meiosis",
+        "Fragmentation"
+      ],
+      "answer_index": 2,
+      "explanation": "Meiosis halves the chromosome number, so joining two germ-cells restores the normal amount.",
+      "source": {
+        "section": "7.3.1",
+        "page": 120
+      },
+      "parallel_to": "HR-PRE-09",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-POST-10",
+      "concept_id": "menstruation_cycle",
+      "difficulty": "medium",
+      "question": "How long does an egg live if it is not fertilised?",
+      "options": [
+        "About one month",
+        "About nine months",
+        "About eight days",
+        "About one day"
+      ],
+      "answer_index": 3,
+      "explanation": "An unfertilised egg survives only about a day, after which the uterus lining is shed.",
+      "source": {
+        "section": "7.3.3(c)",
+        "page": 124
+      },
+      "parallel_to": "HR-PRE-10",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-POST-11",
+      "concept_id": "asexual_fission",
+      "difficulty": "hard",
+      "question": "Why can unicellular organisms reproduce by simple cell division, while most multicellular organisms cannot?",
+      "options": [
+        "Multicellular bodies have cells organised into tissues and organs in set places, so cell-by-cell division is impractical",
+        "Unicellular organisms have no DNA",
+        "Multicellular organisms have no cells that can divide",
+        "Fission is too slow for unicellular organisms"
+      ],
+      "answer_index": 0,
+      "explanation": "In an organised body, simply splitting cell by cell would not rebuild the tissues and organs, so other methods are needed.",
+      "source": {
+        "section": "7.2.2",
+        "page": 116
+      },
+      "parallel_to": "HR-PRE-11",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-POST-12",
+      "concept_id": "vegetative_propagation",
+      "difficulty": "hard",
+      "question": "In tissue culture, what is the callus?",
+      "options": [
+        "The tough coat of a seed",
+        "A small group of rapidly dividing cells grown in an artificial medium",
+        "A type of spore",
+        "A pollen tube"
+      ],
+      "answer_index": 1,
+      "explanation": "Cells from a growing tip divide to form the callus, which is then moved to a medium with growth hormones.",
+      "source": {
+        "section": "7.2.5",
+        "page": 118
+      },
+      "parallel_to": "HR-PRE-12",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-POST-13",
+      "concept_id": "pollination_and_fertilisation",
+      "difficulty": "hard",
+      "question": "How does the male germ-cell from a pollen grain on the stigma reach the egg in the ovary?",
+      "options": [
+        "Wind blows it into the ovary",
+        "It swims through water on the petals",
+        "A pollen tube grows from the grain down the style to the ovary",
+        "The stigma pulls the whole pollen grain down"
+      ],
+      "answer_index": 2,
+      "explanation": "The pollen tube carries the male germ-cell to the ovule, where fertilisation takes place.",
+      "source": {
+        "section": "7.3.2",
+        "page": 121
+      },
+      "parallel_to": "HR-PRE-13",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-POST-14",
+      "concept_id": "human_puberty_and_reproductive_systems",
+      "difficulty": "hard",
+      "question": "Why are the testes located outside the abdominal cavity, in the scrotum?",
+      "options": [
+        "To make more urine",
+        "To make testosterone faster",
+        "Because there is no room inside the abdomen",
+        "Sperm formation needs a lower temperature than normal body temperature"
+      ],
+      "answer_index": 3,
+      "explanation": "The scrotum keeps the testes slightly cooler than the body, which sperm formation needs.",
+      "source": {
+        "section": "7.3.3(a)",
+        "page": 123
+      },
+      "parallel_to": "HR-PRE-14",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-POST-15",
+      "concept_id": "reproductive_health_methods",
+      "difficulty": "medium",
+      "question": "How does a copper-T prevent pregnancy?",
+      "options": [
+        "It is placed inside the uterus",
+        "It is swallowed as a pill",
+        "It surgically blocks the fallopian tubes",
+        "It is worn over the penis"
+      ],
+      "answer_index": 0,
+      "explanation": "Devices such as the loop or copper-T sit in the uterus; they can irritate it and do not protect against infections.",
+      "source": {
+        "section": "7.3.3(d)",
+        "page": 125
+      },
+      "parallel_to": "HR-PRE-15",
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    }
+  ]
+}

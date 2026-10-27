@@ -124,8 +124,9 @@ def test_transcript_strategy_ranks_the_teaching_video_first_with_grounded_eviden
     assert reasons["songVideo01"].startswith("transcript relevance")  # topic in title, but transcript off-topic
     assert reasons["cookPasta01"].startswith("topic similarity")
     assert reasons["privateVid1"] == "privacy status private" and reasons["shortClip01"] == "shorter than 60s"
-    # two-stage: transcripts only for the budget, in pre-rank order, in preferred languages
-    assert len(transcripts.calls) == STRATEGIES["R2"].transcript_budget and transcripts.calls[0][1] == ("en", "hi")
+    # two-stage: transcripts only for the budget, in pre-rank order, in the learner's language only (the language
+    # the chosen video is later indexed in, so a transcript the session cannot use never counts as evidence)
+    assert len(transcripts.calls) == STRATEGIES["R2"].transcript_budget and transcripts.calls[0][1] == ("en",)
 
 
 def test_metadata_only_strategy_fetches_no_transcripts():
@@ -220,3 +221,29 @@ def test_slow_transcripts_are_dropped_after_the_time_budget():
     good = next(r for r in result.recommendations if r.video_id == "goodTeach01")
     assert good.transcript_status == TranscriptStatus.FAILED and good.evidence_level == "metadata"
     assert "no transcript evidence (failed)" in good.explanation
+
+
+def test_without_a_learner_language_transcripts_use_the_configured_languages():
+    transcripts = FakeTranscripts()
+    make_pipeline(transcripts=transcripts).run(request(language_code=None), STRATEGIES["R2"])
+    assert transcripts.calls and all(langs == ("en", "hi") for _, langs in transcripts.calls)
+
+
+def test_required_transcript_drops_videos_without_a_usable_track_even_for_metadata_only():
+    transcripts = FakeTranscripts()
+    result = make_pipeline(transcripts=transcripts, require_transcript=True).run(request(), STRATEGIES["R1"])
+    assert result.recommendations and all(r.video_id in transcripts.records for r in result.recommendations)
+    reasons = {f.video_id: f.reason for f in result.filtered}
+    assert reasons["popularNoTr"] == "no transcript track in en (transcripts disabled)"
+    assert transcripts.calls == [] and transcripts.checks  # R1 lists tracks but downloads no transcript
+    assert all(langs == ("en",) for _, langs in transcripts.checks)
+
+
+def test_a_track_check_that_cannot_tell_keeps_the_video():
+    class Unsure(FakeTranscripts):
+        def available(self, video_id, languages):
+            raise TimeoutError("listing took too long")
+
+    plain = make_pipeline(transcripts=FakeTranscripts()).run(request(), STRATEGIES["R1"])
+    unsure = make_pipeline(transcripts=Unsure(), require_transcript=True).run(request(), STRATEGIES["R1"])
+    assert [r.video_id for r in unsure.recommendations] == [r.video_id for r in plain.recommendations]

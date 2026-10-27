@@ -1,10 +1,10 @@
 {
   "topic_id": "heredity",
-  "status": "draft",
+  "status": "approved",
   "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
   "generated_at": "2026-10-25T11:16:53Z",
-  "reviewed_by": null,
-  "reviewed_at": null,
+  "reviewed_by": "Project team",
+  "reviewed_at": "2026-10-25T21:23:46.890857Z",
   "concepts": [
     {
       "id": "genetic_variation",

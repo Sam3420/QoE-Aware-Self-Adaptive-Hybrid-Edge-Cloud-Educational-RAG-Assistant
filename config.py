@@ -156,6 +156,9 @@ class Settings(BaseSettings):
     # --- Transcripts (youtube-transcript-api, unofficial; optional) ----------------------------
     transcripts_enabled: bool = True
     transcript_languages: list[str] = ["en", "hi"]  # preference order; manual tracks before auto
+    # no track in the preferred languages: use YouTube's machine translation of another track into the first one
+    # (caption type "auto-translated from hi"; weaker than real captions, so it gets no manual-caption bonus)
+    transcript_translate_fallback: bool = True
     transcript_cache_ttl_s: float = Field(default=24 * 3600, ge=0, le=30 * 86400)  # 0 = never stored
     transcript_max_words: int = Field(default=12_000, gt=0)  # longer transcripts are truncated
     transcript_chunk_words: int = Field(default=120, gt=10)
@@ -178,6 +181,9 @@ class Settings(BaseSettings):
     rec_preferred_duration_max_s: int = Field(default=1200, gt=0)
     rec_require_embeddable: bool = False
     rec_require_language_match: bool = False
+    # recommend only videos with a transcript track in the learner's language (the session indexes it to answer
+    # questions); every strategy lists the tracks of its top results, which downloads nothing
+    rec_require_transcript: bool = True
     rec_missing_feature_prior: float = Field(default=0.5, ge=0.0, le=1.0)  # neutral value for missing evidence
     rec_weights: dict[str, float] = {
         "topic_similarity": 0.25, "transcript_relevance": 0.30, "difficulty_match": 0.10,

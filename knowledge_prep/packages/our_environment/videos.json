@@ -16,20 +16,20 @@
       2700
     ],
     "coverage": "lexical: concept name/alias mentioned >= 2 times in the transcript",
-    "embedding_coverage": "not run: Ollama (nomic-embed-text) unavailable; matching.video_coverage must be run before relying on coverage",
+    "embedding_coverage": "ran 2026-10-27T15:52:01+00:00 on all 5 videos: best transcript-chunk cosine similarity per concept (nomic-embed-text); covered when >= 0.7. The threshold is NOT calibrated, so this is indicative only and does not verify that a video teaches a concept correctly.",
     "transcript_text_stored": false
   },
   "concepts_covered": [
-    "biodegradable_waste",
-    "biological_magnification",
+    "ecosystem_definition",
+    "producers",
     "consumers",
     "decomposers",
-    "ecosystem_definition",
-    "food_web",
-    "ozone_layer",
-    "producers",
+    "trophic_levels",
     "ten_percent_law",
-    "trophic_levels"
+    "food_web",
+    "biological_magnification",
+    "ozone_layer",
+    "biodegradable_waste"
   ],
   "concepts_not_covered": [],
   "candidates": [
@@ -150,6 +150,42 @@
         "reviewed_by": null,
         "reviewed_at": null,
         "notes": ""
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 23,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "ecosystem_definition": 0.901,
+          "producers": 0.829,
+          "consumers": 0.818,
+          "decomposers": 0.853,
+          "trophic_levels": 0.871,
+          "ten_percent_law": 0.845,
+          "food_web": 0.86,
+          "biological_magnification": 0.907,
+          "ozone_layer": 0.888,
+          "biodegradable_waste": 0.9
+        },
+        "covered": [
+          "ecosystem_definition",
+          "producers",
+          "consumers",
+          "decomposers",
+          "trophic_levels",
+          "ten_percent_law",
+          "food_web",
+          "biological_magnification",
+          "ozone_layer",
+          "biodegradable_waste"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "ten_percent_law"
+        ]
       }
     },
     {
@@ -233,7 +269,41 @@
         "status": "pending",
         "reviewed_by": null,
         "reviewed_at": null,
-        "notes": "Labelled 'Class 10 EVS' (Khan Academy India), not NCERT-specific: check it matches the chapter."
+        "notes": "Labelled 'Class 10 EVS' (Khan Academy India), not NCERT-specific: check it matches the chapter. Flag reviewed 2026-10-26: keep (reviewer not named)."
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 12,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "ecosystem_definition": 0.698,
+          "producers": 0.769,
+          "consumers": 0.805,
+          "decomposers": 0.783,
+          "trophic_levels": 0.864,
+          "ten_percent_law": 0.795,
+          "food_web": 0.866,
+          "biological_magnification": 0.827,
+          "ozone_layer": 0.708,
+          "biodegradable_waste": 0.677
+        },
+        "covered": [
+          "producers",
+          "consumers",
+          "decomposers",
+          "trophic_levels",
+          "ten_percent_law",
+          "food_web",
+          "biological_magnification",
+          "ozone_layer"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "ozone_layer"
+        ]
       }
     },
     {
@@ -285,6 +355,39 @@
         "reviewed_by": null,
         "reviewed_at": null,
         "notes": ""
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 4,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "ecosystem_definition": 0.656,
+          "producers": 0.689,
+          "consumers": 0.637,
+          "decomposers": 0.645,
+          "trophic_levels": 0.878,
+          "ten_percent_law": 0.864,
+          "food_web": 0.752,
+          "biological_magnification": 0.68,
+          "ozone_layer": 0.661,
+          "biodegradable_waste": 0.643
+        },
+        "covered": [
+          "trophic_levels",
+          "ten_percent_law",
+          "food_web"
+        ],
+        "lexical_only": [
+          "producers",
+          "consumers"
+        ],
+        "embedding_only": [
+          "ten_percent_law",
+          "food_web"
+        ]
       }
     },
     {
@@ -322,7 +425,32 @@
         "status": "pending",
         "reviewed_by": null,
         "reviewed_at": null,
-        "notes": "Edition mismatch: the title uses an older NCERT chapter number ('Chapter 15'); current Reprint 2026-27 numbering is Chapter 13. Check the content matches the current chapter."
+        "notes": "Edition mismatch: the title uses an older NCERT chapter number ('Chapter 15'); current Reprint 2026-27 numbering is Chapter 13. Check the content matches the current chapter. Flag reviewed 2026-10-26: keep (reviewer not named)."
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 4,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "ecosystem_definition": 0.641,
+          "producers": 0.686,
+          "consumers": 0.6,
+          "decomposers": 0.668,
+          "trophic_levels": 0.696,
+          "ten_percent_law": 0.675,
+          "food_web": 0.642,
+          "biological_magnification": 0.692,
+          "ozone_layer": 0.868,
+          "biodegradable_waste": 0.656
+        },
+        "covered": [
+          "ozone_layer"
+        ],
+        "lexical_only": [],
+        "embedding_only": []
       }
     },
     {
@@ -361,7 +489,35 @@
         "status": "pending",
         "reviewed_by": null,
         "reviewed_at": null,
-        "notes": "Audience level: a children's show; check it suits Class 10."
+        "notes": "Audience level: a children's show; check it suits Class 10. Flag reviewed 2026-10-26: keep (reviewer not named)."
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 7,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "ecosystem_definition": 0.608,
+          "producers": 0.677,
+          "consumers": 0.584,
+          "decomposers": 0.665,
+          "trophic_levels": 0.636,
+          "ten_percent_law": 0.722,
+          "food_web": 0.636,
+          "biological_magnification": 0.672,
+          "ozone_layer": 0.888,
+          "biodegradable_waste": 0.651
+        },
+        "covered": [
+          "ten_percent_law",
+          "ozone_layer"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "ten_percent_law"
+        ]
       }
     }
   ],
@@ -600,7 +756,26 @@
   ],
   "review_flags": [
     "Concept coverage is LEXICAL ONLY (concept names/aliases counted in transcripts); it is not evidence that a video teaches a concept correctly or completely. Semantic coverage is NOT verified.",
-    "Embedding verification is INCOMPLETE: Ollama is unavailable (reinstall deferred).",
-    "Edition mismatches and unrelated-topic coverage are flagged per video in review.notes and stay flagged until a human reviews them."
-  ]
+    "Edition mismatches and unrelated-topic coverage are flagged per video in review.notes and stay flagged until a human reviews them.",
+    "Embedding check ran on all 5 videos with an UNCALIBRATED threshold (0.7): indicative only."
+  ],
+  "embedding_coverage_summary": {
+    "videos_checked": 5,
+    "videos_total": 5,
+    "complete": true,
+    "covered_by_checked_videos": [
+      "ecosystem_definition",
+      "producers",
+      "consumers",
+      "decomposers",
+      "trophic_levels",
+      "ten_percent_law",
+      "food_web",
+      "biological_magnification",
+      "ozone_layer",
+      "biodegradable_waste"
+    ],
+    "not_covered_by_checked_videos": []
+  },
+  "rejected_candidates": []
 }

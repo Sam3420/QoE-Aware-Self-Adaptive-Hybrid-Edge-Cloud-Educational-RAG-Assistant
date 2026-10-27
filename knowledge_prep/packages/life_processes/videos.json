@@ -17,20 +17,20 @@
       2700
     ],
     "coverage": "lexical: concept name/alias mentioned >= 2 times in the transcript",
-    "embedding_coverage": "not run: Ollama (nomic-embed-text) unavailable; matching.video_coverage must be run before relying on coverage",
+    "embedding_coverage": "ran 2026-10-27T15:52:01+00:00 on all 5 videos: best transcript-chunk cosine similarity per concept (nomic-embed-text); covered when >= 0.7. The threshold is NOT calibrated, so this is indicative only and does not verify that a video teaches a concept correctly.",
     "transcript_text_stored": false
   },
   "concepts_covered": [
     "autotrophic_nutrition_photosynthesis",
-    "excretion_in_plants",
+    "stomatal_control",
     "heterotrophic_nutrition_types",
-    "human_circulatory_system",
     "human_digestion_process",
-    "kidney_filtration",
-    "plant_transport_xylem_phloem",
     "respiration_aerobic_vs_anaerobic",
     "respiratory_structure_mechanics",
-    "stomatal_control"
+    "human_circulatory_system",
+    "plant_transport_xylem_phloem",
+    "kidney_filtration",
+    "excretion_in_plants"
   ],
   "concepts_not_covered": [],
   "candidates": [
@@ -144,7 +144,44 @@
         "status": "pending",
         "reviewed_by": null,
         "reviewed_at": null,
-        "notes": "Edition mismatch: the title uses an older NCERT chapter number ('Chapter 7'); current Reprint 2026-27 numbering is Chapter 5. Check the content matches the current chapter."
+        "notes": "Edition mismatch: the title uses an older NCERT chapter number ('Chapter 7'); current Reprint 2026-27 numbering is Chapter 5. Check the content matches the current chapter. Flag reviewed 2026-10-26: keep (reviewer not named)."
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 25,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "autotrophic_nutrition_photosynthesis": 0.841,
+          "stomatal_control": 0.709,
+          "heterotrophic_nutrition_types": 0.726,
+          "human_digestion_process": 0.805,
+          "respiration_aerobic_vs_anaerobic": 0.887,
+          "respiratory_structure_mechanics": 0.815,
+          "human_circulatory_system": 0.854,
+          "plant_transport_xylem_phloem": 0.888,
+          "kidney_filtration": 0.869,
+          "excretion_in_plants": 0.797
+        },
+        "covered": [
+          "autotrophic_nutrition_photosynthesis",
+          "stomatal_control",
+          "heterotrophic_nutrition_types",
+          "human_digestion_process",
+          "respiration_aerobic_vs_anaerobic",
+          "respiratory_structure_mechanics",
+          "human_circulatory_system",
+          "plant_transport_xylem_phloem",
+          "kidney_filtration",
+          "excretion_in_plants"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "heterotrophic_nutrition_types",
+          "excretion_in_plants"
+        ]
       }
     },
     {
@@ -208,7 +245,48 @@
         "status": "pending",
         "reviewed_by": null,
         "reviewed_at": null,
-        "notes": "Edition mismatch: the title uses an older NCERT chapter number ('chapter 6'); current Reprint 2026-27 numbering is Chapter 5. Check the content matches the current chapter."
+        "notes": "Edition mismatch: the title uses an older NCERT chapter number ('chapter 6'); current Reprint 2026-27 numbering is Chapter 5. Check the content matches the current chapter. Flag reviewed 2026-10-26: keep (reviewer not named)."
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 19,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "autotrophic_nutrition_photosynthesis": 0.884,
+          "stomatal_control": 0.84,
+          "heterotrophic_nutrition_types": 0.86,
+          "human_digestion_process": 0.829,
+          "respiration_aerobic_vs_anaerobic": 0.747,
+          "respiratory_structure_mechanics": 0.793,
+          "human_circulatory_system": 0.712,
+          "plant_transport_xylem_phloem": 0.744,
+          "kidney_filtration": 0.745,
+          "excretion_in_plants": 0.769
+        },
+        "covered": [
+          "autotrophic_nutrition_photosynthesis",
+          "stomatal_control",
+          "heterotrophic_nutrition_types",
+          "human_digestion_process",
+          "respiration_aerobic_vs_anaerobic",
+          "respiratory_structure_mechanics",
+          "human_circulatory_system",
+          "plant_transport_xylem_phloem",
+          "kidney_filtration",
+          "excretion_in_plants"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "stomatal_control",
+          "respiration_aerobic_vs_anaerobic",
+          "respiratory_structure_mechanics",
+          "plant_transport_xylem_phloem",
+          "kidney_filtration",
+          "excretion_in_plants"
+        ]
       }
     },
     {
@@ -245,7 +323,45 @@
         "status": "pending",
         "reviewed_by": null,
         "reviewed_at": null,
-        "notes": "Only candidate whose transcript covers excretion_in_plants, but it is a children's show (\"Learn Videos For Kids\", 201 s): check it suits Class 10, or find another."
+        "notes": "Only candidate whose transcript covers excretion_in_plants, but it is a children's show (\"Learn Videos For Kids\", 201 s): check it suits Class 10, or find another. Flag reviewed 2026-10-26: keep (reviewer not named)."
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 4,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "autotrophic_nutrition_photosynthesis": 0.702,
+          "stomatal_control": 0.764,
+          "heterotrophic_nutrition_types": 0.653,
+          "human_digestion_process": 0.699,
+          "respiration_aerobic_vs_anaerobic": 0.716,
+          "respiratory_structure_mechanics": 0.798,
+          "human_circulatory_system": 0.649,
+          "plant_transport_xylem_phloem": 0.716,
+          "kidney_filtration": 0.747,
+          "excretion_in_plants": 0.835
+        },
+        "covered": [
+          "autotrophic_nutrition_photosynthesis",
+          "stomatal_control",
+          "respiration_aerobic_vs_anaerobic",
+          "respiratory_structure_mechanics",
+          "plant_transport_xylem_phloem",
+          "kidney_filtration",
+          "excretion_in_plants"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "autotrophic_nutrition_photosynthesis",
+          "stomatal_control",
+          "respiration_aerobic_vs_anaerobic",
+          "respiratory_structure_mechanics",
+          "plant_transport_xylem_phloem",
+          "kidney_filtration"
+        ]
       }
     },
     {
@@ -312,7 +428,46 @@
         "status": "pending",
         "reviewed_by": null,
         "reviewed_at": null,
-        "notes": "Edition mismatch: the title uses an older NCERT chapter number ('ch 6'); current Reprint 2026-27 numbering is Chapter 5. Check the content matches the current chapter."
+        "notes": "Edition mismatch: the title uses an older NCERT chapter number ('ch 6'); current Reprint 2026-27 numbering is Chapter 5. Check the content matches the current chapter. Flag reviewed 2026-10-26: keep (reviewer not named)."
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 13,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "autotrophic_nutrition_photosynthesis": 0.753,
+          "stomatal_control": 0.712,
+          "heterotrophic_nutrition_types": 0.668,
+          "human_digestion_process": 0.721,
+          "respiration_aerobic_vs_anaerobic": 0.711,
+          "respiratory_structure_mechanics": 0.745,
+          "human_circulatory_system": 0.833,
+          "plant_transport_xylem_phloem": 0.887,
+          "kidney_filtration": 0.709,
+          "excretion_in_plants": 0.727
+        },
+        "covered": [
+          "autotrophic_nutrition_photosynthesis",
+          "stomatal_control",
+          "human_digestion_process",
+          "respiration_aerobic_vs_anaerobic",
+          "respiratory_structure_mechanics",
+          "human_circulatory_system",
+          "plant_transport_xylem_phloem",
+          "kidney_filtration",
+          "excretion_in_plants"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "autotrophic_nutrition_photosynthesis",
+          "stomatal_control",
+          "human_digestion_process",
+          "kidney_filtration",
+          "excretion_in_plants"
+        ]
       }
     },
     {
@@ -379,7 +534,46 @@
         "status": "pending",
         "reviewed_by": null,
         "reviewed_at": null,
-        "notes": "Edition mismatch: the title uses an older NCERT chapter number ('Chapter 7'); current Reprint 2026-27 numbering is Chapter 5. Check the content matches the current chapter."
+        "notes": "Edition mismatch: the title uses an older NCERT chapter number ('Chapter 7'); current Reprint 2026-27 numbering is Chapter 5. Check the content matches the current chapter. Flag reviewed 2026-10-26: keep (reviewer not named)."
+      },
+      "embedding_coverage": {
+        "status": "ran",
+        "at": "2026-10-27T15:52:01+00:00",
+        "embedding_model": "nomic-embed-text",
+        "chunks": 9,
+        "threshold": 0.7,
+        "threshold_calibrated": false,
+        "best_chunk_similarity": {
+          "autotrophic_nutrition_photosynthesis": 0.775,
+          "stomatal_control": 0.717,
+          "heterotrophic_nutrition_types": 0.693,
+          "human_digestion_process": 0.731,
+          "respiration_aerobic_vs_anaerobic": 0.706,
+          "respiratory_structure_mechanics": 0.758,
+          "human_circulatory_system": 0.866,
+          "plant_transport_xylem_phloem": 0.906,
+          "kidney_filtration": 0.717,
+          "excretion_in_plants": 0.739
+        },
+        "covered": [
+          "autotrophic_nutrition_photosynthesis",
+          "stomatal_control",
+          "human_digestion_process",
+          "respiration_aerobic_vs_anaerobic",
+          "respiratory_structure_mechanics",
+          "human_circulatory_system",
+          "plant_transport_xylem_phloem",
+          "kidney_filtration",
+          "excretion_in_plants"
+        ],
+        "lexical_only": [],
+        "embedding_only": [
+          "autotrophic_nutrition_photosynthesis",
+          "stomatal_control",
+          "human_digestion_process",
+          "kidney_filtration",
+          "excretion_in_plants"
+        ]
       }
     }
   ],
@@ -632,7 +826,26 @@
   ],
   "review_flags": [
     "Concept coverage is LEXICAL ONLY (concept names/aliases counted in transcripts); it is not evidence that a video teaches a concept correctly or completely. Semantic coverage is NOT verified.",
-    "Embedding verification is INCOMPLETE: Ollama is unavailable (reinstall deferred).",
-    "Edition mismatches and unrelated-topic coverage are flagged per video in review.notes and stay flagged until a human reviews them."
-  ]
+    "Edition mismatches and unrelated-topic coverage are flagged per video in review.notes and stay flagged until a human reviews them.",
+    "Embedding check ran on all 5 videos with an UNCALIBRATED threshold (0.7): indicative only."
+  ],
+  "embedding_coverage_summary": {
+    "videos_checked": 5,
+    "videos_total": 5,
+    "complete": true,
+    "covered_by_checked_videos": [
+      "autotrophic_nutrition_photosynthesis",
+      "stomatal_control",
+      "heterotrophic_nutrition_types",
+      "human_digestion_process",
+      "respiration_aerobic_vs_anaerobic",
+      "respiratory_structure_mechanics",
+      "human_circulatory_system",
+      "plant_transport_xylem_phloem",
+      "kidney_filtration",
+      "excretion_in_plants"
+    ],
+    "not_covered_by_checked_videos": []
+  },
+  "rejected_candidates": []
 }

@@ -23,10 +23,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from pydantic import ValidationError  # noqa: E402
 
 from agent.deps import make_cloud_client  # noqa: E402
-from config import settings  # noqa: E402
+from config import PROJECT_ROOT, settings  # noqa: E402
 from knowledge_prep.catalog import TOPICS, topic_title  # noqa: E402
 from knowledge_prep.concepts import (  # noqa: E402
-    MAX_CONCEPTS, MIN_CONCEPTS, Vocabulary, load_vocabulary, path_for, save_vocabulary, vocabulary_problems)
+    MAX_CONCEPTS, MIN_CONCEPTS, Vocabulary, load_vocabulary, overlap_problems, path_for, save_vocabulary,
+    vocabulary_problems)
 from services.llm_clients import GenerationRequest, LLMError  # noqa: E402
 
 SYSTEM = ("You are a curriculum designer for NCERT school science. You list the distinct concepts a lesson teaches. "
@@ -122,12 +123,34 @@ def show(topic_id: str) -> None:
               f"\n    evidence: \"{c.evidence}\"")
 
 
+def package_problems(topic_id: str, vocab: Vocabulary) -> list[str] | None:
+    """For a vocabulary loaded from a content package (knowledge_prep/packages/<topic>/): the package validator's
+    concept errors (evidence checked against the local, gitignored excerpts and chapter text) plus name/alias overlaps.
+    None when the vocabulary did not come from the package, so the lesson-notes check applies instead."""
+    package = PROJECT_ROOT / "knowledge_prep" / "packages" / topic_id / "concepts.json"
+    if not package.exists():
+        return None
+    keys = ("id", "name", "description", "aliases", "evidence")
+    packaged = [{k: c[k] for k in keys} for c in json.loads(package.read_text(encoding="utf-8"))["concepts"]]
+    if [c.model_dump(include=set(keys)) for c in vocab.concepts] != packaged:
+        return None
+    from scripts.validate_content_package import validate
+
+    result = validate(topic_id)
+    if not result["evidence_checked"]:
+        return ["the package's local chapter.txt / evidence.local.json are missing, so evidence cannot be checked"]
+    return [e for e in result["errors"] if e.startswith("concept ")] + overlap_problems(vocab)
+
+
 def approve(topic_id: str, reviewer: str) -> None:
     vocab = load_vocabulary(topic_id)
     if vocab is None:
         raise SystemExit(f"No vocabulary for {topic_id}; draft it first.")
-    notes = (settings.knowledge_samples_dir / f"{topic_id}.txt").read_text(encoding="utf-8")
-    if problems := vocabulary_problems(vocab, notes):
+    problems = package_problems(topic_id, vocab)
+    if problems is None:
+        notes = (settings.knowledge_samples_dir / f"{topic_id}.txt").read_text(encoding="utf-8")
+        problems = vocabulary_problems(vocab, notes)
+    if problems:
         raise SystemExit("Not approved; fix these first: " + "; ".join(problems))
     vocab = vocab.model_copy(update={"status": "approved", "reviewed_by": reviewer,
                                      "reviewed_at": datetime.now(timezone.utc)})

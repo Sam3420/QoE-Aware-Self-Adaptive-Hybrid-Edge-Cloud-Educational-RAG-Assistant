@@ -1,6 +1,6 @@
 {
   "topic_id": "life_processes",
-  "validated_at": "2026-10-25T20:09:28+00:00",
+  "validated_at": "2026-10-27T15:54:02+00:00",
   "valid": true,
   "errors": [],
   "warnings": [
@@ -9,12 +9,9 @@
     "LP-FRM-19: tagged respiratory_structure_mechanics, wording names ['autotrophic_nutrition_photosynthesis']",
     "LP-FRM-31: tagged excretion_in_plants, wording names ['autotrophic_nutrition_photosynthesis']",
     "LP-FRM-32: tagged excretion_in_plants, wording names ['plant_transport_xylem_phloem']",
-    "videos: concept coverage is lexical only; the embedding check (Ollama) has not run",
     "LP-POST-08: blind model answered A, key is B",
     "LP-POST-08: blind model tagged human_circulatory_system, assigned respiratory_structure_mechanics",
-    "LP-FRM-03: blind model tagged heterotrophic_nutrition_types, assigned autotrophic_nutrition_photosynthesis",
     "LP-FRM-19: blind model tagged autotrophic_nutrition_photosynthesis, assigned respiratory_structure_mechanics",
-    "LP-FRM-31: blind model tagged autotrophic_nutrition_photosynthesis, assigned excretion_in_plants",
     "LP-FRM-32: blind model tagged plant_transport_xylem_phloem, assigned excretion_in_plants"
   ],
   "summary": {
@@ -26,15 +23,15 @@
       "candidates": 5,
       "concepts_covered": [
         "autotrophic_nutrition_photosynthesis",
-        "excretion_in_plants",
+        "stomatal_control",
         "heterotrophic_nutrition_types",
-        "human_circulatory_system",
         "human_digestion_process",
-        "kidney_filtration",
-        "plant_transport_xylem_phloem",
         "respiration_aerobic_vs_anaerobic",
         "respiratory_structure_mechanics",
-        "stomatal_control"
+        "human_circulatory_system",
+        "plant_transport_xylem_phloem",
+        "kidney_filtration",
+        "excretion_in_plants"
       ],
       "examined": 35
     },
@@ -169,18 +166,8 @@
         "model_concept": "human_circulatory_system"
       },
       {
-        "id": "LP-FRM-03",
-        "assigned": "autotrophic_nutrition_photosynthesis",
-        "model_concept": "heterotrophic_nutrition_types"
-      },
-      {
         "id": "LP-FRM-19",
         "assigned": "respiratory_structure_mechanics",
-        "model_concept": "autotrophic_nutrition_photosynthesis"
-      },
-      {
-        "id": "LP-FRM-31",
-        "assigned": "excretion_in_plants",
         "model_concept": "autotrophic_nutrition_photosynthesis"
       },
       {
@@ -190,6 +177,8 @@
       }
     ],
     "failures": [],
-    "note": "A disagreement flags the item for human review; agreement does not prove it correct."
+    "note": "A disagreement flags the item for human review; agreement does not prove it correct.",
+    "ran_at": "2026-10-27T15:54:40+00:00",
+    "items_sha256": "e95965d00bd453e1a100eb2e5c5b8f34f6d151a06ee7a2693e2e8a43e7478591"
   }
 }

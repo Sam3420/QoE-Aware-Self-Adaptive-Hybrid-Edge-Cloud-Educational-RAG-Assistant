@@ -1,0 +1,369 @@
+{
+  "topic_id": "control_and_coordination",
+  "kind": "pretest",
+  "status": "pending_review",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T21:19:15+00:00",
+  "items": [
+    {
+      "id": "CC-PRE-01",
+      "concept_id": "reflex_arc",
+      "difficulty": "easy",
+      "question": "Pulling your hand back from a flame before you have thought about it is an example of what?",
+      "options": [
+        "A reflex action",
+        "A voluntary action",
+        "A hormonal response",
+        "A tropic movement"
+      ],
+      "answer_index": 0,
+      "explanation": "The response is quick and happens without conscious thought, which is what we mean by a reflex.",
+      "source": {
+        "section": "6.1.1",
+        "page": 102
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-PRE-02",
+      "concept_id": "neuron_structure",
+      "difficulty": "easy",
+      "question": "In which order does an electrical impulse travel through a neuron?",
+      "options": [
+        "Axon, then cell body, then dendrite",
+        "Dendrite, then cell body, then along the axon",
+        "Cell body, then dendrite, then axon",
+        "It stays inside the dendrite"
+      ],
+      "answer_index": 1,
+      "explanation": "Information picked up at the dendrite tip becomes an impulse that passes to the cell body and then down the axon.",
+      "source": {
+        "section": "6.1",
+        "page": 101
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-PRE-03",
+      "concept_id": "plant_tropisms",
+      "difficulty": "easy",
+      "question": "How do the shoots of a plant respond to light?",
+      "options": [
+        "They bend away from it",
+        "They do not respond at all",
+        "They bend towards it",
+        "They stop growing"
+      ],
+      "answer_index": 2,
+      "explanation": "Shoots show positive phototropism and grow towards light; roots bend away from it.",
+      "source": {
+        "section": "6.2.2",
+        "page": 107
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-PRE-04",
+      "concept_id": "animal_hormones",
+      "difficulty": "easy",
+      "question": "Which hormone helps regulate the level of sugar in the blood?",
+      "options": [
+        "Adrenaline",
+        "Thyroxin",
+        "Growth hormone",
+        "Insulin"
+      ],
+      "answer_index": 3,
+      "explanation": "Insulin, made by the pancreas, controls blood sugar; without enough of it the sugar level rises.",
+      "source": {
+        "section": "6.3",
+        "page": 110
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-PRE-05",
+      "concept_id": "cerebellum_function",
+      "difficulty": "easy",
+      "question": "Which part of the brain keeps the posture and balance of the body?",
+      "options": [
+        "Cerebellum",
+        "Fore-brain",
+        "Medulla",
+        "Spinal cord"
+      ],
+      "answer_index": 0,
+      "explanation": "The cerebellum in the hind-brain makes voluntary actions precise and keeps us balanced.",
+      "source": {
+        "section": "6.1.2",
+        "page": 104
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-PRE-06",
+      "concept_id": "brain_regions",
+      "difficulty": "medium",
+      "question": "Which two organs make up the central nervous system?",
+      "options": [
+        "Cranial nerves and spinal nerves",
+        "The brain and the spinal cord",
+        "The brain and the sense organs",
+        "The muscles and the glands"
+      ],
+      "answer_index": 1,
+      "explanation": "The brain and spinal cord receive and integrate information; the nerves leaving them form the peripheral system.",
+      "source": {
+        "section": "6.1.2",
+        "page": 103
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-PRE-07",
+      "concept_id": "auxin_mechanism",
+      "difficulty": "medium",
+      "question": "Light falls on a shoot from one side. Why does the shoot bend towards the light?",
+      "options": [
+        "Auxin collects on the lit side and stops growth there",
+        "Cells on the lit side lose all their water",
+        "Auxin moves to the shady side and makes the cells there grow longer",
+        "Abscisic acid makes the shady side shrink"
+      ],
+      "answer_index": 2,
+      "explanation": "Faster growth on the shaded side curves the shoot towards the light.",
+      "source": {
+        "section": "6.2.2",
+        "page": 108
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-PRE-08",
+      "concept_id": "synaptic_transmission",
+      "difficulty": "medium",
+      "question": "What happens when an electrical impulse reaches the end of an axon?",
+      "options": [
+        "The electricity jumps straight into the next neuron",
+        "The neuron stops working",
+        "Hormones are released into the blood",
+        "Chemicals are released that cross the gap and start an impulse in the next cell"
+      ],
+      "answer_index": 3,
+      "explanation": "The electrical signal is turned into a chemical one to cross the synapse, then back into an impulse.",
+      "source": {
+        "section": "6.1",
+        "page": 101
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-PRE-09",
+      "concept_id": "muscle_contraction",
+      "difficulty": "medium",
+      "question": "How do muscle cells shorten when a nerve impulse reaches them?",
+      "options": [
+        "Special proteins in them change their shape and arrangement",
+        "They lose all their water",
+        "They divide rapidly",
+        "The bones pull them shorter"
+      ],
+      "answer_index": 0,
+      "explanation": "Muscle proteins rearrange in response to nervous impulses, giving the cell a shorter form.",
+      "source": {
+        "section": "6.1.4",
+        "page": 105
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-PRE-10",
+      "concept_id": "hormonal_feedback",
+      "difficulty": "medium",
+      "question": "When the blood sugar level rises, how does the pancreas respond?",
+      "options": [
+        "It stops producing insulin",
+        "It produces more insulin",
+        "It releases adrenaline",
+        "It releases thyroxin"
+      ],
+      "answer_index": 1,
+      "explanation": "Pancreas cells detect the rise and make more insulin, which brings the level back down.",
+      "source": {
+        "section": "6.3",
+        "page": 111
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-PRE-11",
+      "concept_id": "reflex_arc",
+      "difficulty": "hard",
+      "question": "Why does a reflex arc give a faster response than thinking about the situation first?",
+      "options": [
+        "Reflexes use hormones, which travel faster than nerve impulses",
+        "The brain thinks faster during a reflex",
+        "The input nerve is linked to the output nerve in the spinal cord, without waiting for the thinking brain",
+        "Muscles move without any nerve signal"
+      ],
+      "answer_index": 2,
+      "explanation": "Thinking needs many neurons in the brain and takes time; a direct spinal link lets the muscle respond at once.",
+      "source": {
+        "section": "6.1.1",
+        "page": 102
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-PRE-12",
+      "concept_id": "brain_regions",
+      "difficulty": "hard",
+      "question": "Which part of the brain receives sensory impulses, interprets them with stored information and decides how to respond?",
+      "options": [
+        "The medulla",
+        "The cerebellum",
+        "The mid-brain",
+        "The fore-brain"
+      ],
+      "answer_index": 3,
+      "explanation": "The fore-brain is the main thinking part: it has sensory and association areas and passes decisions to motor areas.",
+      "source": {
+        "section": "6.1.2",
+        "page": 103
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-PRE-13",
+      "concept_id": "plant_tropisms",
+      "difficulty": "hard",
+      "question": "How is the folding of a touch-me-not plant's leaves different from a shoot bending towards light?",
+      "options": [
+        "Leaf folding involves no growth, while bending towards light is caused by growth",
+        "Both are caused by growth",
+        "Leaf folding is caused by growth, but bending is not",
+        "Neither involves any change in the plant's cells"
+      ],
+      "answer_index": 0,
+      "explanation": "The sensitive plant moves quickly without growing; directional movement of a seedling happens only by growth.",
+      "source": {
+        "section": "6.2.1",
+        "page": 106
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-PRE-14",
+      "concept_id": "auxin_mechanism",
+      "difficulty": "hard",
+      "question": "Which plant hormone is found in high amounts in fruits and seeds, and why?",
+      "options": [
+        "Abscisic acid, because it stops growth there",
+        "Cytokinins, because they promote cell division, which is rapid there",
+        "Auxin, because it bends fruits towards light",
+        "Gibberellins, because they cause wilting"
+      ],
+      "answer_index": 1,
+      "explanation": "Cytokinins drive cell division, so they are concentrated where cells divide quickly.",
+      "source": {
+        "section": "6.2.2",
+        "page": 108
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-PRE-15",
+      "concept_id": "animal_hormones",
+      "difficulty": "medium",
+      "question": "Why is iodised salt recommended in our diet?",
+      "options": [
+        "Iodine is needed to make insulin",
+        "Iodine helps the adrenal glands make adrenaline",
+        "The thyroid gland needs iodine to make thyroxin",
+        "Iodine is a plant hormone"
+      ],
+      "answer_index": 2,
+      "explanation": "Without enough iodine the thyroid cannot make thyroxin, and goitre may develop.",
+      "source": {
+        "section": "6.3",
+        "page": 110
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    }
+  ]
+}

@@ -123,3 +123,58 @@ def test_chunking_keeps_timestamps_overlap_and_bounds():
     bounded = chunk_transcript(record, words_per_chunk=30, overlap=10, max_chunks=2)
     assert len(bounded) == 2 and bounded[0].start == 0.0 and bounded[-1].end == 100.0  # evenly sampled
     assert chunk_transcript(transcript("e", []), words_per_chunk=30, overlap=10, max_chunks=5) == []
+
+
+def _translatable(lang, generated, translated_texts=("translated text",)):
+    """A track YouTube can machine-translate into English."""
+    track = _track(lang, generated, ["original"])
+    track.is_translatable = True
+    track.translation_languages = [SimpleNamespace(language_code="en", language="English")]
+    track.translate = lambda code: _track(code, True, translated_texts)
+    return track
+
+
+def test_translation_fallback_when_no_track_in_the_preferred_language():
+    api = FakeApi([_translatable("hi", True, ["plants make food"])])
+    record = YouTubeTranscriptApiAdapter(api, translate_fallback=True).fetch("vid", ["en"])
+    assert record.status == TranscriptStatus.OK and record.language_code == "en"
+    assert record.caption_type == "auto-translated from hi" and record.text == "plants make food"
+
+
+def test_translation_fallback_is_off_by_default_and_prefers_manual_tracks():
+    tracks = [_translatable("hi", True, ["from auto"]), _translatable("mr", False, ["from manual"])]
+    assert YouTubeTranscriptApiAdapter(FakeApi(tracks)).fetch("vid", ["en"]).status == TranscriptStatus.NO_TRANSCRIPT
+    record = YouTubeTranscriptApiAdapter(FakeApi(tracks), translate_fallback=True).fetch("vid", ["en"])
+    assert record.caption_type == "manual-translated from mr" and record.text == "from manual"
+
+
+def test_a_real_track_in_the_preferred_language_beats_a_translation():
+    api = FakeApi([_translatable("hi", False), _track("en", True, ["real english"])])
+    record = YouTubeTranscriptApiAdapter(api, translate_fallback=True).fetch("vid", ["en"])
+    assert record.caption_type == "auto" and record.text == "real english"
+
+
+def test_available_lists_tracks_without_downloading():
+    downloads = []
+    track = _track("en", True)
+    track.fetch = lambda: downloads.append(1)
+    assert YouTubeTranscriptApiAdapter(FakeApi([track])).available("vid", ["en"]) == TranscriptStatus.OK
+    assert YouTubeTranscriptApiAdapter(FakeApi([_track("hi", True)])).available("vid", ["en"]) == TranscriptStatus.NO_TRANSCRIPT
+    hindi = _translatable("hi", True)
+    assert YouTubeTranscriptApiAdapter(FakeApi([hindi]), translate_fallback=True).available("vid", ["en"]) == TranscriptStatus.OK
+    blocked = YouTubeTranscriptApiAdapter(FakeApi(error=IpBlocked("blocked")))
+    assert blocked.available("vid", ["en"]) == TranscriptStatus.BLOCKED and blocked.blocked == "IpBlocked"
+    assert downloads == []
+
+
+def test_track_verdicts_are_cached_but_blocks_are_not(tmp_path):
+    cache = JsonFileCache(tmp_path, {"transcripts": 3600, "captions": 3600})
+    api = FakeApi([_track("hi", True)])
+    fetcher = CachedTranscriptFetcher(YouTubeTranscriptApiAdapter(api), cache)
+    assert fetcher.available("vid", ["en"]) == TranscriptStatus.NO_TRANSCRIPT
+    assert fetcher.available("vid", ["en"]) == TranscriptStatus.NO_TRANSCRIPT and api.calls == 1  # remembered
+    failed = CachedTranscriptFetcher(YouTubeTranscriptApiAdapter(FakeApi([_track("hi", True)])), cache)
+    assert failed.fetch("other", ["en"]).status == TranscriptStatus.NO_TRANSCRIPT  # a failed download counts too
+    assert cache.get("captions", "other|en") == "no_transcript"
+    blocked = CachedTranscriptFetcher(YouTubeTranscriptApiAdapter(FakeApi(error=IpBlocked("x"))), cache)
+    assert blocked.available("third", ["en"]) == TranscriptStatus.BLOCKED and cache.get("captions", "third|en") is None

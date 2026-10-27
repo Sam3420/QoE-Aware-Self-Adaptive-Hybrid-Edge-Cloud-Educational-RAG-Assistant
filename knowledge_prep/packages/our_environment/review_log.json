@@ -1,0 +1,57 @@
+{
+  "topic_id": "our_environment",
+  "reviewed_at": "2026-10-26",
+  "reviewer": null,
+  "reviewer_note": "Reviewer not named in the sheet; decisions entered by the project team in evaluation/review/flagged_items.csv.xlsx. A 'keep' resolves that flag only; it is not an approval of the item, which stays pending review.",
+  "decisions": [
+    {
+      "id": "OE-PRE-06",
+      "flag": "concept tag",
+      "why_flagged": "lexical check: wording names ['trophic_levels']",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "OE-PRE-12",
+      "flag": "concept tag",
+      "why_flagged": "lexical check: wording names ['producers', 'consumers', 'trophic_levels']",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "OE-POST-06",
+      "flag": "concept tag",
+      "why_flagged": "lexical check: wording names ['ecosystem_definition', 'producers']",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "OE-POST-12",
+      "flag": "concept tag",
+      "why_flagged": "lexical check: wording names ['consumers', 'trophic_levels']",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "1z6hrVdDDb4",
+      "flag": "video",
+      "why_flagged": "Labelled 'Class 10 EVS' (Khan Academy India), not NCERT-specific: check it matches the chapter.",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "llriOtqt11o",
+      "flag": "video",
+      "why_flagged": "Edition mismatch: the title uses an older NCERT chapter number ('Chapter 15'); current Reprint 2026-27 numbering is Chapter 13. Check the content matches the current chapter.",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "ckULkfv3Hb0",
+      "flag": "video",
+      "why_flagged": "Audience level: a children's show; check it suits Class 10.",
+      "decision": "keep",
+      "reviewer_notes": ""
+    }
+  ]
+}

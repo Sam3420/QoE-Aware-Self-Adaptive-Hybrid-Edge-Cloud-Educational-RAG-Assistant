@@ -261,7 +261,7 @@ def make_transcript_fetcher(cfg: Settings, cache: JsonFileCache | None) -> Trans
     if not cfg.transcripts_enabled:
         return DisabledTranscriptFetcher()
     try:
-        adapter = YouTubeTranscriptApiAdapter()
+        adapter = YouTubeTranscriptApiAdapter(translate_fallback=cfg.transcript_translate_fallback)
     except ImportError:
         return DisabledTranscriptFetcher("youtube-transcript-api is not installed")
     return CachedTranscriptFetcher(adapter, cache)
@@ -274,7 +274,8 @@ def make_recommender(services: Services | None = None, *, data_client: YouTubeDa
     services = services or get_services()
     cache = JsonFileCache(cfg.youtube_cache_dir, {"search": cfg.youtube_search_cache_ttl_s,
                                                   "videos": cfg.youtube_video_cache_ttl_s,
-                                                  "transcripts": cfg.transcript_cache_ttl_s})
+                                                  "transcripts": cfg.transcript_cache_ttl_s,
+                                                  "captions": cfg.transcript_cache_ttl_s})
     if data_client is None:
         data_client = YouTubeDataClient(
             api_key=cfg.youtube_api_key.get_secret_value() if cfg.youtube_api_key else None,
@@ -297,6 +298,7 @@ def make_recommender(services: Services | None = None, *, data_client: YouTubeDa
             duration_min_s=cfg.rec_preferred_duration_min_s, duration_max_s=cfg.rec_preferred_duration_max_s,
             require_embeddable=cfg.rec_require_embeddable, require_language_match=cfg.rec_require_language_match,
             prior=cfg.rec_missing_feature_prior, default_weights=cfg.rec_weights,
-            transcript_workers=cfg.transcript_max_workers, transcript_time_budget_s=cfg.transcript_time_budget_s))
+            transcript_workers=cfg.transcript_max_workers, transcript_time_budget_s=cfg.transcript_time_budget_s,
+            require_transcript=cfg.rec_require_transcript))
     return RecommendationCoordinator(pipeline=pipeline, session_factory=services.app.session_factory,
                                      services=services, rng=services.rng, cfg=cfg)

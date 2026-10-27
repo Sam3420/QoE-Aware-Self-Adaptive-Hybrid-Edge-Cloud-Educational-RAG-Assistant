@@ -13,6 +13,7 @@ from contextlib import contextmanager
 from typing import Any
 
 from sqlalchemy import create_engine
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.pool import StaticPool
 
@@ -285,10 +286,17 @@ class AppGateway:
     def register_resource(self, *, source: str, external_id: str, title: str, url: str | None, topic: str,
                           metadata: Mapping[str, Any]) -> str:
         """Store (or update) an indexed educational resource's metadata; return its id."""
-        with self._db() as db:
-            return LearningTraceRepository(db).upsert_educational_resource(EducationalResourceCreate(
-                source=source, external_resource_id=external_id, title=title, url=url, topic=topic,
-                metadata=dict(metadata))).id
+        for attempt in (1, 2):
+            try:
+                with self._db() as db:
+                    return LearningTraceRepository(db).upsert_educational_resource(EducationalResourceCreate(
+                        source=source, external_resource_id=external_id, title=title, url=url, topic=topic,
+                        metadata=dict(metadata))).id
+            except IntegrityError:
+                # a background prefetch inserted the same video at the same moment: the retry updates that row
+                if attempt == 2:
+                    raise
+        raise AssertionError("unreachable")
 
     def store_experience(self, student_id: str, session_id: str, topic_id: str, policy_id: str,
                          context: Mapping[str, Any], evaluation: Mapping[str, Any]) -> dict[str, Any]:

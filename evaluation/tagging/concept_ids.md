@@ -2,20 +2,19 @@
 
 Write one id per question in `gold_concept_id`, or `none` if the question is off-topic.
 
-## control_and_coordination (draft)
-- `sensory_receptors`: Sensory Receptors. Learners should identify where and how organisms detect environmental stimuli.
-- `neuron_structure`: Neuron Structure. Learners should know the three main parts of a neuron and their functions.
-- `synaptic_transmission`: Synaptic Transmission. Learners should understand how an electrical impulse triggers chemical release across a synapse.
-- `reflex_arc`: Reflex Arc. Learners should describe the pathway that produces a rapid involuntary response.
-- `brain_regions`: Brain Regions. Learners should identify the three major parts of the brain.
-- `cerebellum_function`: Cerebellum Function. Learners should explain the role of the cerebellum in coordinating voluntary movements and balance.
-- `plant_tropisms`: Plant Tropisms. Learners should recognize different growth‑directed movements of plants toward stimuli.
-- `auxin_mechanism`: Auxin Mechanism. Learners should understand how auxin distribution causes phototropic bending.
-- `animal_hormones`: Animal Hormones. Learners should define hormones as chemical messengers released by endocrine glands into the blood.
-- `hormonal_feedback`: Hormonal Feedback. Learners should describe how hormone release is regulated by feedback mechanisms.
-- `muscle_contraction`: Muscle Contraction. Learners should explain how nervous impulses cause muscle fibers to shorten.
+## control_and_coordination (approved)
+- `neuron_structure`: Receptors, neurons and nerve impulses. Receptors at the tips of nerve cells, mostly in sense organs, detect information; impulses pass dendrite -> cell body -> axon; nervous tissue conducts information as electrical impulses.
+- `synaptic_transmission`: Synapse. At the end of an axon the electrical impulse releases chemicals that cross the gap (synapse) and start an impulse in the next neuron, or deliver it to muscle or gland cells.
+- `reflex_arc`: Reflex actions and the reflex arc. A reflex is a quick response made without thinking; the reflex arc links input and output nerves in the spinal cord, which is faster than waiting for the brain, although the input still reaches the brain.
+- `brain_regions`: Human brain and nervous system. Brain and spinal cord form the central nervous system, cranial and spinal nerves the peripheral one; the fore-brain thinks and decides, the medulla in the hind-brain controls involuntary actions; skull, fluid and vertebral column protect them.
+- `cerebellum_function`: Cerebellum. The cerebellum, part of the hind-brain, is responsible for the precision of voluntary actions and for keeping posture and balance (walking straight, riding a bicycle, picking up a pencil).
+- `muscle_contraction`: How muscles move. Muscle tissue does the final job of movement: in response to nerve impulses, special proteins in muscle cells change shape and arrangement so the cells shorten; voluntary and involuntary muscles.
+- `plant_tropisms`: Plant movements and tropisms. Plants move without nerves or muscles: the sensitive plant folds its leaves without growth (cells change water content), while tendrils and tropisms (photo-, geo-, chemo-, hydrotropism) are directional growth movements.
+- `auxin_mechanism`: Plant hormones. Plant hormones are made away from where they act and diffuse there: auxin moves to the shady side so the shoot bends towards light; gibberellins and cytokinins promote growth; abscisic acid inhibits it.
+- `animal_hormones`: Hormones in animals. Endocrine glands secrete hormones into the blood: adrenaline (adrenal glands) prepares the body for emergencies, thyroxin needs iodine, growth hormone (pituitary), testosterone and oestrogen at puberty, insulin (pancreas).
+- `hormonal_feedback`: Feedback control of hormones. Hormones must be secreted in precise amounts; feedback mechanisms regulate the timing and amount (e.g. rising blood sugar leads the pancreas to make more insulin), and the hypothalamus releases releasing factors.
 
-## heredity (draft)
+## heredity (approved)
 - `genetic_variation`: Variation in reproduction. Each generation inherits a common body design with small changes; asexual reproduction creates only minor differences from DNA-copying errors, sexual reproduction creates more, and environmental selection of variants underlies evolution.
 - `sexual_reproduction`: Inheritance from both parents. Father and mother contribute about equal genetic material, so every trait can be influenced by paternal and maternal DNA and each child carries two versions of each trait.
 - `dominant_recessive`: Dominant and recessive traits. When the two copies of a factor differ, the one that is expressed is dominant and the hidden one is recessive (TT and Tt plants are tall; only tt plants are short).
@@ -25,21 +24,19 @@ Write one id per question in `gold_concept_id`, or `none` if the question is off
 - `chromosome_number_restoration`: Chromosomes and germ cells. Body cells have two gene sets, as separate pieces called chromosomes, one copy of each from each parent; germ cells take one chromosome from every pair, and fertilisation restores the normal number.
 - `sex_determination`: Sex determination. Some species use environmental cues (temperature in some reptiles) or can change sex (snails); in humans sex is largely genetic: women are XX, men XY, and the father's X or Y decides the child's sex.
 
-## how_do_organisms_reproduce (draft)
-- `dna_replication_basics`: DNA replication. Learners should understand that reproduction involves making a copy of DNA, which is not perfectly accurate and leads to variation.
-- `asexual_fission`: Binary fission. Learners should know that unicellular organisms reproduce by splitting into two daughter cells.
-- `multiple_fission`: Multiple fission. Learners should recognize that some parasites produce many daughter cells simultaneously.
-- `fragmentation_reproduction`: Fragmentation. Learners should understand that multicellular filaments can break into pieces, each developing into a new individual.
-- `regeneration_and_budding`: Regeneration & budding. Learners should be able to differentiate regeneration (whole organism from a piece) from budding (outgrowth that detaches).
-- `vegetative_propagation`: Vegetative propagation. Learners should know that many plants reproduce asexually from roots, stems, or leaves, producing genetically similar offspring.
-- `spore_formation_and_protection`: Spore protection. Learners should understand that spores are enclosed in thick walls that safeguard them until favorable conditions arise.
-- `flower_anatomy_pistil`: Pistil anatomy. Learners should identify the three parts of the pistil: ovary, style, and stigma.
-- `pollination_and_fertilisation`: Pollination & fertilisation. Learners should distinguish self‑pollination from cross‑pollination and describe the pollen tube pathway leading to fertilisation.
-- `human_puberty_and_reproductive_systems`: Human puberty & reproduction. Learners should recognize the physiological changes at puberty and the basic structure of male and female reproductive systems.
-- `menstruation_cycle`: Menstruation cycle. Learners should know the monthly cycle of egg release, possible fertilisation, and shedding of the uterine lining if fertilisation does not occur.
-- `reproductive_health_methods`: Reproductive health methods. Learners should identify various contraceptive and disease‑prevention methods, including barriers, hormonal, intra‑uterine, and surgical options.
+## how_do_organisms_reproduce (approved)
+- `dna_replication_basics`: DNA copying and variation. Reproduction copies the DNA blueprint along with extra cell apparatus; copying is never perfectly accurate, so offspring vary slightly, and variation helps a species survive when its niche changes.
+- `asexual_fission`: Fission. Unicellular organisms reproduce by cell division: binary fission into two (bacteria, Amoeba in any plane, Leishmania in a set orientation) or multiple fission into many cells at once (Plasmodium).
+- `regeneration_and_budding`: Fragmentation, regeneration and budding. Spirogyra breaks into fragments that each grow; Hydra and Planaria regenerate whole organisms from pieces using specialised cells; Hydra and yeast also reproduce by buds that detach.
+- `vegetative_propagation`: Vegetative propagation. Roots, stems or leaves grow into new plants (layering, grafting, Bryophyllum leaf buds); such plants flower earlier, keep the parent's characteristics and include seedless kinds; tissue culture grows many from one.
+- `spore_formation_and_protection`: Spore formation. In bread mould (Rhizopus) the sporangia hold spores with thick protective walls that grow into new individuals on a moist surface; the threads are hyphae.
+- `sexual_mode_significance`: Why sexual reproduction. Combining DNA from two individuals creates new combinations of variants faster; meiosis halves the chromosome number in germ-cells so fertilisation restores it; gametes specialise into a motile male and a food-storing female gamete.
+- `pollination_and_fertilisation`: Sexual reproduction in flowering plants. Stamens (pollen) and pistil (ovary, style, stigma) are the reproductive parts; self- and cross-pollination; a pollen tube reaches the ovule for fertilisation; the ovule becomes a seed and the ovary a fruit; germination.
+- `human_puberty_and_reproductive_systems`: Puberty and human reproductive systems. Changes at puberty signal sexual maturation; the male system (testes, vas deferens, prostate, seminal vesicles, urethra) and female system (ovaries, oviducts, uterus, vagina); fertilisation in the oviduct; the placenta nourishes the embryo.
+- `menstruation_cycle`: Menstruation. One egg is released each month and the uterus lining thickens to receive it; if the egg is not fertilised, the lining breaks down and leaves as blood and mucus, roughly monthly, for two to eight days.
+- `reproductive_health_methods`: Reproductive health and contraception. Readiness for sex and parenthood, sexually transmitted infections (gonorrhoea, syphilis, warts, HIV-AIDS), contraception (condoms, pills, copper-T, surgery), and protecting the sex ratio against female foeticide.
 
-## life_processes (draft)
+## life_processes (approved)
 - `autotrophic_nutrition_photosynthesis`: Photosynthesis. How autotrophs convert carbon dioxide and water into carbohydrates using sunlight and chlorophyll, the three events of photosynthesis, and storage of unused carbohydrate as starch.
 - `stomatal_control`: Stomata and guard cells. Stomata are tiny leaf pores for gas exchange; guard cells open the pore when they swell with water and close it when they shrink, which limits water loss.
 - `heterotrophic_nutrition_types`: Heterotrophic nutrition. How organisms that cannot make their own food obtain it: breaking food down outside the body (fungi), parasitism, and food intake in single-celled organisms such as Amoeba and Paramoecium.
@@ -51,7 +48,7 @@ Write one id per question in `gold_concept_id`, or `none` if the question is off
 - `kidney_filtration`: Excretion in human beings. How the kidneys, ureters, urinary bladder and urethra remove nitrogenous wastes: filtration in nephrons, selective re-absorption, and the artificial kidney.
 - `excretion_in_plants`: Excretion in plants. How plants get rid of wastes: releasing oxygen and excess water, storing wastes in vacuoles, in leaves that fall off and as resins and gums, and excreting some into the soil.
 
-## our_environment (draft)
+## our_environment (approved)
 - `ecosystem_definition`: Ecosystem and its components. An ecosystem is all the interacting organisms of an area (biotic components) together with its non-living physical factors (abiotic components); forests, ponds and lakes are natural, gardens, crop-fields and aquaria human-made.
 - `producers`: Producers. Green plants and certain bacteria make organic compounds from inorganic substances by photosynthesis, fixing the Sun's energy for the rest of the ecosystem.
 - `consumers`: Consumers. Organisms that consume food made by producers, directly or by feeding on other consumers; classed as herbivores, carnivores, omnivores and parasites.

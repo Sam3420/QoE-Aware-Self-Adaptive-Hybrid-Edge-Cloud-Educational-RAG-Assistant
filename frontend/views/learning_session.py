@@ -93,6 +93,34 @@ def _duration(seconds: int | None) -> str:
     return f"{seconds // 60}:{seconds % 60:02d}"
 
 
+def _video_card(backend: AgentBackend, thread_id: str, item: dict[str, Any]) -> None:
+    with st.container(border=True):
+        left, right = st.columns([1, 3])
+        if item.get("thumbnail_url"):
+            left.image(item["thumbnail_url"], width="stretch")
+        right.markdown(f"**{item['rank']}. [{item['title']}]({item['url']})**")
+        captions = f" · captions {item['caption_language']} ({item.get('caption_type')})" \
+            if item.get("caption_language") else ""
+        right.caption(f"{item.get('channel_title') or '—'} · {_duration(item.get('duration_s'))} · "
+                      f"score {item['score']:.2f} · evidence: {item.get('evidence_level')}{captions}")
+        if "translated" in str(item.get("caption_type") or ""):
+            right.caption(":orange[:material/translate: Captions are YouTube's machine translation; answers from "
+                          "this video may be less accurate.]")
+        right.caption(item.get("explanation") or "")
+        if item.get("covers") is not None:
+            right.caption(":material/checklist: Covers: " + (", ".join(item["covers"]) or "none of your concepts"))
+        if item.get("watched"):
+            right.caption(":green[:material/check_circle: Already watched this session]")
+        if item.get("unavailable"):
+            right.warning(f"Can't be used for questions: {item['unavailable']}", icon=":material/block:")
+        elif right.button("Learn from this video", key=f"vid-{item['item_id']}", type="primary",
+                          icon=":material/smart_display:"):
+            with st.spinner("Fetching the transcript and building the video's index (first time only), then "
+                            "measuring context and selecting a policy…"):
+                _remember(backend.resume(thread_id, {"item_id": item["item_id"]}), "Choose video")
+            st.rerun()
+
+
 def _select_video(backend: AgentBackend, thread_id: str, values: dict[str, Any], pause: dict[str, Any]) -> None:
     _pretest_score(values)
     _plan_card(values)
@@ -113,29 +141,19 @@ def _select_video(backend: AgentBackend, thread_id: str, values: dict[str, Any],
         st.caption(f"Note: {err}")
     if not pause["items"]:
         st.info("No videos were found. Try new recommendations or end the session.")
-    for item in pause["items"]:
-        with st.container(border=True):
-            left, right = st.columns([1, 3])
-            if item.get("thumbnail_url"):
-                left.image(item["thumbnail_url"], width="stretch")
-            right.markdown(f"**{item['rank']}. [{item['title']}]({item['url']})**")
-            captions = f" · captions {item['caption_language']} ({item.get('caption_type')})" \
-                if item.get("caption_language") else ""
-            right.caption(f"{item.get('channel_title') or '—'} · {_duration(item.get('duration_s'))} · "
-                          f"score {item['score']:.2f} · evidence: {item.get('evidence_level')}{captions}")
-            right.caption(item.get("explanation") or "")
-            if item.get("covers") is not None:
-                right.caption(":material/checklist: Covers: " + (", ".join(item["covers"]) or "none of your concepts"))
-            if item.get("watched"):
-                right.caption(":green[:material/check_circle: Already watched this session]")
-            if item.get("unavailable"):
-                right.warning(f"Can't be used for questions: {item['unavailable']}", icon=":material/block:")
-            elif right.button("Learn from this video", key=f"vid-{item['item_id']}", type="primary",
-                              icon=":material/smart_display:"):
-                with st.spinner("Fetching the transcript and building the video's index (first time only), then "
-                                "measuring context and selecting a policy…"):
-                    _remember(backend.resume(thread_id, {"item_id": item["item_id"]}), "Choose video")
-                st.rerun()
+    # videos the assistant can teach from first; those without a usable transcript are kept, but out of the way
+    usable = [i for i in pause["items"] if not i.get("unavailable")]
+    unusable = [i for i in pause["items"] if i.get("unavailable")]
+    if pause["items"] and not usable:
+        st.warning("None of these videos has a transcript the assistant can use. Try \"Find other videos\".",
+                   icon=":material/warning:")
+    for item in usable:
+        _video_card(backend, thread_id, item)
+    if unusable:
+        with st.expander(f"{len(unusable)} video(s) can't be used for questions (no usable transcript)",
+                         icon=":material/block:"):
+            for item in unusable:
+                _video_card(backend, thread_id, item)
     c1, c2 = st.columns(2)
     if c1.button("Find other videos", icon=":material/refresh:", width="stretch"):
         with st.spinner("Searching YouTube again…"):

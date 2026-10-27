@@ -62,6 +62,7 @@ class FakeTranscripts:
         self.records = TRANSCRIPTS if records is None else records
         self.failures = FAILURES if failures is None else failures
         self.calls: list[tuple[str, tuple[str, ...]]] = []
+        self.checks: list[tuple[str, tuple[str, ...]]] = []
 
     def fetch(self, video_id: str, languages) -> TranscriptRecord:
         self.calls.append((video_id, tuple(languages)))
@@ -69,6 +70,13 @@ class FakeTranscripts:
             return self.records[video_id]
         status = self.failures.get(video_id, TranscriptStatus.NO_TRANSCRIPT)
         return TranscriptRecord(video_id=video_id, status=status, error=f"fake {status.value}")
+
+    def available(self, video_id: str, languages) -> TranscriptStatus:
+        """Track listing only: what fetch() would find (recorded separately from fetches)."""
+        self.checks.append((video_id, tuple(languages)))
+        if video_id in self.records:
+            return TranscriptStatus.OK
+        return self.failures.get(video_id, TranscriptStatus.NO_TRANSCRIPT)
 
 
 def video_item(video_id: str) -> dict[str, Any]:

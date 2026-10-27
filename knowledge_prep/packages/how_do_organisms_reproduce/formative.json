@@ -1,0 +1,729 @@
+{
+  "topic_id": "how_do_organisms_reproduce",
+  "kind": "formative",
+  "status": "pending_review",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T21:21:06+00:00",
+  "items": [
+    {
+      "id": "HR-FRM-01",
+      "concept_id": "dna_replication_basics",
+      "difficulty": "easy",
+      "question": "What is a basic event in reproduction?",
+      "options": [
+        "Making a copy of the cell wall only",
+        "Making a copy of the DNA",
+        "Losing half the DNA",
+        "Releasing hormones"
+      ],
+      "answer_index": 1,
+      "explanation": "Since DNA is the blueprint for body design, reproduction must copy it.",
+      "source": {
+        "section": "7.1",
+        "page": 113
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-02",
+      "concept_id": "dna_replication_basics",
+      "difficulty": "medium",
+      "question": "When a cell copies its DNA, what else must be made before the cell divides?",
+      "options": [
+        "A second nucleus only",
+        "A new cell wall only",
+        "An additional set of cellular apparatus",
+        "Nothing else"
+      ],
+      "answer_index": 2,
+      "explanation": "A DNA copy pushed out alone could not keep life going, so the cell also makes extra apparatus.",
+      "source": {
+        "section": "7.1",
+        "page": 114
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-03",
+      "concept_id": "dna_replication_basics",
+      "difficulty": "medium",
+      "question": "Bacteria live in temperate water that is warmed by global warming. Which bacteria are likely to survive?",
+      "options": [
+        "All of them",
+        "None of them",
+        "Only the largest ones",
+        "The few variants that resist heat"
+      ],
+      "answer_index": 3,
+      "explanation": "Most die, but heat-resistant variants survive and multiply, showing why variation matters.",
+      "source": {
+        "section": "7.1.1",
+        "page": 114
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-04",
+      "concept_id": "asexual_fission",
+      "difficulty": "easy",
+      "question": "In Amoeba, in which plane can the cell split during division?",
+      "options": [
+        "Any plane",
+        "Only one fixed plane",
+        "Only along its whip-like structure",
+        "It never splits"
+      ],
+      "answer_index": 0,
+      "explanation": "Amoeba has no fixed orientation for splitting, unlike Leishmania.",
+      "source": {
+        "section": "7.2.1",
+        "page": 115
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-05",
+      "concept_id": "asexual_fission",
+      "difficulty": "easy",
+      "question": "Which disease is caused by Leishmania?",
+      "options": [
+        "Malaria",
+        "Kala-azar",
+        "Goitre",
+        "Tuberculosis"
+      ],
+      "answer_index": 1,
+      "explanation": "Leishmania causes kala-azar; Plasmodium causes malaria.",
+      "source": {
+        "section": "7.2.1",
+        "page": 115
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-06",
+      "concept_id": "asexual_fission",
+      "difficulty": "medium",
+      "question": "Which of these organisms reproduces by multiple fission?",
+      "options": [
+        "Amoeba",
+        "Hydra",
+        "Plasmodium",
+        "Spirogyra"
+      ],
+      "answer_index": 2,
+      "explanation": "The malarial parasite Plasmodium divides into many daughter cells at once.",
+      "source": {
+        "section": "7.2.1",
+        "page": 116
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-07",
+      "concept_id": "regeneration_and_budding",
+      "difficulty": "easy",
+      "question": "Which organisms can be cut into pieces, with each piece growing into a complete organism?",
+      "options": [
+        "Human beings",
+        "Banana plants",
+        "Rhizopus",
+        "Hydra and Planaria"
+      ],
+      "answer_index": 3,
+      "explanation": "Simple animals like Hydra and Planaria can regenerate a whole body from a piece.",
+      "source": {
+        "section": "7.2.3",
+        "page": 116
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-08",
+      "concept_id": "regeneration_and_budding",
+      "difficulty": "medium",
+      "question": "Why is regeneration not the same as reproduction?",
+      "options": [
+        "Most organisms do not normally depend on being cut up in order to reproduce",
+        "Regeneration needs two parents",
+        "Regeneration makes no new cells",
+        "Regeneration only happens in plants"
+      ],
+      "answer_index": 0,
+      "explanation": "Regeneration rebuilds an organism from pieces, but reproduction does not normally rely on being broken up.",
+      "source": {
+        "section": "7.2.3",
+        "page": 117
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-09",
+      "concept_id": "regeneration_and_budding",
+      "difficulty": "medium",
+      "question": "Which single-celled organism puts out small buds that separate and grow?",
+      "options": [
+        "Amoeba",
+        "Yeast",
+        "Plasmodium",
+        "Leishmania"
+      ],
+      "answer_index": 1,
+      "explanation": "Yeast reproduces by budding, as seen in the sugar-solution activity.",
+      "source": {
+        "section": "7.2.1",
+        "page": 116
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-10",
+      "concept_id": "vegetative_propagation",
+      "difficulty": "easy",
+      "question": "In vegetative propagation, which plant parts can grow into new plants?",
+      "options": [
+        "Only seeds",
+        "Only flowers",
+        "Roots, stems and leaves",
+        "Only pollen grains"
+      ],
+      "answer_index": 2,
+      "explanation": "Under the right conditions, roots, stems and leaves of many plants can produce new plants.",
+      "source": {
+        "section": "7.2.5",
+        "page": 117
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-11",
+      "concept_id": "vegetative_propagation",
+      "difficulty": "medium",
+      "question": "What is one advantage of plants produced by vegetative propagation?",
+      "options": [
+        "They are all very different",
+        "They never flower",
+        "They can only grow in water",
+        "They are similar enough to the parent to have all its characteristics"
+      ],
+      "answer_index": 3,
+      "explanation": "Because they come from one parent, the new plants keep its features.",
+      "source": {
+        "section": "7.2.5",
+        "page": 117
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-12",
+      "concept_id": "vegetative_propagation",
+      "difficulty": "medium",
+      "question": "What kind of conditions does tissue culture allow plants to be grown in?",
+      "options": [
+        "Disease-free conditions",
+        "Only in salty water",
+        "Only without light",
+        "Only in deserts"
+      ],
+      "answer_index": 0,
+      "explanation": "Many plants can be raised from one parent without disease, which is useful for ornamental plants.",
+      "source": {
+        "section": "7.2.5",
+        "page": 118
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-13",
+      "concept_id": "spore_formation_and_protection",
+      "difficulty": "easy",
+      "question": "What are the thread-like structures of bread mould called?",
+      "options": [
+        "Sporangia",
+        "Hyphae",
+        "Spores",
+        "Buds"
+      ],
+      "answer_index": 1,
+      "explanation": "The threads are hyphae; they are not the reproductive parts.",
+      "source": {
+        "section": "7.2.6",
+        "page": 118
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-14",
+      "concept_id": "spore_formation_and_protection",
+      "difficulty": "medium",
+      "question": "What does each Rhizopus spore eventually develop into?",
+      "options": [
+        "A seed",
+        "A pollen grain",
+        "A new Rhizopus individual",
+        "A bud on the parent"
+      ],
+      "answer_index": 2,
+      "explanation": "Spores are reproductive cells: each can grow into a new mould.",
+      "source": {
+        "section": "7.2.6",
+        "page": 118
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-15",
+      "concept_id": "spore_formation_and_protection",
+      "difficulty": "medium",
+      "question": "When can a Rhizopus spore begin to grow?",
+      "options": [
+        "As soon as it forms",
+        "Only in bright sunlight",
+        "Only after fertilisation",
+        "When it comes into contact with a moist surface"
+      ],
+      "answer_index": 3,
+      "explanation": "The protective wall keeps the spore safe until it lands somewhere moist.",
+      "source": {
+        "section": "7.2.6",
+        "page": 118
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-16",
+      "concept_id": "sexual_mode_significance",
+      "difficulty": "medium",
+      "question": "If germ-cells with the full amount of DNA simply combined, what problem would arise?",
+      "options": [
+        "Each new generation would have twice the DNA of the one before",
+        "There would be no variation",
+        "No zygote could form",
+        "The DNA would disappear"
+      ],
+      "answer_index": 0,
+      "explanation": "Doubling the DNA every generation would upset the control of the cell; meiosis prevents this.",
+      "source": {
+        "section": "7.3.1",
+        "page": 120
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-17",
+      "concept_id": "sexual_mode_significance",
+      "difficulty": "easy",
+      "question": "What is the motile germ-cell called?",
+      "options": [
+        "The female gamete",
+        "The male gamete",
+        "The zygote",
+        "The spore"
+      ],
+      "answer_index": 1,
+      "explanation": "By convention, the smaller, moving germ-cell is the male gamete.",
+      "source": {
+        "section": "7.3.1",
+        "page": 120
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-18",
+      "concept_id": "sexual_mode_significance",
+      "difficulty": "medium",
+      "question": "Why is the female gamete usually the larger germ-cell?",
+      "options": [
+        "It moves faster",
+        "It has more chromosomes",
+        "It contains the food stores",
+        "It divides twice as often"
+      ],
+      "answer_index": 2,
+      "explanation": "The zygote needs stored energy to develop, so one gamete carries food and the other is small and motile.",
+      "source": {
+        "section": "7.3.1",
+        "page": 120
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-19",
+      "concept_id": "pollination_and_fertilisation",
+      "difficulty": "easy",
+      "question": "What are the three parts of the pistil?",
+      "options": [
+        "Sepals, petals and stamens",
+        "Anther, filament and pollen",
+        "Ovule, seed and fruit",
+        "Ovary, style and stigma"
+      ],
+      "answer_index": 3,
+      "explanation": "The swollen base is the ovary, the stalk is the style and the sticky tip is the stigma.",
+      "source": {
+        "section": "7.3.2",
+        "page": 121
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-20",
+      "concept_id": "pollination_and_fertilisation",
+      "difficulty": "medium",
+      "question": "What is the difference between self-pollination and cross-pollination?",
+      "options": [
+        "In self-pollination pollen moves within the same flower; in cross-pollination it moves to another flower",
+        "Self-pollination needs animals; cross-pollination never does",
+        "Self-pollination happens in the ovary; cross-pollination in the stigma",
+        "There is no difference"
+      ],
+      "answer_index": 0,
+      "explanation": "Cross-pollination needs an agent such as wind, water or animals to carry the pollen.",
+      "source": {
+        "section": "7.3.2",
+        "page": 121
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-21",
+      "concept_id": "pollination_and_fertilisation",
+      "difficulty": "medium",
+      "question": "Which of these flowers is unisexual?",
+      "options": [
+        "Hibiscus",
+        "Papaya",
+        "Mustard",
+        "A flower with both stamens and pistil"
+      ],
+      "answer_index": 1,
+      "explanation": "A unisexual flower has either stamens or a pistil; Hibiscus and mustard have both.",
+      "source": {
+        "section": "7.3.2",
+        "page": 120
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-22",
+      "concept_id": "human_puberty_and_reproductive_systems",
+      "difficulty": "medium",
+      "question": "Which glands add secretions to the sperms along the vas deferens?",
+      "options": [
+        "The thyroid and the pituitary",
+        "The adrenal glands",
+        "The prostate and the seminal vesicles",
+        "The ovaries"
+      ],
+      "answer_index": 2,
+      "explanation": "Their fluid makes the sperms easier to transport and gives them nutrition.",
+      "source": {
+        "section": "7.3.3(a)",
+        "page": 123
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-23",
+      "concept_id": "human_puberty_and_reproductive_systems",
+      "difficulty": "medium",
+      "question": "Where does fertilisation take place in the human female?",
+      "options": [
+        "In the vagina",
+        "In the ovary",
+        "In the cervix",
+        "In the oviduct (fallopian tube)"
+      ],
+      "answer_index": 3,
+      "explanation": "Sperms travel up to the oviduct, where they may meet the egg.",
+      "source": {
+        "section": "7.3.3(b)",
+        "page": 124
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-24",
+      "concept_id": "human_puberty_and_reproductive_systems",
+      "difficulty": "easy",
+      "question": "Which change at puberty happens in both boys and girls?",
+      "options": [
+        "Thick hair growing in new places such as the armpits",
+        "Increase in breast size",
+        "Voice cracking",
+        "Menstruation"
+      ],
+      "answer_index": 0,
+      "explanation": "New hair growth and oily skin are common to both; the other changes differ between boys and girls.",
+      "source": {
+        "section": "7.3.3",
+        "page": 122
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-25",
+      "concept_id": "menstruation_cycle",
+      "difficulty": "easy",
+      "question": "How long does menstruation usually last?",
+      "options": [
+        "About one day",
+        "About two to eight days",
+        "About one month",
+        "About nine months"
+      ],
+      "answer_index": 1,
+      "explanation": "The shed lining leaves the body over a few days each cycle.",
+      "source": {
+        "section": "7.3.3(c)",
+        "page": 124
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-26",
+      "concept_id": "menstruation_cycle",
+      "difficulty": "medium",
+      "question": "Why does the lining of the uterus thicken every month?",
+      "options": [
+        "To produce eggs",
+        "To make hormones for puberty",
+        "To be ready to nourish an embryo if fertilisation happens",
+        "To store sperms"
+      ],
+      "answer_index": 2,
+      "explanation": "The uterus prepares each month in case a fertilised egg arrives.",
+      "source": {
+        "section": "7.3.3(c)",
+        "page": 124
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-27",
+      "concept_id": "menstruation_cycle",
+      "difficulty": "medium",
+      "question": "How often does an ovary release an egg?",
+      "options": [
+        "Every day",
+        "Once a year",
+        "Every nine months",
+        "About once a month"
+      ],
+      "answer_index": 3,
+      "explanation": "One egg matures and is released each month, which is why the cycle is monthly.",
+      "source": {
+        "section": "7.3.3(b)",
+        "page": 124
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-28",
+      "concept_id": "reproductive_health_methods",
+      "difficulty": "easy",
+      "question": "Which sexually transmitted infections are caused by bacteria?",
+      "options": [
+        "Gonorrhoea and syphilis",
+        "Warts and HIV-AIDS",
+        "Malaria and kala-azar",
+        "Goitre and diabetes"
+      ],
+      "answer_index": 0,
+      "explanation": "Gonorrhoea and syphilis are bacterial; warts and HIV-AIDS are viral.",
+      "source": {
+        "section": "7.3.3(d)",
+        "page": 125
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-29",
+      "concept_id": "reproductive_health_methods",
+      "difficulty": "medium",
+      "question": "Which surgical method prevents the transfer of sperms in males?",
+      "options": [
+        "Fitting a copper-T",
+        "Blocking the vas deferens",
+        "Taking oral pills",
+        "Blocking the fallopian tubes"
+      ],
+      "answer_index": 1,
+      "explanation": "If the vas deferens is blocked, sperms cannot leave; blocking the fallopian tubes is the female method.",
+      "source": {
+        "section": "7.3.3(d)",
+        "page": 125
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "HR-FRM-30",
+      "concept_id": "reproductive_health_methods",
+      "difficulty": "medium",
+      "question": "Why has prenatal sex determination been prohibited by law?",
+      "options": [
+        "Because it is painful",
+        "Because it is always inaccurate",
+        "To stop sex-selective abortion of female foetuses and protect the sex ratio",
+        "Because it spreads infections"
+      ],
+      "answer_index": 2,
+      "explanation": "Female foeticide has lowered the child sex ratio in some groups, so the law bans finding out the sex before birth.",
+      "source": {
+        "section": "7.3.3(d)",
+        "page": 125
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    }
+  ]
+}

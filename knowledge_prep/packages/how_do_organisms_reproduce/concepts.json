@@ -1,0 +1,248 @@
+{
+  "topic_id": "how_do_organisms_reproduce",
+  "status": "draft",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T21:21:06+00:00",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "concepts": [
+    {
+      "id": "dna_replication_basics",
+      "name": "DNA copying and variation",
+      "description": "Reproduction copies the DNA blueprint along with extra cell apparatus; copying is never perfectly accurate, so offspring vary slightly, and variation helps a species survive when its niche changes.",
+      "aliases": [
+        "DNA copying",
+        "DNA copy",
+        "copies of DNA",
+        "variation",
+        "variations",
+        "niche"
+      ],
+      "evidence": "NCERT Class 10 Science §7.1-7.1.1, p.113-114 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "7.1-7.1.1",
+        "pages": [
+          113,
+          114
+        ]
+      }
+    },
+    {
+      "id": "asexual_fission",
+      "name": "Fission",
+      "description": "Unicellular organisms reproduce by cell division: binary fission into two (bacteria, Amoeba in any plane, Leishmania in a set orientation) or multiple fission into many cells at once (Plasmodium).",
+      "aliases": [
+        "fission",
+        "binary fission",
+        "multiple fission",
+        "Amoeba",
+        "Leishmania",
+        "Plasmodium"
+      ],
+      "evidence": "NCERT Class 10 Science §7.2.1, p.115-116 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "7.2.1",
+        "pages": [
+          115,
+          116
+        ]
+      }
+    },
+    {
+      "id": "regeneration_and_budding",
+      "name": "Fragmentation, regeneration and budding",
+      "description": "Spirogyra breaks into fragments that each grow; Hydra and Planaria regenerate whole organisms from pieces using specialised cells; Hydra and yeast also reproduce by buds that detach.",
+      "aliases": [
+        "fragmentation",
+        "fragments",
+        "regeneration",
+        "regenerate",
+        "budding",
+        "bud",
+        "Hydra",
+        "Planaria",
+        "Spirogyra",
+        "yeast"
+      ],
+      "evidence": "NCERT Class 10 Science §7.2.2-7.2.4, p.116-117 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "7.2.2-7.2.4",
+        "pages": [
+          116,
+          117
+        ]
+      }
+    },
+    {
+      "id": "vegetative_propagation",
+      "name": "Vegetative propagation",
+      "description": "Roots, stems or leaves grow into new plants (layering, grafting, Bryophyllum leaf buds); such plants flower earlier, keep the parent's characteristics and include seedless kinds; tissue culture grows many from one.",
+      "aliases": [
+        "vegetative propagation",
+        "layering",
+        "grafting",
+        "Bryophyllum",
+        "tissue culture",
+        "callus"
+      ],
+      "evidence": "NCERT Class 10 Science §7.2.5, p.117-118 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "7.2.5",
+        "pages": [
+          117,
+          118
+        ]
+      }
+    },
+    {
+      "id": "spore_formation_and_protection",
+      "name": "Spore formation",
+      "description": "In bread mould (Rhizopus) the sporangia hold spores with thick protective walls that grow into new individuals on a moist surface; the threads are hyphae.",
+      "aliases": [
+        "spores",
+        "spore",
+        "spore formation",
+        "sporangia",
+        "Rhizopus",
+        "hyphae",
+        "bread mould"
+      ],
+      "evidence": "NCERT Class 10 Science §7.2.6, p.118 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "7.2.6",
+        "pages": [
+          118,
+          118
+        ]
+      }
+    },
+    {
+      "id": "sexual_mode_significance",
+      "name": "Why sexual reproduction",
+      "description": "Combining DNA from two individuals creates new combinations of variants faster; meiosis halves the chromosome number in germ-cells so fertilisation restores it; gametes specialise into a motile male and a food-storing female gamete.",
+      "aliases": [
+        "sexual reproduction",
+        "sexual mode",
+        "meiosis",
+        "gametes",
+        "gamete",
+        "germ-cells",
+        "male gamete",
+        "female gamete"
+      ],
+      "evidence": "NCERT Class 10 Science §7.3-7.3.1, p.119-120 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "7.3-7.3.1",
+        "pages": [
+          119,
+          120
+        ]
+      }
+    },
+    {
+      "id": "pollination_and_fertilisation",
+      "name": "Sexual reproduction in flowering plants",
+      "description": "Stamens (pollen) and pistil (ovary, style, stigma) are the reproductive parts; self- and cross-pollination; a pollen tube reaches the ovule for fertilisation; the ovule becomes a seed and the ovary a fruit; germination.",
+      "aliases": [
+        "pollination",
+        "self-pollination",
+        "cross-pollination",
+        "pollen",
+        "stamen",
+        "stamens",
+        "pistil",
+        "stigma",
+        "style",
+        "ovule",
+        "seed",
+        "fruit",
+        "germination",
+        "unisexual",
+        "bisexual"
+      ],
+      "evidence": "NCERT Class 10 Science §7.3.2, p.120-121 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "7.3.2",
+        "pages": [
+          120,
+          121
+        ]
+      }
+    },
+    {
+      "id": "human_puberty_and_reproductive_systems",
+      "name": "Puberty and human reproductive systems",
+      "description": "Changes at puberty signal sexual maturation; the male system (testes, vas deferens, prostate, seminal vesicles, urethra) and female system (ovaries, oviducts, uterus, vagina); fertilisation in the oviduct; the placenta nourishes the embryo.",
+      "aliases": [
+        "puberty",
+        "sexual maturation",
+        "testes",
+        "sperms",
+        "vas deferens",
+        "prostate",
+        "seminal vesicles",
+        "ovaries",
+        "oviduct",
+        "fallopian tube",
+        "uterus",
+        "placenta",
+        "embryo",
+        "foetus"
+      ],
+      "evidence": "NCERT Class 10 Science §7.3.3, p.121-124 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "7.3.3",
+        "pages": [
+          121,
+          124
+        ]
+      }
+    },
+    {
+      "id": "menstruation_cycle",
+      "name": "Menstruation",
+      "description": "One egg is released each month and the uterus lining thickens to receive it; if the egg is not fertilised, the lining breaks down and leaves as blood and mucus, roughly monthly, for two to eight days.",
+      "aliases": [
+        "menstruation",
+        "menstrual cycle",
+        "uterus lining",
+        "egg is not fertilised"
+      ],
+      "evidence": "NCERT Class 10 Science §7.3.3(c), p.124 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "7.3.3(c)",
+        "pages": [
+          124,
+          124
+        ]
+      }
+    },
+    {
+      "id": "reproductive_health_methods",
+      "name": "Reproductive health and contraception",
+      "description": "Readiness for sex and parenthood, sexually transmitted infections (gonorrhoea, syphilis, warts, HIV-AIDS), contraception (condoms, pills, copper-T, surgery), and protecting the sex ratio against female foeticide.",
+      "aliases": [
+        "reproductive health",
+        "contraception",
+        "contraceptive",
+        "contraceptives",
+        "condom",
+        "copper-T",
+        "oral pills",
+        "sexually transmitted",
+        "HIV-AIDS",
+        "gonorrhoea",
+        "syphilis",
+        "sex ratio"
+      ],
+      "evidence": "NCERT Class 10 Science §7.3.3(d), p.124-125 (excerpt kept in evidence.local.json)",
+      "source": {
+        "section": "7.3.3(d)",
+        "pages": [
+          124,
+          125
+        ]
+      }
+    }
+  ]
+}

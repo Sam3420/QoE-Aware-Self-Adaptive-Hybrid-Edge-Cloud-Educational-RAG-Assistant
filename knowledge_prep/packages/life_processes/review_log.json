@@ -1,0 +1,120 @@
+{
+  "topic_id": "life_processes",
+  "reviewed_at": "2026-10-26",
+  "reviewer": null,
+  "reviewer_note": "Reviewer not named in the sheet; decisions entered by the project team in evaluation/review/flagged_items.csv.xlsx. A 'keep' resolves that flag only; it is not an approval of the item, which stays pending review.",
+  "decisions": [
+    {
+      "id": "LP-POST-08",
+      "flag": "answer key",
+      "why_flagged": "blind model answered A",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "LP-POST-08",
+      "flag": "concept tag",
+      "why_flagged": "blind model tagged human_circulatory_system",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "LP-POST-08",
+      "flag": "concept tag",
+      "why_flagged": "lexical check: wording names ['human_circulatory_system']",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "LP-FRM-03",
+      "flag": "concept tag",
+      "why_flagged": "blind model tagged heterotrophic_nutrition_types",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "LP-FRM-19",
+      "flag": "concept tag",
+      "why_flagged": "blind model tagged autotrophic_nutrition_photosynthesis",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "LP-FRM-19",
+      "flag": "concept tag",
+      "why_flagged": "lexical check: wording names ['autotrophic_nutrition_photosynthesis']",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "LP-FRM-31",
+      "flag": "concept tag",
+      "why_flagged": "blind model tagged autotrophic_nutrition_photosynthesis",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "LP-FRM-31",
+      "flag": "concept tag",
+      "why_flagged": "lexical check: wording names ['autotrophic_nutrition_photosynthesis']",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "LP-FRM-32",
+      "flag": "concept tag",
+      "why_flagged": "blind model tagged plant_transport_xylem_phloem",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "LP-FRM-32",
+      "flag": "concept tag",
+      "why_flagged": "lexical check: wording names ['plant_transport_xylem_phloem']",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "LP-FRM-06",
+      "flag": "concept tag",
+      "why_flagged": "lexical check: wording names ['respiratory_structure_mechanics']",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "JzihOwFW3gI",
+      "flag": "video",
+      "why_flagged": "Edition mismatch: the title uses an older NCERT chapter number ('Chapter 7'); current Reprint 2026-27 numbering is Chapter 5. Check the content matches the current chapter.",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "yE3GlzspUJk",
+      "flag": "video",
+      "why_flagged": "Edition mismatch: the title uses an older NCERT chapter number ('chapter 6'); current Reprint 2026-27 numbering is Chapter 5. Check the content matches the current chapter.",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "V44QlrTs7Mo",
+      "flag": "video",
+      "why_flagged": "Only candidate whose transcript covers excretion_in_plants, but it is a children's show (\"Learn Videos For Kids\", 201 s): check it suits Class 10, or find another.",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "LVVbKoN8Duo",
+      "flag": "video",
+      "why_flagged": "Edition mismatch: the title uses an older NCERT chapter number ('ch 6'); current Reprint 2026-27 numbering is Chapter 5. Check the content matches the current chapter.",
+      "decision": "keep",
+      "reviewer_notes": ""
+    },
+    {
+      "id": "CZc-UGsXXRA",
+      "flag": "video",
+      "why_flagged": "Edition mismatch: the title uses an older NCERT chapter number ('Chapter 7'); current Reprint 2026-27 numbering is Chapter 5. Check the content matches the current chapter.",
+      "decision": "keep",
+      "reviewer_notes": ""
+    }
+  ]
+}

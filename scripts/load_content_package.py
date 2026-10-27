@@ -158,8 +158,14 @@ def plan(topic_id: str, targets: dict[str, Any], session: Session) -> dict[str, 
     else:
         old = json.loads(path.read_text(encoding="utf-8"))
         old_ids = [c["id"] for c in old.get("concepts", [])]
+        review = ("status", "reviewed_by", "reviewed_at")
         if old == targets["vocabulary"]:
             report["vocabulary"] = {"action": "skip (identical)", "path": str(path)}
+        elif {k: v for k, v in old.items() if k not in review} == \
+                {k: v for k, v in targets["vocabulary"].items() if k not in review}:
+            # the same concepts, reviewed since they were loaded: keep the review rather than resetting it to draft
+            report["vocabulary"] = {"action": f"skip (identical concepts; keeps status {old.get('status')!r})",
+                                    "path": str(path), "reviewed_by": old.get("reviewed_by")}
         else:
             report["vocabulary"] = {"action": "replace (needs --replace-vocabulary)", "path": str(path),
                                     "existing_status": old.get("status"), "existing_reviewed_by": old.get("reviewed_by"),
@@ -209,7 +215,8 @@ def backup(db_path: Path, topic_id: str, stamp: str) -> Path:
     return target
 
 
-def apply(topic_id: str, targets: dict[str, Any], db_url: str, stamp: str) -> dict[str, Any]:
+def apply(topic_id: str, targets: dict[str, Any], db_url: str, stamp: str, *,
+          write_vocabulary: bool = True) -> dict[str, Any]:
     engine = create_engine(db_url, future=True)
     ran = run_migrations(engine)
     with Session(engine) as session, session.begin():
@@ -237,6 +244,8 @@ def apply(topic_id: str, targets: dict[str, Any], db_url: str, stamp: str) -> di
             else:
                 for k, v in values.items():
                     setattr(row, k, v)
+    if not write_vocabulary:  # the same concepts, already reviewed: leave the file (and its review) as it is
+        return {"migrations_applied": ran, "vocabulary_backup": None}
     path = VOCAB_DIR / f"{topic_id}.json"
     saved = None
     if path.exists():
@@ -282,7 +291,8 @@ def run(topic_id: str, *, do_apply: bool = False, replace_bank: bool = False, re
     elif do_apply:
         report["backup"] = str(backup(db_path, topic_id, stamp))
         report["result"] = "applied"
-        report |= apply(topic_id, targets, db_url, stamp)
+        keep = str(report.get("vocabulary", {}).get("action", "")).startswith("skip (identical concepts")
+        report |= apply(topic_id, targets, db_url, stamp, write_vocabulary=not keep)
     else:
         report["result"] = "dry run: nothing written"
 

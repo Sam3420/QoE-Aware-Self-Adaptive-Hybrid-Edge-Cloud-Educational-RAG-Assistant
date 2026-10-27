@@ -171,3 +171,14 @@ def test_open_session_blocks_a_bank_replacement_until_named_exactly(env):
     assert report["result"] == "applied" and report["accepted_open_sessions"] == [open_id]
     kept = [a for a in query(env, Assessment) if a.session_id == open_id]
     assert len(kept) == 1 and kept[0].items == [{"question": "Generated?"}] and kept[0].score == 1.0
+
+
+def test_reviewed_vocabulary_with_the_same_concepts_is_kept(env):
+    run(env, do_apply=True, replace_bank=True, replace_vocabulary=True)
+    vocab = json.loads(env["vocab"].read_text(encoding="utf-8"))
+    vocab |= {"status": "approved", "reviewed_by": "Project team", "reviewed_at": "2026-10-26T00:00:00+00:00"}
+    env["vocab"].write_text(json.dumps(vocab, indent=2), encoding="utf-8")
+    report = run(env)
+    assert report["conflicts"] == [] and report["vocabulary"]["action"].startswith("skip (identical concepts")
+    assert run(env, do_apply=True)["result"] == "applied"
+    assert json.loads(env["vocab"].read_text(encoding="utf-8"))["reviewed_by"] == "Project team"  # not reset

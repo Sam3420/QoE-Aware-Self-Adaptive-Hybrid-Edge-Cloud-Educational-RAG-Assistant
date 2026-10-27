@@ -1,0 +1,148 @@
+{
+  "topic_id": "how_do_organisms_reproduce",
+  "validated_at": "2026-10-27T15:53:27+00:00",
+  "valid": true,
+  "errors": [],
+  "warnings": [
+    "HR-FRM-26: tagged menstruation_cycle, wording names ['human_puberty_and_reproductive_systems']",
+    "HR-FRM-29: tagged reproductive_health_methods, wording names ['human_puberty_and_reproductive_systems']",
+    "videos: no candidate covers ['reproductive_health_methods']",
+    "HR-POST-10: blind model answered C, key is D (from the last --llm run)",
+    "HR-FRM-21: blind model tagged sexual_mode_significance, assigned pollination_and_fertilisation (from the last --llm run)"
+  ],
+  "summary": {
+    "verbatim": {
+      "max_run": 8,
+      "items_with_run_>=_10": 0
+    },
+    "videos": {
+      "candidates": 5,
+      "concepts_covered": [
+        "asexual_fission",
+        "dna_replication_basics",
+        "human_puberty_and_reproductive_systems",
+        "menstruation_cycle",
+        "pollination_and_fertilisation",
+        "regeneration_and_budding",
+        "sexual_mode_significance",
+        "spore_formation_and_protection",
+        "vegetative_propagation"
+      ],
+      "examined": 39
+    },
+    "concepts": 10,
+    "pretest": 15,
+    "posttest": 15,
+    "formative": 30,
+    "formative_per_concept": {
+      "dna_replication_basics": 3,
+      "asexual_fission": 3,
+      "regeneration_and_budding": 3,
+      "vegetative_propagation": 3,
+      "spore_formation_and_protection": 3,
+      "sexual_mode_significance": 3,
+      "pollination_and_fertilisation": 3,
+      "human_puberty_and_reproductive_systems": 3,
+      "menstruation_cycle": 3,
+      "reproductive_health_methods": 3
+    },
+    "difficulty": {
+      "pretest": {
+        "easy": 5,
+        "medium": 6,
+        "hard": 4
+      },
+      "posttest": {
+        "easy": 5,
+        "medium": 6,
+        "hard": 4
+      },
+      "formative": {
+        "easy": 11,
+        "medium": 19
+      }
+    },
+    "answer_positions": {
+      "pretest": {
+        "0": 4,
+        "1": 4,
+        "2": 4,
+        "3": 3
+      },
+      "posttest": {
+        "0": 4,
+        "1": 3,
+        "2": 4,
+        "3": 4
+      },
+      "formative": {
+        "0": 7,
+        "1": 8,
+        "2": 8,
+        "3": 7
+      }
+    },
+    "pre_items_per_concept": {
+      "asexual_fission": 2,
+      "vegetative_propagation": 2,
+      "pollination_and_fertilisation": 2,
+      "human_puberty_and_reproductive_systems": 2,
+      "reproductive_health_methods": 2,
+      "dna_replication_basics": 1,
+      "regeneration_and_budding": 1,
+      "spore_formation_and_protection": 1,
+      "sexual_mode_significance": 1,
+      "menstruation_cycle": 1
+    }
+  },
+  "lexical_tag_flags": [
+    {
+      "id": "HR-FRM-26",
+      "assigned": "menstruation_cycle",
+      "named_in_text": [
+        "human_puberty_and_reproductive_systems"
+      ]
+    },
+    {
+      "id": "HR-FRM-29",
+      "assigned": "reproductive_health_methods",
+      "named_in_text": [
+        "human_puberty_and_reproductive_systems"
+      ]
+    }
+  ],
+  "near_duplicates": [],
+  "evidence_checked": true,
+  "first_shown_pretest_concepts": [
+    "asexual_fission",
+    "vegetative_propagation",
+    "pollination_and_fertilisation",
+    "human_puberty_and_reproductive_systems",
+    "reproductive_health_methods"
+  ],
+  "llm_checks": {
+    "ran": true,
+    "model": "groq:openai/gpt-oss-120b",
+    "checked": 60,
+    "answered": 60,
+    "answer_disagreements": [
+      {
+        "id": "HR-POST-10",
+        "key": "D",
+        "model_answer": "C"
+      }
+    ],
+    "concept_disagreements": [
+      {
+        "id": "HR-FRM-21",
+        "assigned": "pollination_and_fertilisation",
+        "model_concept": "sexual_mode_significance"
+      }
+    ],
+    "failures": [],
+    "note": "A disagreement flags the item for human review; agreement does not prove it correct.",
+    "ran_at": "2026-10-25T21:23:42+00:00",
+    "items_sha256": "2be05e6283afc401db898165f0707c231a6c9d32859bb327d820ea026eaa6397",
+    "carried_over": true
+  }
+}

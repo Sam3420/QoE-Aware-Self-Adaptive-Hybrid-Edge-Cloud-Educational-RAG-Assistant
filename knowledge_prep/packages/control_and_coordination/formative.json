@@ -1,0 +1,729 @@
+{
+  "topic_id": "control_and_coordination",
+  "kind": "formative",
+  "status": "pending_review",
+  "generated_by": "claude-opus-5-5 (AI assistant), written from the extracted chapter text",
+  "generated_at": "2026-10-25T21:19:15+00:00",
+  "items": [
+    {
+      "id": "CC-FRM-01",
+      "concept_id": "neuron_structure",
+      "difficulty": "easy",
+      "question": "Which receptors detect taste?",
+      "options": [
+        "Olfactory receptors",
+        "Gustatory receptors",
+        "Light receptors",
+        "Heat receptors"
+      ],
+      "answer_index": 1,
+      "explanation": "Gustatory receptors, on the tongue, detect taste.",
+      "source": {
+        "section": "6.1",
+        "page": 101
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-02",
+      "concept_id": "neuron_structure",
+      "difficulty": "easy",
+      "question": "Which receptors detect smell?",
+      "options": [
+        "Gustatory receptors",
+        "Pain receptors",
+        "Olfactory receptors",
+        "Balance receptors"
+      ],
+      "answer_index": 2,
+      "explanation": "Olfactory receptors in the nose detect smell, which is why food tastes different when the nose is blocked.",
+      "source": {
+        "section": "6.1",
+        "page": 101
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-03",
+      "concept_id": "neuron_structure",
+      "difficulty": "medium",
+      "question": "What is nervous tissue specialised for?",
+      "options": [
+        "Storing food",
+        "Producing hormones into the blood",
+        "Making bone",
+        "Carrying information around the body as electrical impulses"
+      ],
+      "answer_index": 3,
+      "explanation": "Nervous tissue is an organised network of neurons that conducts impulses from one part of the body to another.",
+      "source": {
+        "section": "6.1",
+        "page": 101
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-04",
+      "concept_id": "synaptic_transmission",
+      "difficulty": "easy",
+      "question": "What carries the signal across a synapse?",
+      "options": [
+        "Chemicals",
+        "An electric current through a direct link",
+        "Blood",
+        "Water"
+      ],
+      "answer_index": 0,
+      "explanation": "At the synapse the impulse is carried across by chemicals, not by electricity.",
+      "source": {
+        "section": "6.1",
+        "page": 101
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-05",
+      "concept_id": "synaptic_transmission",
+      "difficulty": "medium",
+      "question": "Apart from other neurons, to which cells can a synapse pass impulses?",
+      "options": [
+        "Only bone cells",
+        "Muscle cells or gland cells",
+        "Red blood cells",
+        "Plant cells"
+      ],
+      "answer_index": 1,
+      "explanation": "A similar junction lets neurons deliver impulses to muscles and glands, such as at the neuromuscular junction.",
+      "source": {
+        "section": "6.1",
+        "page": 101
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-06",
+      "concept_id": "synaptic_transmission",
+      "difficulty": "medium",
+      "question": "At which point of a neuron is the electrical impulse turned into a chemical signal?",
+      "options": [
+        "At the tip of the dendrite",
+        "In the cell body",
+        "At the end of the axon",
+        "In the nucleus"
+      ],
+      "answer_index": 2,
+      "explanation": "Chemicals are released at the far end of the axon, where the neuron meets the next cell.",
+      "source": {
+        "section": "6.1",
+        "page": 101
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-07",
+      "concept_id": "reflex_arc",
+      "difficulty": "easy",
+      "question": "Which statement describes a reflex action?",
+      "options": [
+        "A slow movement we plan first",
+        "A movement caused by growth",
+        "A response caused only by hormones",
+        "A quick response made without thinking about it"
+      ],
+      "answer_index": 3,
+      "explanation": "In a reflex we act without thinking and without feeling in control of the reaction.",
+      "source": {
+        "section": "6.1.1",
+        "page": 102
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-08",
+      "concept_id": "reflex_arc",
+      "difficulty": "medium",
+      "question": "Why are reflex arcs thought to have evolved in animals?",
+      "options": [
+        "Thinking in the brain takes too long when danger is urgent",
+        "Animals have no spinal cord",
+        "Muscles cannot receive signals from the brain",
+        "Hormones act too quickly"
+      ],
+      "answer_index": 0,
+      "explanation": "Many animals have little or no thinking network, and even in those that do, reflexes are quicker.",
+      "source": {
+        "section": "6.1.1",
+        "page": 102
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-09",
+      "concept_id": "reflex_arc",
+      "difficulty": "medium",
+      "question": "Where do nerves from the whole body come together in a bundle before reaching the brain?",
+      "options": [
+        "In the cerebellum",
+        "In the spinal cord",
+        "In the skull",
+        "In the heart"
+      ],
+      "answer_index": 1,
+      "explanation": "The meeting point in the spinal cord is the best place for the input and output nerves to connect.",
+      "source": {
+        "section": "6.1.1",
+        "page": 102
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-10",
+      "concept_id": "brain_regions",
+      "difficulty": "easy",
+      "question": "What are the three major regions of the brain?",
+      "options": [
+        "Cerebellum, medulla and spinal cord",
+        "Dendrite, axon and cell body",
+        "Fore-brain, mid-brain and hind-brain",
+        "Left brain, right brain and skull"
+      ],
+      "answer_index": 2,
+      "explanation": "The brain has three main regions, each with different functions.",
+      "source": {
+        "section": "6.1.2",
+        "page": 103
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-11",
+      "concept_id": "brain_regions",
+      "difficulty": "medium",
+      "question": "How is the brain protected?",
+      "options": [
+        "Only by the skin of the head",
+        "By the vertebral column",
+        "Only by muscles",
+        "It sits in a bony box, inside a fluid-filled balloon that absorbs shocks"
+      ],
+      "answer_index": 3,
+      "explanation": "The skull gives a hard case, and the fluid around the brain cushions it.",
+      "source": {
+        "section": "6.1.3",
+        "page": 105
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-12",
+      "concept_id": "brain_regions",
+      "difficulty": "medium",
+      "question": "What protects the spinal cord?",
+      "options": [
+        "The vertebral column, or backbone",
+        "The skull",
+        "Only a fluid-filled balloon",
+        "The ribs"
+      ],
+      "answer_index": 0,
+      "explanation": "The hard, bumpy backbone down the middle of the back surrounds the spinal cord.",
+      "source": {
+        "section": "6.1.3",
+        "page": 105
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-13",
+      "concept_id": "cerebellum_function",
+      "difficulty": "easy",
+      "question": "Walking in a straight line depends mainly on which part of the brain?",
+      "options": [
+        "The medulla",
+        "The cerebellum",
+        "The hunger centre of the fore-brain",
+        "The spinal cord"
+      ],
+      "answer_index": 1,
+      "explanation": "Precise, balanced movements such as walking straight are the cerebellum's job.",
+      "source": {
+        "section": "6.1.2",
+        "page": 104
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-14",
+      "concept_id": "cerebellum_function",
+      "difficulty": "medium",
+      "question": "The cerebellum is responsible for the precision of which kind of action?",
+      "options": [
+        "Only reflex actions",
+        "Hormone release",
+        "Voluntary actions",
+        "Digestion"
+      ],
+      "answer_index": 2,
+      "explanation": "It fine-tunes movements we choose to make, so they are accurate and balanced.",
+      "source": {
+        "section": "6.1.2",
+        "page": 104
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-15",
+      "concept_id": "cerebellum_function",
+      "difficulty": "medium",
+      "question": "In which region of the brain is the cerebellum found?",
+      "options": [
+        "The fore-brain",
+        "The mid-brain",
+        "The spinal cord",
+        "The hind-brain"
+      ],
+      "answer_index": 3,
+      "explanation": "The cerebellum is part of the hind-brain, along with the medulla.",
+      "source": {
+        "section": "6.1.2",
+        "page": 104
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-16",
+      "concept_id": "muscle_contraction",
+      "difficulty": "easy",
+      "question": "When a movement is made, which tissue does the final job?",
+      "options": [
+        "Muscle tissue",
+        "Nervous tissue",
+        "Bone tissue",
+        "Blood"
+      ],
+      "answer_index": 0,
+      "explanation": "Nerves collect information and decide; muscles carry out the movement.",
+      "source": {
+        "section": "6.1.4",
+        "page": 105
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-17",
+      "concept_id": "muscle_contraction",
+      "difficulty": "medium",
+      "question": "What do the special proteins in muscle cells respond to when they change shape?",
+      "options": [
+        "Light",
+        "Nervous electrical impulses",
+        "Gravity",
+        "Water entering the cell"
+      ],
+      "answer_index": 1,
+      "explanation": "A nerve impulse reaching the muscle makes these proteins rearrange, so the cell shortens.",
+      "source": {
+        "section": "6.1.4",
+        "page": 105
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-18",
+      "concept_id": "muscle_contraction",
+      "difficulty": "medium",
+      "question": "Which two kinds of muscle does the chapter remind you of from Class IX?",
+      "options": [
+        "Hot and cold muscles",
+        "Fast and slow muscles only",
+        "Voluntary and involuntary muscles",
+        "Plant and animal muscles"
+      ],
+      "answer_index": 2,
+      "explanation": "We can control voluntary muscles; involuntary muscles work without our control.",
+      "source": {
+        "section": "6.1.4",
+        "page": 105
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-19",
+      "concept_id": "plant_tropisms",
+      "difficulty": "medium",
+      "question": "How does a pea plant's tendril coil around a support?",
+      "options": [
+        "The part touching the support grows faster",
+        "The tendril has muscles that pull it",
+        "Auxin collects at the tip of the tendril",
+        "The part touching the support grows more slowly than the part away from it"
+      ],
+      "answer_index": 3,
+      "explanation": "Uneven growth on the two sides makes the tendril curl round the object.",
+      "source": {
+        "section": "6.2.2",
+        "page": 106
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-20",
+      "concept_id": "plant_tropisms",
+      "difficulty": "medium",
+      "question": "The growth of pollen tubes towards ovules is an example of which tropism?",
+      "options": [
+        "Chemotropism",
+        "Phototropism",
+        "Geotropism",
+        "Hydrotropism"
+      ],
+      "answer_index": 0,
+      "explanation": "The pollen tube grows towards chemicals from the ovule, so it is chemotropism.",
+      "source": {
+        "section": "6.2.2",
+        "page": 107
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-21",
+      "concept_id": "plant_tropisms",
+      "difficulty": "hard",
+      "question": "Which of these plant movements is the slowest?",
+      "options": [
+        "Folding of the sensitive plant's leaves",
+        "Growth-related movement",
+        "Sunflowers turning with day and night",
+        "They are all equally fast"
+      ],
+      "answer_index": 1,
+      "explanation": "Touch responses are very quick, sunflower movement is slow, and movement by growth is slower still.",
+      "source": {
+        "section": "6.2.2",
+        "page": 107
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-22",
+      "concept_id": "auxin_mechanism",
+      "difficulty": "easy",
+      "question": "Which hormone, made at the shoot tip, helps cells grow longer?",
+      "options": [
+        "Abscisic acid",
+        "Insulin",
+        "Auxin",
+        "Adrenaline"
+      ],
+      "answer_index": 2,
+      "explanation": "Auxin is made at the tip of the shoot and makes cells elongate.",
+      "source": {
+        "section": "6.2.2",
+        "page": 108
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-23",
+      "concept_id": "auxin_mechanism",
+      "difficulty": "medium",
+      "question": "Which plant hormones, like auxins, help the stem to grow?",
+      "options": [
+        "Abscisic acid",
+        "Insulin",
+        "Thyroxin",
+        "Gibberellins"
+      ],
+      "answer_index": 3,
+      "explanation": "Gibberellins also promote stem growth.",
+      "source": {
+        "section": "6.2.2",
+        "page": 108
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-24",
+      "concept_id": "auxin_mechanism",
+      "difficulty": "medium",
+      "question": "How do plant hormones reach the part of the plant where they act?",
+      "options": [
+        "They diffuse there from where they are made",
+        "Nerves carry them",
+        "A heart pumps them",
+        "Muscles squeeze them along"
+      ],
+      "answer_index": 0,
+      "explanation": "Plants have no nerves or circulation for this; the hormones simply spread by diffusion.",
+      "source": {
+        "section": "6.2.2",
+        "page": 108
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-25",
+      "concept_id": "animal_hormones",
+      "difficulty": "easy",
+      "question": "What happens to the heart when adrenaline is released into the blood?",
+      "options": [
+        "It slows down",
+        "It beats faster, supplying more oxygen to the muscles",
+        "It stops for a moment",
+        "Nothing changes"
+      ],
+      "answer_index": 1,
+      "explanation": "A faster heartbeat, more blood to skeletal muscles and faster breathing prepare the body for action.",
+      "source": {
+        "section": "6.3",
+        "page": 109
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-26",
+      "concept_id": "animal_hormones",
+      "difficulty": "medium",
+      "question": "A lack of iodine in the diet can lead to which disease?",
+      "options": [
+        "Dwarfism",
+        "Diabetes",
+        "Goitre",
+        "Scurvy"
+      ],
+      "answer_index": 2,
+      "explanation": "Without iodine the thyroid cannot make thyroxin; goitre, with a swollen neck, can result.",
+      "source": {
+        "section": "6.3",
+        "page": 110
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-27",
+      "concept_id": "animal_hormones",
+      "difficulty": "medium",
+      "question": "The changes in our bodies at puberty are caused by which hormones?",
+      "options": [
+        "Insulin and adrenaline",
+        "Only thyroxin",
+        "Auxin",
+        "Testosterone in males and oestrogen in females"
+      ],
+      "answer_index": 3,
+      "explanation": "Sex hormones secreted at puberty bring about these changes.",
+      "source": {
+        "section": "6.3",
+        "page": 110
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-28",
+      "concept_id": "hormonal_feedback",
+      "difficulty": "easy",
+      "question": "As the blood sugar level falls, what happens to insulin secretion?",
+      "options": [
+        "It is reduced",
+        "It increases sharply",
+        "It stays the same",
+        "It turns into adrenaline"
+      ],
+      "answer_index": 0,
+      "explanation": "Feedback works both ways: less sugar means less insulin is needed.",
+      "source": {
+        "section": "6.3",
+        "page": 111
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-29",
+      "concept_id": "hormonal_feedback",
+      "difficulty": "medium",
+      "question": "When the level of growth hormone is low, what does the hypothalamus release?",
+      "options": [
+        "Insulin",
+        "Growth hormone releasing factor",
+        "Adrenaline",
+        "Auxin"
+      ],
+      "answer_index": 1,
+      "explanation": "This releasing factor stimulates the pituitary gland to release more growth hormone.",
+      "source": {
+        "section": "6.3",
+        "page": 110
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "CC-FRM-30",
+      "concept_id": "hormonal_feedback",
+      "difficulty": "medium",
+      "question": "Why do hormones need a mechanism such as feedback?",
+      "options": [
+        "So that they act faster than nerves",
+        "So that plants can bend towards light",
+        "So that they are secreted in precise amounts",
+        "So that muscles can shorten"
+      ],
+      "answer_index": 2,
+      "explanation": "Too much or too little hormone is harmful, so the body controls the amount released.",
+      "source": {
+        "section": "6.3",
+        "page": 111
+      },
+      "review": {
+        "status": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": ""
+      }
+    }
+  ]
+}
