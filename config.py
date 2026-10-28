@@ -260,12 +260,20 @@ class Settings(BaseSettings):
     # Mic button in the question box (speech-to-text) and "Listen" on answers (text-to-speech). Models download from
     # Hugging Face on first use or with scripts/download_speech_models.py.
     stt_enabled: bool = True
-    stt_model: str = "distil-whisper/distil-small.en"  # English only
+    # sravaani: ARTPARK-IISc/SraVaani-1.0, 65 Indian languages and dialects + English (gated on Hugging Face: accept
+    # its terms once; uses HF_TOKEN or the huggingface-cli login; best on a CUDA GPU). whisper: STT_MODEL, English only.
+    stt_backend: Literal["sravaani", "whisper"] = "sravaani"
+    stt_sravaani_model: str = "ARTPARK-IISc/SraVaani-1.0"
+    stt_model: str = "distil-whisper/distil-small.en"  # the whisper backend
     stt_device: Literal["auto", "cpu", "cuda"] = "auto"  # auto: CUDA when torch sees a GPU
     stt_max_seconds: float = Field(default=60.0, gt=0)  # longer recordings are refused
     tts_enabled: bool = True
     tts_repo: str = "onnx-community/Kokoro-82M-v1.0-ONNX"  # hexgrad/Kokoro-82M v1.0, exported to ONNX
     tts_model_file: str = "onnx/model_quantized.onnx"  # int8, 92 MB, fastest on CPU; onnx/model.onnx = fp32
+    # GPU: with onnxruntime-gpu installed (auto: when ONNX Runtime has CUDA) the fp16 model runs on CUDA instead
+    # (int8 ops have no fast CUDA kernels).
+    tts_device: Literal["auto", "cpu", "cuda"] = "auto"
+    tts_gpu_model_file: str = "onnx/model_fp16.onnx"
     tts_voice: str = "af_heart"
     tts_speed: float = Field(default=1.0, ge=0.5, le=2.0)
     tts_max_chars: int = Field(default=1200, gt=0)  # longer answers are read up to a sentence boundary

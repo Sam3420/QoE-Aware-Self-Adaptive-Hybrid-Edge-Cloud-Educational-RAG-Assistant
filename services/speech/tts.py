@@ -46,8 +46,10 @@ class KokoroTTS:
     """Lazy-loaded Kokoro; `synthesize` returns WAV bytes ready for st.audio."""
 
     def __init__(self, *, repo_id: str, model_file: str, voice: str = "af_heart", speed: float = 1.0,
-                 cache_dir: Path | None = None, max_chars: int = 1200, engine: Any = None) -> None:
+                 cache_dir: Path | None = None, max_chars: int = 1200, engine: Any = None, device: str = "auto",
+                 gpu_model_file: str = "onnx/model_fp16.onnx") -> None:
         self.repo_id, self.model_file, self.voice, self.speed = repo_id, model_file, voice, speed
+        self.device, self.gpu_model_file, self.device_used = device, gpu_model_file, None
         self.cache_dir, self.max_chars = cache_dir, max_chars
         self._engine = engine  # tests inject a fake with .create(text, voice=, speed=, lang=)
         self._voices: dict[str, np.ndarray] = {}
@@ -63,9 +65,14 @@ class KokoroTTS:
             if self._engine is not None:
                 return 0.0
             start = time.perf_counter()
+            import onnxruntime as ort
             from huggingface_hub import hf_hub_download
             from kokoro_onnx import Kokoro
 
+            cuda = self.device in ("auto", "cuda") and "CUDAExecutionProvider" in ort.get_available_providers()
+            if cuda and hasattr(ort, "preload_dlls"):
+                ort.preload_dlls()  # Windows: load the CUDA/cuDNN DLLs installed by onnxruntime-gpu[cuda,cudnn]
+            self.model_file = self.gpu_model_file if cuda else self.model_file
             cache = str(self.cache_dir) if self.cache_dir else None
             model_path = hf_hub_download(self.repo_id, self.model_file, cache_dir=cache)
             wanted = dict.fromkeys((self.voice, *VOICES))
@@ -75,10 +82,25 @@ class KokoroTTS:
             packed = Path(model_path).parent.parent / "voices.npz"
             if not packed.exists():
                 np.savez(packed, **self._voices)
-            self._engine = Kokoro(model_path, str(packed))
+            providers = ["CUDAExecutionProvider", "CPUExecutionProvider"] if cuda else ["CPUExecutionProvider"]
+            session = ort.InferenceSession(model_path, providers=providers)
+            self.device_used = "cuda" if session.get_providers()[0] == "CUDAExecutionProvider" else "cpu"
+            self._engine = Kokoro.from_session(session, str(packed))
             return time.perf_counter() - start
 
-    def synthesize(self, text: str, *, voice: str | None = None, speed: float | None = None,
+    def _style(self, name: str) -> Any:
+        """The voice's style vector, downloading voices not fetched at load (e.g. Hindi hf_alpha); or the name."""
+        if name not in self._voices and self._engine is not None and not hasattr(self._engine, "voices"):
+            return name  # an injected test engine
+        if name not in self._voices:
+            from huggingface_hub import hf_hub_download
+
+            path = hf_hub_download(self.repo_id, f"voices/{name}.bin",
+                                   cache_dir=str(self.cache_dir) if self.cache_dir else None)
+            self._voices[name] = np.fromfile(path, dtype=np.float32).reshape(-1, 1, 256)
+        return self._voices[name]
+
+    def synthesize(self, text: str, *, voice: str | None = None, speed: float | None = None, lang: str = "en-us",
                    user_id: str | None = None, session_id: str | None = None) -> Speech:
         """Speech for an answer (markdown and citations removed; long answers cut at a sentence boundary).
 
@@ -97,12 +119,14 @@ class KokoroTTS:
                 with tracing.observation("load-tts-model", as_type="span",
                                          input={"repo": self.repo_id, "file": self.model_file}) as obs:
                     load_s = self.load()
-                    obs.update(output={"seconds": round(load_s, 1)})
+                    obs.update(output={"seconds": round(load_s, 1), "device": self.device_used,
+                                       "model_file": self.model_file})
             with tracing.observation("synthesize-speech", as_type="span", input=tracing.preview(spoken, 300),
-                                     metadata={"model": self.repo_id, "voice": name}) as obs:
+                                     metadata={"model": self.repo_id, "voice": name, "device": self.device_used,
+                                               "model_file": self.model_file}) as obs:
                 start = time.perf_counter()
-                style = self._voices.get(name, name)  # a loaded style vector, or a name the engine knows
-                samples, rate = self._engine.create(spoken, voice=style, speed=speed or self.speed, lang="en-us")
+                style = self._style(name)
+                samples, rate = self._engine.create(spoken, voice=style, speed=speed or self.speed, lang=lang)
                 latency = (time.perf_counter() - start) * 1000
                 duration = len(samples) / rate
                 obs.update(output={"duration_s": round(duration, 2), "latency_ms": round(latency)})

@@ -164,3 +164,36 @@ def test_an_unreadable_recording_asks_the_learner_to_retry_or_type(fake_speech):
     at = AppTest.from_function(failed_recording_page, default_timeout=30).run()
     assert not at.exception and "try again or type" in at.error[0].value
     assert any("QUESTION=None" in m.value for m in at.markdown)
+
+
+def test_sravaani_transcribes_through_its_file_api_and_cleans_up(monkeypatch):
+    from pathlib import Path
+
+    from services.speech.audio import decode_wav
+    from services.speech.stt import SraVaaniSTT
+
+    seen = {}
+
+    class FakeSraVaani:  # the remote-code model's documented API: transcribe(paths, return_hypotheses=True)
+        def transcribe(self, paths, return_hypotheses=False):
+            seen["path"] = Path(paths[0])
+            seen["rate"] = decode_wav(seen["path"].read_bytes())[1]
+            return [NS(text=" प्रकाश संश्लेषण क्या है? ")]
+
+    stt = SraVaaniSTT(model_id="ARTPARK-IISc/SraVaani-1.0", pipeline=FakeSraVaani())
+    heard = stt.transcribe(encode_wav(tone(1.0, 48000), 48000))
+    assert heard.text == "प्रकाश संश्लेषण क्या है?" and heard.model == "ARTPARK-IISc/SraVaani-1.0"
+    assert seen["rate"] == 16000 and not seen["path"].exists()  # resampled; the temporary file is removed
+
+
+def test_stt_backend_setting_picks_the_model(monkeypatch):
+    from config import settings
+    from services.speech.stt import SraVaaniSTT, WhisperSTT
+
+    monkeypatch.setattr(speech, "_stt", None)
+    monkeypatch.setattr(settings, "stt_backend", "sravaani")
+    assert isinstance(speech.get_stt(), SraVaaniSTT) and speech.get_stt().model_id == settings.stt_sravaani_model
+    monkeypatch.setattr(speech, "_stt", None)
+    monkeypatch.setattr(settings, "stt_backend", "whisper")
+    assert isinstance(speech.get_stt(), WhisperSTT)
+    monkeypatch.setattr(speech, "_stt", None)

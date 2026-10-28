@@ -1,6 +1,6 @@
 """Speech for accessibility: speech-to-text for spoken questions and text-to-speech for reading answers aloud.
 
-    STT: distil-whisper/distil-small.en (transformers + torch)          services/speech/stt.py
+    STT: SraVaani 1.0 (Indian languages + English) or distil-whisper   services/speech/stt.py
     TTS: Kokoro-82M, ONNX export of hexgrad/Kokoro-82M (kokoro-onnx)     services/speech/tts.py
 
 Both are optional (requirements-speech.txt) and load lazily on first use; models come from Hugging Face into the
@@ -17,14 +17,19 @@ _tts: Any = None
 
 
 def get_stt() -> Any:
-    """The shared WhisperSTT (models load on first transcription)."""
+    """The shared speech-to-text model for STT_BACKEND (it loads on the first transcription)."""
     global _stt
     with _lock:
         if _stt is None:
-            from services.speech.stt import WhisperSTT
+            from services.speech.stt import SraVaaniSTT, WhisperSTT
 
-            _stt = WhisperSTT(model_id=settings.stt_model, device=settings.stt_device,
-                              cache_dir=settings.speech_cache_dir, max_seconds=settings.stt_max_seconds)
+            common = {"device": settings.stt_device, "cache_dir": settings.speech_cache_dir,
+                      "max_seconds": settings.stt_max_seconds}
+            if settings.stt_backend == "sravaani":
+                token = settings.hf_token.get_secret_value() if settings.hf_token else None
+                _stt = SraVaaniSTT(model_id=settings.stt_sravaani_model, token=token, **common)
+            else:
+                _stt = WhisperSTT(model_id=settings.stt_model, **common)
         return _stt
 
 
@@ -37,7 +42,8 @@ def get_tts() -> Any:
 
             _tts = KokoroTTS(repo_id=settings.tts_repo, model_file=settings.tts_model_file,
                              voice=settings.tts_voice, speed=settings.tts_speed, cache_dir=settings.speech_cache_dir,
-                             max_chars=settings.tts_max_chars)
+                             max_chars=settings.tts_max_chars, device=settings.tts_device,
+                             gpu_model_file=settings.tts_gpu_model_file)
         return _tts
 
 

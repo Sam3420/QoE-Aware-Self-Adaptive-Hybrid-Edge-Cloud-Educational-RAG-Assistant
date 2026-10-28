@@ -115,7 +115,9 @@ def settings_panel() -> None:
     stt_ok, tts_ok = stt_available(), tts_available()
     with st.expander("Accessibility", icon=":material/accessibility_new:"):
         if stt_ok:
-            st.caption(":material/mic: Tap the mic in the question box to ask by voice (English).")
+            st.caption(":material/mic: Tap the mic in the question box to ask by voice"
+                       + (" in English or an Indian language." if settings.stt_backend == "sravaani" else
+                          " (English)."))
         else:
             st.caption(f"Voice questions unavailable: {speech.status()['stt'] or 'needs a newer Streamlit'}.")
         if not tts_ok:

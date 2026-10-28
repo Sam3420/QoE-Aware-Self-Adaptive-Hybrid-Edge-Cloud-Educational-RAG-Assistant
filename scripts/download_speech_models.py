@@ -3,10 +3,11 @@
   .venv\\Scripts\\python scripts\\download_speech_models.py            # download + round-trip check
   .venv\\Scripts\\python scripts\\download_speech_models.py --save out  # also keep the synthesised WAV files
 
-STT: distil-whisper/distil-small.en (only model.safetensors + configs, ~335 MB).
+STT: STT_BACKEND=sravaani -> ARTPARK-IISc/SraVaani-1.0 (~900 MB, gated: accept its terms on Hugging Face first);
+     STT_BACKEND=whisper  -> distil-whisper/distil-small.en (only model.safetensors + configs, ~335 MB).
 TTS: onnx-community/Kokoro-82M-v1.0-ONNX (the ONNX export of hexgrad/Kokoro-82M; int8 model ~92 MB + 5 voices).
-The round trip speaks a few lesson sentences with Kokoro, transcribes them with Whisper and reports the word error
-rate, so a broken install shows up here instead of in a learner's session.
+The round trip speaks a few lesson sentences with Kokoro (English, plus Hindi for SraVaani), transcribes them and
+reports the word error rate, so a broken install shows up here instead of in a learner's session.
 """
 import argparse
 import re
@@ -17,15 +18,19 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from services.speech import get_stt, get_tts, status  # noqa: E402
 
-SENTENCES = [
-    "Plants make their own food by photosynthesis using sunlight, water and carbon dioxide.",
-    "What is the difference between aerobic and anaerobic respiration?",
-    "Dominant traits are expressed even when only one copy of the gene is present.",
+SENTENCES = [  # (text, Kokoro language, Kokoro voice)
+    ("Plants make their own food by photosynthesis using sunlight, water and carbon dioxide.", "en-us", None),
+    ("What is the difference between aerobic and anaerobic respiration?", "en-us", None),
+    ("Dominant traits are expressed even when only one copy of the gene is present.", "en-us", None),
+]
+HINDI = [
+    ("पौधे सूर्य के प्रकाश से अपना भोजन बनाते हैं।", "hi", "hf_alpha"),
+    ("श्वसन क्रिया में ऊर्जा कैसे निकलती है?", "hi", "hm_omega"),
 ]
 
 
 def words(text: str) -> list[str]:
-    return re.sub(r"[^a-z0-9' ]", " ", text.lower()).split()
+    return re.sub(r"[^\w' ]", " ", text.lower()).split()  # \w keeps Devanagari and other scripts
 
 
 def wer(reference: str, hypothesis: str) -> float:
@@ -51,9 +56,12 @@ def main() -> int:
     stt, tts = get_stt(), get_tts()
     print(f"STT {stt.model_id}: loaded in {stt.load():.1f}s")
     print(f"TTS {tts.repo_id} ({tts.model_file}): loaded in {tts.load():.1f}s")
+    from config import settings
+
+    sentences = SENTENCES + (HINDI if settings.stt_backend == "sravaani" else [])
     errors = []
-    for i, sentence in enumerate(SENTENCES, 1):
-        speech = tts.synthesize(sentence)
+    for i, (sentence, lang, voice) in enumerate(sentences, 1):
+        speech = tts.synthesize(sentence, lang=lang, voice=voice)
         heard = stt.transcribe(speech.wav)
         errors.append(wer(sentence, heard.text))
         print(f"\n[{i}] said : {sentence}\n    heard: {heard.text}\n    TTS {speech.latency_ms:.0f} ms for "
