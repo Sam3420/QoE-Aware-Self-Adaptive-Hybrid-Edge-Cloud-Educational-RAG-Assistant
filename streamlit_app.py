@@ -311,7 +311,7 @@ with st.sidebar:
                  "crag_min_chunk_score": settings.crag_min_chunk_score,
                  "knn_k": settings.knn_k, "min_experiences": settings.min_experiences,
                  "epsilon": settings.epsilon, "max_questions_per_session": settings.max_questions_per_session,
-                 "local_llm_model": settings.local_llm_model, "cloud_llm_model": settings.cloud_llm_model,
+                 "local_llm_model": settings.local_llm_model, "cloud_llm_model": settings.groq_model,
                  "embedding_backend": settings.embedding_backend})
 
 if err := st.session_state.pop("last_error", None):

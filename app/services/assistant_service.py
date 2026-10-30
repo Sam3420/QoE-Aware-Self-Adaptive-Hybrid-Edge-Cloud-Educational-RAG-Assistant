@@ -71,7 +71,7 @@ class AssistantService:
                     runtime_configuration_id=runtime_configuration.id,
                     user_input=question,
                     response_latency_ms=latency_ms,
-                    model_provider="huggingface",
+                    model_provider=getattr(self.llm_provider, "provider_name", "groq"),
                     model_name=llm_request.model_id,
                     status=InteractionStatus.FAILED,
                     error_message="LLM provider failed to generate a response.",
@@ -134,13 +134,13 @@ class AssistantService:
 
         return self.repository.get_or_create_runtime_configuration_snapshot(
             name=self.settings.default_runtime_configuration_name,
-            description="Default Hugging Face text assistant configuration.",
+            description="Default Groq text assistant configuration.",
             configuration_data=self._default_runtime_configuration_data(),
         )
 
     def _default_runtime_configuration_data(self) -> dict:
         return {
-            "provider": "huggingface",
+            "provider": "groq",
             "model_id": self.settings.llm_model_id,
             "max_tokens": self.settings.llm_max_tokens,
             "temperature": self.settings.llm_temperature,

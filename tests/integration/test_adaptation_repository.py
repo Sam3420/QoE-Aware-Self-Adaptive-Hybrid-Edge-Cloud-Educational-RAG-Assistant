@@ -188,12 +188,12 @@ def test_question_bank_round_trip(repository):
     assert repository.get_question_bank("algebra") is None
 
     items = [{"question": "Q", "options": ["a", "b", "c", "d"], "answer_index": 2, "concept": "c"}]
-    repository.save_question_bank(topic_id="algebra", items=items, model_provider="hf", model_name="qwen")
+    repository.save_question_bank(topic_id="algebra", items=items, model_provider="hf", model_name="llama")
 
     bank = repository.get_question_bank("algebra")
     assert bank["items"] == items
     assert bank["n_items"] == 1
-    assert bank["model_name"] == "qwen"
+    assert bank["model_name"] == "llama"
 
 
 def test_base_metadata_contains_new_tables():

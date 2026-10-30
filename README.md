@@ -141,9 +141,9 @@ Assistant Service
       ↓
 LLM Provider
       ↓
-Hugging Face Inference API
+Groq API
       ↓
-Qwen/Qwen2.5-1.5B-Instruct
+openai/gpt-oss-120b
       ↓
 Generated Response
       ↓
@@ -157,8 +157,8 @@ Implemented functionality:
 - Text-based question API
 - Assistant interaction service
 - Minimal LLM provider interface
-- Hugging Face Inference API integration
-- `Qwen/Qwen2.5-1.5B-Instruct`
+- Groq API integration
+- `openai/gpt-oss-120b` on Groq
 - Interaction persistence
 - Question and response storage
 - Latency recording
@@ -531,8 +531,8 @@ Key technologies and concepts include:
 - Python
 - REST API
 - Database-backed persistence
-- Hugging Face Inference API
-- Qwen/Qwen2.5-1.5B-Instruct
+- Groq API
+- openai/gpt-oss-120b
 - YouTube Data API
 - Transcript processing
 - Text embeddings
@@ -556,8 +556,8 @@ Create a local `.env` file based on `.env.example` and provide the required cred
 Example configuration values include:
 
 ```text
-HUGGINGFACE_API_TOKEN=
-HUGGINGFACE_MODEL_ID=Qwen/Qwen2.5-1.5B-Instruct
+GROQ_API_KEY=
+GROQ_MODEL=openai/gpt-oss-120b
 YOUTUBE_API_KEY=
 ```
 

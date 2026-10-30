@@ -7,7 +7,8 @@ import pandas as pd
 import streamlit as st
 
 from config import settings
-from frontend.clients import data_access
+from frontend import resources
+from frontend.clients import api_client, data_access
 from frontend.clients.agent_backend import AgentBackend, StepResult
 from frontend.components import chat, speech
 from frontend.components.mastery import mastery_panel
@@ -162,6 +163,43 @@ def _select_video(backend: AgentBackend, thread_id: str, values: dict[str, Any],
     if c2.button("Take the post-test" if watched else "End session",
                  icon=":material/flag:" if watched else ":material/stop:", width="stretch"):
         _remember(backend.resume(thread_id, {"end": True}), "Take the post-test" if watched else "End session")
+        st.rerun()
+    _general_questions(backend, thread_id, values["student_id"])
+
+
+def _general_questions(backend: AgentBackend, thread_id: str, learner_id: str) -> None:
+    """Questions while choosing a video: the Quick-ask route (FastAPI + Groq, no retrieval), one chat per session.
+
+    Doubts about a video's content are asked after choosing it, where answers come from its transcript.
+    """
+    st.subheader("Ask a question")
+    st.caption("Ask anything about the topic while you choose a video. Answers come from the cloud model without "
+               "the lesson videos; after choosing a video, your doubts are answered from that video.")
+    key = f"api-session-{thread_id}"
+    session_id = st.session_state.get(key)
+    if session_id and not data_access.session_exists(session_id, learner_id):
+        session_id = st.session_state[key] = None
+    for row in data_access.session_interactions(session_id) if session_id else []:
+        chat.api_interaction(row)
+    if err := st.session_state.pop(f"{key}-error", None):
+        st.error(err, icon=":material/error:")
+
+    health = resources.api_health(api_client.DEFAULT_API_URL)
+    if not health.ok:
+        st.caption(f"Unavailable: {health.error}")
+    prompt, spoken = speech.question_box("Ask about the topic…", key=f"general-{thread_id}", max_chars=4000,
+                                         disabled=not health.ok, session_id=session_id)
+    if prompt:
+        if session_id is None:
+            session_id = st.session_state[key] = backend.services.app.create_learning_session(learner_id)
+        with st.chat_message("user"):
+            st.write(prompt)
+            speech.spoken_caption(spoken)
+        with st.spinner("Thinking…"):
+            try:
+                api_client.ask_text_question(session_id, prompt)
+            except api_client.ApiError as exc:
+                st.session_state[f"{key}-error"] = str(exc)
         st.rerun()
 
 

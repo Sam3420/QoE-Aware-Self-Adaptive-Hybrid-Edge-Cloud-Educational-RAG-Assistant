@@ -1,4 +1,4 @@
-"""Cloud route provider: Groq when its key is set (CLOUD_PROVIDER=auto), Hugging Face otherwise."""
+"""Cloud route provider: Groq only (no Hugging Face LLM)."""
 import httpx
 import pytest
 
@@ -16,7 +16,7 @@ def _request():
                              temperature=0.2, operation="generate-answer")
 
 
-def test_auto_prefers_groq_when_its_key_is_set():
+def test_cloud_route_is_groq():
     client = make_cloud_client(_settings(GROQ_API_KEY="gsk_x", HF_TOKEN="hf_x"))
     assert (client.label, client.model) == ("groq", "openai/gpt-oss-120b") and client.is_available()
 
@@ -25,15 +25,10 @@ def test_misspelt_grok_variable_is_accepted():
     assert make_cloud_client(_settings(GROK_API_KEY="gsk_x")).label == "groq"
 
 
-def test_auto_falls_back_to_hugging_face_without_a_groq_key():
+def test_without_a_groq_key_the_cloud_route_is_unavailable_even_with_an_hf_token():
     client = make_cloud_client(_settings(HF_TOKEN="hf_x"))
-    assert (client.label, client.model) == ("huggingface", "meta-llama/Llama-3.1-8B-Instruct")
-
-
-def test_provider_can_be_forced():
-    client = make_cloud_client(_settings(GROQ_API_KEY="gsk_x", cloud_provider="huggingface"))
-    assert client.label == "huggingface" and not client.is_available()  # no HF token
-    with pytest.raises(LLMError, match="HF_TOKEN is not configured"):
+    assert client.label == "groq" and not client.is_available()
+    with pytest.raises(LLMError, match="GROQ_API_KEY is not configured"):
         client.generate(_request())
 
 
@@ -56,7 +51,7 @@ def test_groq_request_carries_reasoning_effort_and_reads_the_answer(monkeypatch)
 
 
 def test_reasoning_effort_is_only_sent_to_reasoning_models():
-    client = make_cloud_client(_settings(GROQ_API_KEY="gsk_x", groq_model="qwen/qwen3.8-27b"))
+    client = make_cloud_client(_settings(GROQ_API_KEY="gsk_x", groq_model="llama-3.1-8b-instant"))
     assert client._extra == {}
 
 

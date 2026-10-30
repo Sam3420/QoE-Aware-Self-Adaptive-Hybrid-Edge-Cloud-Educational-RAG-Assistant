@@ -7,7 +7,7 @@ from app.core.config import get_settings as get_app_settings
 from frontend import resources
 from frontend.clients import api_client, data_access
 from frontend.clients.agent_backend import AgentBackend
-from frontend.components import chat
+from frontend.components import chat, speech
 from frontend.components.ui import code_id, page_header
 from frontend.utils import state
 
@@ -24,7 +24,7 @@ def _ensure_api_session(backend: AgentBackend, learner_id: str) -> str:
 
 def render(backend: AgentBackend, learner: dict[str, Any] | None) -> None:
     page_header("Quick ask", "FastAPI · POST /sessions/{id}/interactions/text-question",
-                f"Sends your question over HTTP to the backend's AssistantService, which calls the Hugging Face "
+                f"Sends your question over HTTP to the backend's AssistantService, which calls the Groq "
                 f"model `{get_app_settings().llm_model_id}` and stores the interaction. This route has no "
                 f"retrieval or personalization; use Learning session for the RAG agent.")
     if learner is None:
@@ -59,10 +59,13 @@ def render(backend: AgentBackend, learner: dict[str, Any] | None) -> None:
         if err.get("interaction_id"):
             st.caption(f"The backend recorded this failure as interaction `{err['interaction_id']}` (shown above).")
 
-    if prompt := st.chat_input("Ask the assistant…", max_chars=4000, disabled=not health.ok):
+    prompt, spoken = speech.question_box("Ask the assistant…", key="quick_ask_input", max_chars=4000,
+                                         disabled=not health.ok, session_id=session_id)
+    if prompt:
         session_id = _ensure_api_session(backend, learner["id"])
         with st.chat_message("user"):
             st.write(prompt)
+            speech.spoken_caption(spoken)
         with st.spinner(f"Waiting for the backend and {get_app_settings().llm_model_id}…"):
             try:
                 api_client.ask_text_question(session_id, prompt)

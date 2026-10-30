@@ -52,10 +52,10 @@ ollama pull nomic-embed-text   # embeddings for FAISS retrieval
 
 | Variable | Used by | Notes |
 |---|---|---|
-| `HF_TOKEN` | API assistant, agent cloud route, MCQ generation | **Required for any cloud LLM.** (The main README says `HUGGINGFACE_API_TOKEN`; the code reads `HF_TOKEN`.) |
+| `HF_TOKEN` | Speech-to-text model download | Only to download the gated SraVaani model; no LLM runs on Hugging Face. |
 | `EMBEDDING_BACKEND` | Agent retrieval, index building | `ollama` (default, needs Ollama + `nomic-embed-text`) or `hashing` (model-free; see limitation below) |
-| `LLM_MODEL_ID` | API assistant | default `Qwen/Qwen2.5-1.5B-Instruct` |
-| `CLOUD_LLM_MODEL` | Agent cloud route + MCQs | default `meta-llama/Llama-3.1-8B-Instruct` |
+| `GROQ_API_KEY` | API assistant, agent cloud route, MCQ generation | **Required for any cloud LLM** (Groq). |
+| `GROQ_MODEL` / `LLM_MODEL_ID` | Agent cloud route + MCQs / API assistant | default `openai/gpt-oss-120b`; the API assistant uses `GROQ_MODEL` unless `LLM_MODEL_ID` is set |
 | `LOCAL_LLM_MODEL`, `OLLAMA_BASE_URL` | Agent local route | default `gemma3:1b`, `http://127.0.0.1:11434` |
 | `DATABASE_PATH` / `DATABASE_URL` | Both | default `data/app.db` |
 | `YOUTUBE_API_KEY` | Video recommendations | YouTube Data API v3 key; see docs/recommendations.md |

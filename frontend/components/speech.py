@@ -26,12 +26,16 @@ def tts_available() -> bool:
     return speech.status()["tts"] is None
 
 
-def question_box(placeholder: str, *, key: str) -> tuple[str | None, dict[str, Any] | None]:
-    """The question box: (question, spoken) where spoken describes a transcribed recording (None when typed)."""
+def question_box(placeholder: str, *, key: str, max_chars: int = 2000, disabled: bool = False,
+                 session_id: str | None = None) -> tuple[str | None, dict[str, Any] | None]:
+    """The question box: (question, spoken) where spoken describes a transcribed recording (None when typed).
+
+    session_id: the Langfuse session for the speech trace (default: the active agent session).
+    """
     if not stt_available():
-        return st.chat_input(placeholder, max_chars=2000, key=key), None
-    value = st.chat_input(f"{placeholder} (or tap the mic)", max_chars=2000, key=key, accept_audio=True,
-                          audio_sample_rate=16000)
+        return st.chat_input(placeholder, max_chars=max_chars, key=key, disabled=disabled), None
+    value = st.chat_input(f"{placeholder} (or tap the mic)", max_chars=max_chars, key=key, disabled=disabled,
+                          accept_audio=True, audio_sample_rate=16000)
     if value is None:
         return None, None
     typed = (value.text or "").strip()
@@ -40,7 +44,9 @@ def question_box(placeholder: str, *, key: str) -> tuple[str | None, dict[str, A
         return typed or None, None
     try:
         with st.spinner("Listening to your question…"):
-            heard = speech.get_stt().transcribe(audio.getvalue(), **_trace_ids())
+            ids = _trace_ids()
+            heard = speech.get_stt().transcribe(audio.getvalue(), user_id=ids["user_id"],
+                                                session_id=session_id or ids["session_id"])
     except Exception as exc:  # unreadable or too long recording, model not downloadable: the learner can type
         st.error(f"Couldn't understand the recording ({exc}). Please try again or type your question.",
                  icon=":material/mic_off:")

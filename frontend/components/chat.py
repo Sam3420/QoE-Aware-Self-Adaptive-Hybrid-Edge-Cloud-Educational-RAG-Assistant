@@ -96,6 +96,9 @@ def api_interaction(row: dict[str, Any]) -> None:
     with st.chat_message("assistant", avatar=":material/smart_toy:"):
         if row["status"] == "completed":
             st.markdown(row["assistant_output"] or "")
+            from frontend.components.speech import listen_button
+
+            listen_button(row["assistant_output"], key=row["id"])
             st.caption(f"**{row['model_provider']}:{row['model_name']}** · {ms(row['response_latency_ms'])} · "
                        f"{when(row['occurred_at'])}")
         else:

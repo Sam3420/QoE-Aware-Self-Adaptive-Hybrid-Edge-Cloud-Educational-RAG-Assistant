@@ -1,7 +1,9 @@
 from functools import lru_cache
 from pathlib import Path
 
-from pydantic import Field, SecretStr, computed_field
+from typing import Literal
+
+from pydantic import AliasChoices, Field, SecretStr, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -17,13 +19,15 @@ class Settings(BaseSettings):
     vector_index_storage_path: Path = Field(default=Path("data/vector_indexes"))
     metrics_storage_path: Path = Field(default=Path("data/metrics"))
     experience_storage_path: Path = Field(default=Path("data/experiences"))
-    hf_token: SecretStr | None = None
-    llm_model_id: str = "Qwen/Qwen2.5-1.5B-Instruct"
-    hf_inference_url: str = "https://router.huggingface.co/v1/chat/completions"
+    # Cloud LLM (Quick ask and MCQ generation): Groq. The model is LLM_MODEL_ID, or GROQ_MODEL as the agent uses.
+    groq_api_key: SecretStr | None = Field(default=None, validation_alias=AliasChoices("GROQ_API_KEY", "GROK_API_KEY"))
+    groq_url: str = "https://api.groq.com/openai/v1/chat/completions"
+    llm_model_id: str = Field(default="openai/gpt-oss-120b", validation_alias=AliasChoices("LLM_MODEL_ID", "GROQ_MODEL"))
+    groq_reasoning_effort: Literal["low", "medium", "high"] | None = "low"
     llm_timeout_seconds: float = Field(default=30.0, gt=0)
     llm_max_tokens: int = Field(default=512, gt=0)
     llm_temperature: float = Field(default=0.2, ge=0)
-    default_runtime_configuration_name: str = "huggingface-qwen-text"
+    default_runtime_configuration_name: str = "groq-text"
     competency_beginner_max: float = Field(default=0.4, ge=0, le=1)
     competency_intermediate_max: float = Field(default=0.75, ge=0, le=1)
     mcq_n_items: int = Field(default=5, gt=0)  # questions per LLM generation call (bank creation and top-ups)
@@ -46,6 +50,7 @@ class Settings(BaseSettings):
         env_file=".env",
         env_file_encoding="utf-8",
         extra="ignore",
+        populate_by_name=True,
     )
 
     @computed_field

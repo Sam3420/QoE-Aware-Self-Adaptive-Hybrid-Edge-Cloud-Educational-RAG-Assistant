@@ -16,7 +16,7 @@ from app.core.logging import get_logger
 from app.db.repositories import AdaptationRepository
 from app.domain.enums import CompetencyLevel
 from app.domain.models import MCQItem
-from app.llm.huggingface_provider import HuggingFaceInferenceProvider
+from app.llm.groq_provider import make_groq_provider
 from app.llm.provider import LLMProvider
 from app.llm.types import LLMGenerateRequest, LLMGenerateResult, LLMProviderError
 from app.services.errors import MCQGenerationError, VectorStoreUnavailableError
@@ -440,12 +440,7 @@ def _parse_items(text: str, n: int) -> list[dict[str, Any]]:
 
 
 def _default_llm_provider(settings: Settings) -> LLMProvider:
-    token = settings.hf_token.get_secret_value() if settings.hf_token else ""
     try:
-        return HuggingFaceInferenceProvider(
-            token=token,
-            inference_url=settings.hf_inference_url,
-            timeout_seconds=settings.llm_timeout_seconds,
-        )
+        return make_groq_provider(settings)
     except LLMProviderError as exc:
         raise MCQGenerationError(f"LLM provider is not configured: {exc}") from exc

@@ -1,4 +1,4 @@
-"""LLM clients: local SLM via Ollama, cloud LLM via Hugging Face, and a model-free extractive fallback."""
+"""LLM clients: local SLM via Ollama, cloud LLM via Groq, and a model-free extractive fallback."""
 import json
 import re
 import time
@@ -200,12 +200,12 @@ class OllamaClient:
 
 
 class OpenAICompatibleClient:
-    """Cloud LLM behind an OpenAI chat-completions endpoint (Groq, Hugging Face router)."""
+    """Cloud LLM behind an OpenAI chat-completions endpoint (Groq)."""
 
     provider = "cloud"
 
     def __init__(self, *, model: str, url: str, token: SecretStr | None, timeout_s: float,
-                 label: str = "huggingface", token_env: str = "HF_TOKEN",
+                 label: str = "groq", token_env: str = "GROQ_API_KEY",
                  extra_body: dict[str, Any] | None = None) -> None:
         self.model = model
         self.label = label  # which service, for traces and error messages
@@ -252,10 +252,6 @@ class OpenAICompatibleClient:
             return GenerationResult(text=text, provider=self.provider, model=self.model,
                                     latency_ms=(time.perf_counter() - start) * 1000,
                                     completion_tokens=usage.get("completion_tokens"))
-
-
-class HuggingFaceClient(OpenAICompatibleClient):
-    """The Hugging Face router (kept for existing callers)."""
 
 
 def _http_detail(exc: Exception) -> str:

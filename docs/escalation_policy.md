@@ -132,7 +132,7 @@ These need `GROQ_API_KEY` (or `GROK_API_KEY`). Without it, P5 behaves like P2 (l
 
 ## Limitations
 
-1. **Check latency (~0.8–1.8 s).** A faster check model (Groq `qwen/qwen3.8-27b` answered in ~0.55 s in our tests) or
+1. **Check latency (~0.8–1.8 s).** A faster check model or
    checking only some answers would reduce it. Measure before changing.
 2. **The check measures support by the video, not truth.** A claim that is correct but absent from the chunks counts as
    unsupported, which leads to unnecessary escalations.

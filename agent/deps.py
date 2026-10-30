@@ -57,29 +57,22 @@ def make_embedder(cfg: Settings = settings) -> Embedder:
     return OllamaEmbedder(model=cfg.embedding_model, base_url=cfg.ollama_base_url, keep_alive=cfg.ollama_keep_alive)
 
 
-def _uses_groq(cfg: Settings) -> bool:
-    return cfg.cloud_provider == "groq" or (cfg.cloud_provider == "auto" and cfg.groq_api_key is not None)
-
-
 def make_cloud_client(cfg: Settings = settings, *, model: str | None = None) -> OpenAICompatibleClient:
-    """The cloud route: Groq when chosen (or, with CLOUD_PROVIDER=auto, when a Groq key is set), else Hugging Face.
+    """The cloud route: Groq (unavailable without GROQ_API_KEY).
 
-    `model` overrides the provider's default model (P5's grounding check uses a smaller one).
+    `model` overrides GROQ_MODEL (P5's grounding check uses a smaller one).
     """
-    if _uses_groq(cfg):
-        model = model or cfg.groq_model
-        extra = ({"reasoning_effort": cfg.groq_reasoning_effort}
-                 if cfg.groq_reasoning_effort and model.startswith("openai/gpt-oss") else {})
-        return OpenAICompatibleClient(model=model, url=cfg.groq_url, token=cfg.groq_api_key,
-                                      timeout_s=cfg.cloud_llm_timeout_s, label="groq", token_env="GROQ_API_KEY",
-                                      extra_body=extra)
-    return OpenAICompatibleClient(model=model or cfg.cloud_llm_model, url=cfg.hf_inference_url, token=cfg.hf_token,
-                                  timeout_s=cfg.cloud_llm_timeout_s, label="huggingface", token_env="HF_TOKEN")
+    model = model or cfg.groq_model
+    extra = ({"reasoning_effort": cfg.groq_reasoning_effort}
+             if cfg.groq_reasoning_effort and model.startswith("openai/gpt-oss") else {})
+    return OpenAICompatibleClient(model=model, url=cfg.groq_url, token=cfg.groq_api_key,
+                                  timeout_s=cfg.cloud_llm_timeout_s, label="groq", token_env="GROQ_API_KEY",
+                                  extra_body=extra)
 
 
 def make_verifier(cfg: Settings = settings) -> OpenAICompatibleClient | None:
     """P5's grounding checker: the check model on Groq, or None when disabled or Groq is not configured."""
-    if not cfg.escalation_check_enabled or not _uses_groq(cfg) or cfg.groq_api_key is None:
+    if not cfg.escalation_check_enabled or cfg.groq_api_key is None:
         return None
     return make_cloud_client(cfg, model=cfg.escalation_check_model)
 

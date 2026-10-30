@@ -53,12 +53,9 @@ class Settings(BaseSettings):
     prewarm_question_banks: bool = True  # then generate missing topic question banks in the background
     local_llm_model: str = "gemma3:1b"
     local_llm_timeout_s: float = Field(default=180.0, gt=0)
-    # Cloud route: "auto" uses Groq when a Groq key is set, otherwise Hugging Face. Both speak the OpenAI
-    # chat-completions format.
-    cloud_provider: Literal["auto", "groq", "huggingface"] = "auto"
+    # HF_TOKEN: only for downloading gated models (SraVaani speech-to-text); no LLM runs on Hugging Face.
     hf_token: SecretStr | None = None
-    hf_inference_url: str = "https://router.huggingface.co/v1/chat/completions"
-    cloud_llm_model: str = "meta-llama/Llama-3.1-8B-Instruct"  # Hugging Face model
+    # Cloud route: Groq (OpenAI chat-completions format).
     # GROQ_API_KEY (GROK_API_KEY is accepted too: the variable is easy to misspell; xAI's Grok is not supported).
     groq_api_key: SecretStr | None = Field(default=None, validation_alias=AliasChoices("GROQ_API_KEY", "GROK_API_KEY"))
     groq_url: str = "https://api.groq.com/openai/v1/chat/completions"
