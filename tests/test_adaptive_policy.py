@@ -196,3 +196,56 @@ def test_ewm_estimation_is_persisted_and_only_active_when_enabled(services, monk
     few, rec_few = estimate_group(store, "utility", activate=True)
     assert few.method == "fallback" and not rec_few["active"]  # a fallback is stored but never activated
     assert store.weights().get("utility") == pytest.approx({"QOE": 0.5, "SRE": 0.5})  # previous EWM set stays
+
+
+# ---- v2 engine (POLICY_ENGINE=v2) -----------------------------------------------------------------
+
+@pytest.fixture
+def v2(services, monkeypatch):
+    from config import settings
+
+    monkeypatch.setattr(settings, "policy_engine", "v2")
+    monkeypatch.setattr(settings, "policy_v2_epsilon", 0.0)
+    services.experiences = None  # rebuilt with the v2 (log-RTT) embedder
+    return services
+
+
+def test_v2_log_rtt_separates_a_poor_network_from_an_unreachable_cloud():
+    from agent.experience_store import StateEmbedder
+
+    linear = StateEmbedder(rtt_max_ms=2000, default_last_qoe=0.5)
+    log = StateEmbedder(rtt_max_ms=5000, default_last_qoe=0.5, rtt_scale="log")
+    poor, outage, good, moderate = ({**CTX, "rtt_ms": r} for r in (2400, 5000, 160, 480))
+    assert linear.embed(poor)[0] == linear.embed(outage)[0] == 1.0  # v1 cannot tell them apart
+    assert log.embed(poor)[0] < log.embed(outage)[0] == 1.0
+    assert log.embed(good)[0] < log.embed(moderate)[0] < log.embed(poor)[0]
+    assert log.version != linear.version  # stored vectors are re-embedded on switch
+
+
+def test_v2_uses_only_local_policies_while_the_cloud_is_unreachable(v2):
+    from config import settings
+
+    down = {**CTX, "rtt_ms": settings.rtt_fail_ms}
+    for policy, value in [("P3", 0.95), ("P3", 0.9), ("P1", 0.5), ("P2", 0.4)]:
+        seed(v2, policy, value, context=down)
+    decision = PolicyEngine(v2.experience_store(), random.Random(0)).select(down, list(POLICIES), "P1")
+    assert decision.action_id in ("P1", "P2") and "local policies only" in decision.reason
+
+
+def test_v2_estimates_each_policy_from_its_own_neighbours(v2):
+    for _ in range(6):  # a policy used often, right at this state, would fill v1's global top-5
+        seed(v2, "P1", 0.5)
+    seed(v2, "P3", 0.9, context={**CTX, "cpu": CTX["cpu"] + 0.05})
+    seed(v2, "P2", 0.4)
+    seed(v2, "P4", 0.3)
+    seed(v2, "P5", 0.3)
+    decision = PolicyEngine(v2.experience_store(), random.Random(0)).select(CTX, list(POLICIES), "P1")
+    assert decision.estimates["P3"].estimated_value == pytest.approx(0.9, abs=1e-6)
+    assert decision.action_id == "P3" and decision.mode == "greedy"
+
+
+def test_v2_tries_a_policy_without_evidence_before_exploiting(v2):
+    for policy, value in [("P1", 0.8), ("P1", 0.8), ("P2", 0.7)]:
+        seed(v2, policy, value)
+    decision = PolicyEngine(v2.experience_store(), random.Random(0)).select(CTX, ["P1", "P2", "P3"], "P1")
+    assert decision.action_id == "P3" and decision.mode == "exploration"

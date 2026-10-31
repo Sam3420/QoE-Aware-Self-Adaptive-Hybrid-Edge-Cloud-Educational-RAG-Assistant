@@ -1,0 +1,6 @@
+topic_id,chapter,pages,review_status,concepts,pretest,posttest,formative,items,easy/medium/hard (pre+post),answer_positions_ABCD,position_chi2_p,max_verbatim_run_words,blind_checked,key_agreement,tag_agreement,flags_decided,videos_examined,video_candidates,concepts_with_video,warnings,decision_drop,decision_keep
+control_and_coordination,6,100-112,pending,10,15,15,30,60,10/12/8,15/15/16/14,0.988,9,60,1.0,0.95,0,33,5,10,7,0,0
+heredity,8,128-133,pending,8,15,15,24,54,10/12/8,12/14/14/14,0.974,9,54,0.981,0.907,9,39,4,8,6,3,6
+how_do_organisms_reproduce,7,113-127,pending,10,15,15,30,60,10/12/8,15/15/16/14,0.988,8,60,0.983,0.983,0,39,5,9,5,0,0
+life_processes,5,79-99,pending,10,15,15,33,63,10/12/8,17/15/18/13,0.817,9,63,0.984,0.952,16,35,5,10,9,0,16
+our_environment,13,208-217,pending,10,15,15,31,61,10/14/6,15/15/16/15,0.997,7,61,1.0,1.0,7,33,5,10,4,0,7

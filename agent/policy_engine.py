@@ -129,6 +129,8 @@ class PolicyEngine:
         self.cfg = cfg
 
     def select(self, context: dict[str, Any], candidates: Sequence[str], default: str) -> SelectionResult:
+        if self.cfg.policy_engine == "v2":
+            return self.select_v2(context, candidates, default)
         cfg = self.cfg
         n_history = self.store.count()
         neighbours = self.store.neighbours(context, cfg.knn_k) if n_history else []
@@ -146,3 +148,65 @@ class PolicyEngine:
             neighbours=[{"experience_id": r["id"], "session_id": r.get("session_id"), "policy_id": r["policy_id"],
                          "distance": round(d, 6), "reward": r.get("reward"), "utility_after": r.get("utility_after")}
                         for r, d in neighbours])
+
+    # ---- v2 (POLICY_ENGINE=v2) -------------------------------------------------------------------
+
+    def select_v2(self, context: dict[str, Any], candidates: Sequence[str], default: str) -> SelectionResult:
+        """v1's estimate with four changes (the benchmark replay showed each problem in v1):
+
+        1. Feasibility guard: while the RTT probe fails (rtt_ms ≥ RTT_FAIL_MS) only local-route policies are
+           candidates; a cloud policy would make every answer wait for the cloud timeout before falling back.
+        2. Per-policy neighbours: each candidate is estimated from ITS OWN k nearest past sessions (of the
+           POLICY_V2_SEARCH_K nearest overall), so a policy the engine has used often cannot crowd the others out
+           of a global top-k (v1 then has no evidence for them and only ε ever tries them again).
+        3. Exploration by uncertainty: score = Û + c/√(1 + Σw), and a candidate with no usable evidence near this
+           state is tried first (once its sessions exist it is scored like the others); plus a small ε.
+        4. (in ExperienceStore) the state embeds log-scaled RTT up to RTT_FAIL_MS, so a poor network and an
+           unreachable cloud are different states.
+        """
+        from agent.policies import POLICIES
+
+        cfg = self.cfg
+        pool, guard = list(candidates), ""
+        if float(context.get("rtt_ms") or 0.0) >= cfg.rtt_fail_ms:
+            local = [a for a in pool if a in POLICIES and POLICIES[a].route == "local"]
+            if local:
+                pool, guard = local, f"cloud unreachable (probe failed) → local policies only {local}; "
+        if default not in pool:
+            default = pool[0]
+        n_history = self.store.count()
+        weights = self.store.weights()
+        target = cfg.policy_estimate_target
+        found = self.store.neighbours(context, min(n_history, cfg.policy_v2_search_k)) if n_history else []
+        per_action: list[tuple[dict[str, Any], float]] = []
+        for action in pool:
+            per_action += [n for n in found if n[0].get("policy_id") == action][:cfg.knn_k]
+        estimates = estimate_action_values(
+            per_action, pool, value_fn=lambda r: neighbour_value(r, weights, target, cfg),
+            sigma=cfg.policy_kernel_sigma, min_support=cfg.policy_min_support, min_weight_sum=cfg.policy_min_weight_sum)
+        neighbours = [{"experience_id": r["id"], "session_id": r.get("session_id"), "policy_id": r["policy_id"],
+                       "distance": round(d, 6), "reward": r.get("reward"), "utility_after": r.get("utility_after")}
+                      for r, d in per_action]
+
+        def result(action: str, mode: str, reason: str) -> SelectionResult:
+            return SelectionResult(action_id=action, mode=mode, reason=guard + reason, target=target,
+                                   estimates=estimates, n_history=n_history, neighbours=neighbours)
+
+        if n_history < cfg.min_experiences:
+            return result(default, "cold_start", f"cold start: {n_history} stored transition(s) < "
+                                                 f"MIN_EXPERIENCES={cfg.min_experiences} → default {default}")
+        untried = sorted(a for a in pool if estimates[a].estimated_value is None)
+        if untried:
+            pick = default if default in untried else untried[0]
+            return result(pick, "exploration", f"no evidence near this state for {untried} → try {pick}")
+        if self.rng.random() < cfg.policy_v2_epsilon:
+            pick = self.rng.choice(sorted(pool))
+            return result(pick, "exploration", f"exploration (ε={cfg.policy_v2_epsilon}): {pick}")
+        scores = {a: e.estimated_value + cfg.policy_v2_ucb_c / math.sqrt(1.0 + e.weight_sum)
+                  for a, e in estimates.items()}
+        best = max(scores.values())
+        tied = sorted(a for a, s in scores.items() if best - s <= _TIE_EPS)
+        pick = default if default in tied else tied[0]
+        summary = ", ".join(f"{a} {estimates[a].estimated_value:.3f}+{scores[a] - estimates[a].estimated_value:.3f}"
+                            for a in sorted(scores))
+        return result(pick, "greedy", f"{pick}: highest Û + bonus {scores[pick]:.3f} [{summary}]")

@@ -1,0 +1,71 @@
+backend,device,load_s,text,language,voice,audio_s,tts_ms,heard,stt_ms,wer,tts_rtf
+sravaani,cuda,129.46,What do the villi in the small intestine do?,en,af_heart,2.39,5526.805200000126,what do the villai and the small intestin do,273.4,0.3333333333333333,2.312470794979132
+sravaani,cuda,129.46,Why do my legs hurt after running very fast?,en,am_michael,3.09,4099.262600000657,why do my legs hurt after running very fast,162.7,0.0,1.3266222006474617
+sravaani,cuda,129.46,How does water reach the top of a tall tree?,en,af_heart,2.45,983.2945999996809,how does water reached the top of a tall tree,124.7,0.1,0.4013447346937473
+sravaani,cuda,129.46,What happens to blood after it leaves the lungs?,en,am_michael,2.71,1120.1885999998922,what happens to blood after it leaves the lungs,135.9,0.0,0.4133537269372296
+sravaani,cuda,129.46,How do guard cells open and close the stomata?,en,af_heart,2.69,1258.9258999996673,how do guard sells open and close the stone ata,146.5,0.3333333333333333,0.4680021933084265
+sravaani,cuda,129.46,Who discovered gravity?,en,am_michael,1.47,568.3948999994755,who discovered gravity,172.4,0.0,0.38666319727855475
+sravaani,cuda,129.46,Why do I pull my hand back from a hot pan before I even think?,en,af_heart,3.41,1286.9388999997682,why do i pull my hand back from a hot pan before i even think,152.2,0.0,0.3774014369500786
+sravaani,cuda,129.46,What is the gap between two neurons called?,en,am_michael,2.45,1049.035200000617,what is the gap between two nurons called,122.3,0.125,0.428177632653313
+sravaani,cuda,129.46,How does a plant stem bend towards the window?,en,af_heart,2.3,838.1449000007706,how does a plant stam bend towards the window,137.6,0.1111111111111111,0.3644108260872916
+sravaani,cuda,129.46,What happens in the body when you get scared suddenly?,en,am_michael,3.18,1261.9126999998116,what happens in the body when you get scared suddenly,150.0,0.0,0.39682789308170174
+sravaani,cuda,129.46,Which part of the brain helps us keep our balance on a bicycle?,en,af_heart,3.31,1473.7959999993109,which part of the brain help us keep our balance on a bicycle,153.4,0.07692307692307693,0.44525558912365887
+sravaani,cuda,129.46,Why do diabetic people need insulin injections?,en,am_michael,3.35,1720.925200000238,why do diabetic people need insolin injections,124.1,0.14285714285714285,0.5137090149254442
+sravaani,cuda,129.46,How does Amoeba make two new Amoebae?,en,af_heart,1.96,987.6516000003903,how does amiba make two knew amibi,166.6,0.42857142857142855,0.5039038775512196
+sravaani,cuda,129.46,Why can bananas be grown without seeds?,en,am_michael,2.5,1131.6913999999088,why can bananas be grown without seeds,119.4,0.0,0.4526765599999635
+sravaani,cuda,129.46,What happens after pollen lands on the stigma?,en,af_heart,2.41,954.9394999994547,what happens after pollen lands on the stigma,129.1,0.0,0.396240456431309
+sravaani,cuda,129.46,How does the baby get food inside the mother?,en,am_michael,2.45,932.4484999997367,how does the baby get food inside the mother,128.9,0.0,0.3805912244896884
+sravaani,cuda,129.46,Which methods can a couple use to avoid pregnancy?,en,af_heart,2.79,1027.385499999582,which methods can a couple use to avoid pregnancy,128.7,0.0,0.36823853046579996
+sravaani,cuda,129.46,How does bread mould spread so quickly?,en,am_michael,2.5,1448.4605999996347,how does bread mould spread so quickly,108.2,0.0,0.5793842399998539
+sravaani,cuda,129.46,Why were all of Mendel's first generation pea plants tall?,en,af_heart,2.99,1692.4792999998317,why were all of mendals first generation p plants tall,133.4,0.2727272727272727,0.5660465886287063
+sravaani,cuda,129.46,What decides whether a baby will be a boy or a girl?,en,am_michael,3.14,9345.803999999589,what decides whether a baby will be a boy or a girl,141.9,0.0,2.976370700636812
+sravaani,cuda,129.46,What is the 9:3:3:1 ratio?,en,af_heart,2.43,7237.567600000148,what is the nine three three one ratio,127.4,0.5,2.978422880658497
+sravaani,cuda,129.46,Why do children look a bit different from both parents?,en,am_michael,3.26,8770.314500000495,why do children look a bit different from both parents,205.8,0.0,2.6902805214725447
+sravaani,cuda,129.46,What exactly is a gene?,en,af_heart,1.49,4944.084400000065,what exactly is a gene,128.0,0.0,3.318177449664473
+sravaani,cuda,129.46,How tall can a pea plant grow?,en,am_michael,1.92,6568.937200000619,how tall can a pee plant grow,111.6,0.14285714285714285,3.4213214583336558
+sravaani,cuda,129.46,What eats the dead leaves on the forest floor?,en,af_heart,2.26,6543.874599999981,went eats the dead leaves on the forest floor,124.8,0.1111111111111111,2.8955197345132664
+sravaani,cuda,129.46,Why do food chains usually have only three or four steps?,en,am_michael,3.93,10274.413499999355,why do food chains usually have only three or four steps,133.2,0.0,2.6143545801525074
+sravaani,cuda,129.46,Why do pesticides end up in our bodies?,en,af_heart,2.37,7838.212000000567,why do you pesticides end up in our bodies,118.7,0.125,3.307262447257623
+sravaani,cuda,129.46,What harms the ozone layer?,en,am_michael,1.9,5837.9211999999825,what harms the ozone layer,133.8,0.0,3.072590105263149
+sravaani,cuda,129.46,Is a plastic bottle biodegradable?,en,af_heart,2.24,6806.118800000149,is a plastic bottle bio degradable,138.4,0.4,3.0384458928572093
+sravaani,cuda,129.46,What is the difference between a food chain and a food web?,en,am_michael,3.41,9456.62320000065,what is the difference between a food chain and a food web,194.2,0.0,2.773203284457668
+sravaani,cuda,129.46,पौधे सूर्य के प्रकाश से अपना भोजन कैसे बनाते हैं,hi,hf_alpha,4.01,11603.514599999471,पौधे सूर्य के प्रकाश से अपना भोजन कैसे बनाते हैं,170.7,0.0,2.893644538653235
+sravaani,cuda,129.46,हमारे शरीर में रक्त का क्या काम है,hi,hf_alpha,2.79,7968.269200000577,हमारे शरीर में रक्त का क्या काम है,142.6,0.0,2.856010465950028
+sravaani,cuda,129.46,श्वसन क्रिया में ऊर्जा कैसे निकलती है,hi,hf_alpha,2.97,8641.979600000013,श्वसन क्रिया में ऊर्जा कैसे निकलती है,140.4,0.0,2.909757441077445
+sravaani,cuda,129.46,मस्तिष्क का कौन सा भाग संतुलन बनाए रखता है,hi,hf_alpha,3.71,10330.917100000079,मिस्तिष्क का कौन सा भाग संतुलन बनाए रखता है,199.6,0.1111111111111111,2.784613773584927
+sravaani,cuda,129.46,पौधों में हार्मोन क्या करते हैं,hi,hf_alpha,2.18,7013.906099999986,पौधों में हार्मोन क्या करते हैं,129.6,0.0,3.2173881192660483
+sravaani,cuda,129.46,बच्चे अपने माता पिता जैसे क्यों दिखते हैं,hi,hf_alpha,3.2,7711.7249999992055,बच्चे अपने माता पिता जैसे क्यों दिखते हैं,131.8,0.0,2.4099140624997517
+sravaani,cuda,129.46,लड़का या लड़की होना कैसे तय होता है,hi,hf_alpha,3.05,6378.249399999731,लड़का या लड़की होना कैसे तय होता है,154.6,0.0,2.0912293114753218
+sravaani,cuda,129.46,परागण के बाद क्या होता है,hi,hf_alpha,2.05,6463.434100000086,परागन के बाद क्या होता है,96.7,0.16666666666666666,3.1528946829268714
+sravaani,cuda,129.46,खाद्य श्रृंखला में ऊर्जा कैसे कम होती है,hi,hf_alpha,3.26,9108.083500000248,खाद्य श्रृंखला में ऊर्जा कैसे कम होती है,125.6,0.0,2.7938906441718556
+sravaani,cuda,129.46,ओज़ोन परत हमारी रक्षा कैसे करती है,hi,hf_alpha,3.07,8517.883299999994,ओज़ोन परत हमारी रक्षा कैसे करती है,109.9,0.0,2.7745548208469035
+whisper,cuda,3.92,What do the villi in the small intestine do?,en,af_heart,2.39,5526.805200000126,What do the villi and the small intestine do?,2065.3,0.1111111111111111,2.312470794979132
+whisper,cuda,3.92,Why do my legs hurt after running very fast?,en,am_michael,3.09,4099.262600000657,Why do my legs hurt after running very fast?,468.3,0.0,1.3266222006474617
+whisper,cuda,3.92,How does water reach the top of a tall tree?,en,af_heart,2.45,983.2945999996809,How does water reach the top of a tall tree?,365.3,0.0,0.4013447346937473
+whisper,cuda,3.92,What happens to blood after it leaves the lungs?,en,am_michael,2.71,1120.1885999998922,what happens to blood after it leaves the lungs.,370.7,0.0,0.4133537269372296
+whisper,cuda,3.92,How do guard cells open and close the stomata?,en,af_heart,2.69,1258.9258999996673,How do guard cells open and close the stomata?,447.1,0.0,0.4680021933084265
+whisper,cuda,3.92,Who discovered gravity?,en,am_michael,1.47,568.3948999994755,who discovered gravity.,235.7,0.0,0.38666319727855475
+whisper,cuda,3.92,Why do I pull my hand back from a hot pan before I even think?,en,af_heart,3.41,1286.9388999997682,Why do I pull my hand back from a hot pan before I even think?,675.0,0.0,0.3774014369500786
+whisper,cuda,3.92,What is the gap between two neurons called?,en,am_michael,2.45,1049.035200000617,What is the gap between two neurons called?,418.1,0.0,0.428177632653313
+whisper,cuda,3.92,How does a plant stem bend towards the window?,en,af_heart,2.3,838.1449000007706,How does a plant stem bend towards the window?,368.2,0.0,0.3644108260872916
+whisper,cuda,3.92,What happens in the body when you get scared suddenly?,en,am_michael,3.18,1261.9126999998116,What happens in the body when you get scared suddenly?,398.7,0.0,0.39682789308170174
+whisper,cuda,3.92,Which part of the brain helps us keep our balance on a bicycle?,en,af_heart,3.31,1473.7959999993109,which part of the brain helps us keep our balance on a bicycle.,658.1,0.0,0.44525558912365887
+whisper,cuda,3.92,Why do diabetic people need insulin injections?,en,am_michael,3.35,1720.925200000238,Why do diabetic people need insulin injections?,319.0,0.0,0.5137090149254442
+whisper,cuda,3.92,How does Amoeba make two new Amoebae?,en,af_heart,1.96,987.6516000003903,How does amoeba make two new amoebi?,543.4,0.14285714285714285,0.5039038775512196
+whisper,cuda,3.92,Why can bananas be grown without seeds?,en,am_michael,2.5,1131.6913999999088,Why can bananas be grown without seeds?,317.1,0.0,0.4526765599999635
+whisper,cuda,3.92,What happens after pollen lands on the stigma?,en,af_heart,2.41,954.9394999994547,What happens after pollen lands on the stigma?,345.3,0.0,0.396240456431309
+whisper,cuda,3.92,How does the baby get food inside the mother?,en,am_michael,2.45,932.4484999997367,How does the baby get food inside the mother?,364.8,0.0,0.3805912244896884
+whisper,cuda,3.92,Which methods can a couple use to avoid pregnancy?,en,af_heart,2.79,1027.385499999582,which methods can a couple use to avoid pregnancy.,376.2,0.0,0.36823853046579996
+whisper,cuda,3.92,How does bread mould spread so quickly?,en,am_michael,2.5,1448.4605999996347,How does bread mold spread so quickly?,297.1,0.14285714285714285,0.5793842399998539
+whisper,cuda,3.92,Why were all of Mendel's first generation pea plants tall?,en,af_heart,2.99,1692.4792999998317,Why were all of Mendel's first generation pea plants tall?,530.0,0.0,0.5660465886287063
+whisper,cuda,3.92,What decides whether a baby will be a boy or a girl?,en,am_michael,3.14,9345.803999999589,What decides whether a baby will be a boy or a girl?,510.2,0.0,2.976370700636812
+whisper,cuda,3.92,What is the 9:3:3:1 ratio?,en,af_heart,2.43,7237.567600000148,"What is the 933, 1 ratio?",361.0,0.375,2.978422880658497
+whisper,cuda,3.92,Why do children look a bit different from both parents?,en,am_michael,3.26,8770.314500000495,Why do children look a bit different from both parents?,400.3,0.0,2.6902805214725447
+whisper,cuda,3.92,What exactly is a gene?,en,af_heart,1.49,4944.084400000065,What exactly is a gene?,253.8,0.0,3.318177449664473
+whisper,cuda,3.92,How tall can a pea plant grow?,en,am_michael,1.92,6568.937200000619,How tall can a pea plant grow?,389.8,0.0,3.4213214583336558
+whisper,cuda,3.92,What eats the dead leaves on the forest floor?,en,af_heart,2.26,6543.874599999981,What eats the dead leaves on the forest floor?,365.1,0.0,2.8955197345132664
+whisper,cuda,3.92,Why do food chains usually have only three or four steps?,en,am_michael,3.93,10274.413499999355,Why do food chains usually have only three or four steps?,403.3,0.0,2.6143545801525074
+whisper,cuda,3.92,Why do pesticides end up in our bodies?,en,af_heart,2.37,7838.212000000567,Why do pesticides end up in our bodies?,387.7,0.0,3.307262447257623
+whisper,cuda,3.92,What harms the ozone layer?,en,am_michael,1.9,5837.9211999999825,what harms the ozone layer.,258.9,0.0,3.072590105263149
+whisper,cuda,3.92,Is a plastic bottle biodegradable?,en,af_heart,2.24,6806.118800000149,is a plastic bottle biodegradable.,328.2,0.0,3.0384458928572093
+whisper,cuda,3.92,What is the difference between a food chain and a food web?,en,am_michael,3.41,9456.62320000065,What is the difference between a food chain and a food web?,590.5,0.0,2.773203284457668

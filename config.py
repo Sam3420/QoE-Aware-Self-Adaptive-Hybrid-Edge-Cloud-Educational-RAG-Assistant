@@ -122,8 +122,9 @@ class Settings(BaseSettings):
     default_policy_id: str = "P1"
 
     # --- Context collection ----------------------------------------------------
-    # RTT is probed against the cloud LLM host; any HTTP response counts as a round trip.
-    probe_url: str = "https://router.huggingface.co"
+    # RTT is probed against the cloud LLM host; any HTTP response counts as a round trip. (Was the Hugging Face
+    # router, left over from before the cloud route moved to Groq: the context measured the wrong host.)
+    probe_url: str = "https://api.groq.com"
     probe_timeout_s: float = Field(default=1.5, gt=0)
     rtt_max_ms: float = Field(default=2000.0, gt=0)  # RTT above this normalises to 1.0
     rtt_fail_ms: float = Field(default=5000.0, gt=0)  # RTT recorded when the probe fails
@@ -243,6 +244,17 @@ class Settings(BaseSettings):
     # 0.1 ≈ a single neighbour within 2.1σ. Stops very dissimilar states from producing confident estimates.
     policy_min_weight_sum: float = Field(default=0.1, ge=0.0)
     policy_estimate_target: Literal["utility", "reward"] = "utility"
+    # v1: global kNN (k nearest sessions of any policy), linear RTT clipped at RTT_MAX_MS, ε-greedy.
+    # v2 (agent/policy_engine.py select_v2): log-scaled RTT up to RTT_FAIL_MS (a poor network and an unreachable
+    # cloud no longer look alike), each policy estimated from its own k nearest sessions (no evidence starvation),
+    # a UCB bonus c/√(1+Σw) plus a small ε for exploration, and local-only policies while the probe fails.
+    policy_engine: Literal["v1", "v2"] = "v1"
+    policy_v2_search_k: int = Field(default=200, gt=0)  # neighbours fetched before keeping k per policy
+    policy_v2_ucb_c: float = Field(default=0.05, ge=0.0)  # exploration bonus scale (utility units)
+    policy_v2_epsilon: float = Field(default=0.05, ge=0.0, le=1.0)
+    # v2 probes with a longer timeout: one HTTPS probe is ~4 RTTs, so on a poor network (RTT ~600 ms) the 1.5 s
+    # PROBE_TIMEOUT_S already fails and the context could not tell a slow network from an unreachable cloud.
+    policy_v2_probe_timeout_s: float = Field(default=4.0, gt=0)
 
     # --- Optional Langfuse tracing (telemetry/tracing.py; no-op unless both keys are set) ---------------
     langfuse_public_key: SecretStr | None = None

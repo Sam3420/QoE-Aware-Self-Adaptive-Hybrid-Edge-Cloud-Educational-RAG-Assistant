@@ -1,0 +1,6 @@
+Topics: 5; concepts 48; items 298 (pre 75, post 75, formative 148)
+Blind-model answer-key agreement (pooled): 0.990 over 298 items
+Blind-model concept-tag agreement (pooled): 0.960
+Flags in the review sheet: 60; by (flag, decision): {('answer key', 'keep'): 1, ('answer key', 'open'): 3, ('concept tag', 'keep'): 19, ('concept tag', 'open'): 12, ('video', 'drop'): 3, ('video', 'keep'): 9, ('video', 'open'): 13}
+Review status of every package: pending
+Answer-position balance: chi-square p per topic control_and_coordination 0.988, heredity 0.974, how_do_organisms_reproduce 0.988, life_processes 0.817, our_environment 0.997 (p > 0.05: no detectable position bias)

@@ -20,7 +20,8 @@ def measure_context(services: Services, student_id: str, competency: str) -> tup
         cpu, mem = 0.5, 0.5
         errors.append(f"context: cpu/mem unavailable ({exc}); used 0.5")
     try:
-        rtt_ms = services.monitor.probe_rtt(settings.probe_url, settings.probe_timeout_s)
+        timeout = settings.policy_v2_probe_timeout_s if settings.policy_engine == "v2" else settings.probe_timeout_s
+        rtt_ms = services.monitor.probe_rtt(settings.probe_url, timeout)
     except ProbeError as exc:
         rtt_ms = settings.rtt_fail_ms
         errors.append(f"context: {exc}; used RTT_FAIL_MS={settings.rtt_fail_ms:.0f}")

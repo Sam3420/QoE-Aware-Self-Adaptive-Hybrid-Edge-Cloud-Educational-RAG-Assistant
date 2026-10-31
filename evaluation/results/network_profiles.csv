@@ -1,0 +1,2 @@
+measured_at,label,host,pings,loss,rtt_median_ms,rtt_p95_ms,jitter_ms,probe_url,probe_rtt_median_ms,down_mbps,up_mbps,speedtest_ping_ms,speedtest_server
+2026-10-31T17:06:40+00:00,benchmark-base,api.groq.com,50,0.0,28.8,79.2,30.0,https://router.huggingface.co,720.3,,,,

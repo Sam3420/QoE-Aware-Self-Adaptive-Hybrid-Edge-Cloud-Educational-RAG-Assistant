@@ -32,15 +32,27 @@ class StateEmbedder:
     The version string includes the normalisation parameters, so changing them re-embeds everything.
     """
 
-    def __init__(self, *, rtt_max_ms: float, default_last_qoe: float) -> None:
+    def __init__(self, *, rtt_max_ms: float, default_last_qoe: float, rtt_scale: str = "linear") -> None:
         self.rtt_max_ms = rtt_max_ms
         self.default_last_qoe = default_last_qoe
+        self.rtt_scale = rtt_scale
         self.dim = len(STATE_KEYS)
-        self.version = f"ctx5-rtt{int(rtt_max_ms)}-q{default_last_qoe:g}"
+        scale = "" if rtt_scale == "linear" else "log"
+        self.version = f"ctx5-{scale}rtt{int(rtt_max_ms)}-q{default_last_qoe:g}"
 
     def embed(self, context: dict[str, Any]) -> list[float]:
+        if self.rtt_scale == "log":  # log(1 + rtt) / log(1 + max): fast networks stay apart, outage = 1
+            context = {**context, "rtt_ms": log_rtt_ms(context.get("rtt_ms"), self.rtt_max_ms)}
         vec = normalize_state(context, rtt_max_ms=self.rtt_max_ms, default_last_qoe=self.default_last_qoe)
         return [round(float(x), 6) for x in vec]
+
+
+def log_rtt_ms(rtt_ms: Any, rtt_max_ms: float) -> float:
+    """An RTT mapped so that normalize_state's rtt/rtt_max gives log(1 + rtt) / log(1 + rtt_max)."""
+    import math
+
+    rtt = rtt_max_ms if rtt_ms is None else min(max(float(rtt_ms), 0.0), rtt_max_ms)
+    return rtt_max_ms * math.log1p(rtt) / math.log1p(rtt_max_ms)
 
 
 class ExperienceStore:
@@ -50,7 +62,11 @@ class ExperienceStore:
                  index_dir: Any = "config") -> None:
         self.session_factory = session_factory
         self.cfg = cfg
-        self.embedder = StateEmbedder(rtt_max_ms=cfg.rtt_max_ms, default_last_qoe=cfg.default_last_qoe)
+        if cfg.policy_engine == "v2":  # log RTT up to the probe-failure value: poor network ≠ unreachable cloud
+            self.embedder = StateEmbedder(rtt_max_ms=cfg.rtt_fail_ms, default_last_qoe=cfg.default_last_qoe,
+                                          rtt_scale="log")
+        else:
+            self.embedder = StateEmbedder(rtt_max_ms=cfg.rtt_max_ms, default_last_qoe=cfg.default_last_qoe)
         directory = cfg.experience_index_dir if index_dir == "config" else index_dir
         self.index = FaissExperienceIndex(self.embedder.dim, directory=directory, version=self.embedder.version)
         self._synced = False

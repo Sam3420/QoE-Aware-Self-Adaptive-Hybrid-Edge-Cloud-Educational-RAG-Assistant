@@ -8,3 +8,6 @@ data/
 *.pdf
 knowledge_prep/packages/*/chapter.txt
 knowledge_prep/packages/*/*.local.json
+
+# Benchmark scratch: database copies, experience indexes, pilot runs
+evaluation/results/_work/

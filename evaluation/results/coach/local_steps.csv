@@ -1,0 +1,5 @@
+step,n,median_ms,p95_ms,llm_calls,network_calls,note
+plan session goals,390,0.44019999950251076,484.788199999457,0,0,13 stored pre-tests × 30
+coach rule decision,1500,0.00270000055024866,0.0036999999792897142,0,0,"choose_action, 3 goals"
+pick 2 formative items,144,0.7989999999153952,1.8495999993319856,0,0,"pre-built pool, all concepts"
+score parallel post-test,150,0.0008000006346264854,0.0015000005078036338,0,0,15 items
