@@ -163,6 +163,16 @@ class Settings(BaseSettings):
     transcript_max_chunks_per_video: int = Field(default=40, gt=0)
     transcript_max_workers: int = Field(default=8, ge=1, le=8)  # parallel fetches; 8 = R3's budget in one round
     transcript_time_budget_s: float = Field(default=8.0, gt=0)  # unfinished fetches are dropped after this
+    # Caption-track listings (REC_REQUIRE_TRANSCRIPT): one parallel round for all candidates, overlapping the
+    # transcript fetches. Before: rounds of ~7 videos, each waiting up to the 8 s budget (a 52 s run was seen).
+    caption_check_workers: int = Field(default=4, ge=1, le=16)  # more at once makes YouTube's IpBlocked likelier
+    caption_check_budget_s: float = Field(default=6.0, gt=0)  # listings not answered by then keep their video
+    # Fill the YouTube caches (search, metadata, caption verdicts, usable transcripts; no stored runs) for the
+    # learner's topic while they take the pre-test (~100 quota units per uncached search).
+    prewarm_video_caches: bool = True
+    # The same for all topics at app start: off by default, its ~150 caption requests per start can make YouTube
+    # block transcript requests from this network (IpBlocked) for a while.
+    prewarm_video_caches_on_start: bool = False
 
     # --- Recommendation ranking ------------------------------------------------------------------
     rec_count: int = Field(default=5, gt=0, le=20)  # recommendations returned
@@ -257,10 +267,14 @@ class Settings(BaseSettings):
     # Mic button in the question box (speech-to-text) and "Listen" on answers (text-to-speech). Models download from
     # Hugging Face on first use or with scripts/download_speech_models.py.
     stt_enabled: bool = True
+    prewarm_stt: bool = True  # load the speech-to-text model in the start-up warm-up, not on the first spoken question
     # sravaani: ARTPARK-IISc/SraVaani-1.0, 65 Indian languages and dialects + English (gated on Hugging Face: accept
     # its terms once; uses HF_TOKEN or the huggingface-cli login; best on a CUDA GPU). whisper: STT_MODEL, English only.
     stt_backend: Literal["sravaani", "whisper"] = "sravaani"
     stt_sravaani_model: str = "ARTPARK-IISc/SraVaani-1.0"
+    # Pinned commit: the model runs its own code (trust_remote_code), and an unpinned load re-downloads ~900 MB and
+    # new, unreviewed code whenever the repo changes (it did on 2026-10-31). Change only after testing a new revision.
+    stt_sravaani_revision: str = "f5dd5358325a5208775b91dad98918e079ea2b27"
     stt_model: str = "distil-whisper/distil-small.en"  # the whisper backend
     stt_device: Literal["auto", "cpu", "cuda"] = "auto"  # auto: CUDA when torch sees a GPU
     stt_max_seconds: float = Field(default=60.0, gt=0)  # longer recordings are refused

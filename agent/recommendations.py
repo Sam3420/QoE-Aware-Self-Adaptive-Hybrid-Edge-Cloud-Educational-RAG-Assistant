@@ -197,6 +197,25 @@ class RecommendationCoordinator:
                 repo.add_event(run_id=run["id"], event_type="generated", item_id=item["id"])
         return self.get_run(run["id"])
 
+    def warm(self, topic_id: str, student_id: str | None = None) -> dict[str, Any]:
+        """Fill the YouTube caches for a topic (as for this learner's needs, when given) so the next recommend()
+        mostly reads caches. No strategy is chosen and no run is stored: the search uses the largest strategy's
+        candidate count, whose videos include the smaller strategies' ones."""
+        if student_id:
+            needs = self.learner_needs(student_id, topic_id)
+        else:
+            languages = list(self.cfg.transcript_languages)
+            needs = {"language_code": languages[0] if languages else None, "competency": None,
+                     "competency_num": None, "gap_concepts": []}
+        concepts = needs["gap_concepts"]
+        topic_text = search_text(topic_id)
+        request = RecommendationRequest(
+            topic=topic_text, objective=f"{topic_text}: {', '.join(concepts[:4])}" if concepts else topic_text,
+            concepts=concepts[:8], language_code=needs["language_code"], competency=needs["competency"],
+            competency_num=needs["competency_num"], count=self.cfg.rec_count)
+        widest = max(STRATEGIES.values(), key=lambda st: st.max_candidates)
+        return self.pipeline.warm(request, widest)
+
     # ---- outcomes ---------------------------------------------------------------------------------
 
     def record_event(self, run_id: str, event_type: str, *, item_id: str | None = None,
@@ -299,6 +318,7 @@ def make_recommender(services: Services | None = None, *, data_client: YouTubeDa
             require_embeddable=cfg.rec_require_embeddable, require_language_match=cfg.rec_require_language_match,
             prior=cfg.rec_missing_feature_prior, default_weights=cfg.rec_weights,
             transcript_workers=cfg.transcript_max_workers, transcript_time_budget_s=cfg.transcript_time_budget_s,
-            require_transcript=cfg.rec_require_transcript))
+            require_transcript=cfg.rec_require_transcript, caption_check_workers=cfg.caption_check_workers,
+            caption_check_budget_s=cfg.caption_check_budget_s))
     return RecommendationCoordinator(pipeline=pipeline, session_factory=services.app.session_factory,
                                      services=services, rng=services.rng, cfg=cfg)

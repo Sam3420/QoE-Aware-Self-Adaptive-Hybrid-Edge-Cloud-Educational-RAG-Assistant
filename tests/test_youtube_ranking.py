@@ -239,6 +239,59 @@ def test_required_transcript_drops_videos_without_a_usable_track_even_for_metada
     assert all(langs == ("en",) for _, langs in transcripts.checks)
 
 
+def test_track_checks_run_in_one_parallel_round_and_overlap_the_transcript_fetches():
+    import threading
+    import time
+
+    class Slow(FakeTranscripts):
+        def __init__(self):
+            super().__init__()
+            self.lock, self.active, self.peak, self.checked_during_fetch = threading.Lock(), 0, 0, False
+
+        def available(self, video_id, languages):
+            with self.lock:
+                self.active += 1
+                self.peak = max(self.peak, self.active)
+            time.sleep(0.2)
+            with self.lock:
+                self.active -= 1
+            return super().available(video_id, languages)
+
+        def fetch(self, video_id, languages):
+            time.sleep(0.1)
+            self.checked_during_fetch |= self.active > 0  # listings in flight while this transcript downloads
+            return super().fetch(video_id, languages)
+
+    slow = Slow()
+    started = time.perf_counter()
+    one_transcript = STRATEGIES["R2"].model_copy(update={"transcript_budget": 1})  # the fakes have few candidates
+    result = make_pipeline(transcripts=slow, require_transcript=True, caption_check_workers=16).run(
+        request(), one_transcript)
+    checked = {vid for vid, _ in slow.checks}
+    assert result.recommendations and len(checked) == len(slow.checks)  # each video listed once
+    assert slow.peak == len(checked) > 1  # all at once, not in rounds
+    assert slow.checked_during_fetch  # started before the stage-2 fetches finished
+    assert time.perf_counter() - started < 0.2 * len(checked)
+
+
+def test_warm_fills_the_caches_without_ranking_and_a_later_run_reuses_them():
+    import tempfile
+
+    from services.youtube.cache import JsonFileCache
+    from tests.youtube_fakes import make_client
+
+    api, transcripts = FakeYouTubeApi(), FakeTranscripts()
+    pipeline = make_pipeline(api, transcripts=transcripts, require_transcript=True)
+    pipeline.data_client = make_client(api, cache=JsonFileCache(tempfile.mkdtemp(), {"search": 3600, "videos": 3600}))
+    report = pipeline.warm(request(), STRATEGIES["R1"])
+    assert report["candidates"] and report["captions_checked"] == report["kept"] > 0
+    downloaded = {vid for vid, _ in transcripts.calls}  # only videos whose listing showed a usable track
+    assert downloaded and downloaded <= set(transcripts.records) and report["transcripts_downloaded"] == len(downloaded)
+    sent = len(api.requests)
+    result = pipeline.run(request(), STRATEGIES["R1"])
+    assert result.recommendations and len(api.requests) == sent  # search and metadata came from the cache
+
+
 def test_a_track_check_that_cannot_tell_keeps_the_video():
     class Unsure(FakeTranscripts):
         def available(self, video_id, languages):

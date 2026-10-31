@@ -62,9 +62,9 @@ def _providers(backend: AgentBackend) -> None:
 
 def _recorded(thread_id: str | None, backend: AgentBackend) -> None:
     st.subheader("Recorded latencies")
-    stats = data_access.interaction_stats()
+    stats = data_access.interaction_stats(since=data_access.APP_STARTED)
     if stats["total"] == 0:
-        st.caption("FastAPI assistant: no interactions recorded yet.")
+        st.caption("FastAPI assistant: no interactions since the app started.")
     else:
         c = st.columns(3)
         c[0].metric("API interactions", stats["total"])

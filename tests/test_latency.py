@@ -149,7 +149,8 @@ def test_prefetch_indexes_in_background_and_skips_ready_videos(monkeypatch):
 
 
 def test_warm_up_generates_missing_question_banks_once(services):
-    cfg = Settings(_env_file=None, prewarm_question_banks=True)
+    cfg = Settings(_env_file=None, prewarm_question_banks=True, prewarm_stt=False,
+                   prewarm_video_caches=False)
     first = warm_up(services, cfg)
     assert first["banks_generated"] and not [e for e in first["errors"] if "Error" in e]
     assert warm_up(services, cfg)["banks_generated"] == []  # already stored: nothing to do

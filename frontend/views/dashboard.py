@@ -41,7 +41,7 @@ def _activity(backend: AgentBackend, db: data_access.DatabaseStatus, learner: di
     if not db.ok:
         st.error("Activity cannot be read while the database is unavailable.")
         return
-    stats = data_access.interaction_stats()
+    stats = data_access.interaction_stats(since=data_access.APP_STARTED)
     exps = db.counts.get("experiences", 0)
     agent_sessions = backend.agent_session_count()
     if not any([db.counts.get("learners"), stats["total"], exps, agent_sessions]):
@@ -51,7 +51,7 @@ def _activity(backend: AgentBackend, db: data_access.DatabaseStatus, learner: di
     c[0].metric("Learners", db.counts.get("learners", 0))
     c[1].metric("Agent sessions", agent_sessions)
     c[2].metric("Experiences stored", exps)
-    c[3].metric("API interactions", stats["total"],
+    c[3].metric("API interactions", stats["total"], help="Since the app started; History has all past sessions.",
                 delta=f"{stats['failed']} failed" if stats["failed"] else None, delta_color="inverse")
     c[4].metric("API mean latency", ms(stats["avg_latency_ms"]) if stats["completed"] else "—")
 

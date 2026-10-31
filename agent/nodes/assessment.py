@@ -40,6 +40,9 @@ def plan_pretest(state: AgentState) -> dict[str, Any]:
         logger.warning("pre_test skipped: %s", exc)
         return {"competency": "beginner", "pretest_plan": {"mode": "unavailable", "reason": str(exc)},
                 "session_errors": [f"pre_test skipped: {exc}"]}
+    from agent.warmup import warm_videos_in_background
+
+    warm_videos_in_background(services, state["topic_id"], state["student_id"])  # videos come right after the test
     meta = {k: v for k, v in plan.items() if k != "items"}
     if meta.get("previous") and meta["previous"].get("date") is not None:
         meta["previous"] = {**meta["previous"], "date": str(meta["previous"]["date"])}

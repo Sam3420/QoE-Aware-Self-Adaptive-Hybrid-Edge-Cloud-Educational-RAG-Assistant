@@ -6,9 +6,10 @@ queries for listing what those repositories already store.
 from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from typing import Any
 
-from sqlalchemy import func, select, text
+from sqlalchemy import func, select, text, true
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
@@ -27,6 +28,9 @@ from app.db.models import (
 from app.db.repositories import AdaptationRepository, LearningTraceRepository
 from app.domain.enums import CompetencyLevel, InteractionStatus, PreferredLanguage
 from app.domain.models import LearnerPersonalizationUpdate, LearningPreferences
+
+# When this Streamlit server started (naive UTC, as SQLite stores occurred_at): activity counters show this run only.
+APP_STARTED = datetime.now(timezone.utc).replace(tzinfo=None)
 
 COUNTED_TABLES = {
     "learners": LearnerProfile,
@@ -163,14 +167,15 @@ def runtime_configuration(config_id: str) -> dict[str, Any] | None:
                 "configuration_data": rc.configuration_data}
 
 
-def interaction_stats() -> dict[str, Any]:
-    """Aggregate the persisted API interactions (completed vs failed, mean latency of completed)."""
+def interaction_stats(since: datetime | None = None) -> dict[str, Any]:
+    """Aggregate the persisted API interactions (completed vs failed, mean latency of completed), optionally only
+    those since a UTC time (e.g. APP_STARTED: the current run, not failures from earlier configurations)."""
+    recent = Interaction.occurred_at >= since if since else true()
+    completed_ = Interaction.status == InteractionStatus.COMPLETED.value
     with db_session() as db:
-        total = db.scalar(select(func.count()).select_from(Interaction)) or 0
-        completed = db.scalar(select(func.count()).select_from(Interaction)
-                              .where(Interaction.status == InteractionStatus.COMPLETED.value)) or 0
-        avg = db.scalar(select(func.avg(Interaction.response_latency_ms))
-                        .where(Interaction.status == InteractionStatus.COMPLETED.value))
+        total = db.scalar(select(func.count()).select_from(Interaction).where(recent)) or 0
+        completed = db.scalar(select(func.count()).select_from(Interaction).where(recent, completed_)) or 0
+        avg = db.scalar(select(func.avg(Interaction.response_latency_ms)).where(recent, completed_))
         return {"total": total, "completed": completed, "failed": total - completed,
                 "avg_latency_ms": float(avg) if avg is not None else None}
 

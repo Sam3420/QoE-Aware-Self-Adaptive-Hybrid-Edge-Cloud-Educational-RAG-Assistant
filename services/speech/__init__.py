@@ -27,7 +27,8 @@ def get_stt() -> Any:
                       "max_seconds": settings.stt_max_seconds}
             if settings.stt_backend == "sravaani":
                 token = settings.hf_token.get_secret_value() if settings.hf_token else None
-                _stt = SraVaaniSTT(model_id=settings.stt_sravaani_model, token=token, **common)
+                _stt = SraVaaniSTT(model_id=settings.stt_sravaani_model, revision=settings.stt_sravaani_revision,
+                                   token=token, **common)
             else:
                 _stt = WhisperSTT(model_id=settings.stt_model, **common)
         return _stt

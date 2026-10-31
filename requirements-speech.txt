@@ -2,10 +2,14 @@
 # runs without these and simply hides the mic and the Listen buttons. Install on top of requirements.txt:
 #   .venv\Scripts\python -m pip install -r requirements-speech.txt
 #   .venv\Scripts\python scripts\download_speech_models.py      # pull the models from Hugging Face + round-trip check
-# STT: distil-whisper/distil-small.en (MIT) via transformers on torch. On Windows, PyPI's torch is the CPU build;
-# for an NVIDIA GPU install the CUDA build from https://pytorch.org first (STT_DEVICE=auto then uses it).
+# STT: SraVaani-1.0 (default) or distil-whisper/distil-small.en (MIT) via transformers on torch. On Windows, PyPI's
+# torch is the CPU build, on which SraVaani is slow; for an NVIDIA GPU install the CUDA build first (STT_DEVICE=auto
+# then uses it). RTX 50-series (Blackwell) needs CUDA 12.8+:
+#   .venv\Scripts\python -m pip install --force-reinstall --no-deps torch --index-url https://download.pytorch.org/whl/cu128
 torch>=2.6
 transformers>=4.48
+# SraVaani's model code (trust_remote_code) imports sentencepiece for its tokenizer
+sentencepiece>=0.2
 # TTS: hexgrad/Kokoro-82M (Apache-2.0) as its ONNX export (onnx-community/Kokoro-82M-v1.0-ONNX) via kokoro-onnx,
 # which bundles espeak-ng. The official `kokoro` package pins numpy==1.26.4: no Python 3.13 wheel, and it would
 # downgrade numpy for the whole project.

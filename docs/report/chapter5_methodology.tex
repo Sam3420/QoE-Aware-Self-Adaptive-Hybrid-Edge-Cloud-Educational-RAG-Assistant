@@ -1,0 +1,367 @@
+% Chapter 5: Proposed Methodology
+% Needs in the preamble:
+%   \usepackage{amsmath,booktabs,tikz}
+%   \usetikzlibrary{positioning,arrows.meta,fit,backgrounds}
+%   \usepackage{algorithm}
+%   \usepackage{algpseudocode}
+
+\chapter{Proposed Methodology}
+
+\section{Design (architecture) or conceptual framework}
+
+The proposed system is a QoE-aware, self-adaptive educational assistant for NCERT Class~10 Science. It combines
+three ideas: retrieval-augmented generation (RAG) grounded in a lesson video, a hybrid edge--cloud execution path in
+which each question can be answered by a small local model or a large cloud model, and a closed adaptation loop in
+which every learning session is measured and stored as an \emph{experience} that guides the runtime configuration of
+later sessions. A proactive, concept-level coach sits on top of this loop and turns the learner's test results into
+learning goals and practice.
+
+Figure~\ref{fig:architecture} shows the architecture. It is organised in six layers.
+
+\begin{enumerate}
+  \item \textbf{Presentation layer.} A Streamlit web interface for learners (tests, video choice, questions, practice
+        checks, mastery panel) and a FastAPI backend. Optional speech input and output make the interface accessible.
+  \item \textbf{Orchestration layer.} One LangGraph state graph runs a learning session as a sequence of nodes. The
+        graph pauses at every point that needs the learner (an \emph{interrupt}) and resumes when the learner replies,
+        so a session survives page reloads and its full state is inspectable.
+  \item \textbf{Knowledge layer.} Recommended YouTube videos are the learning resources. The chosen video's transcript
+        is cleaned, chunked and embedded into a FAISS index; corrective RAG (CRAG) retrieves and grades evidence from
+        it for every question.
+  \item \textbf{Model layer.} A local small language model (gemma3:1b on Ollama, the \emph{edge}) and a cloud large
+        language model (gpt-oss-120b on Groq, the \emph{cloud}) behind a router. Embeddings are computed locally
+        (nomic-embed-text).
+  \item \textbf{Adaptation layer.} Context monitoring (network round-trip time, CPU and memory load, learner
+        competency, previous QoE), session evaluation (QoE, SRE, utility, reward) and policy selection over an
+        experience store indexed with FAISS.
+  \item \textbf{Coaching layer.} A concept vocabulary per topic, a concept tracker that estimates mastery per learner
+        and concept, session planning, a rule-based coach, a pool of formative questions and a parallel post-test.
+\end{enumerate}
+
+All persistent data (learner profiles, sessions, assessments, question banks, concept mastery, experiences) is kept in
+a relational database (SQLite), and every node is traced with Langfuse for analysis.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  font=\small,
+  box/.style={draw, rounded corners=2pt, align=center, minimum height=0.9cm, text width=3.0cm},
+  wide/.style={box, text width=6.6cm},
+  layer/.style={draw, dashed, rounded corners=4pt, inner sep=6pt},
+  arr/.style={-{Latex[length=2mm]}, thick},
+  node distance=0.55cm and 0.6cm]
+
+  % presentation
+  \node[box] (learner) {Learner\\(text or speech)};
+  \node[box, right=of learner] (ui) {Streamlit UI\\FastAPI backend};
+
+  % orchestration
+  \node[wide, below=0.9cm of $(learner)!0.5!(ui)$] (graph)
+       {LangGraph session agent\\pre-test $\rightarrow$ plan $\rightarrow$ video $\rightarrow$ questions
+        $\rightarrow$ coach $\rightarrow$ post-test $\rightarrow$ evaluation};
+
+  % coaching and knowledge
+  \node[box, below left=0.9cm and -1.4cm of graph] (coach)
+       {Coaching layer\\concept tracker,\\session plan, coach,\\formative pool};
+  \node[box, below right=0.9cm and -1.4cm of graph] (knowledge)
+       {Knowledge layer\\YouTube recommender,\\transcript $\rightarrow$ FAISS,\\CRAG retrieval};
+
+  % model layer
+  \node[box, below=0.9cm of knowledge] (router) {LLM router\\(policy route)};
+  \node[box, below left=0.7cm and 0.2cm of router, text width=2.4cm] (edge) {Edge: local SLM\\gemma3:1b};
+  \node[box, below right=0.7cm and 0.2cm of router, text width=2.4cm] (cloud) {Cloud: LLM\\gpt-oss-120b};
+
+  % adaptation
+  \node[box, below=0.9cm of coach] (monitor) {Context monitor\\RTT, CPU, memory,\\competency, last QoE};
+  \node[box, below=0.6cm of monitor] (eval) {Session evaluation\\QoE, SRE, utility,\\reward};
+  \node[box, below=0.6cm of eval] (store) {Experience store\\(DB + FAISS)};
+  \node[box, left=0.8cm of eval] (select) {Policy selection\\kNN + $\varepsilon$-greedy\\(P1--P5)};
+
+  \node[box, below=1.2cm of $(edge)!0.5!(cloud)$, text width=6.0cm] (db)
+       {Relational DB (SQLite) and Langfuse traces};
+
+  \begin{scope}[on background layer]
+    \node[layer, fit=(monitor)(eval)(store)(select), label={[font=\footnotesize\itshape]above left:Adaptation loop}] {};
+    \node[layer, fit=(router)(edge)(cloud), label={[font=\footnotesize\itshape]above:Hybrid edge--cloud execution}] {};
+  \end{scope}
+
+  \draw[arr] (learner) -- (ui);
+  \draw[arr] (ui) -- (graph);
+  \draw[arr] (graph) -- (coach);
+  \draw[arr] (graph) -- (knowledge);
+  \draw[arr] (knowledge) -- node[right, font=\footnotesize]{evidence} (router);
+  \draw[arr] (router) -- (edge);
+  \draw[arr] (router) -- (cloud);
+  \draw[arr] (graph.west) -| node[pos=0.75, left, font=\footnotesize]{context} (select.north);
+  \draw[arr] (monitor) -- (eval);
+  \draw[arr] (eval) -- (store);
+  \draw[arr] (store.west) -| (select.south);
+  \draw[arr] (select) to[bend right=10] node[below, font=\footnotesize]{policy $a^\ast$} (router.south west);
+  \draw[arr, dashed] (edge.south) -- (db);
+  \draw[arr, dashed] (cloud.south) -- (db);
+\end{tikzpicture}
+\caption{Architecture of the QoE-aware self-adaptive hybrid edge--cloud educational assistant.}
+\label{fig:architecture}
+\end{figure}
+
+\paragraph{Key concepts.}
+\begin{itemize}
+  \item \textbf{Runtime policy.} A predefined configuration $a = (\text{route}, k, r)$: where answers are generated
+        (local, cloud, or local with escalation), how many chunks are retrieved ($k$), and how many corrective
+        retrieval retries CRAG may make ($r$). Five policies are defined (Table~\ref{tab:policies}).
+  \item \textbf{Context (state).} The measurable situation in which a session runs:
+        $s = (\mathit{rtt}, \mathit{cpu}, \mathit{mem}, \mathit{competency}, \mathit{QoE}_{\mathit{last}})$.
+  \item \textbf{Experience.} A completed transition $(s, a, R, s')$ of one session: the context, the policy executed,
+        the reward and the measured outcome.
+  \item \textbf{Concept.} A unit of the chapter (for example \emph{dominant and recessive traits}); every test item,
+        practice question and learner question is tagged with one concept, and mastery is tracked per concept.
+\end{itemize}
+
+\paragraph{Assumptions.}
+(i) The learning resource is a single lesson video at a time, and answers should be grounded in its transcript.
+(ii) The local model is cheaper and private but weaker; the cloud model is stronger but depends on the network.
+(iii) Conditions that matter for the choice of policy (network delay, device load, learner level) can be measured at
+the start of a session. (iv) A session is the unit of adaptation: one policy is applied per session and its effect is
+measured at the end of the session.
+
+\section{Proposed approach and procedure}
+
+\subsection{Overview of a learning session}
+
+One learning session follows the procedure below. Each step is a node (or a small group of nodes) of the session
+graph.
+
+\begin{enumerate}
+  \item \textbf{Pre-test.} The learner chooses a topic and answers five multiple-choice questions drawn from a reviewed
+        15-question bank, one question per concept.
+  \item \textbf{Session plan.} The concepts of the wrongly answered questions, and earlier weak concepts, become two to
+        four learning goals.
+  \item \textbf{Video recommendation.} YouTube videos are searched with a query built from the topic and the goals,
+        ranked, and shown to the learner, who chooses one.
+  \item \textbf{Knowledge preparation.} The chosen video's transcript is fetched, chunked and indexed.
+  \item \textbf{Context measurement and policy selection.} The context $s$ is measured and a policy $a^\ast$ is
+        selected from similar past experiences.
+  \item \textbf{Question answering.} For each learner question, CRAG retrieves evidence and the router generates the
+        answer according to $a^\ast$.
+  \item \textbf{Coaching.} After each answer the question is tagged with a concept, mastery is updated, and the coach
+        suggests one next step (for example a short practice check).
+  \item \textbf{Post-test and feedback.} The learner answers five post-test questions parallel to the pre-test ones and
+        rates the session.
+  \item \textbf{Evaluation and storage.} QoE, SRE, utility and reward are computed, and the experience is stored for
+        future sessions.
+\end{enumerate}
+
+The following subsections describe each stage.
+
+\subsection{Learning content}
+
+For each chapter a \emph{content package} is prepared from the NCERT textbook: 8--10 concepts; 15 pre-test questions;
+15 post-test questions, each \emph{parallel} to one pre-test question (same concept and difficulty, different
+question); 3--4 formative (practice) questions per concept, kept separate from both tests; and 3--5 candidate
+videos. Every question has four options, the answer, an explanation, one concept, a difficulty and the textbook
+section and page that support it. Packages are checked automatically before loading: grounding of every item in the
+cited page, absence of long passages copied from the textbook, balanced answer positions, distinct concepts among the
+first five pre-test questions, and an independent ``blind'' check in which a second model answers and tags every
+question without seeing the key. Disagreements are not accepted or rejected automatically; they are flagged for human
+review. Five chapters are prepared: Life Processes, Control and Coordination, How do Organisms Reproduce?,
+Heredity, and Our Environment.
+
+\subsection{Pre-test and session planning}
+
+The pre-test shows the first five bank questions, which cover five different concepts. Each answer is recorded as an
+attempt on its concept, and mastery is estimated with the Laplace (rule-of-succession) estimate
+\begin{equation}
+  m_{c} = \frac{n^{\text{correct}}_{c} + 1}{n^{\text{attempts}}_{c} + 2},
+  \label{eq:mastery}
+\end{equation}
+which starts at $0.5$ for an unseen concept and moves towards the observed accuracy as evidence accumulates. The
+session plan selects two to four goals in priority order: concepts missed in this pre-test, then concepts with low
+mastery from earlier sessions, then, only to reach the minimum, concepts never practised.
+
+\subsection{Resource recommendation}
+
+The recommendation query combines the topic, the goal concepts and a hint for the learner's level (for example
+``explained simply'' for beginners). Candidates from the YouTube Data API are filtered by hard constraints (privacy,
+minimum duration, previously completed videos) and ranked in two stages. A cheap first stage scores titles and
+descriptions by semantic similarity to the learning objective; the second stage fetches transcripts only for the
+most promising candidates and scores how well their content covers the objective. Three recommendation strategies
+trade speed for evidence (metadata only, or transcripts for the top four or eight candidates). Because the session
+answers questions from the transcript, only videos with a transcript in the learner's language are recommended.
+
+\subsection{Knowledge preparation and corrective retrieval}
+
+The chosen video's transcript is cleaned, split into overlapping chunks of 120 words (25-word overlap) and embedded
+into a per-video FAISS index; the index is reused when the video is chosen again. For a question $q$, CRAG retrieves
+the $k$ most similar chunks, grades them, and computes a retrieval score. If the score is below the acceptance
+threshold $\tau = 0.65$ and retries remain, the query is rewritten (filler words removed, topic terms added) and
+retrieval is repeated; the attempts are merged. Retrieval stops when the score reaches $\tau$ or the policy's retry
+budget $r$ is spent.
+
+\subsection{Hybrid edge--cloud generation}
+
+The router generates the answer from the retrieved chunks according to the policy's route
+(Table~\ref{tab:policies}). P1--P4 are fixed configurations and serve as baselines. P5 is a confidence-aware cascade:
+\begin{itemize}
+  \item if the final retrieval score lies in the borderline band $[0.55, 0.65)$, the evidence exists but is weakly
+        matched, so the cloud model answers directly;
+  \item otherwise the local model answers, and a fast grounding check (a small cloud model) measures the share of the
+        answer's claims supported by the retrieved chunks; if it is below $0.75$, the cloud model answers again and its
+        answer replaces the local draft.
+\end{itemize}
+Below the band (score $< 0.55$) the question is outside the video's content, and the local model states that the
+video does not cover it, at no cloud cost.
+
+\begin{table}[htbp]
+\centering
+\caption{Predefined runtime policies (the actions of the adaptation loop).}
+\label{tab:policies}
+\begin{tabular}{llccl}
+\toprule
+Policy & Route & $k$ & $r$ & Behaviour \\
+\midrule
+P1 local-light (default) & local & 3 & 0 & local model only \\
+P2 local-thorough & local & 5 & 1 & local model only \\
+P3 cloud-light & cloud & 3 & 0 & cloud model only \\
+P4 cloud-thorough & cloud & 5 & 1 & cloud model only \\
+P5 local-escalate & escalate & 5 & 1 & local first, cloud when needed \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Proactive coaching}
+
+After every answer the learner's question is matched to a concept: by name or alias when exactly one concept is
+named, otherwise by embedding similarity with a confidence threshold. The concept is marked as practised, and the
+coach chooses exactly one next step by the first matching rule:
+\begin{enumerate}
+  \item \emph{formative check}: the question concerned a goal concept with mastery below $0.5$;
+  \item \emph{another video}: a goal concept is not covered by the current video;
+  \item \emph{review}: the last answer was escalated, failed the grounding check, or was weakly retrieved;
+  \item \emph{post-test}: every goal has mastery of at least $0.75$;
+  \item \emph{follow-up}: the next goal not yet asked about, otherwise the weakest goal.
+\end{enumerate}
+A suggestion ignored twice in a row is muted. Formative questions come from the concept's practice pool and are never
+test questions, so practice does not leak the post-test. Rules rather than a learned model are used deliberately at
+this stage: they are transparent to the learner, need no training data, and give a clear baseline for comparing a
+learned coach later.
+
+\subsection{Post-test}
+
+The post-test asks, for each pre-test question, its parallel question. Because the two forms test the same concept
+at the same difficulty with different wording, a higher post-test score reflects learning of the concept rather than
+memory of the question. Post-test questions and their answers are stored separately from the pre-test bank and are
+never included in pre-test data. The normalized learning gain is
+\begin{equation}
+  g = \frac{\text{post} - \text{pre}}{1 - \text{pre}}.
+  \label{eq:gain}
+\end{equation}
+
+\subsection{Session evaluation}
+
+All measurements are normalised to $[0,1]$ with higher meaning better (costs such as latency are inverted). Quality
+of experience combines four groups:
+\begin{align}
+  \mathit{EQ} &= \alpha_1 \mathit{LG} + \alpha_2 \mathit{PT} + \alpha_3 \mathit{RA} + \alpha_4 \mathit{LS}, \\
+  \mathit{AQ} &= \beta_1 \mathit{RQ} + \beta_2 \mathit{LQ} + \beta_3 \mathit{SQ} + \beta_4 \mathit{TQ}, \\
+  \mathit{NQ} &= \gamma_1 \mathit{PL} + \gamma_2 \mathit{NR} + \gamma_3 \mathit{RU} + \gamma_4 \mathit{AV}, \\
+  \mathit{UX} &= \delta_1 \mathit{SR} + \delta_2 \mathit{FS} + \delta_3 \mathit{CR}, \\
+  \mathit{QoE} &= w_{\mathit{EQ}}\,\mathit{EQ} + w_{\mathit{AQ}}\,\mathit{AQ} + w_{\mathit{NQ}}\,\mathit{NQ}
+                  + w_{\mathit{UX}}\,\mathit{UX},
+\end{align}
+where the educational group uses learning gain (LG), post-test score (PT), recommendation acceptance (RA) and
+resource satisfaction (LS); the answer-quality group uses retrieval quality (RQ), response quality (LQ) and speech
+quality (SQ, TQ); the network group uses answer latency (PL), network reliability (NR), device utilisation (RU) and
+availability of a model route (AV); and the user-experience group uses the session rating (SR), feedback sentiment
+(FS) and completion (CR). System resource efficiency measures how much of a per-session budget was used:
+\begin{equation}
+  \mathit{SRE} = \eta_1 \Bigl(1-\tfrac{u_{\mathit{cpu}}}{u^{\max}_{\mathit{cpu}}}\Bigr)
+               + \eta_2 \Bigl(1-\tfrac{u_{\mathit{mem}}}{u^{\max}_{\mathit{mem}}}\Bigr)
+               + \eta_3 \Bigl(1-\tfrac{E}{E^{\max}}\Bigr)
+               + \eta_4 \Bigl(1-\tfrac{B}{B^{\max}}\Bigr),
+\end{equation}
+with each term clipped to $[0,1]$, where $E$ is an energy estimate and $B$ the bytes transferred. SRE alone would
+reward doing less, so it is always combined with QoE. The utility of an observed state and the reward of a
+transition $(s, a, s')$ are
+\begin{align}
+  U &= \lambda_1\, \mathit{QoE} + \lambda_2\, \mathit{SRE}, \\
+  R &= \mu_1 \bigl(\mathit{QoE}' - \mathit{QoE}\bigr) + \mu_2 \bigl(\mathit{SRE}' - \mathit{SRE}\bigr),
+\end{align}
+with $\lambda_1 = \mu_1 = 0.7$ and $\lambda_2 = \mu_2 = 0.3$. Every weight group is non-negative and sums to one.
+When a measurement is unavailable, the weights of the available ones in its group are renormalised and the share of
+weight backed by data (\emph{coverage}) is reported, so a score never claims more evidence than it has. As an
+alternative to expert weights, the Entropy Weight Method can derive weights from the variation in stored data.
+
+\subsection{Experience-based policy selection}
+
+The context is embedded as a vector $\mathbf{x}(s) \in [0,1]^5$ (round-trip time divided by a maximum and clipped;
+CPU and memory load; competency; previous QoE). Completed transitions are stored in the database and their context
+vectors in an exact FAISS index. For a new session, the $K = 5$ nearest past contexts are retrieved. For each policy
+$a$, only neighbours that executed $a$ contribute, weighted by a Gaussian kernel of their distance $d_i$:
+\begin{equation}
+  \hat{U}(s, a) = \frac{\sum_{i \in N_a(s)} w_i\, U_i}{\sum_{i \in N_a(s)} w_i},
+  \qquad w_i = \exp\!\Bigl(-\frac{d_i^2}{2\sigma^2}\Bigr), \quad \sigma = 0.25,
+  \label{eq:estimate}
+\end{equation}
+where $U_i$ is the utility measured after neighbour $i$. A policy has an estimate only when the total weight of its
+neighbours is at least $0.1$, so evidence from very different contexts is not trusted. The selection is
+$\varepsilon$-greedy (Algorithm~\ref{alg:policy}). This is case-based reasoning rather than reinforcement learning: no
+model is trained; past outcomes are looked up. The predicted utility of the chosen policy is stored alongside the
+utility observed at the end of the session, which allows the accuracy of the predictions to be measured.
+
+\begin{algorithm}[htbp]
+\caption{Experience-based policy selection}
+\label{alg:policy}
+\begin{algorithmic}[1]
+\Require context $s$, experience store $\mathcal{D}$, policies $\mathcal{A}$, default policy $a_0$ (P1),
+         $K$, $\sigma$, exploration rate $\varepsilon$, minimum experiences $n_{\min}$
+\If{$|\mathcal{D}| < n_{\min}$} \State \Return $a_0$ \Comment{cold start}
+\EndIf
+\State $N \gets$ the $K$ nearest neighbours of $\mathbf{x}(s)$ in $\mathcal{D}$
+\For{each $a \in \mathcal{A}$}
+  \State $N_a \gets \{\, i \in N : a_i = a \,\}$
+  \If{$\sum_{i \in N_a} w_i \ge 0.1$} \State compute $\hat{U}(s,a)$ with Eq.~\eqref{eq:estimate}
+  \EndIf
+\EndFor
+\If{no policy has an estimate} \State \Return $a_0$
+\EndIf
+\State $a^{\ast} \gets \arg\max_a \hat{U}(s,a)$ \Comment{ties go to $a_0$}
+\If{$\mathrm{rand}() < \varepsilon$} \State $a^{\ast} \gets$ a random policy other than $a^{\ast}$ \Comment{exploration}
+\EndIf
+\State store $\hat{U}(s, a^{\ast})$ as the prediction for this session
+\State \Return $a^{\ast}$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Implementation}
+
+The system is implemented in Python~3.11. The session graph uses LangGraph with a checkpointer, so each pause for the
+learner is a resumable state. The backend uses FastAPI, the interface Streamlit, and persistence SQLite through
+SQLAlchemy with versioned, additive migrations. Retrieval uses FAISS with locally computed embeddings
+(nomic-embed-text on Ollama); the local language model is gemma3:1b on Ollama and the cloud model is gpt-oss-120b on
+Groq. Videos come from the YouTube Data API, transcripts from youtube-transcript-api. Speech output uses the Kokoro
+text-to-speech model; speech input is optional. Every node and model call is traced in Langfuse. The design choices
+were made for transparency and reproducibility: fixed, inspectable policies; deterministic metrics computed from
+stored measurements; case-based selection whose every decision can be explained by its neighbours; and rule-based
+coaching. The implementation is covered by automated tests, and the main configuration values are listed in
+Table~\ref{tab:config}.
+
+\begin{table}[htbp]
+\centering
+\caption{Main configuration values.}
+\label{tab:config}
+\begin{tabular}{lr}
+\toprule
+Parameter & Value \\
+\midrule
+Pre-test / post-test questions per session & 5 / 5 \\
+Learning goals per session & 2--4 \\
+Transcript chunk size / overlap (words) & 120 / 25 \\
+CRAG acceptance threshold $\tau$ & 0.65 \\
+P5 borderline retrieval band & $[0.55, 0.65)$ \\
+P5 grounding-check threshold & 0.75 \\
+Coach: low mastery / mastered & 0.5 / 0.75 \\
+Neighbours $K$, kernel width $\sigma$ & 5, 0.25 \\
+Exploration rate $\varepsilon$, minimum experiences & 0.2, 3 \\
+Utility and reward weights (QoE, SRE) & 0.7, 0.3 \\
+\bottomrule
+\end{tabular}
+\end{table}

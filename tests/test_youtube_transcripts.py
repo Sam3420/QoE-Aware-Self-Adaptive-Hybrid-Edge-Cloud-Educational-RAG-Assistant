@@ -167,6 +167,28 @@ def test_available_lists_tracks_without_downloading():
     assert downloads == []
 
 
+def test_a_block_pauses_requests_only_for_the_cooldown(monkeypatch):
+    import services.youtube.transcripts as transcripts_module
+
+    now = [1000.0]
+    monkeypatch.setattr(transcripts_module.time, "monotonic", lambda: now[0])
+    api = FakeApi(error=IpBlocked("blocked"))
+    adapter = YouTubeTranscriptApiAdapter(api)
+    assert adapter.available("a", ["en"]) == TranscriptStatus.BLOCKED
+    assert adapter.fetch("b", ["en"]).status == TranscriptStatus.BLOCKED and api.calls == 1  # paused: not sent
+    now[0] += adapter.BLOCK_COOLDOWN_S + 1
+    api.error, api.tracks = None, [_track("en", False)]
+    assert adapter.blocked is None and adapter.available("c", ["en"]) == TranscriptStatus.OK and api.calls == 2
+
+
+def test_a_cached_no_track_verdict_skips_the_download(tmp_path):
+    inner = FakeTranscripts()
+    fetcher = CachedTranscriptFetcher(inner, JsonFileCache(tmp_path, {"transcripts": 3600, "captions": 3600}))
+    assert fetcher.available("popularNoTr", ["en"]) == TranscriptStatus.TRANSCRIPTS_DISABLED
+    record = fetcher.fetch("popularNoTr", ["en"])
+    assert record.status == TranscriptStatus.TRANSCRIPTS_DISABLED and record.from_cache and inner.calls == []
+
+
 def test_track_verdicts_are_cached_but_blocks_are_not(tmp_path):
     cache = JsonFileCache(tmp_path, {"transcripts": 3600, "captions": 3600})
     api = FakeApi([_track("hi", True)])

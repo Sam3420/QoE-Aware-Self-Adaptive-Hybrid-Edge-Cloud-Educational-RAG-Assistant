@@ -25,6 +25,7 @@ def no_background_work(monkeypatch):
 
     monkeypatch.setattr(settings, "video_prefetch_count", 0)
     monkeypatch.setattr(settings, "warmup_on_start", False)
+    monkeypatch.setattr(settings, "prewarm_video_caches", False)
 CTX = {"rtt_ms": 180.0, "cpu": 0.35, "mem": 0.55, "competency_num": 0.0, "last_qoe": 0.5}
 
 

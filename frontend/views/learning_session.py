@@ -145,13 +145,21 @@ def _select_video(backend: AgentBackend, thread_id: str, values: dict[str, Any],
     # videos the assistant can teach from first; those without a usable transcript are kept, but out of the way
     usable = [i for i in pause["items"] if not i.get("unavailable")]
     unusable = [i for i in pause["items"] if i.get("unavailable")]
-    if pause["items"] and not usable:
+    blocked = [i for i in unusable if "blocking transcript requests" in str(i.get("unavailable"))
+               or "blocked" in str(i.get("unavailable")).lower()]
+    if blocked:
+        st.warning("YouTube is temporarily blocking caption requests from this network, so the assistant can't check "
+                   "or read these videos' transcripts right now. Requests resume automatically after about 15 minutes "
+                   "(then use \"Find other videos\"); switching network, e.g. to a phone hotspot, usually helps at once.",
+                   icon=":material/wifi_off:")
+    elif pause["items"] and not usable:
         st.warning("None of these videos has a transcript the assistant can use. Try \"Find other videos\".",
                    icon=":material/warning:")
     for item in usable:
         _video_card(backend, thread_id, item)
     if unusable:
-        with st.expander(f"{len(unusable)} video(s) can't be used for questions (no usable transcript)",
+        with st.expander(f"{len(unusable)} video(s) can't be used for questions"
+                         + (" right now (YouTube block)" if blocked else " (no usable transcript)"),
                          icon=":material/block:"):
             for item in unusable:
                 _video_card(backend, thread_id, item)

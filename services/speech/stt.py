@@ -120,17 +120,32 @@ class SraVaaniSTT(SpeechToText):
     Its documented API takes audio file paths, so each recording is written to a temporary 16 kHz WAV first.
     """
 
-    def __init__(self, *, token: str | None = None, **kw: Any) -> None:
+    def __init__(self, *, token: str | None = None, revision: str | None = None, **kw: Any) -> None:
         super().__init__(**kw)
-        self.token = token
+        self.token, self.revision = token, revision
 
     def _load(self) -> Any:
+        import torch
         from transformers import AutoModel
 
+        # TorchScript's profiling executor re-optimises the graph for each new input length: measured on the project
+        # GPU, the first ~4 questions took 2-5 s each, later ones ~50-170 ms. Without it only the first call is slow
+        # (CUDA start-up), and that call is made here with a short dummy recording.
+        torch._C._jit_set_profiling_executor(False)
         cuda = self._cuda()
-        model = AutoModel.from_pretrained(self.model_id, trust_remote_code=True, token=self.token,
-                                          cache_dir=str(self.cache_dir) if self.cache_dir else None)
-        return model.to("cuda" if cuda else "cpu").eval()
+        model = AutoModel.from_pretrained(self.model_id, revision=self.revision, trust_remote_code=True,
+                                          token=self.token, cache_dir=str(self.cache_dir) if self.cache_dir else None)
+        model = model.to("cuda" if cuda else "cpu").eval()
+        self._warm_up(model)
+        return model
+
+    def _warm_up(self, model: Any) -> None:
+        noise = (np.random.default_rng(0).standard_normal(TARGET_RATE) * 0.01).astype(np.float32)  # 1 s, near silent
+        pipe, self._pipe = self._pipe, model
+        try:
+            self._infer(noise)
+        finally:
+            self._pipe = pipe
 
     def _infer(self, audio: np.ndarray) -> str:
         if not hasattr(self._pipe, "transcribe"):  # an injected test callable

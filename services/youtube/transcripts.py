@@ -77,7 +77,21 @@ class YouTubeTranscriptApiAdapter:
             api = YouTubeTranscriptApi()
         self.api = api
         self.translate_fallback = translate_fallback
-        self.blocked: str | None = None  # set after YouTube blocks requests; no further calls this process
+        self._blocked: tuple[str, float] | None = None  # (error name, monotonic time) of YouTube's last block
+
+    # After a block, no requests for BLOCK_COOLDOWN_S (more requests prolong it), then the next one tries again:
+    # a latch for the whole process kept every video "blocked" long after YouTube had lifted the block.
+    BLOCK_COOLDOWN_S = 900.0
+
+    @property
+    def blocked(self) -> str | None:
+        """The error name while YouTube's block is assumed to last, else None."""
+        if self._blocked and time.monotonic() - self._blocked[1] < self.BLOCK_COOLDOWN_S:
+            return self._blocked[0]
+        return None
+
+    def _block(self, exc: Exception) -> None:
+        self._blocked = (type(exc).__name__, time.monotonic())
 
     def _pick(self, listing: Any, languages: Sequence[str]) -> tuple[Any, Any]:
         """(track to fetch, the track it is translated from or None); (None, None) when nothing is usable."""
@@ -100,14 +114,15 @@ class YouTubeTranscriptApiAdapter:
         except Exception as exc:
             status = _status_for(exc)
             if status == TranscriptStatus.BLOCKED:
-                self.blocked = type(exc).__name__
+                self._block(exc)
             return status
 
     def fetch(self, video_id: str, languages: Sequence[str]) -> TranscriptRecord:
         """Return the normalised transcript, or a record explaining why there is none."""
         if self.blocked:
             return TranscriptRecord(video_id=video_id, status=TranscriptStatus.BLOCKED,
-                                    error=f"skipped: YouTube blocked transcript requests earlier ({self.blocked})")
+                                    error=f"skipped: YouTube is blocking transcript requests from this network ({self.blocked}); "
+                                          f"retried automatically after a few minutes")
         try:
             listing = self.api.list(video_id)
             track, source = self._pick(listing, languages)
@@ -131,8 +146,9 @@ class YouTubeTranscriptApiAdapter:
             status = _status_for(exc)
             first_line = str(exc).strip().splitlines()[0][:200] if str(exc).strip() else type(exc).__name__
             if status == TranscriptStatus.BLOCKED:
-                self.blocked = type(exc).__name__
-                logger.warning("transcript requests blocked by YouTube; disabling retrieval: %s", first_line)
+                self._block(exc)
+                logger.warning("transcript requests blocked by YouTube; pausing them for %.0f min: %s",
+                               self.BLOCK_COOLDOWN_S / 60, first_line)
             return TranscriptRecord(video_id=video_id, status=status, retrieved_at=_now(),
                                     error=f"{type(exc).__name__}: {first_line}")
 
@@ -156,6 +172,10 @@ class CachedTranscriptFetcher:
                 return TranscriptRecord.model_validate(cached).model_copy(update={"from_cache": True})
             except ValueError:
                 pass
+        known = self.cache.get("captions", key) if self.cache else None
+        if known in {s.value for s in KNOWN_TRACK_VERDICTS}:  # listed earlier: no usable track, nothing to download
+            return TranscriptRecord(video_id=video_id, status=TranscriptStatus(known), retrieved_at=_now(),
+                                    from_cache=True, error=f"no usable track (cached check: {known})")
         record = self.inner.fetch(video_id, languages)
         if record.status == TranscriptStatus.OK and self.cache:
             self.cache.set("transcripts", key, record.model_dump(mode="json"))
