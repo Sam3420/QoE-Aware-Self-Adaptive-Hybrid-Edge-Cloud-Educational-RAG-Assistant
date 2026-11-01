@@ -1,0 +1,1016 @@
+qid,topic_id,variant,provider,total_ms,llm_ms,completion_tokens,n_cloud_calls,scaffold,answer_chars,response
+lp01,life_processes,P1,local,2443.7,589.9,16,0,none,74,The villi in the small intestine increase the surface area for absorption.
+lp01,life_processes,P1,local,1288.5,1003.8,68,0,step_by_step,273,"Here’s a breakdown of the villi in the small intestine, based on the text:
+
+1.  They increase the surface area for absorption.
+2.  They are richly supplied with blood vessels.
+3.  They absorb water, and the rest is removed through the anus, regulated by the anal sphincter."
+lp01,life_processes,P1,local,1255.9,1060.8,70,0,step_by_step+hint_first,347,"Hint: They increase the surface area for absorption!
+
+Think about it:  The villi are like tiny fingers that grab onto the food and help it get absorbed into the bloodstream.
+
+Full answer: The villi in the small intestine increase the surface area for absorption. They are richly supplied with blood vessels, allowing for efficient nutrient uptake."
+lp01,life_processes,P3,cloud,1850.0,1649.9,120,1,none,435,"The villi are tiny, finger‑like projections lining the inner wall of the small intestine. They greatly increase the surface area, allowing nutrients (like glucose, amino acids and fatty acids) to be absorbed quickly into the rich network of blood vessels underneath.  
+
+**Example:** After a meal, glucose from digested carbohydrates passes through the villi into the bloodstream, where it can be carried to the body’s cells for energy."
+lp01,life_processes,P3,cloud,2103.8,1928.9,149,1,step_by_step,444,"1. **Increase surface area** – The tiny finger‑like projections called villi make the inner wall of the small intestine much larger, so more food can be touched.  
+2. **Absorb nutrients** – Blood vessels inside each villus take up sugars, amino acids and fatty acids that have been broken down, sending them into the body.  
+3. **Example** – After a sandwich is digested, glucose passes through the villi into the blood, giving the body energy."
+lp01,life_processes,P3,cloud,2049.1,1838.1,197,1,step_by_step+hint_first,722,"Hint: Think of the tiny “fingers” inside your small intestine.  
+Think about it: How do these finger‑like parts help the body get nutrients from food?  
+
+Full answer:  
+1. The inner wall of the small intestine has many tiny finger‑like projections called **villi**.  
+2. Villi greatly **increase the surface area** of the intestine, giving more space for nutrients to be taken up.  
+3. Each villus contains a rich network of **blood vessels**, so absorbed nutrients can quickly enter the bloodstream.  
+4. This allows **efficient absorption** of sugars, amino acids, and fatty acids into the body.  
+
+*Example:* After a meal, glucose from digested carbs passes through the villi into the blood, raising blood sugar levels."
+lp02,life_processes,P1,local,1101.0,786.6,36,0,none,174,"Running very fast can cause leg pain due to increased blood flow to the muscles, which can lead to inflammation and muscle strain. It’s a common response to intense exercise."
+lp02,life_processes,P1,local,1014.0,822.7,53,0,step_by_step,257,"Running very fast can cause leg pain due to increased pressure on your joints and muscles. Your legs work harder, and this can lead to inflammation and muscle fatigue, which can cause pain. It’s also possible that your muscles are fatigued, leading to pain."
+lp02,life_processes,P1,local,2253.9,2068.1,158,0,step_by_step+hint_first,699,"Okay, let’s tackle that question!
+
+**Hint:** Think about what happens when your muscles work hard and your body doesn’t get enough rest.
+
+**Think about it:**  Running fast puts a lot of strain on your muscles and joints.  Your body needs time to recover, and if you don’t allow it, you might experience pain.
+
+**Full answer:**  Running very fast can cause leg pain because your muscles and joints are working hard to move quickly.  Your body needs time to recover, and if you don’t allow it, you might experience pain due to muscle fatigue, inflammation, or joint issues.
+
+---
+
+Would you like me to explain any of the concepts further, or perhaps provide some simple exercises to help with recovery?"
+lp02,life_processes,P3,cloud,1573.9,1399.1,51,1,none,125,This lesson does not cover why your legs hurt after running very fast. Please ask a question related to the lesson’s content.
+lp02,life_processes,P3,cloud,1284.2,1085.9,56,1,step_by_step,157,This lesson does not cover why legs hurt after running fast. Please ask a question about the lesson’s content on blood circulation or the circulatory system.
+lp02,life_processes,P3,cloud,1585.0,1370.6,93,1,step_by_step+hint_first,334,"Hint: Think about how blood and oxygen get to your muscles when you run.  
+Think about it: Could the speed of running affect blood flow or oxygen delivery to leg muscles?  
+Full answer: This lesson does not cover why legs hurt after running fast. Ask about the lesson on muscle fatigue or exercise physiology for a proper explanation."
+lp03,life_processes,P1,local,1173.2,959.1,45,0,none,221,"Water reaches the top of a tall tree through the xylem, which is a specialized tissue that transports water upwards from the roots. It’s driven by transpiration, which creates a suction pulling water up through the plant."
+lp03,life_processes,P1,local,1964.5,1780.4,131,0,step_by_step,544,"Here’s a 5-point answer to your question, based on the text:
+
+1.  **Root Pressure:** The roots absorb ions, creating a difference in water potential.
+2.  **Transpiration:** Water evaporates from the leaves, creating a suction that pulls water upwards through the xylem.
+3.  **Xylem Transport:** Water moves through the xylem, powered by the transpiration pull.
+4.  **Guard Cells:** Guard cells open and close pores to regulate water flow.
+5.  **Nutrient Uptake:** Water is taken up through the roots and transported to other parts of the plant."
+lp03,life_processes,P1,local,2259.0,2072.6,154,0,step_by_step+hint_first,694,"Hint: It’s driven by a pump!
+
+Think about it: The water moves up through the xylem, a specialized tissue in the roots, using a process called transpiration.
+
+Full answer: Water reaches the top of a tall tree through the xylem, a specialized tissue in the roots. This movement is driven by a pump – the transpiration pull – which creates a suction that pulls water upwards.
+
+---
+
+**Explanation:**
+
+1.  **Water Movement:** The context explains that water moves upwards through the xylem in tall plants.
+2.  **Transpiration:** The primary driving force is transpiration, which is the evaporation of water from leaves, creating a pull.
+3.  **Xylem:** This is the pathway that carries water upwards."
+lp03,life_processes,P3,cloud,1715.6,1528.0,177,1,none,665,"Water climbs a tall tree mainly because of **transpiration pull**. Water evaporates from tiny pores (stomata) on leaves, creating a suction that pulls more water up through the **xylem** tubes. As water leaves the leaves, it drags a continuous column of water from the roots upward. A smaller contribution comes from **root pressure**: root cells absorb ions, lowering their water potential, so water moves into the roots and pushes some water up the xylem. Together, these forces lift water from the soil to the top of even very tall trees. 
+
+*Example*: In a 30‑m pine, daytime transpiration creates enough pull to draw water from the roots to the highest needles."
+lp03,life_processes,P3,cloud,2083.3,1905.4,210,1,step_by_step,667,"1. **Root pressure starts the flow** – Root cells take up ions, water follows into the roots, creating pressure that pushes water upward.  
+2. **Water moves through xylem** – The continuous tubes (xylem) carry the water from the roots toward the leaves.  
+3. **Transpiration creates suction** – Water evaporates from leaf pores (stomata), pulling more water up the xylem like a straw.  
+4. **Cohesion‑tension pulls the column** – Water molecules stick together (cohesion) and to the tube walls (adhesion), so the suction from transpiration pulls the whole column up to the top of the tall tree.  
+
+These steps together lift water from the roots to the highest leaves."
+lp03,life_processes,P3,cloud,2106.4,1857.1,221,1,step_by_step+hint_first,793,"Hint: Think about how water moves upward inside the tree’s tubes.  
+Think about it: What force pulls water from the roots to the leaves?  
+
+Full answer:  
+1. **Root uptake** – Root cells absorb water and minerals from the soil, creating root pressure that pushes water into the xylem.  
+2. **Xylem vessels** – Water travels upward through long, hollow tubes called xylem.  
+3. **Transpiration** – Leaves lose water as vapor (transpiration), which creates a suction (negative pressure) in the xylem.  
+4. **Cohesion‑tension** – Water molecules stick together (cohesion) and to the tube walls (adhesion), so the suction pulls a continuous column of water upward.  
+5. **Continuous flow** – The combined root pressure and transpiration pull keep water moving from roots to the top of a tall tree."
+lp04,life_processes,P1,local,847.7,595.6,13,0,none,62,Blood is collected from the lungs and transported to the body.
+lp04,life_processes,P1,local,786.4,596.5,34,0,step_by_step,143,"Okay, here’s the answer to your question, based solely on the provided text:
+
+**Answer:** Blood leaves the lungs and is collected by the veins."
+lp04,life_processes,P1,local,2044.1,1834.4,139,0,step_by_step+hint_first,609,"Okay, here's the explanation, following your guidelines:
+
+**Hint:** Think about what happens to blood after it goes from the lungs to the rest of the body.
+
+**Think about it:**  Blood moves from the lungs to the rest of the body. What happens to it?
+
+**Full answer:**  Blood flows through the veins and capillaries. It’s collected by the veins and then returned to the heart.
+
+**Explanation:**  The heart pumps blood through a network of tubes.  Blood travels through the veins, which carry it back to the heart.  The heart then pumps the blood to all parts of the body, ensuring it gets oxygen and nutrients."
+lp04,life_processes,P3,cloud,1479.4,1295.6,132,1,none,386,"After leaving the lungs, the oxygen‑rich blood flows into the **left atrium** of the heart. From there it moves through the **mitral valve** into the **left ventricle**. The left ventricle then contracts, pumping the blood out through the **aorta** and other **arteries** to deliver oxygen to the body’s tissues. This completes the pulmonary circuit and starts the systemic circulation."
+lp04,life_processes,P3,cloud,1576.0,1406.6,137,1,step_by_step,329,"1. Oxygen‑rich blood flows from the lungs into the **left atrium** of the heart.  
+2. It moves down through the **mitral valve** into the **left ventricle**.  
+3. The left ventricle contracts, pushing the blood out through the **aorta**.  
+4. The blood travels through arteries to reach all the body’s tissues, delivering oxygen."
+lp04,life_processes,P3,cloud,1857.5,1671.0,206,1,step_by_step+hint_first,661,"Hint: Think about where the oxygen‑rich blood goes next.  
+Think about it: Which chamber of the heart receives blood from the lungs?  
+
+Full answer:  
+1. **Left atrium receives blood** – Oxygen‑rich blood from the alveoli flows into the left atrium of the heart.  
+2. **Passes to the left ventricle** – From the left atrium it moves through the mitral valve into the left ventricle.  
+3. **Pumped into the body** – The left ventricle contracts, sending the blood through the aorta to all body tissues.  
+4. **Delivers oxygen** – In the tiny capillaries, oxygen leaves the blood and enters cells, while carbon dioxide is taken up to be carried back to the lungs."
+lp05,life_processes,P1,local,1519.1,1306.0,67,0,none,298,"Guard cells swell when water flows into them and the pore opens, and they shrink when they lose water and the pore closes. 
+
+**Example:** Imagine a plant’s leaves have tiny pores. When water enters, the guard cells swell, opening the pores to let more water in, and they shrink to close them again."
+lp05,life_processes,P1,local,2349.8,2172.3,162,0,step_by_step,681,"Here’s a breakdown of the answer to your question, based on the provided text:
+
+**Understanding the Text**
+
+The text explains how guard cells work to regulate water flow through plants.
+
+**Answer:**
+
+1.  **Swelling:** When water enters the guard cells, they swell.
+2.  **Shrinking:** When water leaves, the guard cells shrink.
+3.  **Root Uptake:** Guard cells absorb water from the soil through their roots.
+4.  **Nitrogen Uptake:** They also take up nitrogen, phosphorus, iron and magnesium from the soil.
+5.  **Photosynthesis:** They use the water to carry out photosynthesis.
+
+**Important Note:** The text focuses on the process of guard cells, not the specific nutrient uptake."
+lp05,life_processes,P1,local,909.8,727.5,42,0,step_by_step+hint_first,189,"Guard cells swell when water flows into them and the pore opens, and they shrink when they lose water and the pore closes.
+
+Think about it:  What causes the guard cells to swell and shrink?"
+lp05,life_processes,P3,cloud,1628.6,1438.2,121,1,none,482,"Guard cells control stomatal opening by changing their water content. When they take up water, they swell, pulling the surrounding epidermal cells apart and opening the pore; when they lose water, they shrink, pulling the cells together and closing the pore. **Key terms:** guard cells, osmotic water uptake, swelling, shrinking, stomatal aperture. **Example:** In bright sunlight, guard cells absorb water, swell, and the leaf’s stomata open to allow CO₂ intake for photosynthesis."
+lp05,life_processes,P3,cloud,1915.1,1732.1,118,1,step_by_step,407,"1. Guard cells take up water → they swell and become turgid.  
+2. When swollen, the cells pull the two halves of the pore apart, so the stomatal opening widens.  
+3. If water leaves the guard cells, they lose turgor and shrink.  
+4. Shrinking pulls the pore edges together, closing the stomata.  
+
+(Guard cells act like tiny balloons that open the pore when full of water and close it when they lose water.)"
+lp05,life_processes,P3,cloud,1914.7,1725.5,153,1,step_by_step+hint_first,571,"Hint: Think about what makes guard cells swell or shrink.  
+Think about it: What happens to guard cells when they gain or lose water?  
+
+Full answer:  
+1. Guard cells take up water through osmosis, causing them to swell.  
+2. When they swell, the cells become turgid and the stomatal pore opens.  
+3. If water leaves the guard cells, they lose turgor pressure and shrink.  
+4. Shrinking makes the guard cells become flaccid, closing the stomatal pore.  
+5. Thus, the opening and closing of stomata are controlled by the water‑driven swelling and shrinking of guard cells."
+lp06,life_processes,P1,local,1907.3,1658.9,119,0,none,513,"Okay, let’s talk about gravity! It’s a really important force that keeps things on the ground. 
+
+**Key Terms:** Gravity, Force, Earth.
+
+**Explanation:**  The concept of gravity was discovered by Isaac Newton in the 17th century. He realized that objects with mass attract each other.  He mathematically described this force, which is why things fall down. 
+
+**Example:**  When you drop a ball, gravity pulls it down, keeping it from floating away. 
+
+Do you have any other questions about gravity or anything else?"
+lp06,life_processes,P1,local,1730.9,1521.4,121,0,step_by_step,474,"Okay, let’s talk about gravity!
+
+1.  **Gravity** is a force that pulls things together. It’s what keeps us on the ground.
+2.  **Isaac Newton** was a really smart scientist who figured out this important idea.
+3.  **He realized** that everything with weight has gravity, and the more massive something is, the stronger its gravity.
+4.  **An example** is why a ball falls down when you drop it – it’s gravity pulling it.
+
+Would you like to learn more about Newton's discovery?"
+lp06,life_processes,P1,local,2118.0,1939.1,156,0,step_by_step+hint_first,707,"Hint: This question is about a really important discovery!
+
+Think about it: Gravity is the force that pulls things towards each other. It was discovered by Isaac Newton, who figured out that heavier objects have more gravity.
+
+Here’s a breakdown:
+
+1.  **Gravity is a force:** It’s a pulling force that exists between things.
+2.  **Newton’s Discovery:** Isaac Newton realized that objects with more mass have stronger gravity.
+3.  **Example:** When you drop a ball, it falls down because of gravity.
+4.  **Simple Explanation:** Gravity keeps things on the ground.
+
+Full answer: Gravity is a force that pulls things together. Isaac Newton discovered it by realizing that heavier objects have stronger gravity."
+lp06,life_processes,P3,cloud,1882.4,1696.2,43,1,none,104,This lesson does not cover who discovered gravity. Please ask a question related to the lesson material.
+lp06,life_processes,P3,cloud,1597.5,1400.3,37,1,step_by_step,104,This lesson does not cover who discovered gravity. Please ask a question related to the lesson material.
+lp06,life_processes,P3,cloud,1867.3,1613.7,80,1,step_by_step+hint_first,266,"Hint: This lesson doesn’t include information about who discovered gravity.  
+Think about it: Who in history is famous for describing the law of gravity?  
+Full answer: This lesson does not cover that topic; you might ask about the lesson’s content for more details."
+cc01,control_and_coordination,P1,local,1057.1,790.7,28,0,none,128,"Reflex actions! It’s an involuntary response to a sensation, triggered by the heat, that allows you to protect yourself quickly."
+cc01,control_and_coordination,P1,local,596.3,418.5,17,0,step_by_step,63,"Reflex actions! It’s a quick, involuntary response to a danger."
+cc01,control_and_coordination,P1,local,1384.3,1206.4,82,0,step_by_step+hint_first,409,"Reflex actions.
+
+Think about it: Why does a reflex action happen quickly without thinking?
+
+Full answer: Reflex actions are sudden, involuntary responses to things in your environment, like a hot pan. They happen because your nervous system has evolved to react quickly to threats. The spinal cord helps process the information, and it sends a quick signal to your muscles, causing you to pull your hand away."
+cc01,control_and_coordination,P3,cloud,1981.0,1788.7,126,1,none,455,"You pull your hand away automatically because the response uses a **reflex arc**.  
+When heat receptors in your skin detect the hot pan, they send a sensory signal to the spinal cord, where it is instantly linked to motor nerves that contract the arm muscles. This pathway bypasses the brain’s thinking centre, so the movement is fast and involuntary.  
+
+**Example:** Touching a hot stove makes the hand jerk back before you even become aware of the pain."
+cc01,control_and_coordination,P3,cloud,1518.1,1332.2,130,1,step_by_step,497,"1. Heat receptors in your skin sense the hot pan and send an electrical impulse along a sensory neuron.  
+2. The impulse travels to the spinal cord, where it enters a **reflex arc** – a short circuit that connects the input (sensory) neuron directly to a motor neuron.  
+3. The motor neuron instantly carries a signal back to the muscles of your arm.  
+4. Those muscles contract, pulling your hand away.  
+5. The brain receives the information later, but the quick reflex happens without thinking."
+cc01,control_and_coordination,P3,cloud,1969.5,1757.8,161,1,step_by_step+hint_first,614,"Hint: Think about the quick pathway that sends signals without waiting for the brain.  
+Think about it: What part of the nervous system lets you react instantly to heat?  
+
+Full answer:  
+1. Heat receptors in your skin detect the hot pan.  
+2. These sensory nerves send an impulse to the spinal cord.  
+3. Inside the spinal cord, the impulse is routed directly to motor nerves (reflex arc).  
+4. The motor nerves instantly tell the arm muscles to contract.  
+5. This causes you to pull your hand away before the brain even processes the sensation.  
+
+This rapid, involuntary response is called a **reflex action**."
+cc02,control_and_coordination,P1,local,904.9,619.8,11,0,none,48,The gap between two neurons is called a synapse.
+cc02,control_and_coordination,P1,local,534.2,356.2,11,0,step_by_step,48,The gap between two neurons is called a synapse.
+cc02,control_and_coordination,P1,local,1084.0,909.9,59,0,step_by_step+hint_first,272,"The gap between two neurons is called a synapse.
+
+Think about it:  The question is asking for the specific term used to describe the space between neurons.  The context explains that the synapse is a small gap.
+
+Full answer: The synapse is a small gap between two neurons."
+cc02,control_and_coordination,P3,cloud,1874.3,1694.5,53,1,none,161,The gap between two neurons is called a **synapse**. It’s the tiny space where chemicals released from one neuron cross to trigger an impulse in the next neuron.
+cc02,control_and_coordination,P3,cloud,1386.0,1113.0,53,1,step_by_step,162,The gap between two neurons is called the **synapse**. It is the tiny space where chemicals released from one neuron cross to start an impulse in the next neuron.
+cc02,control_and_coordination,P3,cloud,2106.0,1860.5,141,1,step_by_step+hint_first,515,"Hint: Look at the part where the electrical impulse ends its travel.  
+Think about it: What name is given to the tiny space where chemicals move from one neuron to the next?  
+Full answer:  
+1. The electrical impulse travels down the axon of a neuron.  
+2. When it reaches the end, it triggers the release of chemicals.  
+3. These chemicals must cross a small gap to reach the next neuron.  
+4. This tiny gap is called the **synapse**.  
+5. The chemicals crossing the synapse start a new impulse in the next neuron."
+cc03,control_and_coordination,P1,local,1390.6,1147.2,53,0,none,238,"A plant stem bends towards the window because of **phototropism**.  It’s sensitive to touch, and when light comes from one side, auxin diffuses towards the shady side, stimulating the cells there to grow longer, causing the shoot to bend."
+cc03,control_and_coordination,P1,local,1480.5,1306.6,92,0,step_by_step,384,"Here’s the answer to your question, based on the provided text:
+
+**Answer:**
+
+The plant stem bends towards the window because of **phototropism**. This is a type of tropism, meaning it’s a response to a stimulus – in this case, light.  When light shines on one side of the shoot, auxin diffuses towards that side, stimulating the cells there to grow longer, causing the shoot to bend."
+cc03,control_and_coordination,P1,local,2549.1,2371.9,180,0,step_by_step+hint_first,772,"Here's the answer to your question, based on the provided text:
+
+**Answer:** A plant stem bends towards the window because of **phototropism**.  The tendrils of the pea plant are sensitive to touch, and when light comes from one side, auxin diffuses towards the shady side of the shoot, which stimulates the cells there to grow longer, so the shoot bends towards light.
+
+---
+
+**Explanation:**
+
+1.  **Phototropism:** The text defines phototropism as the growth of a plant stem towards a light source.
+2.  **Auxin's Role:** The text explains that auxin is released at the tip of the shoot and diffuses towards the shady side.
+3.  **Bend Result:** This diffusion causes the cells on the shady side of the shoot to grow longer, resulting in the stem bending towards the light."
+cc03,control_and_coordination,P3,cloud,1591.4,1409.8,128,1,none,448,"A plant stem bends toward a window because of **phototropism**. Light hits one side of the stem, so the plant hormone **auxin** that is made at the tip moves to the shaded side. Auxin makes cells on that side elongate more than the cells on the light‑exposed side. The longer cells on the dark side push the stem outward, causing it to curve toward the light source (the window). This hormone‑driven growth lets the plant maximize its light intake."
+cc03,control_and_coordination,P3,cloud,1692.9,1510.6,157,1,step_by_step,419,"1. Light shines on one side of the stem (the window side).  
+2. The plant makes a hormone called **auxin** at the tip of the shoot.  
+3. Auxin moves to the darker side of the stem, away from the light.  
+4. Cells on that shady side absorb more auxin, so they grow longer than the cells on the bright side.  
+5. Because the cells on the dark side become longer, the stem curves toward the light and points to the window."
+cc03,control_and_coordination,P3,cloud,1807.0,1584.7,179,1,step_by_step+hint_first,669,"Hint: Think about a hormone that moves inside the stem when light hits only one side.  
+Think about it: Which plant hormone gathers on the shady side and makes those cells grow longer?  
+
+Full answer:  
+1. Light shines on one side of the stem (the side facing the window).  
+2. The hormone **auxin** is made at the tip of the shoot and then spreads toward the darker side.  
+3. More auxin reaches the shaded cells, causing them to **grow longer** than the cells on the bright side.  
+4. Because the cells on the shady side become longer, the stem **bends toward the light** (phototropism).  
+5. The result is the stem curving and growing in the direction of the window."
+cc04,control_and_coordination,P1,local,1141.4,895.3,43,0,none,225,"When you get scared suddenly, the nervous system triggers a reflex arc. This involves the release of chemicals from the nerves that reach muscles, causing them to move. This rapid response helps you quickly escape the danger."
+cc04,control_and_coordination,P1,local,945.0,759.7,44,0,step_by_step,224,"When you get scared suddenly, your adrenal glands release adrenaline, which causes your heart to beat faster, your breathing rate to increase, and your muscles to tense up, preparing your body to react quickly to the danger."
+cc04,control_and_coordination,P1,local,3231.8,3053.0,235,0,step_by_step+hint_first,1152,"Here’s an explanation of the answer:
+
+The context you provided doesn’t directly address what happens when someone gets scared suddenly. It focuses on the nervous system, hormones, and the body’s response to danger.
+
+**Think about it:**
+
+When someone experiences a sudden fright, their body initiates a rapid series of physiological changes. The context describes how the brain and nervous system react to stimuli, but it doesn’t detail the specific steps involved in a sudden fright response.
+
+**Full answer:**
+
+When someone experiences a sudden fright, their body initiates a rapid series of physiological changes. These changes include:
+
+1.  **Increased Heart Rate:** The heart beats faster to deliver more oxygen and nutrients to the muscles.
+2.  **Rapid Breathing:** Breathing rate increases to deliver more oxygen.
+3.  **Muscle Tension:** Muscles tense up, preparing for action.
+4.  **Release of Stress Hormones:** The adrenal glands release hormones like adrenaline, which increase alertness and prepare the body for a fight or flight response.
+5.  **Increased Blood Pressure:** Blood pressure rises to ensure adequate blood flow to vital organs."
+cc04,control_and_coordination,P3,cloud,1810.2,1635.3,93,1,none,304,"When you are suddenly scared, the adrenal glands release the hormone **adrenaline** into the bloodstream. Adrenaline makes the heart beat faster, widens the airways, and redirects blood away from the digestive system and skin toward the muscles, preparing the body for a quick “fight‑or‑flight” response."
+cc04,control_and_coordination,P3,cloud,1704.2,1525.4,117,1,step_by_step,420,"1. Your brain signals the adrenal glands that you are scared.  
+2. The adrenal glands release the hormone **adrenaline** into the bloodstream.  
+3. Adrenaline makes the heart beat faster, sending more oxygen‑rich blood to the muscles.  
+4. It narrows small arteries in the skin and digestive system, reducing blood flow there.  
+5. It also speeds up breathing, preparing your body for a quick “fight‑or‑flight” reaction."
+cc04,control_and_coordination,P3,cloud,1978.5,1683.5,158,1,step_by_step+hint_first,588,"Hint: Think about the body’s “fight‑or‑flight” chemicals.  
+Think about it: Which hormone is released when you feel sudden fear?  
+
+Full answer:  
+1. A scary situation triggers the brain’s alarm system.  
+2. The brain signals the adrenal glands (located above the kidneys).  
+3. The adrenal glands release the hormone adrenaline into the bloodstream.  
+4. Adrenaline makes the heart beat faster, widens the airways, and redirects blood to muscles while reducing flow to the digestive system and skin.  
+5. These changes prepare you to act quickly – the classic “fight‑or‑flight” response."
+cc05,control_and_coordination,P1,local,1164.4,923.4,42,0,none,207,"The cerebellum, also in the hind-brain, is responsible for precision of voluntary actions and for maintaining posture and balance, such as walking in a straight line, riding a bicycle or picking up a pencil."
+cc05,control_and_coordination,P1,local,1181.2,987.4,62,0,step_by_step,284,"Here's the answer to your question, based on the provided text:
+
+**Answer:** The cerebellum, also in the hind-brain, is responsible for precision of voluntary actions and for maintaining posture and balance, such as walking in a straight line, riding a bicycle or picking up a pencil."
+cc05,control_and_coordination,P1,local,1661.6,1473.7,104,0,step_by_step+hint_first,515,"The cerebellum is responsible for precision of voluntary actions and maintaining posture and balance, such as walking in a straight line, riding a bicycle or picking up a pencil.
+
+**Explanation:**
+
+1.  **Understand the context:** The text describes how the nervous system controls movement and balance.
+2.  **Identify the relevant information:** The question asks about the cerebellum's role in balance.
+3.  **Short answer:** The cerebellum helps maintain posture and balance, which is crucial for riding a bicycle."
+cc05,control_and_coordination,P3,cloud,1777.7,1602.0,97,1,none,330,"The **cerebellum** in the hind‑brain keeps our balance and fine‑tunes voluntary movements.  
+**Key terms:** hind‑brain, cerebellum, precision of voluntary actions, posture, balance.  
+**Example:** When you ride a bicycle, the cerebellum helps you stay upright and steer smoothly without thinking about each tiny muscle adjustment."
+cc05,control_and_coordination,P3,cloud,2112.4,1918.0,116,1,step_by_step,425,"1. The hind‑brain contains a small structure called the **cerebellum**.  
+2. The cerebellum receives signals from the eyes, ears and muscles about body position.  
+3. It compares these signals and makes tiny adjustments to muscle activity.  
+4. These adjustments keep your posture steady and your movements smooth.  
+5. Therefore, when you ride a bicycle, the cerebellum is the part of the brain that helps you stay balanced."
+cc05,control_and_coordination,P3,cloud,2019.7,1795.8,138,1,step_by_step+hint_first,443,"Hint: Look for the brain part that deals with precise movements and posture.  
+Think about it: Which region is mentioned as helping you ride a bike straight?  
+
+Full answer:  
+1. The hind‑brain contains the **cerebellum**.  
+2. The cerebellum controls the precision of voluntary actions.  
+3. It also maintains posture and balance.  
+4. Therefore, when you ride a bicycle, the cerebellum helps you stay balanced.  
+
+**Answer:** The cerebellum."
+cc06,control_and_coordination,P1,local,2275.2,1999.3,130,0,none,591,"Diabetes is a condition where the body doesn’t produce enough insulin. Insulin is a hormone that helps glucose (sugar) move from the blood into cells to be used for energy. Without enough insulin, glucose builds up in the blood, which can lead to high blood sugar levels. Insulin injections provide the body with the needed insulin to regulate blood sugar levels.
+
+**Key Terms:**
+
+*   **Diabetes:** A condition where the body doesn't produce enough insulin.
+*   **Insulin:** A hormone that helps glucose move from the blood into cells.
+*   **Blood Sugar:** The level of glucose in the blood."
+cc06,control_and_coordination,P1,local,2462.0,2278.6,172,0,step_by_step,785,"Here’s an explanation of why diabetic people need insulin injections, based on the provided text:
+
+**Understanding Insulin:**
+
+*   **Diabetes** is a condition where the body doesn’t produce enough insulin, or doesn’t use it properly.
+*   **Insulin** is a hormone that helps glucose (sugar) move from the blood into cells to be used for energy.
+
+**Why Injections?**
+
+*   **Blood Sugar Levels:** When blood sugar levels are high, the pancreas doesn't release enough insulin.
+*   **Insulin Injection Solution:** Insulin injections deliver a concentrated dose of insulin directly into the bloodstream to quickly raise blood sugar levels back to a healthy range.
+
+**In short:** Insulin injections are a way to manually supply the body with the insulin it needs when blood sugar is too high."
+cc06,control_and_coordination,P1,local,1918.9,1720.5,124,0,step_by_step+hint_first,581,"Hint: Think about it: Insulin is a hormone that helps glucose (sugar) from food enter cells to be used for energy. It’s a crucial part of regulating blood sugar levels.
+
+Think about it: Insulin is needed when blood sugar levels are too high (high blood sugar) because it helps glucose move from the blood into cells to be used for energy.
+
+Full answer: People with diabetes need insulin injections because their bodies don’t produce enough insulin, or their bodies don’t use it properly. Insulin is a hormone that helps glucose move from the blood into cells to be used for energy."
+cc06,control_and_coordination,P3,cloud,1798.7,1619.4,100,1,none,363,"Insulin is the hormone made by the pancreas that lowers blood‑sugar levels. In diabetes the pancreas does not produce enough insulin (or the body cannot use it), so blood sugar stays high. Because the body cannot supply the needed insulin on its own, people with diabetes must receive insulin by injection to bring the sugar level down and keep metabolism normal."
+cc06,control_and_coordination,P3,cloud,1701.8,1515.2,134,1,step_by_step,504,"1. **Blood sugar rises** after eating, and the pancreas should release insulin.  
+2. **Insulin’s job** is to move sugar from the blood into cells so it can be used for energy.  
+3. **In diabetes**, the pancreas does not make enough insulin (or the body cannot use it).  
+4. **Without insulin**, sugar stays in the bloodstream, causing high blood‑sugar levels that damage organs.  
+5. **Insulin injections** replace the missing hormone, allowing sugar to enter cells and keeping blood‑sugar levels normal."
+cc06,control_and_coordination,P3,cloud,1809.3,1619.6,165,1,step_by_step+hint_first,613,"Hint: Think about what happens when the pancreas can’t make enough insulin.  
+Think about it: What does low insulin do to blood sugar levels?  
+
+Full answer:  
+1. Insulin is a hormone made by the pancreas that lowers blood sugar.  
+2. In diabetes, the pancreas does not produce enough insulin (or the body can’t use it).  
+3. Without enough insulin, blood sugar stays high, which can damage organs.  
+4. Injecting insulin supplies the missing hormone, helping cells take up sugar and bringing blood sugar back to normal.  
+5. Therefore, diabetic people need insulin injections to control their blood‑sugar levels."
+hr01,how_do_organisms_reproduce,P1,local,904.7,687.1,18,0,none,75,Amoeba splits into two halves during cell division. This is binary fission.
+hr01,how_do_organisms_reproduce,P1,local,1110.7,889.3,58,0,step_by_step,279,"Here’s the answer to your question, based on the provided text:
+
+**Amoeba splits into two halves during cell division; this is binary fission.**
+
+**Explanation:** The text explains binary fission as a method of asexual reproduction where a single parent produces new individuals."
+hr01,how_do_organisms_reproduce,P1,local,1399.2,1231.2,86,0,step_by_step+hint_first,428,"Amoeba splits into two halves during cell division, which is called binary fission.
+
+Think about it:  What process creates new individuals from a single parent?
+
+Full answer: Amoeba splits into two halves during cell division, which is called binary fission.
+
+Binary fission is a type of asexual reproduction where a single parent produces new individuals. It’s a simple process where the cell divides into two identical halves."
+hr01,how_do_organisms_reproduce,P3,cloud,2172.2,1991.8,161,1,none,533,"Amoeba reproduces asexually by **binary fission**. The single cell’s nucleus divides, then the cytoplasm splits, forming a **cleavage furrow** that pinches the cell into two halves. Each half receives a copy of the genetic material and grows into a complete, independent amoeba.  
+
+**Key terms:** asexual reproduction, binary fission, cell division, cleavage furrow.  
+
+**Example:** An Amoeba cell divides into two new Amoebae, just as the video describes “Amoeba splits into two halves during cell division; this is binary fission.”"
+hr01,how_do_organisms_reproduce,P3,cloud,2080.6,1745.1,120,1,step_by_step,410,"1. The Amoeba’s single cell grows larger as it gathers food.  
+2. When it is ready, the cell’s nucleus and cytoplasm split in the middle.  
+3. The cell membrane pinches inward, dividing the original cell into **two equal halves** – this is called **binary fission**.  
+4. Each half now has its own nucleus and enough cytoplasm to live on its own.  
+5. The two new cells separate and become independent Amoebae."
+hr01,how_do_organisms_reproduce,P3,cloud,1705.4,1456.3,175,1,step_by_step+hint_first,619,"Hint: Think about how a single‑celled organism can split itself.  
+Think about it: What does the Amoeba do to its cell during binary fission?  
+
+Full answer:  
+1. The Amoeba grows larger by taking in food and making more cell material.  
+2. Its nucleus divides once, forming two identical nuclei.  
+3. The cell membrane pinches in the middle, separating the cytoplasm into two halves.  
+4. Each half now has its own nucleus and cell parts, becoming an independent Amoeba.  
+5. The two new Amoebae continue to live and can repeat the process.  
+
+This process is called **binary fission**, a type of asexual reproduction."
+hr02,how_do_organisms_reproduce,P1,local,1321.7,1049.3,46,0,none,235,"Vegetative propagation allows bananas to produce new plants from parts like roots, stems, and leaves. This method allows for the propagation of plants like banana, orange, rose and jasmine, which have lost the ability to produce seeds."
+hr02,how_do_organisms_reproduce,P1,local,2083.8,1910.1,143,0,step_by_step,646,"Here’s a breakdown of why bananas can be grown without seeds, using the provided context:
+
+1.  **Vegetative Propagation:** Bananas grow from parts like roots, stems, and leaves. This allows them to create new plants from existing ones.
+2.  **Buds:**  Buds develop from the leaf margins. These buds can grow into new plants, essentially regenerating the plant.
+3.  **Spore Formation:**  The process of budding allows for the creation of new plants from the bud, which is a form of reproduction.
+
+**Therefore, bananas can be grown without seeds because they use vegetative propagation, which is a method of creating new plants from existing ones.**"
+hr02,how_do_organisms_reproduce,P1,local,2164.2,1958.6,146,0,step_by_step+hint_first,691,"Okay, let's break down this question about banana propagation!
+
+**Hint:** Think about how bananas grow from roots and stems.
+
+**Think about it:**  If bananas grow from roots and stems, how can they reproduce without seeds?
+
+**Full answer:** Banana plants are grown vegetatively, meaning they grow from parts of the parent plant, like roots and stems, rather than seeds.  This allows you to create new plants from existing ones.
+
+**Explanation:**  Bananas have a root system that grows downwards, and stems that grow upwards.  They use a process called vegetative propagation, where parts of the plant grow into new individuals.  This is how they can produce new plants without needing seeds."
+hr02,how_do_organisms_reproduce,P3,cloud,1656.8,1413.2,130,1,none,519,"Bananas are grown without seeds because they are reproduced by **vegetative propagation**. In this method parts of the parent plant (such as shoots or suckers) are used to produce new plants, so the offspring are genetically identical to the parent. Since bananas have lost the ability to produce viable seeds, growers use techniques like layering or planting the suckers that emerge from the banana plant’s rhizome to generate new banana plants. This allows bananas to be cultivated even though they do not form seeds."
+hr02,how_do_organisms_reproduce,P3,cloud,1900.0,1727.2,156,1,step_by_step,600,"1. **Bananas reproduce by vegetative propagation** – new plants grow from parts of the parent plant (stems, roots or leaves).  
+2. **Techniques such as layering or grafting are used** to produce fresh banana shoots from the parent’s stem.  
+3. **These new shoots are genetically identical to the parent**, so they inherit the banana’s seed‑less trait.  
+4. **Because the plant no longer makes viable seeds**, growers simply plant the vegetative shoots, and the bananas develop without needing seeds.  
+
+*Key term:* vegetative propagation – making new plants from existing plant parts, not from seeds."
+hr02,how_do_organisms_reproduce,P3,cloud,2009.4,1763.0,198,1,step_by_step+hint_first,680,"Hint: Think about how bananas are reproduced in farms.  
+Think about it: What method do farmers use to make new banana plants if the fruit has no seeds?  
+
+Full answer:  
+1. Bananas do not produce viable seeds, so they cannot grow from seed.  
+2. Instead, they are reproduced by **vegetative propagation** – using parts of the parent plant.  
+3. Farmers use **suckers** (shoots that grow from the base of the banana plant) or **tissue culture** to create new plants.  
+4. These new plants are **genetically identical** to the parent, so the banana traits are preserved.  
+5. Because the new plants come from the parent’s own tissue, bananas can be grown quickly without any seeds."
+hr03,how_do_organisms_reproduce,P1,local,1049.2,789.0,35,0,none,161,"After pollen lands on the stigma, a tube grows out of the pollen grain and travels through the style to reach the ovule in the ovary. This is called pollination."
+hr03,how_do_organisms_reproduce,P1,local,742.2,556.4,30,0,step_by_step,133,"After pollen lands on the stigma, a tube grows out of the pollen grain and travels through the style to reach the ovule in the ovary."
+hr03,how_do_organisms_reproduce,P1,local,1846.6,1666.1,123,0,step_by_step+hint_first,543,"Pollen grains travel through the style to reach the ovule in the ovary.
+
+Think about it: What is the primary function of the pollen grain?
+Answer: To fertilize the ovule.
+
+Full answer: After pollen lands on a suitable stigma, a tube grows out of the pollen grain and travels through the style to reach the ovule in the ovary. This is called pollination. If it happens within the same flower it is self-pollination; if pollen is transferred from one flower to another, it is cross-pollination, achieved by agents such as wind, water or animals."
+hr03,how_do_organisms_reproduce,P3,cloud,1558.6,1409.4,200,1,none,589,"After pollen lands on a suitable **stigma**, a tiny tube grows out of the pollen grain and travels down the **style** to reach an **ovule** inside the **ovary**. The male germ cell inside the pollen tube fuses with the female gamete in the ovule – this is **fertilisation**, forming a **zygote**. The zygote divides to become an **embryo**, the ovule turns into a **seed**, and the ovary develops into a **fruit**.  
+
+**Example:** In a hibiscus flower, pollen that lands on the sticky stigma grows a tube through the style, fertilises an ovule in the ovary, and the ovary later ripens into"
+hr03,how_do_organisms_reproduce,P3,cloud,1706.8,1515.4,171,1,step_by_step,433,"1. A tiny tube grows out of the pollen grain.  
+2. The tube moves down the style until it reaches an ovule in the ovary.  
+3. The male germ cell inside the pollen fuses with the female egg cell in the ovule – this is fertilisation.  
+4. The fertilised egg becomes a zygote, which divides to form an embryo inside the ovule.  
+5. The ovule turns into a seed and the ovary grows into a fruit, while the other flower parts may fall off."
+hr03,how_do_organisms_reproduce,P3,cloud,1621.9,1375.2,210,1,step_by_step+hint_first,696,"Hint: Think about what the pollen does once it reaches the sticky tip of the flower.  
+Think about it: How does the pollen travel to the ovule after landing on the stigma?  
+
+Full answer:  
+1. **Pollen germinates** – a tiny tube grows out of the pollen grain on the stigma.  
+2. **Tube grows down the style** – the pollen tube extends through the elongated style.  
+3. **Reaches the ovary** – the tube reaches an ovule inside the swollen ovary.  
+4. **Fertilisation occurs** – the male germ cell inside the tube fuses with the egg cell in the ovule, forming a zygote.  
+5. **Seed and fruit develop** – the zygote becomes an embryo, the ovule turns into a seed, and the ovary matures into a fruit."
+hr04,how_do_organisms_reproduce,P1,local,1563.4,1308.4,67,0,none,324,"The baby gets nutrition from the mother’s blood through a special tissue called the placenta, which is embedded in the uterine wall with villi on the embryo’s side that provide a large surface area for glucose and oxygen to pass to the embryo; wastes from the embryo are removed through the placenta into the mother’s blood."
+hr04,how_do_organisms_reproduce,P1,local,2717.4,2526.5,199,0,step_by_step,891,"Okay, here’s a 5-point answer addressing the question, using clear language and incorporating the provided context:
+
+1.  **The egg carries nutrients:** The egg is carried from the ovary to the uterus through a thin oviduct (fallopian tube).
+
+2.  **Placenta provides nourishment:** The uterus has a special tissue called the placenta that feeds the developing embryo with nutrients and oxygen from the mother’s blood.
+
+3.  **Waste removal:** The placenta also removes waste products from the embryo, which are then sent back to the mother’s blood.
+
+4.  **The cycle repeats:** The cycle of egg release and fertilization happens roughly every month, ensuring the baby gets nourishment.
+
+5.  **It’s a process of life:** The process of pregnancy and childbirth is a vital part of life for both the mother and the baby.
+
+---
+
+Would you like me to answer a different question related to the lesson?"
+hr04,how_do_organisms_reproduce,P1,local,1156.3,973.7,65,0,step_by_step+hint_first,296,"The baby gets food from the mother’s blood through a special tissue called the placenta.
+
+Think about it:  The placenta is like a delivery service for the baby, delivering nutrients and oxygen.
+
+Full answer: The baby gets food from the mother’s blood through a special tissue called the placenta."
+hr04,how_do_organisms_reproduce,P3,cloud,1709.3,1532.7,158,1,none,628,"The baby receives food through the **placenta**. After the fertilised egg implants in the uterus, the placenta forms as a disc attached to the uterine wall. Its many tiny finger‑like projections called **villi** create a huge surface area that lets glucose, oxygen and other nutrients from the mother’s blood pass into the embryo’s blood. At the same time, waste products from the baby move from the embryo into the mother’s circulation to be eliminated.  
+
+**Example:** When a pregnant woman eats a sandwich, the sugars are absorbed into her blood, cross the placental villi, and become the energy source the growing baby uses."
+hr04,how_do_organisms_reproduce,P3,cloud,1705.8,1499.6,158,1,step_by_step,491,"1. After fertilisation, the tiny embryo attaches to the lining of the uterus.  
+2. A special organ called the **placenta** forms, connecting the embryo to the mother’s blood supply.  
+3. The placenta’s many tiny finger‑like villi create a large surface area.  
+4. Through these villi, **glucose and oxygen** from the mother’s blood pass into the embryo, giving it food and energy.  
+5. Waste from the embryo moves the opposite way, from the embryo back into the mother’s blood to be removed."
+hr04,how_do_organisms_reproduce,P3,cloud,1804.5,1622.1,180,1,step_by_step+hint_first,683,"Hint: Think about the special organ that connects the mother’s blood to the baby.  
+Think about it: What structure lets nutrients move from the mother to the embryo?  
+
+Full answer:  
+1. After fertilisation, the embryo attaches to the lining of the uterus.  
+2. A thin, disc‑shaped organ called the **placenta** forms on the uterine wall.  
+3. The placenta has many tiny finger‑like projections (**villi**) that increase surface area.  
+4. Through these villi, **glucose and oxygen** from the mother’s blood pass into the embryo’s blood.  
+5. Waste products from the embryo move back into the mother’s blood to be removed.  
+
+Thus, the baby receives food and oxygen via the placenta."
+hr05,how_do_organisms_reproduce,P1,local,1774.2,1551.3,93,0,none,466,"Using a covering, called a condom, for the penis during sex helps prevent transmission of many of these infections. Methods to avoid pregnancy include mechanical barriers such as condoms; hormonal methods such as oral pills, which change the hormonal balance of the body so that eggs are not released; devices such as the loop or the copper-T placed in the uterus; and surgical methods, in which the vas deferens in males or the fallopian tube in females is blocked."
+hr05,how_do_organisms_reproduce,P1,local,1421.7,1247.6,87,0,step_by_step,356,"Here are the steps to avoid pregnancy, based on the text:
+
+1.  **Condom Use:** Use a condom during sex to prevent sexually transmitted infections (STIs) like warts and HIV-AIDS.
+2.  **Mechanical Barriers:** Use condoms to prevent pregnancy.
+3.  **Other Methods:**  Use methods like oral pills, loop or copper-T, or surgical procedures to prevent pregnancy."
+hr05,how_do_organisms_reproduce,P1,local,1667.5,1462.9,107,0,step_by_step+hint_first,545,"Hint: Think about it: The video mentions several options – condoms, hormonal methods, devices, and surgical methods.
+
+**Think about it:** Which of these methods is most effective for preventing pregnancy?
+
+**Full answer:** The video suggests several methods to avoid pregnancy, including using condoms, hormonal methods (like oral pills), devices like the loop or copper-T, and surgical methods.  The video emphasizes that the male-female sex ratio must be maintained for a healthy society, and prenatal sex determination is prohibited in India."
+hr05,how_do_organisms_reproduce,P3,cloud,1822.1,1638.3,193,1,none,542,"A couple can avoid pregnancy by using:
+
+* **Mechanical barrier** – e.g., a male **condom** that covers the penis.  
+* **Hormonal method** – e.g., **oral contraceptive pills** that stop the ovary from releasing an egg.  
+* **Intra‑uterine device (IUD)** – e.g., a **copper‑T** or a hormonal loop placed inside the uterus.  
+* **Surgical method** – e.g., **vasectomy** (blocking the male’s vas deferens) or **tubal ligation** (blocking the female’s fallopian tube).
+
+These four categories give couples several safe options to prevent pregnancy."
+hr05,how_do_organisms_reproduce,P3,cloud,1641.6,1439.0,148,1,step_by_step,529,"1. **Use a condom** – a thin covering over the penis that blocks sperm and many infections.  
+2. **Take hormonal pills** – oral medicines that change the body’s hormones so that an egg is not released each month.  
+3. **Insert a device in the uterus** – such as a copper‑T or a hormonal loop (IUD) that stops sperm from reaching the egg.  
+4. **Have a surgical procedure** – block the vas deferens in men or the fallopian tubes in women, making fertilisation impossible.  
+
+These are the main ways a couple can prevent pregnancy."
+hr05,how_do_organisms_reproduce,P3,cloud,1905.7,1720.8,240,1,step_by_step+hint_first,797,"Hint: Think about the different ways people can stop a baby from forming.  
+Think about it: What tools or medicines can a couple use before or after the egg meets the sperm?  
+
+Full answer:  
+1. **Condom (mechanical barrier)** – a sheath that covers the penis, stopping sperm from entering the vagina.  
+2. **Oral contraceptive pills (hormonal method)** – medicines that change hormone levels so the ovary does not release an egg.  
+3. **Intra‑uterine devices (IUDs) like the copper‑T or loop** – small devices placed in the uterus that prevent sperm from fertilising an egg.  
+4. **Surgical methods** – blocking the vas deferens in men (vasectomy) or the fallopian tubes in women (tubal ligation) to stop sperm or egg passage.  
+
+These are the main methods a couple can choose to avoid pregnancy."
+hr06,how_do_organisms_reproduce,P1,local,1052.1,837.7,38,0,none,204,Bread mould Rhizopus spreads quickly because it produces numerous spores. These spores are covered by thick walls that protect them until they come into contact with a moist surface and can begin to grow.
+hr06,how_do_organisms_reproduce,P1,local,760.6,567.5,29,0,step_by_step,129,Bread mould Rhizopus spreads quickly because it produces many spores. Spores are tiny and can travel easily on the wind or water.
+hr06,how_do_organisms_reproduce,P1,local,1159.9,961.8,61,0,step_by_step+hint_first,313,"Bread mould Rhizopus spreads quickly because it produces spores that can quickly colonize new surfaces.
+
+Think about it: If the spores are easily dispersed, they can quickly multiply and spread. 
+
+Full answer: Bread mould Rhizopus spreads quickly because it produces spores that can quickly colonize new surfaces."
+hr06,how_do_organisms_reproduce,P3,cloud,1741.7,1556.9,108,1,none,335,"Bread mould spreads quickly because its sporangia release many **spores** that have thick protective walls. When the spores land on a **moist surface**, they germinate and grow new hyphae, producing more sporangia that release even more spores. This rapid cycle of spore production and dispersal lets the mould colonise new areas fast."
+hr06,how_do_organisms_reproduce,P3,cloud,1860.3,1481.3,111,1,step_by_step,337,"1. The mould makes tiny spores inside sporangia.  
+2. Each spore is covered by a thick wall that keeps it safe.  
+3. When the sporangium bursts, the spores are released into the air.  
+4. Spores drift on wind or water and land on a moist surface.  
+5. The moist spot triggers the spore to grow a new hypha, starting a fresh mould colony."
+hr06,how_do_organisms_reproduce,P3,cloud,1637.9,1338.2,168,1,step_by_step+hint_first,548,"Hint: Think about how the mould makes tiny units that can travel.  
+Think about it: What does a sporangium release that can start new growth elsewhere?  
+
+Full answer:  
+1. The mould Rhizopus grows thread‑like hyphae that end in sporangia.  
+2. Inside each sporangium many spores are produced.  
+3. The sporangia burst, releasing the spores into the air.  
+4. Spores have thick walls that keep them safe until they land on a moist surface.  
+5. When a spore lands on a suitable spot, it germinates and grows new hyphae, spreading the mould quickly."
+he01,heredity,P1,local,2579.9,2316.3,151,0,none,636,"Because the tallness trait was dominant and the shortness trait was recessive. The F1 plants were all tall because they inherited the dominant tall trait from both parents. 
+
+**Key Terms:**
+
+*   **Dominant:** A trait that is expressed even if only one copy is present.
+*   **Recessive:** A trait that is only expressed if two copies are present.
+*   **F1:** The first generation of pea plants after self-pollination.
+*   **F2:** The second generation of pea plants after cross-pollination.
+*   **Independent Inheritance:** Traits are inherited independently of each other.
+*   **Germ cells:** Cells that produce gametes (sperm and egg)."
+he01,heredity,P1,local,1166.8,974.2,64,0,step_by_step,273,"Here’s the answer to your question, based on the text:
+
+**Answer:** Because the tall plant with round seeds and the short plant with wrinkled seeds were dominant traits, and the F1 plants were all tall.
+
+Let me know if you’d like to explore any other aspects of the lesson!"
+he01,heredity,P1,local,1396.6,1217.5,84,0,step_by_step+hint_first,381,"Hint: Think about the F1 generation’s traits.
+
+**Think about it:** Mendel observed that the F1 plants were all tall. Why did this happen?
+
+**Full answer:** Mendel observed that the F1 plants were all tall because the tall trait was dominant and the short trait was recessive. The tall plants were the result of the dominant allele for tallness being expressed in the F1 generation."
+he01,heredity,P3,cloud,1648.8,1438.6,124,1,none,423,"All of Mendel’s first‑generation (F₁) pea plants were tall because each plant received one tall‑height gene (T) from the tall parent and one short‑height gene (t) from the short parent. The tall allele (T) is **dominant**, meaning it masks the effect of the recessive short allele (t). With a genotype **Tt**, the presence of just one dominant copy is enough to make the plant tall, so every F₁ plant showed the tall trait."
+he01,heredity,P3,cloud,4160.1,3976.3,159,1,step_by_step,491,"1. Mendel crossed a tall plant (gene **TT**) with a short plant (gene **tt**).  
+2. Each offspring receives one gene from each parent, so every F1 plant got **T** from the tall parent and **t** from the short parent → genotype **Tt**.  
+3. The **T** gene is dominant, meaning it hides the effect of the recessive **t** gene.  
+4. Because every F1 plant has at least one dominant **T**, all of them grow tall.  
+
+(Only the dominant trait is expressed; the recessive short trait stays hidden.)"
+he01,heredity,P3,cloud,1702.8,1488.4,195,1,step_by_step+hint_first,711,"Hint: Think about the gene copies each parent gave to the first‑generation plants.  
+Think about it: What combination of tall (T) and short (t) genes did the F1 seedlings receive?  
+
+Full answer:  
+1. Each parent plant contributes one copy of the height gene to its offspring.  
+2. The tall parent had two dominant copies (TT); the short parent had two recessive copies (tt).  
+3. When they crossed, every F1 seedling received one T from the tall parent and one t from the short parent, making the genotype Tt.  
+4. The dominant T allele masks the recessive t allele, so the Tt plants all look tall.  
+5. Therefore, all first‑generation (F1) peas were tall because they all carried at least one dominant T gene."
+he02,heredity,P1,local,1297.1,1050.3,50,0,none,201,"The sex of a baby is determined by the father’s X chromosome. If a baby inherits an X chromosome from the father, it will be a girl. If a baby inherits a Y chromosome from the father, it will be a boy."
+he02,heredity,P1,local,2235.6,2000.9,151,0,step_by_step,595,"Okay, here’s a 3-step explanation for a rural school learner, using the provided context:
+
+1.  **Genes are special:** Every cell has a set of genes, like tiny instructions, that are passed down from both parents.
+2.  **Mixing genes creates traits:** When two cells combine, the right amount of each gene is mixed, so the baby gets the best of both parents.
+3.  **It’s all about the father:** The father’s genes determine if a baby will be a boy or a girl. 
+
+**Example:**  A baby with an X chromosome from his father will be a girl, while a baby with a Y chromosome from his father will be a boy."
+he02,heredity,P1,local,2340.1,2056.9,155,0,step_by_step+hint_first,639,"**Think about it:** The baby’s sex is determined by the father’s X chromosome.
+
+**Full answer:**
+The baby’s sex is determined by the father’s X chromosome.  Women have one X chromosome and a Y chromosome, while men have two X chromosomes.  The father’s X chromosome carries the genes for the baby’s sex.  If the father has an X chromosome, the baby will be a girl. If the father has a Y chromosome, the baby will be a boy.
+
+**Explanation:**  Genes determine traits, and the father’s X chromosome provides the instructions for a baby’s sex.  The baby inherits one X chromosome from each parent, so the sex is determined by the X chromosome."
+he02,heredity,P3,cloud,1903.9,1662.3,143,1,none,452,"The baby’s sex is decided by the **sex chromosome** it receives from its father.  
+- Every child gets an **X chromosome** from the mother.  
+- If the father contributes an **X chromosome**, the child’s pair is **XX** → girl.  
+- If the father contributes a **Y chromosome**, the pair is **XY** → boy.  
+
+**Example:** A mother’s egg (X) is fertilized by a sperm carrying a Y chromosome; the resulting embryo has XY chromosomes and will develop as a boy."
+he02,heredity,P3,cloud,1799.7,1620.6,158,1,step_by_step,496,"1. The mother always gives an **X chromosome** to her child.  
+2. The father can give either an **X chromosome** or a **Y chromosome** in his sperm.  
+3. If the child receives an **X** from the father → **XX** → girl.  
+4. If the child receives a **Y** from the father → **XY** → boy.  
+
+*Key term:* **Sex chromosome** – the X or Y chromosome that decides sex.  
+
+*Example:* A baby whose father’s sperm carries an X chromosome will be a girl; if it carries a Y chromosome, the baby will be a boy."
+he02,heredity,P3,cloud,1872.9,1598.7,181,1,step_by_step+hint_first,598,"Hint: Look at the chromosomes that come from each parent.  
+Think about it: Which parent’s chromosome determines the sex of the child?  
+
+Full answer:  
+1. Humans have 23 pairs of chromosomes; one pair are the sex chromosomes.  
+2. Women have two X chromosomes (XX); men have one X and one Y chromosome (XY).  
+3. Every child receives one X chromosome from the mother.  
+4. The sex of the baby depends on the father’s contribution: an X from dad makes a girl (XX), a Y from dad makes a boy (XY).  
+5. Therefore, the father's sex chromosome (X or Y) decides whether the baby will be a boy or a girl."
+he03,heredity,P1,local,1077.2,819.6,30,0,none,122,"The 9:3:3:1 ratio is a key concept in sex determination, representing the proportion of males and females in a population."
+he03,heredity,P1,local,1963.1,1720.7,129,0,step_by_step,509,"Here’s a breakdown of the answer to your question, based on the context:
+
+**Understanding the Ratio**
+
+The ratio 9:3:3:1 means that for every 9 pairs of chromosomes, there’s one with a normal X chromosome, one with a short chromosome, one with a normal X chromosome, and one with a short chromosome.
+
+**Example:**
+
+Imagine you have 9 pairs of chromosomes. Each pair has one X and one Y.  Therefore, you have 9 X and 9 Y.
+
+**In short:** The ratio represents the proportion of males and females in a population."
+he03,heredity,P1,local,2473.5,2289.0,174,0,step_by_step+hint_first,674,"Here's a breakdown of the answer, explained simply:
+
+**Think about it:**
+
+1.  **Understanding the Basics:**  The question asks about the ratio of males to females in a population.
+2.  **The Genetic Code:**  Each individual has two copies of each gene, one from each parent.
+3.  **The Ratio:** The ratio 1:2:1 means for every 1 pair of genes, there are 2 pairs of genes in the offspring.
+
+**Full answer:**
+
+The 9:3:3:1 ratio means that for every 9 offspring, there are 3 offspring that are male and 3 offspring that are female.
+
+**Hint:**  Think about how the genes are inherited and how the ratio of males and females is determined by the genes passed down from each parent."
+he03,heredity,P3,cloud,1431.6,1238.8,49,1,none,100,This lesson does not cover the 9:3:3:1 ratio; please ask about the lesson content for clarification.
+he03,heredity,P3,cloud,1717.9,1536.7,55,1,step_by_step,110,This lesson does not cover the 9:3:3:1 ratio. Please ask about the specific lesson that includes that concept.
+he03,heredity,P3,cloud,1702.0,1457.1,98,1,step_by_step+hint_first,248,"Hint: The lesson didn’t talk about the 9:3:3:1 ratio.  
+Think about it: Which part of genetics deals with two traits at once?  
+Full answer: This lesson does not cover the 9:3:3:1 ratio; you might ask about Mendel’s dihybrid cross for that concept."
+he04,heredity,P1,local,1694.9,1441.8,77,0,none,404,"Because they inherit different amounts of genes from each parent. Each parent contributes half of the genetic information to their child, and children inherit one X chromosome from each parent. Since women have two X chromosomes, they have one X from each parent, resulting in a unique combination of traits. Men have one X and one Y chromosome, leading to a mismatched pair and a more varied appearance."
+he04,heredity,P1,local,2219.6,2038.6,159,0,step_by_step,721,"Okay, here’s a 3-step explanation of why children look a bit different from both parents, based on the provided text:
+
+1.  **Different Genes:** Each parent has a unique set of traits – like eye color, hair color, or height – that they pass down to their children.
+2.  **Random Mixing:** When children reproduce, they inherit a mix of these genes from both parents.
+3.  **Variations:** Because of this mixing, each child is a little different from both of their parents, creating unique variations.
+
+**Question:** Why do children look different from both parents?**
+**Answer:** Because each parent has different genes, and when children reproduce, they inherit a combination of those genes, resulting in unique variations."
+he04,heredity,P1,local,2669.1,2492.6,196,0,step_by_step+hint_first,957,"**Think about it:**
+
+1.  **Different X chromosomes:** Women inherit one X chromosome from each parent, while men inherit one X and one Y chromosome.
+2.  **Mismatched Y chromosome:** Men have a short Y chromosome, which is a genetic variation.
+3.  **Inheritance:** Children inherit their genes from both parents, so they inherit different traits.
+
+**Full answer:**
+
+Heredity is the process where traits and characteristics are reliably inherited from parents to offspring.  Children look different from both parents because each parent contributes a unique set of genes. Women have one X chromosome from each parent, while men have one X and one Y chromosome. This means that each child inherits two different versions of a gene – one from each parent.  The mismatch in the Y chromosome in men means that they have a genetic variation that can lead to differences in appearance.  Therefore, children inherit traits from both parents, resulting in variations."
+he04,heredity,P3,cloud,1683.2,1514.5,163,1,none,578,"Children look a bit different from both parents because **sexual reproduction mixes DNA from two parents**, creating **genetic variation**. Each child receives a unique combination of genes, so while they share the basic body design of the parents, the mix of alleles can produce new trait patterns. For example, earlobe shape (free or attached) varies in the population; a child may inherit a free earlobe from the mother and an attached one from the father, resulting in a different appearance than either parent. This variation helps a species adapt to changing environments."
+he04,heredity,P3,cloud,1599.0,1368.6,139,1,step_by_step,512,"1. **Genes come from both parents** – each child receives half of its DNA from the mother and half from the father, so it carries a mix of their traits.  
+
+2. **Small changes (variations) occur** – when DNA is copied, tiny errors or recombination can create new versions of genes, giving slight differences.  
+
+3. **Combination creates new patterns** – the mixed and slightly altered genes produce a body design that is similar to the parents but not exactly the same, so children look a bit different from both."
+he04,heredity,P3,cloud,1809.4,1601.5,166,1,step_by_step+hint_first,670,"Hint: Think about how DNA is mixed when a baby is made.  
+Think about it: What happens when each parent gives half of the child’s genetic material?  
+
+Full answer:  
+1. Each parent contributes a set of chromosomes that carry genes for traits.  
+2. The child receives a random mix of these genes, not exact copies of either parent.  
+3. This mixing creates new combinations, so the child may look like one parent for some traits and the other parent for others.  
+4. Small differences (variations) also arise during DNA copying, adding further uniqueness.  
+5. Because of this genetic shuffling, children resemble both parents but also have their own distinct appearance."
+he05,heredity,P1,local,1503.5,1223.9,70,0,none,332,"A gene is a section of DNA that provides information for making proteins in the cell. It’s like a recipe for building a protein, and different genes code for different traits, like plant height.
+
+**Example:** Imagine a gene for plant height. If this gene has a change that makes the enzyme less efficient, the plant becomes short.**"
+he05,heredity,P1,local,1801.3,1603.1,120,0,step_by_step,521,"Okay, let’s break down the answer to your question:
+
+**Answer:** A gene is a segment of DNA that carries instructions for making a specific trait, like plant height or a color.
+
+**Here’s a quick recap of the key points from the context:**
+
+1.  **Genes are instructions:** Genes are like recipes that tell your cells what to do.
+2.  **Traits are controlled by genes:** Genes determine characteristics, like height or color.
+3.  **Genes come from parents:** Each parent contributes one copy of each gene to their offspring."
+he05,heredity,P1,local,1120.5,925.3,64,0,step_by_step+hint_first,313,"Hint: Genes are like instructions for building a protein!
+
+Think about it:  What does a gene do?
+
+Full answer: A gene is a segment of DNA that provides instructions for building a protein. Proteins are essential for many functions in a cell, including making enzymes, transporting nutrients, and building tissues."
+he05,heredity,P3,cloud,1503.9,1288.5,139,1,none,541,"A **gene** is a specific segment of DNA that contains the instructions for making one particular protein or enzyme. That protein then influences a characteristic (trait) of the organism. For example, a gene that codes for an enzyme needed to produce a growth‑promoting hormone determines plant height; if the gene is altered, the enzyme works poorly, less hormone is made, and the plant becomes short. Each organism inherits two copies of each gene—one from each parent—and the combination of these copies decides how the trait is expressed."
+he05,heredity,P3,cloud,1704.7,1522.1,177,1,step_by_step,586,"1. A **gene** is a small piece of DNA that holds the instructions for making one specific protein.  
+2. The protein made from that gene carries out a job in the cell, such as helping produce a hormone that makes a plant grow tall.  
+3. Every living thing gets two copies of each gene – one from its mother and one from its father – and the combination of these copies determines the trait (e.g., tall or short).  
+
+*Example:* The gene that codes for an enzyme that makes a growth hormone; if the gene is altered, the enzyme works poorly, less hormone is made, and the plant stays short."
+he05,heredity,P3,cloud,1864.9,1606.3,198,1,step_by_step+hint_first,705,"Hint: Think of a gene as a tiny instruction in the DNA that tells the cell how to make something.  
+Think about it: What part of DNA holds the recipe for a single protein?  
+
+Full answer:  
+1. DNA is the cell’s information library.  
+2. A **gene** is a specific segment of DNA that contains the code for one protein.  
+3. This protein can be an enzyme, hormone maker, or any functional molecule.  
+4. The protein’s action influences a trait, such as plant height.  
+5. Each organism inherits two copies of each gene (one from each parent).  
+
+*Example:* The gene for an enzyme that makes a growth hormone; if the gene is altered, the enzyme works poorly, less hormone is made, and the plant becomes short."
+he06,heredity,P1,local,1283.5,1024.7,41,0,none,123,"A plant can grow tall if it has the genotype Tt.  The ratio of tall plants (Tt) to short plants (tt) is 3:1.
+
+**Answer:** 3"
+he06,heredity,P1,local,3469.7,3264.9,257,0,step_by_step,987,"Here’s a breakdown of the answer, using clear language and incorporating the context:
+
+**1. How tall can a pea plant grow?**
+
+*   **Tall plants:**  Tall pea plants can grow up to 6 inches tall.
+*   **Short plants:** Short pea plants can grow up to 2 inches tall.
+
+**2.  The key concept:**
+
+*   **Dominant and recessive:** Tall pea plants have a dominant gene. Short pea plants have a recessive gene.  If a plant has two copies of the recessive gene, it will be short.
+
+**3.  The F2 generation:**
+
+*   In the F2 generation, about 3/4 of the plants were tall.
+
+**4.  Independent inheritance:**
+
+*   The tall and short traits are inherited independently of each other.
+
+**5.  The ratio in the F2 generation:**
+
+*   The ratio of tall plants to short plants is 3:1.
+
+**6.  Genes and DNA:**
+
+*   Genes are like instructions for building a plant. DNA is the information that is passed down from parent to offspring.
+
+Let me know if you'd like a more detailed explanation of any of these points!"
+he06,heredity,P1,local,1823.9,1646.5,121,0,step_by_step+hint_first,474,"Okay, let’s tackle this!
+
+**Think about it:**
+
+If a pea plant is tall, what’s the probability it will have the tall trait (TT)?
+
+**Full answer:**
+
+The probability of a pea plant being tall is approximately 3/4 (or 75%).
+
+**Explanation:**
+
+In the F1 generation, all plants were tall.  Because tallness is dominant, the tall plants in the F1 generation will pass on their tall genes to their offspring.  Therefore, the probability of a subsequent generation being tall is 3/4."
+he06,heredity,P3,cloud,1432.1,1240.1,56,1,none,158,"The provided lesson material explains how tallness is inherited in pea plants, but it does not specify an actual measurement of how tall a pea plant can grow."
+he06,heredity,P3,cloud,1684.8,1406.5,50,1,step_by_step,138,The provided lesson material does not specify how tall a pea plant can grow. It only explains the inheritance of tall versus short traits.
+he06,heredity,P3,cloud,4773.7,4522.0,106,1,step_by_step+hint_first,409,"Hint: Think about what the lesson video tells you about plant height.  
+Think about it: Does the video give a specific measurement for how tall a pea plant can grow?  
+Full answer: The provided context explains the inheritance of tall versus short traits in pea plants, but it does not specify an actual height measurement. Therefore, the exact height a pea plant can grow is not given in the lesson material."
+oe01,our_environment,P1,local,859.9,590.0,5,0,none,12,Decomposers.
+oe01,our_environment,P1,local,1063.6,874.6,56,0,step_by_step,229,"Okay, here’s the answer to your question, based on the provided text:
+
+**Answer:** Decomposers (specifically bacteria and fungi) break down the dead leaves on the forest floor. 
+
+Let me know if you’d like to try another question!"
+oe01,our_environment,P1,local,1650.8,1474.1,103,0,step_by_step+hint_first,467,"Okay, let's break down this lesson!
+
+**Hint:** Think about what eats the dead leaves.
+
+**Think about it:** What eats the dead leaves?
+
+**Full answer:** Animals like deer, foxes, and wolves consume the dead leaves and other organic matter.
+
+**Explanation:** Animals eat the dead leaves and other organic matter to get energy and nutrients. This is a crucial part of the food chain, as they break down the dead material and make it available for other organisms to eat."
+oe01,our_environment,P3,cloud,1730.4,1513.8,56,1,none,181,Decomposers such as bacteria and fungi eat the dead leaves on the forest floor. They break down the leaf material into simple inorganic substances that return nutrients to the soil.
+oe01,our_environment,P3,cloud,1588.3,1398.7,125,1,step_by_step,341,"1. Dead leaves fall to the forest floor.  
+2. Tiny organisms called **decomposers** move onto the leaves.  
+3. **Bacteria** and **fungi** break down the leaf material.  
+4. They turn the complex leaf tissue into simple nutrients.  
+5. These nutrients return to the soil for plants to use again.  
+
+So, bacteria and fungi eat the dead leaves."
+oe01,our_environment,P3,cloud,1718.9,1458.5,158,1,step_by_step+hint_first,525,"Hint: Look for the organisms that break down dead material.  
+Think about it: Which group in the text “breaks down the dead remains and waste products”?  
+
+Full answer:  
+1. Dead leaves are dead organic matter on the forest floor.  
+2. Microorganisms such as **bacteria and fungi** act on this material.  
+3. These organisms are called **decomposers**.  
+4. Decomposers break the complex leaf tissue into simple inorganic substances.  
+5. The resulting nutrients return to the soil, ready for plants (producers) to use again."
+oe02,our_environment,P1,local,1321.2,1076.1,51,0,none,281,"Food chains generally have only three or four steps because the ten percent law states that about ten percent of the organic matter reaches the next level of consumers. This means there are fewer individuals at the lower trophic levels, resulting in a simpler food chain structure."
+oe02,our_environment,P1,local,1992.7,1802.3,135,0,step_by_step,611,"Okay, here are the 3 steps explaining why food chains usually have three or four steps, using the provided context:
+
+1.  **Start with Producers:** Plants and other producers create energy from sunlight.
+2.  **Move to Consumers:** Animals eat plants or other animals.
+3.  **Continue to the Top:** Larger animals eat smaller animals, creating a chain.
+
+**Question:** Why do food chains usually have only three or four steps?
+**Answer:** Food chains usually have only three or four steps because the energy from the sun is captured by producers, and then it’s passed on to consumers, creating a chain of organisms."
+oe02,our_environment,P1,local,3039.5,2840.7,217,0,step_by_step+hint_first,1052,"Okay, here's the answer to your question, following your instructions:
+
+**Question:** Why do food chains usually have only three or four steps?**
+
+**Answer:** Food chains usually have three or four steps because the energy available for each level of the food chain is limited. The ten percent law means that only about ten percent of the energy from each level is available for the next level. This limited energy means that food chains typically consist of only three or four trophic levels.
+
+**Step-by-Step Explanation:**
+
+1.  **Understanding Energy Flow:** Food chains demonstrate a unidirectional flow of energy – the energy captured by producers (like plants) is transferred to consumers.
+2.  **Limited Energy:** The ten percent law explains that a significant portion of the energy is lost as heat.
+3.  **Three or Four Levels:** Because of this limited energy, food chains typically consist of three or four levels – producers, primary consumers, and secondary consumers.
+
+Let me know if you'd like more explanations or have any other questions!"
+oe02,our_environment,P3,cloud,1844.4,1642.0,200,1,none,651,"Food chains are usually only three or four steps long because **energy loss** is huge at each trophic level.  
+When plants (autotrophs) capture sunlight, only about **1 %** becomes food energy. When a primary consumer eats the plant, **≈90 %** of that energy is lost as heat, digestion, movement, growth and reproduction. This is the **ten‑percent law** – only about **10 %** of the organic matter (energy) moves to the next level. With so little energy left, higher levels cannot support many individuals, so chains stop after a few steps.  
+
+**Example:** grass → deer (primary consumer) → lion (secondary/tertiary consumer). After the lion, there is"
+oe02,our_environment,P3,cloud,2436.4,2203.5,201,1,step_by_step,782,"1. **Energy loss at each level** – When one trophic level eats another, about 90 % of the energy is lost as heat, digestion, movement, growth and reproduction.  
+
+2. **Only ~10 % passes on** – This is the “ten‑percent law”; only a small fraction of the original energy reaches the next level.  
+
+3. **Insufficient energy for many levels** – Because each step gets only a tenth of the previous energy, there isn’t enough left to support many more consumers.  
+
+4. **Resulting short chains** – Consequently most food chains end after three or four trophic levels (producers → primary consumers → secondary → tertiary consumers).  
+
+5. **More individuals at lower levels** – The greatest number of organisms are producers, providing the bulk of the energy needed for the shorter chain."
+oe02,our_environment,P3,cloud,1904.4,1624.3,233,1,step_by_step+hint_first,821,"Hint: Think about how much energy moves from one level to the next.  
+
+Think about it: What percentage of energy from one trophic level is passed to the next?  
+
+Full answer:  
+1. **Energy capture is low** – Green plants (producers) turn only about 1 % of sunlight into food energy.  
+2. **Ten‑percent law** – When a consumer eats the level below, only ~10 % of that energy is transferred; the rest is lost as heat, digestion, growth, etc.  
+3. **Rapid loss** – Because each step keeps losing about 90 % of the energy, very little is left for higher levels.  
+4. **Limited energy for top predators** – With so little energy remaining, only a few trophic levels can be supported, usually three or four.  
+5. **Result** – Food chains are short, and many more organisms exist at the lower levels (producers) than at the top."
+oe03,our_environment,P1,local,1371.1,1121.7,48,0,none,242,"Pesticides accumulate at each trophic level due to their non-biodegradable nature and their ability to be absorbed by plants. This accumulation increases at higher levels in the food chain, including ours, leading to biological magnification."
+oe03,our_environment,P1,local,3613.2,3407.7,272,0,step_by_step,1098,"Here’s a breakdown of the answer, suitable for a rural school learner:
+
+**Understanding Pesticides & Your Body**
+
+Okay, let’s think about why pesticides can end up in our bodies. It’s a bit complicated, but here’s the gist:
+
+1.  **They’re Everywhere:** Pesticides are used to protect crops from bugs and diseases. They’re washed down by rain and wind, so they end up in our water, soil, and even the air.
+
+2.  **They Build Up:** When these chemicals are mixed with the soil and water, they can stick to plants and animals.  Over time, they build up in our bodies.
+
+3.  **Our Bodies Absorb:**  Think of it like a little chain reaction. The pesticides are absorbed into our bodies through our skin, food, and even our lungs.
+
+**Example:**  If you eat a piece of broccoli that's been treated with a pesticide, some of that pesticide might end up in your system.
+
+**Important Note:** It's good to eat healthy foods and be careful about where pesticides are used, but it’s important to be aware of how they can affect us.
+
+---
+
+Let me know if you’d like me to explain any of these points in more detail!"
+oe03,our_environment,P1,local,2137.6,1956.5,145,0,step_by_step+hint_first,690,"Here’s the answer to your question, based on the provided text:
+
+**Answer:** Pesticides and other chemicals are washed down into the soil or water bodies, and from there they are absorbed by plants along with water and minerals and enter the food chain. Because these chemicals are not degradable, they accumulate progressively at each trophic level, leading to biological magnification.**
+
+Here’s a breakdown of the steps:
+
+1.  **Start with a question:** Why do pesticides end up in our bodies?
+2.  **Read the text:** The text explains that pesticides accumulate at each trophic level in the food chain.
+3.  **Understand the concept:** This accumulation is called biological magnification."
+oe03,our_environment,P3,cloud,3165.1,2988.0,200,1,none,861,"Pesticides are applied to crops, then rain or irrigation washes them into soil and water. Plants absorb the contaminated water and minerals, so the chemicals enter the first **trophic level** (the autotrophs). Because pesticides are **non‑degradable**, they remain in the plant’s tissues and become more concentrated each time another organism eats it. This progressive buildup through the food chain is called **biological magnification**. Humans sit at the top of most food chains, so the highest concentration of the pesticide ends up in our bodies.  
+
+**Example:** A farmer sprays wheat fields with a pesticide. The wheat absorbs the chemical; a mouse eats the wheat and accumulates more pesticide; a cat eats the mouse and accumulates even more; when a person eats the wheat or meat from the cat, the pesticide concentration is highest in the person’s body"
+oe03,our_environment,P3,cloud,2956.7,2667.7,127,1,step_by_step,428,"1. Pesticides are sprayed on crops and later wash into soil or water.  
+2. Plants absorb the contaminated water and minerals, so the chemicals enter the food chain.  
+3. At each higher trophic level (herbivores → carnivores → humans) the chemicals do not break down, so they build up in greater amounts.  
+4. Because people are at the top of the food chain, the highest concentration of pesticide residues ends up in our bodies."
+oe03,our_environment,P3,cloud,2105.2,1805.8,245,1,step_by_step+hint_first,981,"Hint: Think about how chemicals move from soil to the foods we eat.  
+Think about it: How does a pesticide that starts in the ground become more concentrated in the top of the food chain?  
+
+Full answer:  
+1. **Pesticides are applied to crops** and later wash into soil or water.  
+2. **Plants absorb the water and chemicals** while taking up nutrients, so the pesticide enters the first trophic level (autotrophs).  
+3. **Herbivores eat the plants**, and the pesticide is not broken down, so it accumulates in their bodies.  
+4. **Carnivores eat the herbivores**, and the chemical concentration increases again at each level.  
+5. **Humans are at the top of the food chain**, so the highest amount of pesticide builds up in our bodies – this process is called **biological magnification**.  
+
+Example: A pesticide on wheat fields ends up in the wheat grain, then in bread, and finally in the person who eats the bread, with a higher concentration than the original amount applied."
+oe04,our_environment,P1,local,1075.7,787.4,23,0,none,100,"Synthetic chemicals like chlorofluorocarbons (CFCs), used as refrigerants and in fire extinguishers."
+oe04,our_environment,P1,local,2722.3,2539.9,194,0,step_by_step,792,"Okay, here’s a 5-point explanation of biological magnification, suitable for rural learners, using simple terms:
+
+1.  **What is it?** Biological magnification is when chemicals from our bodies (like pesticides) get concentrated in the food chain.
+
+2.  **Where does it happen?** It happens because we eat food that has been sprayed with chemicals.
+
+3.  **Why is it a problem?**  The chemicals build up higher up the food chain, making it harder for the sun to protect us.
+
+4.  **It’s a cycle:**  The chemicals are absorbed by plants and then by animals, and then by us!
+
+5.  **Think of it like a chain:**  The sun’s rays damage the ozone layer, and that damage makes us sick.
+
+---
+
+Would you like me to explain any of these points further, or perhaps provide an example of a specific chemical?"
+oe04,our_environment,P1,local,1727.1,1542.9,110,0,step_by_step+hint_first,593,"Okay, let’s continue with the explanation.
+
+**Think about it:**  The text explains how pesticides and other chemicals can accumulate in the food chain.  This accumulation increases the concentration of harmful chemicals, impacting the ozone layer.  It’s a process where chemicals are absorbed by plants and then passed up the food chain.
+
+**Full answer:** Biological magnification is the process where chemicals absorbed by plants accumulate at successive trophic levels, leading to an increase in the concentration of harmful chemicals in the food chain, ultimately impacting the ozone layer."
+oe04,our_environment,P3,cloud,1462.5,1290.6,137,1,none,463,"The ozone layer is damaged mainly by synthetic chemicals called **chlorofluorocarbons (CFCs)**. CFCs were used as refrigerants and in fire‑extinguishers; when they reach the stratosphere they release chlorine atoms that break down ozone (O₃) molecules, thinning the protective layer.  
+
+**Example:** A CFC‑filled refrigerator released into the atmosphere contributes to the loss of ozone, allowing more harmful ultraviolet (UV) radiation to reach Earth’s surface."
+oe04,our_environment,P3,cloud,2016.6,1838.6,174,1,step_by_step,600,"1. **Release of CFCs** – Human-made chemicals called chlorofluorocarbons (CFCs) are emitted from refrigerators, air‑conditioners and fire‑extinguishers.  
+2. **Rise to the stratosphere** – CFC molecules drift upward into the high‑altitude ozone layer.  
+3. **Chemical breakdown** – UV radiation splits CFCs, releasing chlorine atoms.  
+4. **Ozone destruction** – Each chlorine atom reacts with an ozone (O₃) molecule, turning it back into ordinary oxygen (O₂) and breaking the protective ozone shield.  
+
+*Result: The thinning of the ozone layer lets more harmful UV radiation reach Earth’s surface.*"
+oe04,our_environment,P3,cloud,1698.0,1493.0,198,1,step_by_step+hint_first,678,"Hint: Look for the chemicals mentioned that cause the ozone layer to shrink.  
+Think about it: Which man‑made substance released into the air is linked to the drop in ozone in the 1980s?  
+
+Full answer:  
+1. **Chlorofluorocarbons (CFCs)** are synthetic chemicals used in old refrigerators and fire extinguishers.  
+2. When CFCs rise into the upper atmosphere, UV radiation breaks them apart, releasing chlorine atoms.  
+3. These chlorine atoms react with ozone (O₃) and destroy its molecules.  
+4. The loss of ozone reduces the shield that blocks harmful ultraviolet (UV) radiation from the Sun.  
+5. Therefore, CFCs are the main human‑made pollutants that harm the ozone layer."
+oe05,our_environment,P1,local,2041.6,1794.1,123,0,none,560,"No, a plastic bottle is not biodegradable. According to the text, plastics are non-biodegradable and can persist in the environment for a long time. 
+
+**Key Terms:**
+
+*   **Biodegradable:** Can be broken down by microorganisms (like bacteria) into simpler substances.
+*   **Non-biodegradable:** Cannot be broken down by natural processes.
+*   **Food Web:** A network of interconnected organisms where energy flows through them.
+*   **Biological Magnification:** The increase in concentration of harmful chemicals due to the flow of energy through a food chain."
+oe05,our_environment,P1,local,3196.9,3016.8,247,0,step_by_step,1091,"Okay, here’s a breakdown of the answer to your question, suitable for rural school learners:
+
+**1. What is Biodegradable?**
+
+Biodegradable things break down naturally, like vegetable peels or paper. It means they can be turned into smaller pieces of matter by bacteria and other living things.
+
+**2. Why is it important to reduce waste?**
+
+Reducing waste means using less stuff. It helps keep our environment clean and healthy.
+
+**3. How does the food chain work?**
+
+Think of it like a web! Animals eat plants, and then other animals eat those plants. This creates a chain of food.  When we waste food, it can go into the soil and water, and then affect the animals that eat it.
+
+**4. Plastic is not biodegradable.**
+
+Plastics are made of long chains of molecules that don’t break down easily. They can take hundreds of years to disappear.
+
+**5. Biological magnification is a problem.**
+
+It means that chemicals from our waste can build up in the environment, affecting all living things, including us.
+
+**Answer:** No, plastic bottles are not biodegradable. They don’t break down naturally."
+oe05,our_environment,P1,local,1909.9,1732.9,128,0,step_by_step+hint_first,596,"**Hint:** Think about what materials are broken down by bacteria.
+
+**Think about it:** Plastics are non-biodegradable, meaning they don’t break down easily. Biodegradable materials, like vegetable peels, can be broken down by bacteria.
+
+**Full answer:** No, plastics are not biodegradable. They don’t break down easily, and they can persist in the environment for a long time.
+
+**Explanation:** The video explains that plastics are made of synthetic materials, and they don’t naturally break down. This means they don’t disappear, and they can accumulate in the environment, impacting ecosystems."
+oe05,our_environment,P3,cloud,1721.7,1542.8,127,1,none,393,"No. A plastic bottle is **non‑biodegradable** – it cannot be broken down by bacteria or other natural saprophytes. Unlike biodegradable items such as vegetable peels, paper or cotton, plastic persists in the environment for a very long time and can even harm ecosystems. For example, a discarded plastic bottle may remain in a river for years, contributing to pollution instead of decomposing."
+oe05,our_environment,P3,cloud,1802.0,1620.4,115,1,step_by_step,378,"1. Biodegradable substances are broken down by bacteria or other saprophytes (e.g., vegetable peels, paper, cotton).  
+2. Non‑biodegradable substances cannot be broken down this way (e.g., plastics, glass, many synthetic chemicals).  
+3. Because plastics are listed as non‑biodegradable, they do not decompose naturally.  
+
+**Answer:** No, a plastic bottle is not biodegradable."
+oe05,our_environment,P3,cloud,1701.2,1463.1,195,1,step_by_step+hint_first,742,"Hint: Think about whether plastics can be broken down by bacteria or other natural processes.  
+Think about it: Does a plastic bottle decompose like a vegetable peel or paper?  
+
+Full answer:  
+1. **Biodegradable definition** – Materials that bacteria, fungi or other saprophytes can break down (e.g., vegetable peels, paper, cotton).  
+2. **Non‑biodegradable definition** – Materials that are not broken down by these natural processes (e.g., plastics, glass, many synthetic chemicals).  
+3. **Plastic bottle** – It is made of synthetic polymer, which bacteria cannot decompose easily.  
+4. **Result** – The bottle persists in the environment for a long time and does not biodegrade.  
+
+**Answer:** No, a plastic bottle is not biodegradable."
+oe06,our_environment,P1,local,892.1,620.7,21,0,none,115,"Food chains are linear sequences of organisms, while food webs are interconnected networks of multiple food chains."
+oe06,our_environment,P1,local,1376.9,1119.9,69,0,step_by_step,291,"Okay, here’s an answer to your question, based on the provided text:
+
+**Answer:**
+
+A food chain shows a simple path of energy flow, like grass -> deer -> lion. A food web is a more complex picture showing many interconnected food chains, like grass, deer, and lion all relying on each other."
+oe06,our_environment,P1,local,1443.2,1197.7,82,0,step_by_step+hint_first,410,"Hint: Think about how food chains are made up of interconnected food sources.
+
+Think about it: Food chains are made up of a specific sequence of organisms, while a food web shows multiple interconnected food chains.
+
+Full answer: A food chain is a simple sequence of organisms where one organism eats another. A food web is a more complex network of interconnected food chains that shows multiple food sources."
+oe06,our_environment,P3,cloud,1692.5,1452.8,155,1,none,512,"A **food chain** is a single, straight line of who‑eats‑who, showing one path of energy flow from a producer to top‑level consumers.  
+*Example:* grass → deer → lion.
+
+A **food web** combines many such chains, showing that organisms feed on several different species and that energy moves through a network of interconnected links rather than a single line.  
+
+Key terms: **producer (autotroph)**, **consumer**, **trophic level**, **network**. The chain is linear; the web is a linked network of multiple chains."
+oe06,our_environment,P3,cloud,2265.2,1971.2,129,1,step_by_step,381,"1. **Food chain** – a single, straight line of who eats whom (e.g., grass → deer → lion).  
+2. **Food web** – many food chains linked together, showing that most animals eat several different species and are eaten by several others.  
+3. **Key difference** – a chain is isolated and simple; a web is a network that reflects the real, interconnected feeding relationships in nature."
+oe06,our_environment,P3,cloud,2017.9,1756.1,188,1,step_by_step+hint_first,722,"Hint: Think about how many connections are shown.  
+Think about it: Does the picture show one line of eating or many intersecting lines?  
+
+Full answer:  
+1. **Food chain** – a single, straight line of who eats whom, e.g., grass → deer → lion.  
+2. **Food web** – many food chains linked together, showing several organisms eating and being eaten by different species.  
+3. In a food chain energy flows in one direction only, while a food web shows the complex network of energy flow in an ecosystem.  
+4. A food web better reflects real nature because most animals have several different foods and predators.  
+
+Thus, a food chain is a simple, linear sequence; a food web is an interconnected network of many such chains."
