@@ -97,7 +97,7 @@ def main() -> int:
         pd.DataFrame(items).to_csv(OUT / "items.csv", index=False)
         print(f"{n}/{len(plan)} {topic_id} {strategy_id} {row['query']}: {row['wall_ms'] / 1000:.1f} s, "
               f"{row['recommended']} recs, quota {row['quota_units']}, blocked {row['blocked_signals']}", flush=True)
-        if row["blocked_signals"]:
+        if row["blocked_signals"] or "block" in str(row.get("index_error") or "").lower():
             print("YouTube is blocking caption requests: stopping (re-run later; finished runs are kept)")
             return 2
         if n < len(plan):

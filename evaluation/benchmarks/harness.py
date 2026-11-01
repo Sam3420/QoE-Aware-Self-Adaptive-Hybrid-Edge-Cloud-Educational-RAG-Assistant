@@ -192,6 +192,19 @@ class ResourceSampler:
                 "net_bytes": self.net_bytes, "samples": len(s)}
 
 
+def current_network() -> str:
+    """The Wi-Fi network (SSID) the machine is on, or "wired/unknown": every row records where it was measured."""
+    import subprocess
+
+    try:
+        out = subprocess.run(["netsh", "wlan", "show", "interfaces"], capture_output=True, text=True, timeout=5,
+                             encoding="utf-8", errors="replace").stdout
+    except (OSError, subprocess.SubprocessError):
+        return "unknown"
+    match = re.search(r"^\s*SSID\s*:\s*(.+)$", out, re.M)
+    return match.group(1).strip() if match else "wired/unknown"
+
+
 # ---- one answer -----------------------------------------------------------------------------------------------
 
 class RateLimited(RuntimeError):
@@ -340,10 +353,12 @@ def _row(q: dict[str, Any], variant: Variant, entry: dict[str, Any], response: s
          timings: dict[str, float], total_ms: float, log: CallLog, sampler: ResourceSampler) -> dict[str, Any]:
     choice = parse_choice(response, q["options"]) if q.get("options") else None
     out = {"response": response}
+    stamp = {"measured_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "network": current_network()}
     answers = [c for c in log.calls if c["kind"] == "answer"]
     checks = [c for c in log.calls if c["kind"] == "check"]
     cloud = [c for c in log.calls if c.get("provider") == "cloud"]
     return {
+        **stamp,
         "qid": q["qid"], "topic_id": q["topic_id"], "kind": q["kind"], "concept_id": q["concept_id"],
         "difficulty": q["difficulty"], "variant": variant.name, "family": variant.family, "route": variant.route,
         "top_k": variant.top_k, "max_retries": variant.max_retries, "retrieval": variant.retrieval,

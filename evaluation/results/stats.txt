@@ -1,0 +1,72 @@
+== Answer matrix: 92 questions, 730 answers, variants ['LLM-cloud', 'LLM-local', 'P1', 'P2', 'P3', 'P4', 'P5', 'RAG-cloud', 'RAG-local']
+-- CRAG ablation (exact McNemar; b = only the second correct, c = only the first correct)
+   RAG-local -> P2: acc 0.522 -> 0.522; P2 better on 1, worse on 1; p = 1.0000 (n = 90)
+   RAG-cloud -> P4: acc 1.000 -> 1.000; P4 better on 0, worse on 0; p = 1.0000 (n = 47)
+   LLM-local -> RAG-local: acc 0.400 -> 0.522; RAG-local better on 20, worse on 9; p = 0.0614 (n = 90)
+   LLM-cloud -> RAG-cloud: acc 0.979 -> 1.000; RAG-cloud better on 1, worse on 0; p = 1.0000 (n = 47)
+   P1 -> P3: acc 0.543 -> 1.000; P3 better on 42, worse on 0; p = 0.0000 (n = 92)
+   P2 -> P4: acc 0.522 -> 1.000; P4 better on 43, worse on 0; p = 0.0000 (n = 90)
+   P2 -> P5: acc 0.522 -> 0.922; P5 better on 37, worse on 1; p = 0.0000 (n = 90)
+   CRAG corrective retry triggered on 0.0% of P2/P4 answers; retrieval score below threshold 0.65 before retry on 0.0%
+   P5 escalated 50.0% of questions (before answering 0.0%, after the check 50.0%); mean check score 0.658
+== Result 3: policies under each network profile (5 questions per session)
+   best fixed policy per profile: good: P4 (0.836), moderate: P4 (0.843), poor: P3 (0.822), offline: P2 (0.737), blackhole: P1 (0.738)
+== Result 4: dynamic network trace (10 repetitions × 44 sessions; profile sequence good → poor → blackhole → moderate → offline)
+   Friedman over 11 strategies, 440 blocks: χ² = 1501.9, p = 0.00e+00
+   adaptive-v1-cold vs each (paired over repetitions, Wilcoxon, Holm-adjusted):
+      vs P1            ΔU = +0.0550  p_holm = 0.0195
+      vs P2            ΔU = +0.0453  p_holm = 0.0195
+      vs random        ΔU = +0.0252  p_holm = 0.0195
+      vs P5            ΔU = +0.0240  p_holm = 0.0195
+      vs adaptive-v1-warm ΔU = +0.0133  p_holm = 0.0195
+      vs P3            ΔU = -0.0003  p_holm = 1.0000
+      vs rtt-rule      ΔU = -0.0007  p_holm = 1.0000
+      vs P4            ΔU = -0.0010  p_holm = 1.0000
+      vs adaptive-v2-warm ΔU = -0.0158  p_holm = 0.0195
+      vs adaptive-v2-cold ΔU = -0.0188  p_holm = 0.0195
+   adaptive-v1-warm vs each (paired over repetitions, Wilcoxon, Holm-adjusted):
+      vs P1            ΔU = +0.0417  p_holm = 0.0195
+      vs P2            ΔU = +0.0320  p_holm = 0.0195
+      vs random        ΔU = +0.0118  p_holm = 0.0273
+      vs P5            ΔU = +0.0107  p_holm = 0.0195
+      vs adaptive-v1-cold ΔU = -0.0133  p_holm = 0.0195
+      vs P3            ΔU = -0.0136  p_holm = 0.0195
+      vs rtt-rule      ΔU = -0.0140  p_holm = 0.0195
+      vs P4            ΔU = -0.0143  p_holm = 0.0195
+      vs adaptive-v2-warm ΔU = -0.0291  p_holm = 0.0195
+      vs adaptive-v2-cold ΔU = -0.0321  p_holm = 0.0195
+   adaptive-v2-cold vs each (paired over repetitions, Wilcoxon, Holm-adjusted):
+      vs P1            ΔU = +0.0738  p_holm = 0.0195
+      vs P2            ΔU = +0.0641  p_holm = 0.0195
+      vs random        ΔU = +0.0439  p_holm = 0.0195
+      vs P5            ΔU = +0.0428  p_holm = 0.0195
+      vs adaptive-v1-warm ΔU = +0.0321  p_holm = 0.0195
+      vs adaptive-v1-cold ΔU = +0.0188  p_holm = 0.0195
+      vs P3            ΔU = +0.0185  p_holm = 0.0195
+      vs rtt-rule      ΔU = +0.0181  p_holm = 0.0195
+      vs P4            ΔU = +0.0178  p_holm = 0.0195
+      vs adaptive-v2-warm ΔU = +0.0030  p_holm = 0.0195
+   adaptive-v2-warm vs each (paired over repetitions, Wilcoxon, Holm-adjusted):
+      vs P1            ΔU = +0.0708  p_holm = 0.0195
+      vs P2            ΔU = +0.0611  p_holm = 0.0195
+      vs random        ΔU = +0.0410  p_holm = 0.0195
+      vs P5            ΔU = +0.0398  p_holm = 0.0195
+      vs adaptive-v1-warm ΔU = +0.0291  p_holm = 0.0195
+      vs adaptive-v1-cold ΔU = +0.0158  p_holm = 0.0195
+      vs P3            ΔU = +0.0155  p_holm = 0.0195
+      vs rtt-rule      ΔU = +0.0151  p_holm = 0.0195
+      vs P4            ΔU = +0.0148  p_holm = 0.0195
+      vs adaptive-v2-cold ΔU = -0.0030  p_holm = 0.0195
+   adaptive-v1-cold: sessions to adapt after a network change: median 2.0, mean 2.60, never within the segment 28% (≥4 sessions)
+   adaptive-v1-warm: sessions to adapt after a network change: median 4.0, mean 3.94, never within the segment 62% (≥4 sessions)
+   adaptive-v2-cold: sessions to adapt after a network change: median 1.0, mean 1.40, never within the segment 16% (≥4 sessions)
+   adaptive-v2-warm: sessions to adapt after a network change: median 1.0, mean 1.18, never within the segment 8% (≥4 sessions)
+   adaptive-v1-cold: mean |predicted − observed utility| = 0.0294 over 386 greedy/explore decisions with an estimate
+   adaptive-v1-warm: mean |predicted − observed utility| = 0.0682 over 387 greedy/explore decisions with an estimate
+   adaptive-v2-cold: mean |predicted − observed utility| = 0.0157 over 440 greedy/explore decisions with an estimate
+   adaptive-v2-warm: mean |predicted − observed utility| = 0.0344 over 440 greedy/explore decisions with an estimate
+== Result 5b: learner doubts (30 in scope, 10 off-topic), variants ['P2', 'P4', 'RAG-cloud', 'RAG-local']
+   faithfulness RAG-local 0.703 -> P2 0.795 (Wilcoxon p = 0.0273, n = 30)
+   faithfulness RAG-cloud 0.987 -> P4 0.982 (Wilcoxon p = 0.6547, n = 30)
+   off-topic correctly declined: P2 0%, P4 100%, RAG-cloud 100%, RAG-local 0%
+== Result 9b: scaffolding cost: P1 none: 1386 ms, 53 tokens; P1 step_by_step: 1733 ms, 112 tokens; P1 step_by_step+hint_first: 1860 ms, 122 tokens; P3 none: 1761 ms, 125 tokens; P3 step_by_step: 1910 ms, 130 tokens; P3 step_by_step+hint_first: 1954 ms, 174 tokens

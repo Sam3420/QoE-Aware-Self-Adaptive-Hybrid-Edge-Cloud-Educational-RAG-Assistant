@@ -135,6 +135,12 @@ def main() -> int:
     steps = local_steps()
     steps.to_csv(OUT / "local_steps.csv", index=False)
     print(steps.to_string(index=False))
+    existing = OUT / "scaffold.csv"
+    if not args.no_llm and existing.exists():
+        done = pd.read_csv(existing)
+        if set(args.policies) <= set(done.variant) and len(done) >= 30 * len(SCAFFOLDS) * len(set(done.variant)):
+            print(f"scaffold experiment already complete in {existing} ({len(done)} rows): not re-run")
+            return 0
     if not args.no_llm:
         scaffold = scaffold_experiment(args.policies)
         scaffold.to_csv(OUT / "scaffold.csv", index=False)

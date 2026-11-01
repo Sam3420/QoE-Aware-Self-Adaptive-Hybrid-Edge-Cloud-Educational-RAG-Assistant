@@ -179,7 +179,8 @@ def answer_matrix() -> None:
     colors = [SERIES["slot"][0] if v.endswith("local") or v == "P2" else SERIES["slot"][1] for v in a.variant]
     x = np.arange(len(a))
     ax.bar(x, a.accuracy, width=0.55, color=colors, edgecolor="#fcfcfb", linewidth=2)
-    ax.errorbar(x, a.accuracy, yerr=[a.accuracy - a.ci_low, a.ci_high - a.accuracy], fmt="none", ecolor=INK,
+    ax.errorbar(x, a.accuracy, yerr=[(a.accuracy - a.ci_low).clip(lower=0), (a.ci_high - a.accuracy).clip(lower=0)],
+                fmt="none", ecolor=INK,
                 elinewidth=1, capsize=3)
     for xi, v in zip(x, a.accuracy):
         ax.text(xi, v + 0.04, f"{v:.0%}", ha="center", fontsize=8, color=INK)
@@ -339,10 +340,63 @@ def dynamic() -> None:
     save(fig, "dynamic_timeline")
 
 
+# ---- Result 5b: learner doubts (faithfulness, declining off-topic) ------------------------------------------------
+
+def doubts() -> None:
+    path = RESULTS / "doubts_matrix.csv"
+    if not path.exists():
+        return
+    d = pd.read_csv(path)
+    say(f"== Result 5b: learner doubts ({d[d.kind == 'doubt'].qid.nunique()} in scope, "
+        f"{d[d.kind == 'off_topic'].qid.nunique()} off-topic), variants {sorted(d.variant.unique())}")
+    rows = []
+    for (v, kind), g in d.groupby(["variant", "kind"]):
+        rows.append({"variant": v, "set": kind, "n": len(g), "retrieval_score": g.retrieval_score.mean(),
+                     "below_threshold_%": 100 * (g.retrieval_score < 0.65).mean(),
+                     "crag_retry_%": 100 * (g.crag_retries > 0).mean(), "declined_%": 100 * g.declined.mean(),
+                     "faithfulness": g.faithfulness.mean(), "judged": int(g.faithfulness.notna().sum()),
+                     "latency_ms": g.total_ms.mean()})
+    table(pd.DataFrame(rows), "doubts_summary",
+          "Learner doubts and off-topic questions: retrieval, CRAG retries, declines and judged faithfulness.", 2)
+    wide = d[d.kind == "doubt"].pivot_table(index="qid", columns="variant", values="faithfulness")
+    for a, b in [("RAG-local", "P2"), ("RAG-cloud", "P4")]:
+        if a in wide and b in wide:
+            pair = wide[[a, b]].dropna()
+            diff = pair[b] - pair[a]
+            p = stats.wilcoxon(diff).pvalue if (diff != 0).any() else 1.0
+            say(f"   faithfulness {a} {pair[a].mean():.3f} -> {b} {pair[b].mean():.3f} "
+                f"(Wilcoxon p = {p:.4f}, n = {len(pair)})")
+    off = d[d.kind == "off_topic"]
+    if not off.empty:
+        say("   off-topic correctly declined: " + ", ".join(f"{v} {g.declined.mean():.0%}"
+                                                          for v, g in off.groupby("variant")))
+
+
+# ---- Result 9b: cost of answer scaffolding ------------------------------------------------------------------------
+
+def scaffold() -> None:
+    path = RESULTS / "coach" / "scaffold.csv"
+    if not path.exists():
+        return
+    s = pd.read_csv(path)
+    t = s.groupby(["variant", "scaffold"]).agg(n=("qid", "size"), latency_ms=("total_ms", "mean"),
+                                              tokens_out=("completion_tokens", "mean"),
+                                              answer_chars=("answer_chars", "mean")).reset_index()
+    for v, g in t.groupby("variant"):
+        base = g[g.scaffold == "none"].latency_ms.iloc[0] if (g.scaffold == "none").any() else None
+        if base:
+            t.loc[g.index, "latency_vs_plain_%"] = 100 * (g.latency_ms / base - 1)
+    table(t, "scaffold_cost", "Cost of the coach's answer scaffolding (30 learner doubts per row).", 1)
+    say("== Result 9b: scaffolding cost: " + "; ".join(
+        f"{r.variant} {r.scaffold}: {r.latency_ms:.0f} ms, {r.tokens_out:.0f} tokens" for r in t.itertuples()))
+
+
 def main() -> None:
     answer_matrix()
     static()
     dynamic()
+    doubts()
+    scaffold()
     RESULTS.mkdir(parents=True, exist_ok=True)
     (RESULTS / "stats.txt").write_text("\n".join(_lines) + "\n", encoding="utf-8")
 

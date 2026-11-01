@@ -1,0 +1,21 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Answer accuracy on the 150 multiple-choice benchmark items (95\% Wilson interval).}
+\label{tab:accuracy_by_variant}
+\begin{tabular}{l r r r r r r r r r}
+\toprule
+variant & n & accuracy & ci\_low & ci\_high & parsed & retrieval\_score & crag\_retry\_rate & escalated & latency\_ms \\
+\midrule
+P1 & 92 & 0.543 & 0.442 & 0.641 & 1.000 & 0.798 & 0.000 & 0.000 & 703.315 \\
+P2 & 92 & 0.522 & 0.421 & 0.621 & 1.000 & 0.798 & 0.000 & 0.000 & 733.325 \\
+P3 & 92 & 1.000 & 0.960 & 1.000 & 1.000 & 0.798 & 0.000 & 0.000 & 1455.122 \\
+P4 & 90 & 1.000 & 0.959 & 1.000 & 1.000 & 0.797 & 0.000 & 0.000 & 1414.667 \\
+P5 & 90 & 0.922 & 0.848 & 0.962 & 1.000 & 0.797 & 0.000 & 0.500 & 2668.219 \\
+LLM-cloud & 47 & 0.979 & 0.889 & 0.996 & 1.000 & 0.000 & 0.000 & 0.000 & 1510.321 \\
+LLM-local & 90 & 0.400 & 0.305 & 0.503 & 1.000 & 0.000 & 0.000 & 0.000 & 627.477 \\
+RAG-cloud & 47 & 1.000 & 0.924 & 1.000 & 1.000 & 0.802 & 0.000 & 0.000 & 1217.483 \\
+RAG-local & 90 & 0.522 & 0.420 & 0.622 & 1.000 & 0.797 & 0.000 & 0.000 & 621.058 \\
+\bottomrule
+\end{tabular}
+\end{table}

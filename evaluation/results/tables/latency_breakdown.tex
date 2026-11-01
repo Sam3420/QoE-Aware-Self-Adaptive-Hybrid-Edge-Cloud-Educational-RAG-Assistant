@@ -1,0 +1,21 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Answer latency by policy on the benchmark network (ms per question; retrieval, LLM and P5 check time).}
+\label{tab:latency_breakdown}
+\begin{tabular}{l r r r r r r r r r}
+\toprule
+variant & n & retrieval\_ms & llm\_ms & check\_ms & total\_ms\_mean & total\_ms\_p50 & total\_ms\_p95 & cloud\_calls & tokens\_out \\
+\midrule
+P1 & 92 & 44.8 & 583.3 & 0.0 & 703.3 & 672.5 & 991.1 & 0.0 & 64.7 \\
+P2 & 92 & 42.9 & 615.0 & 0.0 & 733.3 & 682.8 & 1093.9 & 0.0 & 68.6 \\
+P3 & 92 & 44.6 & 1335.7 & 0.0 & 1455.1 & 1339.4 & 2312.9 & 1.0 & 77.3 \\
+P4 & 90 & 93.7 & 1245.5 & 0.0 & 1414.7 & 1322.8 & 1949.5 & 1.0 & 76.5 \\
+P5 & 90 & 55.8 & 1205.2 & 1329.5 & 2668.2 & 2687.3 & 3839.6 & 1.5 & 105.6 \\
+RAG-local & 90 & 40.4 & 503.0 & 0.0 & 621.1 & 593.3 & 873.9 & 0.0 & 61.6 \\
+RAG-cloud & 47 & 48.9 & 1097.3 & 0.0 & 1217.5 & 1225.0 & 1406.7 & 1.0 & 76.6 \\
+LLM-local & 90 & 0.0 & 627.4 & 0.0 & 627.5 & 612.5 & 808.4 & 0.0 & 74.5 \\
+LLM-cloud & 47 & 0.0 & 1510.2 & 0.0 & 1510.3 & 1065.7 & 1265.9 & 1.0 & 85.6 \\
+\bottomrule
+\end{tabular}
+\end{table}

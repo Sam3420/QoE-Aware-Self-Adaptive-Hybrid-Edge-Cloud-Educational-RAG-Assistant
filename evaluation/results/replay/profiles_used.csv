@@ -1,0 +1,7 @@
+name,rtt_ms,jitter_ms,loss,down_mbps,up_mbps,outage,source
+good,35.1,94.4,0.0,8.73,5.76,,measured: college-wifi (n=1)
+moderate,75.4,112.5,0.0,48.15,0.8,,measured: phone-hotspot-4g (n=1)
+poor,600.0,200.0,0.03,0.5,0.25,,assumed
+offline,0.0,0.0,0.0,100.0,50.0,offline,assumed
+blackhole,0.0,0.0,0.0,100.0,50.0,blackhole,assumed
+base,28.8,30.0,0.0,10.0,4.0,,measured: benchmark-base (n=1)

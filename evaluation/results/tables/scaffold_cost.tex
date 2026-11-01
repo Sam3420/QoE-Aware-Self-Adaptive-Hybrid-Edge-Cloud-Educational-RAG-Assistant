@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Cost of the coach's answer scaffolding (30 learner doubts per row).}
+\label{tab:scaffold_cost}
+\begin{tabular}{l l r r r r r}
+\toprule
+variant & scaffold & n & latency\_ms & tokens\_out & answer\_chars & latency\_vs\_plain\_\% \\
+\midrule
+P1 & none & 30 & 1386.3 & 53.0 & 245.7 & 0.0 \\
+P1 & step\_by\_step & 30 & 1733.0 & 112.2 & 477.1 & 25.0 \\
+P1 & step\_by\_step+hint\_first & 30 & 1859.9 & 122.3 & 566.9 & 34.2 \\
+P3 & none & 30 & 1761.5 & 124.7 & 423.9 & 0.0 \\
+P3 & step\_by\_step & 30 & 1910.1 & 129.6 & 419.3 & 8.4 \\
+P3 & step\_by\_step+hint\_first & 30 & 1954.2 & 174.1 & 620.7 & 10.9 \\
+\bottomrule
+\end{tabular}
+\end{table}

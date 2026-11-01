@@ -1,0 +1,20 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Learner doubts and off-topic questions: retrieval, CRAG retries, declines and judged faithfulness.}
+\label{tab:doubts_summary}
+\begin{tabular}{l l r r r r r r r r}
+\toprule
+variant & set & n & retrieval\_score & below\_threshold\_\% & crag\_retry\_\% & declined\_\% & faithfulness & judged & latency\_ms \\
+\midrule
+P2 & doubt & 30 & 0.69 & 26.67 & 26.67 & 0.00 & 0.80 & 30 & 926.39 \\
+P2 & off\_topic & 10 & 0.55 & 90.00 & 90.00 & 0.00 & 0.50 & 10 & 1491.39 \\
+P4 & doubt & 30 & 0.69 & 26.67 & 26.67 & 6.67 & 0.98 & 30 & 2027.28 \\
+P4 & off\_topic & 10 & 0.55 & 90.00 & 90.00 & 100.00 & 1.00 & 10 & 2197.86 \\
+RAG-cloud & doubt & 30 & 0.69 & 26.67 & 0.00 & 6.67 & 0.99 & 30 & 1616.30 \\
+RAG-cloud & off\_topic & 10 & 0.55 & 90.00 & 0.00 & 100.00 & 1.00 & 10 & 1592.04 \\
+RAG-local & doubt & 30 & 0.69 & 26.67 & 0.00 & 0.00 & 0.70 & 30 & 1215.85 \\
+RAG-local & off\_topic & 10 & 0.55 & 90.00 & 0.00 & 0.00 & 0.43 & 10 & 1743.30 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -60,10 +60,37 @@ def speedtest_mbps() -> dict[str, float | None]:
         st = speedtest.Speedtest(secure=True)
         st.get_best_server()
         down, up = st.download() / 1e6, st.upload(pre_allocate=False) / 1e6
+        if down <= 0 or up <= 0:  # e.g. a campus firewall: the library reports 0 instead of failing
+            raise RuntimeError(f"speedtest returned {down:.2f}/{up:.2f} Mbps")
         return {"down_mbps": round(down, 2), "up_mbps": round(up, 2), "speedtest_ping_ms": round(st.results.ping, 1),
                 "speedtest_server": st.results.server.get("sponsor")}
-    except Exception as exc:  # blocked by the network, no server, library error
-        return {"down_mbps": None, "up_mbps": None, "speedtest_ping_ms": None, "speedtest_server": f"failed: {exc}"[:80]}
+    except Exception as exc:  # blocked by the network, no server, library error: time a plain HTTPS transfer
+        return {**cloudflare_mbps(), "speedtest_ping_ms": None, "speedtest_server": f"cloudflare (speedtest: {exc})"[:80]}
+
+
+def cloudflare_mbps(down_bytes: int = 25_000_000, up_bytes: int = 5_000_000) -> dict[str, float | None]:
+    """Bandwidth from one timed download and upload to speed.cloudflare.com (best of 3 each)."""
+    def best(fn) -> float | None:
+        rates = []
+        for _ in range(3):
+            try:
+                rates.append(fn())
+            except httpx.HTTPError:
+                pass
+        return round(max(rates), 2) if rates else None
+
+    def down() -> float:
+        start = time.perf_counter()
+        r = httpx.get(f"https://speed.cloudflare.com/__down?bytes={down_bytes}", timeout=60)
+        r.raise_for_status()
+        return len(r.content) * 8 / (time.perf_counter() - start) / 1e6
+
+    def up() -> float:
+        start = time.perf_counter()
+        httpx.post("https://speed.cloudflare.com/__up", content=b"0" * up_bytes, timeout=60).raise_for_status()
+        return up_bytes * 8 / (time.perf_counter() - start) / 1e6
+
+    return {"down_mbps": best(down), "up_mbps": best(up)}
 
 
 def main() -> None:
