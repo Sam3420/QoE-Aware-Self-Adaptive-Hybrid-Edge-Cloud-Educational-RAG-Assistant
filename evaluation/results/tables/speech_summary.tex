@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Speech round trip (Kokoro TTS → STT): word error rate and median latency.}
+\label{tab:speech_summary}
+\begin{tabular}{l l r r r r r}
+\toprule
+backend & language & n & wer & stt\_ms & tts\_ms & audio\_s \\
+\midrule
+sravaani & en & 30 & 0.107 & 133.600 & 1583.138 & 2.625 \\
+sravaani & hi & 10 & 0.028 & 136.100 & 8243.076 & 3.029 \\
+whisper & en & 30 & 0.026 & 381.950 & 1583.138 & 2.625 \\
+\bottomrule
+\end{tabular}
+\end{table}

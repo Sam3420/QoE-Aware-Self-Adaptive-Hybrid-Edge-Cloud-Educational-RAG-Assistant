@@ -1,0 +1,44 @@
+% =====================================================================================================
+% Appendix A - Source Code and Reproducibility
+% =====================================================================================================
+\chapter{Source Code and Reproducibility}
+\label{app:code}
+
+The source code is in the project repository
+(\texttt{github.com/Sam3420/QoE-Aware-Self-Adaptive-Hybrid-Edge-Cloud-Educational-RAG-Assistant}), branch
+\texttt{results\_ver\_1}. API keys, the textbook text and learner data are not part of the repository.
+
+\section{Setup and execution}
+
+\begin{enumerate}
+  \item Python 3.11 virtual environment: \texttt{py -3.11 -m venv .venv}, then
+    \texttt{pip install -r requirements.txt} (and \texttt{requirements-speech.txt} for speech).
+  \item Ollama with \texttt{gemma3:1b} and \texttt{nomic-embed-text} (\texttt{ollama pull <model>}).
+  \item A \texttt{.env} file with \texttt{GROQ\_API\_KEY}, \texttt{YOUTUBE\_API\_KEY} and, for SraVaani,
+    \texttt{HF\_TOKEN}.
+  \item Database: \texttt{python scripts/migrate\_db.py}, then
+    \texttt{python scripts/load\_content\_package.py <topic> --apply} for each topic.
+  \item Application: \texttt{python -m uvicorn app.main:app --port 8000} and
+    \texttt{python -m streamlit run frontend/streamlit\_app.py}. The improved selector is enabled with
+    \texttt{POLICY\_ENGINE=v2}.
+  \item Tests: \texttt{python -m pytest -q} (429 tests, offline).
+\end{enumerate}
+
+\section{Supporting material}
+
+The benchmarks of Chapter~\ref{ch:results} are in \texttt{evaluation/benchmarks/} with a step-by-step
+guide (\texttt{README.md}); all raw results, tables (CSV and \LaTeX) and figures are in
+\texttt{evaluation/results/}. The main commands are:
+\begin{itemize}
+  \item answer matrix: \texttt{python -m evaluation.benchmarks.run\_answer\_matrix --kinds post --wait-daily};
+  \item learner doubts: \texttt{... run\_answer\_matrix --set doubts};
+  \item network profile: \texttt{... network\_profile --label <network>};
+  \item replay: \texttt{... replay\_adaptation --reps 20 --profiles good=college-wifi moderate=phone-hotspot-4g
+    --base benchmark-base};
+  \item weight sensitivity: \texttt{... ewm\_sensitivity} (and \texttt{--compare replay\_ewm});
+  \item speech, coach, videos, content: \texttt{bench\_speech}, \texttt{coach\_costs}, \texttt{bench\_videos},
+    \texttt{content\_stats};
+  \item tables, statistics and figures: \texttt{... analyze\_results}.
+\end{itemize}
+All benchmarks run on a copy of the database with fixed seeds; every answer row records its timestamp and
+network.

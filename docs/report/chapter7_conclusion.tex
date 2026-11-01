@@ -1,0 +1,60 @@
+% =====================================================================================================
+% Chapter 7 - Conclusion (consistent with Chapter 6)
+% =====================================================================================================
+\chapter{Conclusion}
+\label{ch:conclusion}
+
+\section{Conclusion}
+
+This project addressed the question of how an educational assistant can keep giving correct, grounded and
+timely help when the network and the device change, without sending every question to the cloud. It
+built a QoE-aware framework that answers questions from the lesson notes and the chosen video's transcript
+(RAG with corrective retrieval), runs either a small model on the learner's laptop or a large model in the
+cloud according to a runtime policy, measures every session as quality of experience and resource
+efficiency, and chooses the next session's policy from similar past sessions. A proactive coach sets
+concept-level goals from a pre-test, suggests the next step after every answer and reflects after a
+parallel post-test. The case study covers five NCERT Class~X Biology chapters with 298 checked items.
+
+The system-level evaluation, run on real answers and timings with measured and emulated network
+conditions, supports the following conclusions.
+\begin{itemize}
+  \item The edge model answers in about 0.7~s and the cloud model in about 1.3~s, but the cloud is far more
+    accurate (100\% against 54\% on the keyed items), so the cloud is the better choice whenever it is
+    reachable, even at 2~s of round-trip time.
+  \item Corrective retrieval improves the grounding of edge answers on learner-style questions
+    (faithfulness 0.70 to 0.80), and a confidence-based cascade (P5) recovers 92\% accuracy with half
+    the cloud calls.
+  \item Experience-based policy selection outperforms every fixed configuration under a changing network
+    in its revised form, QAPS: utility 0.812 against 0.794 for the best fixed policy and 0.818 for the
+    hindsight oracle, with no failed cloud calls, half the slow answers and 44\% less energy than
+    always-cloud. The selector as first designed did not outperform a fixed cloud policy; the analysis
+    of why (indistinguishable outage and poor-network states, evidence starvation, unsafe exploration)
+    led directly to the four changes in QAPS.
+  \item The coach's decisions cost under a millisecond; speech recognition is fast and accurate in Hindi;
+    the conclusion that QAPS performs best holds under data-derived (EWM) weights and across utility
+    weightings.
+\end{itemize}
+Objectives O1, O2, O3 and O5 are met at system level. Objective O4 is met for the mechanisms
+(goal-setting, coaching, recommendation) but not for its outcome criterion, learning gain, which requires
+learners. The results therefore establish that the framework is technically effective; they do not yet
+show that it improves learning.
+
+\section{Future work}
+
+\begin{enumerate}
+  \item \textbf{User study (next phase).} A within-subject study with Class~X learners comparing coaching
+    \emph{on} and \emph{off} (counterbalanced test forms) to measure learning gain, satisfaction and the
+    full QoE including the EQ and UX groups. Depends on ethics approval and completion of the content
+    review.
+  \item \textbf{Complete the content review.} Close the 28 open flags, collect the two human concept-tag
+    labels to measure tagging accuracy, and review generated practice items before they are shown.
+  \item \textbf{Validate the network model.} Repeat a subset of the matrix with live injected delay and
+    loss, and measure the poor and outage profiles on real networks.
+  \item \textbf{Safer edge answers.} Decline outside the model when retrieval stays below the threshold,
+    so that off-topic questions are not answered by the edge model.
+  \item \textbf{Finer adaptation.} Per-question routing, bandwidth and jitter in the state, recency
+    weighting of experiences, and a larger action set (temperature, chunk size, speech parameters), as
+    in the original design.
+  \item \textbf{Speech.} Choose the recogniser by language and use a faster Hindi synthesiser.
+  \item \textbf{Make QAPS the default} after the user study confirms its behaviour with real sessions.
+\end{enumerate}

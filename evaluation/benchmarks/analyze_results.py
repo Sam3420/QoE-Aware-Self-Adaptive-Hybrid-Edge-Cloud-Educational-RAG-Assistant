@@ -26,6 +26,17 @@ SERIES = {"slot": ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4"],
 INK, MUTED, GRID = "#1f1f1e", "#6b6a64", "#e4e3de"
 PROFILE_ORDER = ["good", "moderate", "poor", "offline", "blackhole"]
 ADAPTIVE = ["adaptive-v1-cold", "adaptive-v1-warm", "adaptive-v2-cold", "adaptive-v2-warm"]
+# Report names (internal ids stay as above): QAPS = QoE-Aware Policy Selector, the proposed selector (POLICY_ENGINE=v2);
+# the baseline is the original experience-based kNN selector (v1). "cold" = empty memory, "warm" = pre-trained.
+LABELS = {"adaptive-v1-cold": "Baseline kNN selector (cold)", "adaptive-v1-warm": "Baseline kNN selector (warm)",
+          "adaptive-v2-cold": "QAPS, proposed (cold)", "adaptive-v2-warm": "QAPS, proposed (warm)",
+          "rtt-rule": "RTT threshold rule", "random": "Random", "oracle": "Oracle (hindsight)",
+          "P1": "P1 edge-light", "P2": "P2 edge-thorough", "P3": "P3 cloud-light", "P4": "P4 cloud-thorough",
+          "P5": "P5 edge-escalate"}
+
+
+def label(name: str) -> str:
+    return LABELS.get(name, name)
 _lines: list[str] = []
 
 
@@ -58,6 +69,8 @@ def save(fig: plt.Figure, name: str) -> None:
 def table(df: pd.DataFrame, name: str, caption: str, digits: int = 3) -> None:
     """CSV for the data, and a booktabs LaTeX table for the report."""
     TABLES.mkdir(parents=True, exist_ok=True)
+    if "strategy" in df:  # report names for the strategies (the CSVs keep them too, for consistency)
+        df = df.assign(strategy=df["strategy"].map(label))
     df.to_csv(TABLES / f"{name}.csv", index=False)
     fmt = lambda v: (f"{v:.{digits}f}" if isinstance(v, float) and not math.isnan(v)  # noqa: E731
                      else "--" if isinstance(v, float) else str(v).replace("_", r"\_").replace("%", r"\%"))
@@ -186,7 +199,8 @@ def answer_matrix() -> None:
         ax.text(xi, v + 0.04, f"{v:.0%}", ha="center", fontsize=8, color=INK)
     ax.set_xticks(x, [labels[v] for v in a.variant], rotation=20, ha="right")
     ax.set_ylim(0, 1.1)
-    style(ax, "Answer accuracy by retrieval mode (150 items, 95% CI)", "", "accuracy")
+    style(ax, f"Answer accuracy by retrieval mode (multiple-choice items, n = {int(a.n.min())}–{int(a.n.max())}, 95% CI)",
+          "", "accuracy")
     save(fig, "accuracy_by_retrieval")
 
 
@@ -284,9 +298,9 @@ def dynamic() -> None:
             pvals[other] = stats.wilcoxon(diff).pvalue if (diff != 0).any() else 1.0
             effects[other] = diff.mean()
         adj = holm(pvals)
-        say(f"   {adaptive} vs each (paired over repetitions, Wilcoxon, Holm-adjusted):")
+        say(f"   {label(adaptive)} vs each (paired over repetitions, Wilcoxon, Holm-adjusted):")
         for other in sorted(pvals, key=lambda o: -effects[o]):
-            say(f"      vs {other:13s} ΔU = {effects[other]:+.4f}  p_holm = {adj[other]:.4f}")
+            say(f"      vs {label(other):30s} ΔU = {effects[other]:+.4f}  p_holm = {adj[other]:.4f}")
 
     # time to adapt: sessions after a profile change until the adaptive choice matches the segment's best fixed policy
     seg_best = s[s.strategy.isin(POLICIES)].groupby(["rep", "profile", "policy"]).utility.mean().reset_index()
@@ -305,7 +319,7 @@ def dynamic() -> None:
                 hit = next((i - start for i in range(start, end) if r.policy[i] == target), None)
                 delays.append(end - start if hit is None else hit)
         if delays:
-            say(f"   {adaptive}: sessions to adapt after a network change: median {np.median(delays):.1f}, "
+            say(f"   {label(adaptive)}: sessions to adapt after a network change: median {np.median(delays):.1f}, "
                 f"mean {np.mean(delays):.2f}, never within the segment {sum(1 for x in delays if x >= 4) / len(delays):.0%}"
                 " (≥4 sessions)")
         share = g.groupby("profile").policy.value_counts(normalize=True).unstack(fill_value=0)
@@ -316,7 +330,7 @@ def dynamic() -> None:
     for adaptive in ADAPTIVE:
         g = s[(s.strategy == adaptive) & s.predicted.notna()]
         if not g.empty:
-            say(f"   {adaptive}: mean |predicted − observed utility| = {(g.predicted - g.utility).abs().mean():.4f} "
+            say(f"   {label(adaptive)}: mean |predicted − observed utility| = {(g.predicted - g.utility).abs().mean():.4f} "
                 f"over {len(g)} greedy/explore decisions with an estimate")
 
     # timeline figure
@@ -329,13 +343,15 @@ def dynamic() -> None:
     for prof, grp in seq.groupby((seq.profile != seq.profile.shift()).cumsum()):
         x0, x1, name = grp.session.min() - 0.5, grp.session.max() + 0.5, grp.profile.iloc[0]
         ax.axvspan(x0, x1, color=shades.get(name, "#ffffff"), zorder=0)
-        ax.text((x0 + x1) / 2, 1.02, name, transform=ax.get_xaxis_transform(), ha="center", fontsize=8, color=MUTED)
+        ax.text((x0 + x1) / 2, 0.97, name, transform=ax.get_xaxis_transform(), ha="center", va="top", fontsize=8,
+                color=MUTED)
     for i, st in enumerate(show):
         g = s[s.strategy == st].groupby("session").utility.mean()
-        label = f"{st} (best fixed)" if st == best_fixed else st
+        name = f"{label(st)} (best fixed)" if st == best_fixed else label(st)
         ax.plot(g.index, g.values, color=SERIES["slot"][i], linestyle=SERIES["dash"][i], linewidth=2,
-                marker=SERIES["marker"][i], markersize=3.5, label=label)
+                marker=SERIES["marker"][i], markersize=3.5, label=name)
     style(ax, "Session utility over the dynamic trace (mean over repetitions)", "session", "utility U")
+    ax.set_title(ax.get_title(loc="left"), loc="left", fontsize=11, color=INK, pad=10)
     ax.legend(frameon=False, fontsize=8, ncol=3, loc="lower left")
     save(fig, "dynamic_timeline")
 
@@ -391,12 +407,119 @@ def scaffold() -> None:
         f"{r.variant} {r.scaffold}: {r.latency_ms:.0f} ms, {r.tokens_out:.0f} tokens" for r in t.itertuples()))
 
 
+# ---- extra figures for the report -----------------------------------------------------------------------------------
+
+HIGHLIGHT, OTHER = SERIES["slot"][0], "#b9b8b1"
+
+
+def fig_strategies() -> None:
+    """Headline: mean session utility per strategy with 95% CI; the proposed selector highlighted."""
+    path = TABLES / "dynamic_summary.csv"
+    if not path.exists():
+        return
+    d = pd.read_csv(path).sort_values("utility")
+    fig, ax = plt.subplots(figsize=(7.2, 4.2))
+    colors = [HIGHLIGHT if "QAPS" in st else (SERIES["slot"][1] if "Baseline" in st else OTHER) for st in d.strategy]
+    y = np.arange(len(d))
+    ax.barh(y, d.utility, height=0.6, color=colors, edgecolor="#fcfcfb", linewidth=2)
+    ax.errorbar(d.utility, y, xerr=[(d.utility - d.ci_low).clip(lower=0), (d.ci_high - d.utility).clip(lower=0)],
+                fmt="none", ecolor=INK, elinewidth=1, capsize=2)
+    for yi, v, hi in zip(y, d.utility, d.ci_high):
+        ax.text(hi + 0.002, yi, f"{v:.3f}", va="center", fontsize=8, color=INK)
+    ax.set_yticks(y, d.strategy)
+    lo = d.utility.min()
+    ax.set_xlim(max(0.0, lo - 0.05), d.ci_high.max() + 0.02)
+    style(ax, "Mean session utility over the dynamic trace (95% CI)", "utility U", "")
+    ax.grid(axis="x", color=GRID, linewidth=0.8)
+    ax.grid(axis="y", visible=False)
+    save(fig, "strategy_utility")
+
+
+def fig_latency() -> None:
+    """Where an answer's time goes, per policy (median of the answer matrix)."""
+    path = RESULTS / "answer_matrix.csv"
+    if not path.exists():
+        return
+    d = pd.read_csv(path)
+    d = d[d.variant.isin(POLICIES)]
+    g = d.groupby("variant").agg(retrieval=("retrieve_ms", "median"), check=("check_ms", lambda x: x.fillna(0).median()),
+                                 total=("total_ms", "median"), llm=("llm_ms", "median")).reindex(POLICIES)
+    g["other"] = (g.total - g.retrieval - g.llm - g.check).clip(lower=0)
+    fig, ax = plt.subplots(figsize=(7.2, 3.2))
+    y = np.arange(len(g))
+    left = np.zeros(len(g))
+    for i, (col, name) in enumerate([("retrieval", "retrieval"), ("llm", "answer generation"),
+                                     ("check", "grounding check (P5)"), ("other", "other")]):
+        ax.barh(y, g[col] / 1000, left=left, height=0.6, color=SERIES["slot"][i], edgecolor="#fcfcfb", linewidth=2,
+                label=name)
+        left += g[col].to_numpy() / 1000
+    for yi, t in zip(y, g.total):
+        ax.text(t / 1000 + 0.05, yi, f"{t / 1000:.2f} s", va="center", fontsize=8, color=INK)
+    ax.set_yticks(y, [label(p) for p in g.index])
+    ax.invert_yaxis()
+    style(ax, "Where the time of one answer goes (median, benchmark network)", "seconds", "")
+    ax.grid(axis="x", color=GRID, linewidth=0.8)
+    ax.grid(axis="y", visible=False)
+    ax.legend(frameon=False, fontsize=8, ncol=4, loc="lower center", bbox_to_anchor=(0.5, -0.42))
+    save(fig, "latency_breakdown")
+
+
+def fig_doubts() -> None:
+    """Faithfulness on learner doubts, and declining off-topic questions, per retrieval mode."""
+    path = RESULTS / "doubts_matrix.csv"
+    if not path.exists():
+        return
+    d = pd.read_csv(path)
+    order = [v for v in ("RAG-local", "P2", "RAG-cloud", "P4") if v in set(d.variant)]
+    names = {"RAG-local": "edge, RAG", "P2": "edge, CRAG", "RAG-cloud": "cloud, RAG", "P4": "cloud, CRAG"}
+    faith = d[d.kind == "doubt"].groupby("variant").faithfulness.mean().reindex(order)
+    declined = d[d.kind == "off_topic"].groupby("variant").declined.mean().reindex(order)
+    fig, axes = plt.subplots(1, 2, figsize=(8.4, 3.2))
+    colors = [SERIES["slot"][0] if v in ("RAG-local", "P2") else SERIES["slot"][1] for v in order]
+    for ax, values, title, fmt in ((axes[0], faith, "Faithfulness to the lesson (30 doubts)", "{:.2f}"),
+                                   (axes[1], declined, "Off-topic questions declined (10)", "{:.0%}")):
+        x = np.arange(len(order))
+        ax.bar(x, values.fillna(0), width=0.55, color=colors, edgecolor="#fcfcfb", linewidth=2)
+        for xi, v in zip(x, values):
+            ax.text(xi, (0 if pd.isna(v) else v) + 0.03, "–" if pd.isna(v) else fmt.format(v), ha="center", fontsize=8,
+                    color=INK)
+        ax.set_xticks(x, [names[v] for v in order])
+        ax.set_ylim(0, 1.12)
+        style(ax, title, "", "")
+    save(fig, "doubts_faithfulness")
+
+
+def speech() -> None:
+    path = RESULTS / "speech" / "roundtrip.csv"
+    if not path.exists():
+        return
+    s = pd.read_csv(path)
+    t = s.groupby(["backend", "language"]).agg(n=("wer", "size"), wer=("wer", "mean"), stt_ms=("stt_ms", "median"),
+                                               tts_ms=("tts_ms", "median"), audio_s=("audio_s", "mean")).reset_index()
+    table(t, "speech_summary", "Speech round trip (Kokoro TTS → STT): word error rate and median latency.", 3)
+    fig, ax = plt.subplots(figsize=(5.4, 3.0))
+    names = [f"{b} ({'English' if l == 'en' else 'Hindi'})" for b, l in zip(t.backend, t.language)]
+    x = np.arange(len(t))
+    ax.bar(x, t.wer * 100, width=0.5, color=[SERIES["slot"][0] if b == "sravaani" else SERIES["slot"][1]
+                                              for b in t.backend], edgecolor="#fcfcfb", linewidth=2)
+    for xi, w, ms in zip(x, t.wer, t.stt_ms):
+        ax.text(xi, w * 100 + 0.4, f"{w:.1%} · {ms:.0f} ms", ha="center", fontsize=8, color=INK)
+    ax.set_xticks(x, names)
+    ax.set_ylim(0, (t.wer.max() * 100) * 1.2)
+    style(ax, "Speech-to-text word error rate (synthetic voices)", "", "WER (%)")
+    save(fig, "speech_wer")
+
+
 def main() -> None:
     answer_matrix()
     static()
     dynamic()
     doubts()
     scaffold()
+    speech()
+    fig_strategies()
+    fig_latency()
+    fig_doubts()
     RESULTS.mkdir(parents=True, exist_ok=True)
     (RESULTS / "stats.txt").write_text("\n".join(_lines) + "\n", encoding="utf-8")
 

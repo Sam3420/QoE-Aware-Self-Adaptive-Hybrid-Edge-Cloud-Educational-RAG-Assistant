@@ -1,0 +1,24 @@
+% Abstract (about 290 words) - paste into the ABSTRACT page of the template
+Learners who study from online videos often need help to understand difficult concepts and to decide what
+to study next, and AI assistants that provide this help depend on network connectivity and computing
+resources that vary, especially for learners outside cities. This project proposes a QoE-aware agentic
+framework for adaptive digital learning assistance that keeps answers correct, grounded and timely as
+these conditions change. The framework answers questions from a lesson's notes and the transcript of the
+chosen video using retrieval-augmented generation with corrective retrieval, generates each answer either
+with a small language model on the learner's laptop or with a large model in the cloud according to a
+runtime policy, measures every session as quality of experience (QoE) and resource efficiency, and selects
+the next session's policy from similar past sessions. A proactive coach sets concept-level goals from a
+pre-test, suggests the next step after every answer and reflects after a parallel post-test; speech input
+and output support accessibility. The approach was implemented for five NCERT Class X Biology chapters and
+evaluated without learners, using real answers and timings on 75 keyed questions and 40 learner-style and
+off-topic questions, measured and emulated network conditions, and 10,560 replayed sessions. The cloud model
+answered all keyed items correctly against 54\% for the edge model; corrective retrieval raised the
+faithfulness of edge answers from 0.70 to 0.80; and the revised policy selector (QAPS) reached a session
+utility of 0.812, above every fixed policy (best 0.794) and close to the hindsight optimum (0.818), with no
+failed cloud calls and 44\% less energy than always using the cloud. Learning gain was not measured and
+requires a user study. The project contributes to SDG 4 (Quality Education), targets 4.5 and 4.a, by
+making grounded learning support usable on ordinary laptops and unreliable networks; this is an expected
+benefit, not a demonstrated impact on learning.
+
+Keywords: Quality of Experience; retrieval-augmented generation; edge--cloud inference; adaptive policy
+selection; proactive tutoring
