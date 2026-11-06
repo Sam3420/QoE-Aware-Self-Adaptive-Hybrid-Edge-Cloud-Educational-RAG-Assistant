@@ -150,6 +150,12 @@ class ExperienceStore:
         self._ensure_synced()
         return self.index.ntotal
 
+    def utilities(self) -> dict[str, dict[str, float | None]]:
+        """experience id → {utility_before, utility_after} for every stored transition (read-only, for display)."""
+        with self._db() as db:
+            return {t["id"]: {"utility_before": t["utility_before"], "utility_after": t["utility_after"]}
+                    for t in AdaptiveLearningRepository(db).list_transitions()}
+
     def previous_state(self, student_id: str) -> tuple[RuntimeState, dict[str, Any] | None]:
         """The learner's last measured state (s for the next transition), or a baseline state."""
         with self._db() as db:

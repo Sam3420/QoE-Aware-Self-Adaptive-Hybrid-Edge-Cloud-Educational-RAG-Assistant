@@ -59,15 +59,24 @@ def render(backend: AgentBackend) -> None:
         st.caption("No experiences stored yet. Finish a learning session to store the first one.")
         return
     st.caption(f"{len(exps)} stored, newest first.")
+    utilities = backend.services.experience_store().utilities()  # rows without a transition have none
     df = pd.DataFrame([{
         "created": when(e["created_at"]), "session": e["session_id"][:8], "topic": e["topic_id"],
-        "policy": e["policy_id"], "reward": e["reward"], "qoe_before": e["qoe_before"], "qoe_after": e["qoe_after"],
+        "policy": e["policy_id"], "utility_before": utilities.get(e["id"], {}).get("utility_before"),
+        "utility_after": utilities.get(e["id"], {}).get("utility_after"), "reward": e["reward"],
+        "qoe_before": e["qoe_before"], "qoe_after": e["qoe_after"],
         **{k: e["state"].get(k) for k in ("rtt_ms", "cpu", "mem", "competency_num", "last_qoe")},
     } for e in exps])
     st.dataframe(df, hide_index=True, width="stretch")
-    summary = df.groupby("policy")["reward"].agg(["count", "mean"]).reset_index()
-    summary.columns = ["policy", "sessions", "mean reward"]
-    st.markdown("**Mean reward per policy**")
+    st.caption("Reward is the change in utility from the learner's previous session (R = μ1·ΔQoE + μ2·ΔSRE), so a "
+               "small negative value means slightly lower than last time, not a bad session. Utility "
+               "U = λ1·QoE + λ2·SRE is the session's own score.")
+    summary = df.groupby("policy").agg(sessions=("reward", "count"), mean_reward=("reward", "mean"),
+                                       mean_utility_after=("utility_after", "mean")).reset_index()
+    summary.columns = ["policy", "sessions", "mean reward", "mean utility after"]
+    st.markdown("**Mean reward and utility per policy**")
     st.dataframe(summary, hide_index=True, width="stretch",
                  column_config={"mean reward": st.column_config.ProgressColumn(min_value=0.0, max_value=1.0,
-                                                                               format="%.3f")})
+                                                                               format="%.3f"),
+                                "mean utility after": st.column_config.ProgressColumn(min_value=0.0, max_value=1.0,
+                                                                                      format="%.3f")})
