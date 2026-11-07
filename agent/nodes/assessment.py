@@ -102,7 +102,7 @@ def post_test_and_feedback(state: AgentState) -> dict[str, Any]:
         errors.append(f"post_test skipped: {exc}")
 
     prompt = {"type": "post_test_and_feedback", "items": items,
-              "prompt": "Answer the post-test, then rate this session from 1 to 5 and add a comment."}
+              "prompt": "Answer the wrapup test, then rate this session from 1 to 5 and add a comment."}
     reply = _ask(prompt, PostTestReply)
     if not items:
         # Without a question bank, B's submit function cannot store the feedback either.

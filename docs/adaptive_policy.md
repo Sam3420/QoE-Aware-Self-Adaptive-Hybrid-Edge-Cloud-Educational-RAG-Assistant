@@ -76,7 +76,7 @@ QoE = wEQ·EQ + wAQ·AQ + wNQ·NQ + wUX·UX
 | Metric | Measured as (`agent/session_metrics.py`) | Normalisation |
 |---|---|---|
 | LG learning gain | Hake gain (post − pre)/(1 − pre) | gain ∈ [−1, 1] → (g + 1)/2 |
-| PT post-test | post-test score | fraction |
+| PT wrapup test | wrapup test score | fraction |
 | RA recommendation acceptance | accepted / shown video recommendations, same topic, since the previous session | fraction |
 | LS learner satisfaction | mean star rating of those recommended videos | 1–5 → 0–1 |
 | RQ RAG quality | mean CRAG retrieval score per question | benefit, `QOE_RETRIEVAL_FLOOR` (0.40) → 0, `QOE_RETRIEVAL_CEIL` (0.85) → 1 |
@@ -88,7 +88,7 @@ QoE = wEQ·EQ + wAQ·AQ + wNQ·NQ + wUX·UX
 | AV availability | answers from an LLM route (not the extractive fallback) / questions | fraction |
 | SR star rating | session rating | 1–5 → 0–1 |
 | FS sentiment | **estimate**: lexicon sentiment of the comment (`SENTIMENT_LEXICON_ENABLED`) | [−1, 1] → [0, 1] |
-| CR completion | completed learning steps: pre-test (or already taken), ≥ 1 question, post-test | fraction |
+| CR completion | completed learning steps: warmup test (or already taken), ≥ 1 question, wrapup test | fraction |
 
 ### SRE (`metrics/sre.py`)
 ```

@@ -43,9 +43,9 @@ def ask_question(state: AgentState) -> dict[str, Any]:
         "type": "ask_question",
         "question_no": len(state["qa_log"]) + 1,
         "video": {"video_id": video.get("video_id"), "title": video.get("title"), "url": video.get("url")},
-        "next_steps": ["ask a doubt", "watch another video", "take the post-test"],
+        "next_steps": ["ask a doubt", "watch another video", "take the wrapup test"],
         "prompt": 'Ask a doubt about the video ({"query": "..."}), watch another video ({"more_videos": true}) '
-                  'or take the post-test ({"end": true}).',
+                  'or take the wrapup test ({"end": true}).',
         "suggestion": {k: suggestion.get(k) for k in ("action", "concept_id", "label", "reason")}
         if suggestion.get("action") else None,
         "formative_result": formative if formative and formative.get("question_no") == len(state["qa_log"]) else None,

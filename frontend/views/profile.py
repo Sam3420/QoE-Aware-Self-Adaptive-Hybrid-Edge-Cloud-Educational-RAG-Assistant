@@ -20,8 +20,8 @@ def _usage_notes() -> None:
         badge("ok", "Preferred language")
         st.caption("Read by `load_profile` and passed to the answer prompt (`build_request`: 'Answer in …').")
         badge("warn", "Competency level")
-        st.caption("Stored, but a learning session sets competency from the pre-test score instead "
-                   "(beginner if the pre-test is skipped).")
+        st.caption("Stored, but a learning session sets competency from the warmup test score instead "
+                   "(beginner if the warmup test is skipped).")
         badge("off", "Interests and learning preferences")
         st.caption("Stored in the database only. No assistant or agent code reads them yet.")
 
@@ -77,7 +77,7 @@ def render(learner: dict[str, Any] | None) -> None:
     st.subheader("Assessment history")
     rows = data_access.learner_assessments(learner["id"])
     if not rows:
-        st.caption("No pre- or post-tests recorded yet.")
+        st.caption("No warmup or wrapup tests recorded yet.")
     else:
         df = pd.DataFrame(rows)
         df["created_at"] = df["created_at"].map(when)

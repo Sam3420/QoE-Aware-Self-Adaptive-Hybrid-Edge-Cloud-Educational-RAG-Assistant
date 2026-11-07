@@ -34,7 +34,7 @@ Figure~\ref{fig:architecture} shows the architecture. It is organised in six lay
         competency, previous QoE), session evaluation (QoE, SRE, utility, reward) and policy selection over an
         experience store indexed with FAISS.
   \item \textbf{Coaching layer.} A concept vocabulary per topic, a concept tracker that estimates mastery per learner
-        and concept, session planning, a rule-based coach, a pool of formative questions and a parallel post-test.
+        and concept, session planning, a rule-based coach, a pool of formative questions and a parallel wrapup test.
 \end{enumerate}
 
 All persistent data (learner profiles, sessions, assessments, question banks, concept mastery, experiences) is kept in
@@ -56,8 +56,8 @@ a relational database (SQLite), and every node is traced with Langfuse for analy
 
   % orchestration
   \node[wide, below=0.9cm of $(learner)!0.5!(ui)$] (graph)
-       {LangGraph session agent\\pre-test $\rightarrow$ plan $\rightarrow$ video $\rightarrow$ questions
-        $\rightarrow$ coach $\rightarrow$ post-test $\rightarrow$ evaluation};
+       {LangGraph session agent\\warmup test $\rightarrow$ plan $\rightarrow$ video $\rightarrow$ questions
+        $\rightarrow$ coach $\rightarrow$ wrapup test $\rightarrow$ evaluation};
 
   % coaching and knowledge
   \node[box, below left=0.9cm and -1.4cm of graph] (coach)
@@ -131,7 +131,7 @@ One learning session follows the procedure below. Each step is a node (or a smal
 graph.
 
 \begin{enumerate}
-  \item \textbf{Pre-test.} The learner chooses a topic and answers five multiple-choice questions drawn from a reviewed
+  \item \textbf{Warmup test.} The learner chooses a topic and answers five multiple-choice questions drawn from a reviewed
         15-question bank, one question per concept.
   \item \textbf{Session plan.} The concepts of the wrongly answered questions, and earlier weak concepts, become two to
         four learning goals.
@@ -144,7 +144,7 @@ graph.
         answer according to $a^\ast$.
   \item \textbf{Coaching.} After each answer the question is tagged with a concept, mastery is updated, and the coach
         suggests one next step (for example a short practice check).
-  \item \textbf{Post-test and feedback.} The learner answers five post-test questions parallel to the pre-test ones and
+  \item \textbf{Wrapup test and feedback.} The learner answers five wrapup test questions parallel to the warmup test ones and
         rates the session.
   \item \textbf{Evaluation and storage.} QoE, SRE, utility and reward are computed, and the experience is stored for
         future sessions.
@@ -154,27 +154,27 @@ The following subsections describe each stage.
 
 \subsection{Learning content}
 
-For each chapter a \emph{content package} is prepared from the NCERT textbook: 8--10 concepts; 15 pre-test questions;
-15 post-test questions, each \emph{parallel} to one pre-test question (same concept and difficulty, different
+For each chapter a \emph{content package} is prepared from the NCERT textbook: 8--10 concepts; 15 warmup test questions;
+15 wrapup test questions, each \emph{parallel} to one warmup test question (same concept and difficulty, different
 question); 3--4 formative (practice) questions per concept, kept separate from both tests; and 3--5 candidate
 videos. Every question has four options, the answer, an explanation, one concept, a difficulty and the textbook
 section and page that support it. Packages are checked automatically before loading: grounding of every item in the
 cited page, absence of long passages copied from the textbook, balanced answer positions, distinct concepts among the
-first five pre-test questions, and an independent ``blind'' check in which a second model answers and tags every
+first five warmup test questions, and an independent ``blind'' check in which a second model answers and tags every
 question without seeing the key. Disagreements are not accepted or rejected automatically; they are flagged for human
 review. Five chapters are prepared: Life Processes, Control and Coordination, How do Organisms Reproduce?,
 Heredity, and Our Environment.
 
-\subsection{Pre-test and session planning}
+\subsection{Warmup test and session planning}
 
-The pre-test shows the first five bank questions, which cover five different concepts. Each answer is recorded as an
+The warmup test shows the first five bank questions, which cover five different concepts. Each answer is recorded as an
 attempt on its concept, and mastery is estimated with the Laplace (rule-of-succession) estimate
 \begin{equation}
   m_{c} = \frac{n^{\text{correct}}_{c} + 1}{n^{\text{attempts}}_{c} + 2},
   \label{eq:mastery}
 \end{equation}
 which starts at $0.5$ for an unseen concept and moves towards the observed accuracy as evidence accumulates. The
-session plan selects two to four goals in priority order: concepts missed in this pre-test, then concepts with low
+session plan selects two to four goals in priority order: concepts missed in this warmup test, then concepts with low
 mastery from earlier sessions, then, only to reach the minimum, concepts never practised.
 
 \subsection{Resource recommendation}
@@ -236,20 +236,20 @@ coach chooses exactly one next step by the first matching rule:
   \item \emph{formative check}: the question concerned a goal concept with mastery below $0.5$;
   \item \emph{another video}: a goal concept is not covered by the current video;
   \item \emph{review}: the last answer was escalated, failed the grounding check, or was weakly retrieved;
-  \item \emph{post-test}: every goal has mastery of at least $0.75$;
+  \item \emph{wrapup test}: every goal has mastery of at least $0.75$;
   \item \emph{follow-up}: the next goal not yet asked about, otherwise the weakest goal.
 \end{enumerate}
 A suggestion ignored twice in a row is muted. Formative questions come from the concept's practice pool and are never
-test questions, so practice does not leak the post-test. Rules rather than a learned model are used deliberately at
+test questions, so practice does not leak the wrapup test. Rules rather than a learned model are used deliberately at
 this stage: they are transparent to the learner, need no training data, and give a clear baseline for comparing a
 learned coach later.
 
-\subsection{Post-test}
+\subsection{Wrapup test}
 
-The post-test asks, for each pre-test question, its parallel question. Because the two forms test the same concept
-at the same difficulty with different wording, a higher post-test score reflects learning of the concept rather than
-memory of the question. Post-test questions and their answers are stored separately from the pre-test bank and are
-never included in pre-test data. The normalized learning gain is
+The wrapup test asks, for each warmup test question, its parallel question. Because the two forms test the same concept
+at the same difficulty with different wording, a higher wrapup test score reflects learning of the concept rather than
+memory of the question. Wrapup test questions and their answers are stored separately from the warmup test bank and are
+never included in warmup test data. The normalized learning gain is
 \begin{equation}
   g = \frac{\text{post} - \text{pre}}{1 - \text{pre}}.
   \label{eq:gain}
@@ -267,7 +267,7 @@ of experience combines four groups:
   \mathit{QoE} &= w_{\mathit{EQ}}\,\mathit{EQ} + w_{\mathit{AQ}}\,\mathit{AQ} + w_{\mathit{NQ}}\,\mathit{NQ}
                   + w_{\mathit{UX}}\,\mathit{UX},
 \end{align}
-where the educational group uses learning gain (LG), post-test score (PT), recommendation acceptance (RA) and
+where the educational group uses learning gain (LG), wrapup test score (PT), recommendation acceptance (RA) and
 resource satisfaction (LS); the answer-quality group uses retrieval quality (RQ), response quality (LQ) and speech
 quality (SQ, TQ); the network group uses answer latency (PL), network reliability (NR), device utilisation (RU) and
 availability of a model route (AV); and the user-experience group uses the session rating (SR), feedback sentiment
@@ -352,7 +352,7 @@ Table~\ref{tab:config}.
 \toprule
 Parameter & Value \\
 \midrule
-Pre-test / post-test questions per session & 5 / 5 \\
+Warmup test / wrapup test questions per session & 5 / 5 \\
 Learning goals per session & 2--4 \\
 Transcript chunk size / overlap (words) & 120 / 25 \\
 CRAG acceptance threshold $\tau$ & 0.65 \\

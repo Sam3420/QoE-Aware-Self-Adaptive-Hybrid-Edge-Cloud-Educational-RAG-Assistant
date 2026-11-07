@@ -275,7 +275,7 @@ def test_suggestion_button_runs_a_formative_check_in_the_ui(services, vocab_dir,
     assert not at.exception
     suggestion = next(b for b in at.button if b.label.startswith("Quick check"))
     assert any("mastery is 33%" in c.value for c in at.caption)  # the reason line
-    assert {"Watch another video", "Take the post-test"} <= {b.label for b in at.button}  # existing buttons stay
+    assert {"Watch another video", "Take the wrapup test"} <= {b.label for b in at.button}  # existing buttons stay
 
     at = suggestion.click().run()
     assert not at.exception and at.subheader[0].value == "Quick check: Concept 1"

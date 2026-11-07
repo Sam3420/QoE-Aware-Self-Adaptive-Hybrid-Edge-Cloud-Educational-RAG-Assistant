@@ -114,7 +114,7 @@ def _candidates(goals, snapshot, names, mastery, last_concept, last_answer, cove
                         query="Can you explain your last answer again in simpler words, with an example?")
     # 4. every goal mastered
     if all(mastery(g["concept_id"]) >= mastered for g in goals):
-        yield _make("post_test", None, "Take the post-test",
+        yield _make("post_test", None, "Take the wrapup test",
                     f"You've reached {mastered:.0%} mastery on every goal of this session.")
     # 5. next goal not explored yet, else the weakest unmastered goal
     untouched = [g for g in goals if not (snapshot.get(g["concept_id"]) or {}).get("asked")

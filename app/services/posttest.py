@@ -45,7 +45,7 @@ def posttest_items(topic_id: str, bank_items: Sequence[dict[str, Any]],
             served.append({**pair, "form": "parallel", "parallel_to": item["id"]})
             continue
         if pair is not None:
-            logger.warning("posttest_parallel_mismatch topic_id=%s pre_id=%s: asking the pre-test item again",
+            logger.warning("posttest_parallel_mismatch topic_id=%s pre_id=%s: asking the warmup test item again",
                            topic_id, item.get("id"))
         served.append(dict(item))
     return served
@@ -209,6 +209,6 @@ def _get_bank_items(repository: AdaptationRepository, topic_id: str) -> list[dic
     bank = repository.get_question_bank(topic_id)
     if bank is None:
         raise QuestionBankNotFoundError(
-            f"No question bank for topic {topic_id!r}; the post-test reuses the pre-test items."
+            f"No question bank for topic {topic_id!r}; the wrapup test reuses the warmup test items."
         )
     return bank["items"]

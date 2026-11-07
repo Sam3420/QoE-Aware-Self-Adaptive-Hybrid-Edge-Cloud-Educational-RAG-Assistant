@@ -38,9 +38,9 @@ stubs that let the coaching graph run before they existed. Signatures are unchan
 ## Formative pool (`formative_items` table, migration `0003_formative_pool`)
 
 **Why a separate pool, not `extend_topic_items`:**
-- **Any bank item can be a pre- or post-test question,** and `plan_formative` already excludes every bank item.
+- **Any bank item can be a warmup or wrapup test question,** and `plan_formative` already excludes every bank item.
   Questions appended to the bank with `extend_topic_items` would therefore always be excluded.
-- **Contamination:** a practice question that later became a pre/post-test question would rehearse the test and inflate
+- **Contamination:** a practice question that later became a warmup/wrapup test question would rehearse the test and inflate
   learning gain, the main outcome metric.
 
 **What's reused:** the pool uses `extend_topic_items`' generator (`app.services.mcq.generate_concept_items`: focused

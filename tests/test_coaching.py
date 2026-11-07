@@ -168,7 +168,7 @@ def test_plan_card_shows_goals_and_progress():
 
         _plan_card({"session_plan": {"status": "ok", "query": {"concepts": ["Concept 1", "Concept 5"]}, "goals": [
             {"concept_id": "concept_1", "name": "Concept 1", "description": "What concept 1 is about.",
-             "reason": "missed in this pre-test", "mastery": 0.33, "attempts": 1},
+             "reason": "missed in this warmup test", "mastery": 0.33, "attempts": 1},
             {"concept_id": "concept_5", "name": "Concept 5", "description": "What concept 5 is about.",
              "reason": "low mastery 0.25 after 2 attempts", "mastery": 0.25, "attempts": 2}]},
             "progress": {"goals": [{"concept_id": "concept_1", "status": "discussed"},
@@ -178,7 +178,7 @@ def test_plan_card_shows_goals_and_progress():
     at = AppTest.from_function(card, default_timeout=30).run()
     assert not at.exception
     text = " ".join(m.value for m in at.markdown)
-    assert "Your goals for this session" in text and "**Concept 1** · missed in this pre-test" in text
+    assert "Your goals for this session" in text and "**Concept 1** · missed in this warmup test" in text
     assert [c.value for c in at.caption][-1] == "Ask about Concept 5 next."
     badges = [m.value for m in at.markdown if "-badge[" in m.value]  # st.badge renders as a markdown badge
     assert len(badges) == 2 and "Discussed" in badges[0] and "Not started" in badges[1]

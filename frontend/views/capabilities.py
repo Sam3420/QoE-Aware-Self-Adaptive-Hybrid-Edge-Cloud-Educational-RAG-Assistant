@@ -14,20 +14,20 @@ CAPABILITIES = [
      "Stored by update_learner_personalization; only preferred language reaches the agent prompt"),
     ("Topic catalogue: NCERT Class 10 biology chapters (the only topics a session offers)", "Implemented",
      "knowledge_prep/catalog.py + knowledge_prep/samples/*.txt (project-written lesson notes, not textbook text)"),
-    ("Pre-test every session, planned from the learner's history", "Implemented",
+    ("Warmup test every session, planned from the learner's history", "Implemented",
      "app/services/pretest_planning.py (retest missed questions, unseen questions on weak concepts), "
      "mcq.extend_topic_items (LLM tops up the bank), agent plan_pretest node"),
-    ("Post-test on the session's pre-test questions + feedback", "Implemented",
+    ("Wrapup test on the session's warmup test questions + feedback", "Implemented",
      "app/services/posttest.py (needs an LLM to generate the bank)"),
     ("YouTube recommendations (Phase 4)", "Implemented (needs YOUTUBE_API_KEY)",
      "services/youtube/ (Data API v3 search.list + videos.list, youtube-transcript-api adapter, ranking), "
      "agent/recommendations.py (R1-R3 strategy kNN), recommendation_* tables, /learners/{id}/recommendations"),
-    ("Session flow: topic → pre-test → recommended video → transcript index → Q&A", "Implemented (needs YOUTUBE_API_KEY)",
+    ("Session flow: topic → warmup test → recommended video → transcript index → Q&A", "Implemented (needs YOUTUBE_API_KEY)",
      "agent/nodes/resources.py (select_topic, recommend_videos, select_video, prepare_knowledge), agent/knowledge.py; "
      "a video is indexed once as yt_<video_id> and stored in educational_resources"),
     ("Knowledge prep + FAISS RAG (Phase 5)", "Implemented",
      "Video transcripts (youtube-transcript-api) → clean → chunk → embed → FAISS; topic lesson notes "
-     "(knowledge_prep/samples) are indexed only to ground the topic-level pre/post-test"),
+     "(knowledge_prep/samples) are indexed only to ground the topic-level warmup/wrapup test"),
     ("CRAG grading + corrective retrieval (Phase 6)", "Implemented", "services/crag.py, agent/routing.py"),
     ("Speech-to-text (Phase 7)", "Not implemented", "No STT code in the repository"),
     ("Text-to-speech (Phase 8)", "Not implemented", "No TTS code in the repository"),

@@ -69,7 +69,7 @@ def describe_node(node: str, update: dict[str, Any]) -> str:
     if node == "plan_pretest":
         plan = update.get("pretest_plan") or {}
         if plan.get("mode") == "unavailable":
-            return f"no pre-test: {plan.get('reason')}"
+            return f"no warmup test: {plan.get('reason')}"
         return (f"{plan.get('mode')} learner: {len(update.get('test_items', []))} questions"
                 + (f", weak concepts {', '.join(plan['weak_concepts'])}" if plan.get("weak_concepts") else ""))
     if node == "pre_test":
@@ -101,7 +101,7 @@ def describe_node(node: str, update: dict[str, Any]) -> str:
         return f"{update.get('policy_id')}: {update.get('decision_reason')}"
     if node == "ask_question":
         if update.get("continue_session") is False:
-            return "wants another video" if update.get("video_action") == "more" else "post-test requested"
+            return "wants another video" if update.get("video_action") == "more" else "wrapup test requested"
         return f"query={update.get('query')!r}"
     if node == "crag_retrieve":
         if "retrieval_score" in update:

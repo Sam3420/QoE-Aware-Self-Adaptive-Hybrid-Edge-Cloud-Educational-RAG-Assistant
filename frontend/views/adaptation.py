@@ -41,13 +41,13 @@ def render(backend: AgentBackend) -> None:
     else:
         stage = (snap["interrupt"] or {}).get("type", "starting")
         st.caption(f"No policy selected yet: the session is at '{stage}'. The policy is chosen when the learner "
-                   "picks their first video (after the topic, pre-test and video recommendations).")
+                   "picks their first video (after the topic, warmup test and video recommendations).")
 
     usable = backend.services.experience_store().count()
     if usable < settings.min_experiences:
         st.info(f"**Cold start:** {usable} of {settings.min_experiences} usable experiences, so every session uses the "
                 "default policy. An experience is stored only when a session has at least one question and a "
-                "submitted post-test.", icon=":material/ac_unit:")
+                "submitted wrapup test.", icon=":material/ac_unit:")
 
     st.subheader("Experience memory (experiences table)")
     exps = app.get_experiences()

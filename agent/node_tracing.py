@@ -73,7 +73,7 @@ NODE_SPECS: dict[str, tuple[str, str, Summary, Summary]] = {
                                 "video_title": (s.get("video") or {}).get("title")},
                      lambda u: ({"query": u.get("query")} if u.get("continue_session", True)
                                 else {"next": "watch-another-video"} if u.get("video_action") == "more"
-                                else {"next": "post-test"})),
+                                else {"next": "wrapup test"})),
     "crag_retrieve": ("retrieve-lesson-context", "retriever",
                       lambda s: {"query": s["retrieval_query"], "top_k": s["runtime_config"].get("top_k"),
                                  "resource_id": s.get("resource_id") or s["topic_id"],

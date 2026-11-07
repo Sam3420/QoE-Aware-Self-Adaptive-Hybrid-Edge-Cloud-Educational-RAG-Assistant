@@ -289,7 +289,7 @@ with st.sidebar:
     topic = st.selectbox("Topic", topics)
     learner_name = st.text_input("Learner name", "Demo Learner")
     new_learner = st.checkbox("New learner for this session", value=True,
-                              help="A returning learner who already took this topic's pre-test skips it.")
+                              help="A returning learner who already took this topic's warmup test skips it.")
     if e["student_id"]:
         st.caption(f"Current learner id: `{e['student_id']}`")
     if st.button("▶ Start new session", type="primary", width="stretch"):
@@ -339,12 +339,12 @@ with tab_session:
             st.header("Start a learning session")
             st.markdown(
                 "Choose a topic in the sidebar and press **Start new session**. The agent will:\n"
-                "1. load the learner profile and give a **pre-test** to estimate competency,\n"
+                "1. load the learner profile and give a **warmup test** to estimate competency,\n"
                 "2. **collect context** (RTT, CPU, memory, competency, last QoE),\n"
                 "3. **select a policy** (P1–P4) from similar past sessions using kNN, or the default on a cold start,\n"
                 "4. answer questions with **CRAG** retrieval (rewriting the query when retrieval is weak) "
                 "and the **local/cloud LLM router**,\n"
-                "5. give a **post-test** and collect feedback, **evaluate** the session and **store the experience** "
+                "5. give a **wrapup test** and collect feedback, **evaluate** the session and **store the experience** "
                 "for future policy decisions.")
             st.info("Tip: in offline mode, seed experiences first to see kNN choose a policy instead of the "
                     "cold-start default. Short questions (≤ 3 words) get weak retrieval and trigger CRAG retries "
@@ -359,17 +359,17 @@ with tab_session:
                 st.warning(f"The agent rejected the last reply and asked again: {pause['error']}")
 
             if pause and pause["type"] == "pre_test":
-                st.subheader("📝 Pre-test")
+                st.subheader("📝 Warmup test")
                 st.caption(pause["prompt"])
                 if e["mode"] == "offline":
                     st.caption("Offline MCQs: the correct answers are A, B, C, D, A.")
                 with st.form("pretest"):
                     answers = mcq_form(pause["items"], f"pre-{s['thread_id']}")
-                    if st.form_submit_button("Submit pre-test", type="primary"):
+                    if st.form_submit_button("Submit warmup test", type="primary"):
                         if None in answers:
                             st.error("Answer every question first.")
                         else:
-                            resume(e, {"answers": answers}, "Scoring pre-test, collecting context, selecting policy...")
+                            resume(e, {"answers": answers}, "Scoring warmup test, collecting context, selecting policy...")
                             st.rerun()
 
             elif pause and pause["type"] == "ask_question" or "final_state" in out:
@@ -393,18 +393,18 @@ with tab_session:
                         q = st.text_input("Your question", placeholder="Ask anything about the topic...")
                         c1, c2 = st.columns(2)
                         ask = c1.form_submit_button("Ask", type="primary", width="stretch")
-                        end = c2.form_submit_button("Finish → post-test", width="stretch")
+                        end = c2.form_submit_button("Finish → wrapup test", width="stretch")
                     if ask:
                         resume(e, {"query": q}, "Retrieving (CRAG), routing and generating...")
                         st.rerun()
                     if end:
-                        resume(e, {"end": True}, "Preparing post-test...")
+                        resume(e, {"end": True}, "Preparing wrapup test...")
                         st.rerun()
 
             elif pause and pause["type"] == "post_test_and_feedback":
                 for turn in s["chat"]:
                     render_answer(turn)
-                st.subheader("📝 Post-test & feedback")
+                st.subheader("📝 Wrapup test & feedback")
                 st.caption(pause["prompt"])
                 with st.form("posttest"):
                     answers = mcq_form(pause["items"], f"post-{s['thread_id']}") if pause["items"] else []
@@ -423,8 +423,8 @@ with tab_session:
                 st.success("Session complete. The experience was stored and will inform future policy selection.")
                 ev = f.get("evaluation") or {}
                 m = st.columns(5)
-                m[0].metric("Pre-test", f"{f['pre_score']:.0%}" if f.get("pre_score") is not None else "—")
-                m[1].metric("Post-test", f"{f['post_score']:.0%}" if f.get("post_score") is not None else "—",
+                m[0].metric("Warmup test", f"{f['pre_score']:.0%}" if f.get("pre_score") is not None else "—")
+                m[1].metric("Wrapup test", f"{f['post_score']:.0%}" if f.get("post_score") is not None else "—",
                             delta=(f"{f['post_score'] - f['pre_score']:+.0%}"
                                    if f.get("post_score") is not None and f.get("pre_score") is not None else None))
                 m[2].metric("Rating", f.get("rating") or "—")
@@ -450,7 +450,7 @@ with tab_policy:
         c[3].metric("Competency (num)", ctx["competency_num"])
         c[4].metric("Last QoE", ctx["last_qoe"])
     else:
-        st.caption("Collected after the pre-test.")
+        st.caption("Collected after the warmup test.")
 
     st.subheader("Policy decision (select_policy)")
     if values.get("policy_id"):

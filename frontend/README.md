@@ -9,7 +9,7 @@ is simulated. When a component is unavailable, the UI shows the real error inste
 | What | How | Why |
 |---|---|---|
 | Backend health, text questions (Phase 2 assistant) | HTTP → FastAPI (`GET /health`, `POST /sessions/{id}/interactions/text-question`) | These are the only routes the API exposes |
-| Learning sessions (topic → pre-test → video recommendation → video choice → transcript index → policy → CRAG → router → post-test → experience) | In-process → `agent/runner.py` `SessionRunner` with `agent.deps.make_real_services()` | The agent has no HTTP API; `docs/agent_runner.md` names the runner as the UI entry point |
+| Learning sessions (topic → warmup test → video recommendation → video choice → transcript index → policy → CRAG → router → wrapup test → experience) | In-process → `agent/runner.py` `SessionRunner` with `agent.deps.make_real_services()` | The agent has no HTTP API; `docs/agent_runner.md` names the runner as the UI entry point |
 | Learners, sessions, personalization, history | In-process → `AppGateway`, `LearningTraceRepository`, `AdaptationRepository` | No API routes exist for them |
 | Index building, retrieval explorer | In-process → `knowledge_prep.build_index`, `services.crag.CragRetriever` | Same objects the agent uses |
 | CPU / memory / RTT | In-process → `services.monitoring.SystemMonitor` | Same measurements `collect_context` uses |
@@ -67,7 +67,7 @@ Restart both processes after editing `.env`; settings are read once at startup.
 ## Pages
 
 - **Dashboard**: live API/DB/LLM-route/index status and activity counts from the DB and checkpoints.
-- **Learning session**: the full agent loop. Topic choice, pre-test, video choice, chat and post-test are each a real graph interrupt. Videos come from the YouTube Data API (needs `YOUTUBE_API_KEY`); the chosen video's transcript is fetched in the learner's language, indexed once as `yt_<video_id>`, and answers are retrieved from it. A video without a usable transcript is skipped for the next recommendation. Each answer has a *Technical details* panel (model, route, latencies, retrieval score, CRAG retries, retrieved chunks, errors).
+- **Learning session**: the full agent loop. Topic choice, warmup test, video choice, chat and wrapup test are each a real graph interrupt. Videos come from the YouTube Data API (needs `YOUTUBE_API_KEY`); the chosen video's transcript is fetched in the learner's language, indexed once as `yt_<video_id>`, and answers are retrieved from it. A video without a usable transcript is skipped for the next recommendation. Each answer has a *Technical details* panel (model, route, latencies, retrieval score, CRAG retries, retrieved chunks, errors).
 - **Quick ask (API)**: the FastAPI assistant over HTTP. The conversation is read back from the `interactions` table, including failed attempts the backend recorded.
 - **Learner profile**: Phase 3 fields saved to `learner_profiles`, with notes on which fields the agent actually reads.
 - **Knowledge & retrieval**: index status, build/rebuild, transcript upload, and a CRAG retrieval explorer.
@@ -85,5 +85,5 @@ session from the database and checkpoints.
 - **QoE/SRE/reward** are computed by `metrics/` (see `docs/adaptive_policy.md`). LLM-response, STT and TTS quality have no data source and are reported as unavailable; sentiment and energy are labelled estimates.
 - **Speech-to-text and text-to-speech are not implemented** in the code (despite the main README), so the UI does not offer them.
 - **`EMBEDDING_BACKEND=hashing` does not give meaningful retrieval.** Measured on the photosynthesis index, an off-topic question ("capital of France", 0.51) outscores on-topic ones ("chlorophyll", 0.10). With hashing, most questions retrieve no chunks and the model is told the lesson may not cover them. Use Ollama + `nomic-embed-text` for a real RAG demo. With it, on-topic questions scored 0.71–0.82 and off-topic ones 0.47–0.55 on the same index, against the 0.65 threshold.
-- Without an LLM, MCQ pre/post-tests cannot be generated. The agent then skips them, and its answers come from the model-free extractive fallback. The UI says so on every such answer.
+- Without an LLM, MCQ warmup/wrapup tests cannot be generated. The agent then skips them, and its answers come from the model-free extractive fallback. The UI says so on every such answer.
 - Agent Q&A lives in the LangGraph checkpoints (`data/checkpoints.db`), not the `interactions` table. Only the FastAPI route writes `interactions`.

@@ -78,7 +78,7 @@ def render(backend: AgentBackend, db: data_access.DatabaseStatus, learner: dict[
         st.markdown("**What this build does**")
         st.markdown(
             "- **Working:** learner/session storage, FastAPI text assistant, LangGraph learning sessions with "
-            "MCQ pre/post-tests, FAISS + CRAG retrieval, local/cloud/extractive LLM routing, psutil/RTT monitoring, "
+            "MCQ warmup/wrapup tests, FAISS + CRAG retrieval, local/cloud/extractive LLM routing, psutil/RTT monitoring, "
             "experience memory and kNN policy selection.\n"
             "- **Estimated inputs:** feedback sentiment (lexicon) and energy (CPU power model) inside QoE/SRE.\n"
             "- **Not implemented:** speech-to-text, text-to-speech.\n\n"

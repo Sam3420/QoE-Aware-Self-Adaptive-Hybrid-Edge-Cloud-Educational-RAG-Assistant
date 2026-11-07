@@ -77,7 +77,7 @@ The similarity calibration (`REC_SIMILARITY_FLOOR=0.40`, `REC_SIMILARITY_CEIL=0.
 
 1. **Learner needs** (`agent/recommendations.py`):
    - **Language:** the profile language (`english` → `en`).
-   - **Competency:** the latest pre/post-test for the topic, otherwise the profile.
+   - **Competency:** the latest warmup/wrapup test for the topic, otherwise the profile.
    - **Knowledge gaps:** the concepts of MCQs answered wrongly in that test.
    - **Objective:** the learner's text, otherwise "topic: gap concepts".
 2. **Strategy selection:** a kNN over past runs (see below).
@@ -197,9 +197,9 @@ The app cannot observe watch time, so `opened` never means "watched".
 | Completion rate | self-reported completions / items opened | an item was opened |
 | Learner satisfaction | mean latest rating per item / 5 | a rating exists |
 | Precision@K | accepted / explicitly labelled items in the top K (unlabelled excluded) | a label exists |
-| Learning gain | post − pre score for the topic | a pre-test ≤ run time and a post-test after it |
+| Learning gain | post − pre score for the topic | a warmup test ≤ run time and a wrapup test after it |
 | Normalised learning gain | (post − pre) / (1 − pre) | same, with pre < 1 |
-| Normalised post-test | post score | a post-test after the run |
+| Normalised wrapup test | post score | a wrapup test after the run |
 
 Learning gain is measured around the run and is **not attributed to a single video**.
 
@@ -207,7 +207,7 @@ Learning gain is measured around the run and is **not attributed to a single vid
 
 The project has no QoE computation service yet: session evaluation is `evaluate_session_stub`. This feature therefore produces normalised QoE **inputs** per component and does not introduce a competing overall QoE formula. They are stored on each run as `qoe_signals`:
 
-- **EQ:** learning gain ((normalised gain + 1) / 2), normalised post-test
+- **EQ:** learning gain ((normalised gain + 1) / 2), normalised wrapup test
 - **AQ:** latency quality (1 − total latency / `REC_LATENCY_BUDGET_MS`), API reliability (1 − failure rate), transcript success rate
 - **NQ:** RTT quality (1 − RTT / `RTT_MAX_MS`)
 - **UX:** acceptance rate, satisfaction, CTR, completion rate. Feedback sentiment is `None`, because no sentiment analyser exists.
@@ -284,7 +284,7 @@ A search failure (bad key, quota, network) returns 200 with `status: "failed"` a
 | `tests/test_youtube_data_api.py` | Supported parameters, `fields`, pagination and duplicate removal, 50-id batching, ISO-8601 parsing, error classification (quota/key/forbidden/bad request/timeout/network/non-JSON), local quota stop, cache and TTL |
 | `tests/test_youtube_transcripts.py` | Manual-over-auto preference, language order, every failure status, block circuit breaker, a real library exception class, transcript cache, cleaning, truncation, chunk timestamps, overlap and bounds |
 | `tests/test_youtube_ranking.py` | Weight validation, missing-feature rule, every feature, hard filters, query building, and a synthetic catalogue with a known correct ranking. Also the metadata-only strategy, transcripts disabled, exclusions, history lookup, failure degradation, the transcript time budget and instrumentation |
-| `tests/test_recommendation_coordinator.py` | Persistence, gap concepts from the pre-test, events → outcomes → reward, dismissed exclusion and revision, kNN strategy choice, learning gain around the run, validation, failed runs, metric definitions |
+| `tests/test_recommendation_coordinator.py` | Persistence, gap concepts from the warmup test, events → outcomes → reward, dismissed exclusion and revision, kNN strategy choice, learning gain around the run, validation, failed runs, metric definitions |
 | `tests/test_recommendation_api.py` | HTTP round trip and error codes |
 | `tests/test_recommendations_page.py` | Streamlit `AppTest`: search → cards → "Helpful" event → reward; the missing-key state |
 

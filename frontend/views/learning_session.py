@@ -43,17 +43,17 @@ def _start_panel(backend: AgentBackend, learner: dict[str, Any]) -> None:
         providers = backend.provider_statuses()
         if not any(p.available for p in providers):
             st.warning("No language model is reachable (Ollama is down and neither GROQ_API_KEY nor HF_TOKEN is set). The session "
-                       "will still run, but the pre/post-test cannot be generated and answers will be lesson "
+                       "will still run, but the warmup/wrapup test cannot be generated and answers will be lesson "
                        "extracts from the model-free fallback, not generated text.", icon=":material/warning:")
         if not settings.youtube_api_key:
             st.warning("YOUTUBE_API_KEY is not set, so no videos can be recommended and the session cannot reach "
                        "the question stage.", icon=":material/warning:")
         st.markdown(
-            "The agent will: load your profile → let you **choose a topic** → give a **pre-test** (planned from your "
+            "The agent will: load your profile → let you **choose a topic** → give a **warmup test** (planned from your "
             "past results on the topic) → **recommend YouTube videos** for the topic, your level and language → "
             "let you **choose a video** → turn its transcript into a searchable index (once per video) → measure "
             "**RTT, CPU and memory** → **select a policy** (P1–P5) → answer your questions from the video with "
-            "**CRAG** retrieval and the **local/cloud router** → give a **post-test** on the same questions and "
+            "**CRAG** retrieval and the **local/cloud router** → give a **wrapup test** on the same questions and "
             "store the session as an **experience**."
         )
         if st.button("Start session", type="primary", icon=":material/play_arrow:"):
@@ -73,15 +73,15 @@ def _select_topic(backend: AgentBackend, thread_id: str, learner: dict[str, Any]
     if taken:
         last = taken[0]
         st.caption(f"You have studied this topic before (last {last['type']}-test {pct(last['score'])}). "
-                   "Your pre-test will re-check what you missed and add new questions.")
+                   "Your warmup test will re-check what you missed and add new questions.")
     else:
-        st.caption("First time on this topic: you will start with the standard pre-test.")
+        st.caption("First time on this topic: you will start with the standard warmup test.")
     status = backend.index_status(topic)
     if not (status.exists and status.compatible):
         st.caption(f"The topic's lesson notes ({status.source.name if status.source else 'missing'}) will be indexed "
-                   "first; they ground the pre-test and post-test questions.")
-    if st.button("Continue to the pre-test", type="primary", icon=":material/arrow_forward:"):
-        with st.spinner("Preparing the topic and planning your pre-test (writing questions can take a minute)…"):
+                   "first; they ground the warmup test and wrapup test questions.")
+    if st.button("Continue to the warmup test", type="primary", icon=":material/arrow_forward:"):
+        with st.spinner("Preparing the topic and planning your warmup test (writing questions can take a minute)…"):
             _remember(backend.resume(thread_id, {"topic_id": topic}), "Choose topic")
         st.rerun()
 
@@ -168,9 +168,9 @@ def _select_video(backend: AgentBackend, thread_id: str, values: dict[str, Any],
         with st.spinner("Searching YouTube again…"):
             _remember(backend.resume(thread_id, {"refresh": True}), "New recommendations")
         st.rerun()
-    if c2.button("Take the post-test" if watched else "End session",
+    if c2.button("Take the wrapup test" if watched else "End session",
                  icon=":material/flag:" if watched else ":material/stop:", width="stretch"):
-        _remember(backend.resume(thread_id, {"end": True}), "Take the post-test" if watched else "End session")
+        _remember(backend.resume(thread_id, {"end": True}), "Take the wrapup test" if watched else "End session")
         st.rerun()
     _general_questions(backend, thread_id, values["student_id"])
 
@@ -248,8 +248,8 @@ def _plan_banner(plan: dict[str, Any]) -> None:
     """Explain why the learner got these questions (from the agent's pre-test plan)."""
     if plan.get("mode") == "returning":
         prev = plan.get("previous") or {}
-        scores = " → ".join(f"{label} {pct(prev[key])}" for label, key in (("pre-test", "pre_score"),
-                                                                               ("post-test", "post_score"))
+        scores = " → ".join(f"{label} {pct(prev[key])}" for label, key in (("warmup test", "pre_score"),
+                                                                               ("wrapup test", "post_score"))
                             if prev.get(key) is not None)
         # Small models sometimes write a sentence as the concept name; keep the banner readable.
         weak = [c if len(c) <= 40 else c[:37].rstrip() + "…" for c in (plan.get("weak_concepts") or [])[:4]]
@@ -263,18 +263,18 @@ def _plan_banner(plan: dict[str, Any]) -> None:
 
 
 def _pretest(backend: AgentBackend, thread_id: str, pause: dict[str, Any]) -> None:
-    st.subheader("Pre-test")
+    st.subheader("Warmup test")
     _plan_banner(pause.get("plan") or {})
     st.caption(f"{pause['prompt']} Questions are generated from the lesson by the LLM and scored by "
                "app/services/pretest.py.")
     with st.form("pretest"):
         answers = mcq_inputs(pause["items"], f"pre-{thread_id}")
-        if st.form_submit_button("Submit pre-test", type="primary"):
+        if st.form_submit_button("Submit warmup test", type="primary"):
             if None in answers:
                 st.error("Answer every question before submitting.")
             else:
                 with st.spinner("Scoring and searching YouTube for videos at your level…"):
-                    _remember(backend.resume(thread_id, {"answers": answers}), "Submit pre-test")
+                    _remember(backend.resume(thread_id, {"answers": answers}), "Submit warmup test")
                 st.rerun()
 
 
@@ -285,10 +285,10 @@ def _pretest_score(values: dict[str, Any]) -> None:
         return
     with st.container(border=True):
         cols = st.columns([1, 1, 3], vertical_alignment="center")
-        cols[0].metric("Pre-test score", f"{result['correct']} / {result['total']}")
+        cols[0].metric("Warmup test score", f"{result['correct']} / {result['total']}")
         cols[1].metric("Starting level", str(result["competency"]).capitalize())
         cols[2].caption(f"You got {pct(values['pre_score'])} right. The correct answers and explanations are shown "
-                        "after the post-test, which asks these same questions again, so you can see what you "
+                        "after the wrapup test, which asks these same questions again, so you can see what you "
                         "learned in this session.")
 
 
@@ -336,8 +336,8 @@ def _review(values: dict[str, Any]) -> None:
             for i, option in enumerate(item["options"]):
                 letter = "ABCD"[i]
                 tags = [t for t, hit in (("correct answer", letter == item["answer"]),
-                                         ("your post-test answer", letter == item["post_answer"]),
-                                         ("your pre-test answer", letter == item.get("pre_answer"))) if hit]
+                                         ("your wrapup test answer", letter == item["post_answer"]),
+                                         ("your warmup test answer", letter == item.get("pre_answer"))) if hit]
                 text = f"{letter}. {option}" + (f"  _({', '.join(tags)})_" if tags else "")
                 st.markdown(f":green[**{text}**]" if letter == item["answer"] else
                             (f":red[{text}]" if letter == item["post_answer"] else text))
@@ -347,7 +347,7 @@ def _review(values: dict[str, Any]) -> None:
                 st.caption("No explanation is available for this question.")
             progress = ("" if item.get("pre_correct") is None else
                         " · learned this session" if item["post_correct"] and not item["pre_correct"] else
-                        " · got it wrong after getting it right in the pre-test" if item["pre_correct"]
+                        " · got it wrong after getting it right in the warmup test" if item["pre_correct"]
                         and not item["post_correct"] else "")
             st.caption(f"Concept: {item['concept']}{progress}")
     st.caption("Explanations are written by the LLM from the lesson text when the question is generated, so check "
@@ -368,19 +368,19 @@ def _questions(backend: AgentBackend, thread_id: str, values: dict[str, Any], pa
     with st.chat_message("assistant", avatar=":material/school:"):
         if turns:
             st.markdown(f"Any more doubts about **{video_title}**? Ask below. Or would you like to watch another "
-                        "video, or are you ready for the post-test?")
+                        "video, or are you ready for the wrapup test?")
         else:
             st.markdown(f"Watch **{video_title}** above, then ask me anything you didn't understand. When you're "
-                        "done, you can watch another video or take the post-test.")
+                        "done, you can watch another video or take the wrapup test.")
         _suggestion_button(backend, thread_id, pause.get("suggestion"))
         c1, c2 = st.columns(2)
         if c1.button("Watch another video", icon=":material/video_library:", width="stretch"):
             with st.spinner("Loading the video recommendations…"):
                 _remember(backend.resume(thread_id, {"more_videos": True}), "Watch another video")
             st.rerun()
-        if c2.button("Take the post-test", icon=":material/flag:", type="primary", width="stretch"):
+        if c2.button("Take the wrapup test", icon=":material/flag:", type="primary", width="stretch"):
             with st.spinner("Preparing the post-test…"):
-                _remember(backend.resume(thread_id, {"end": True}), "Take the post-test")
+                _remember(backend.resume(thread_id, {"end": True}), "Take the wrapup test")
             st.rerun()
     st.caption(f"Question {pause['question_no']} of at most {settings.max_questions_per_session} this session.")
 
@@ -500,12 +500,12 @@ def _posttest(backend: AgentBackend, thread_id: str, values: dict[str, Any], pau
                 chat.agent_turn(turn, threshold)
     _pretest_score(values)
     _plan_card(values)
-    st.subheader("Post-test and feedback")
+    st.subheader("Wrapup test and feedback")
     st.caption(pause["prompt"] + " After you submit, you will see your score, the correct answers and why "
                "they are right.")
     if not pause["items"]:
-        st.warning("This topic has no question bank (pre-test generation failed earlier), so there is no "
-                   "post-test. The agent keeps your rating in the session state only: without a question bank, "
+        st.warning("This topic has no question bank (warmup test generation failed earlier), so there is no "
+                   "wrapup test. The agent keeps your rating in the session state only: without a question bank, "
                    "app/services/posttest.py cannot store feedback.")
     with st.form("posttest"):
         answers = mcq_inputs(pause["items"], f"post-{thread_id}") if pause["items"] else []
@@ -519,7 +519,7 @@ def _posttest(backend: AgentBackend, thread_id: str, values: dict[str, Any], pau
                            "comment": comment.strip() or None}
                 with st.spinner("Scoring, preparing the answer explanations, evaluating the session and storing "
                                 "the experience…"):
-                    _remember(backend.resume(thread_id, payload), "Submit post-test")
+                    _remember(backend.resume(thread_id, payload), "Submit wrapup test")
                 st.rerun()
 
 
@@ -561,15 +561,15 @@ def _summary(backend: AgentBackend, thread_id: str, values: dict[str, Any]) -> N
         return f"{counts['correct']} / {counts['total']} ({pct(value)})" if counts.get("total") else pct(value)
 
     cols = st.columns(4)
-    cols[0].metric("Pre-test", score(pre, pre_n))
-    cols[1].metric("Post-test", score(post, post_n),
+    cols[0].metric("Warmup test", score(pre, pre_n))
+    cols[1].metric("Wrapup test", score(post, post_n),
                    delta=f"{post - pre:+.0%}" if pre is not None and post is not None else None)
     cols[2].metric("Rating", values.get("rating") or "—")
     cols[3].metric("Questions asked", len(values.get("qa_log", [])))
     _review(values)
     _reflection_card(values.get("reflection") or {})
     st.subheader("Concept mastery after this session")
-    st.caption("Your pre-test and post-test answers on each concept of the topic, and your mastery across all "
+    st.caption("Your warmup test and wrapup test answers on each concept of the topic, and your mastery across all "
                "sessions so far.")
     mastery_panel(values["student_id"], values["topic_id"], session_id=thread_id)
 
@@ -634,7 +634,7 @@ def _summary(backend: AgentBackend, thread_id: str, values: dict[str, Any]) -> N
 
 def render(backend: AgentBackend, learner: dict[str, Any] | None) -> None:
     page_header("Learning session", "LangGraph agent · agent/runner.py",
-                "Pre-test → context → kNN policy → CRAG retrieval → local/cloud LLM router → post-test → "
+                "Warmup test → context → kNN policy → CRAG retrieval → local/cloud LLM router → wrapup test → "
                 "experience memory. Every step runs the real graph and services.")
     if learner is None:
         st.info("Select or create a learner in the sidebar to start.")

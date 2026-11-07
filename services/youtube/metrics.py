@@ -63,13 +63,13 @@ def recommendation_metrics(items: list[Mapping[str, Any]], events: list[Mapping[
                                   f"accepted / explicitly labelled items in the top {k} (unlabelled excluded)"),
     }
     gain = post_score - pre_score if pre_score is not None and post_score is not None else None
-    out["learning_gain"] = _metric(gain, post_score, pre_score, "post-test − pre-test score for the topic",
+    out["learning_gain"] = _metric(gain, post_score, pre_score, "wrapup test − warmup test score for the topic",
                                    "measured around this run; not attributable to a single video")
     norm = gain / (1 - pre_score) if gain is not None and pre_score is not None and pre_score < 1 else None
     out["normalized_learning_gain"] = _metric(norm, gain, None if pre_score is None else 1 - pre_score,
                                               "(post − pre) / (1 − pre)  (Hake gain)")
     out["normalized_post_test"] = _metric(post_score, post_score, 1.0 if post_score is not None else None,
-                                          "post-test score (0–1)")
+                                          "wrapup test score (0–1)")
     return out
 
 

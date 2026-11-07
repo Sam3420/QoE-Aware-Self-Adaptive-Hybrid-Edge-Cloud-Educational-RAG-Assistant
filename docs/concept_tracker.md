@@ -13,8 +13,8 @@ topic. Later coaching nodes (plan session, formative checks, the coach) read it.
 | Tracker tables | `app/db/models/concept_tracker.py` | `learner_topic_strength`: one row per learner × topic × concept with attempts, correct, mastery and coverage. `concept_events`: the raw observations, unique per origin. |
 | Migration | `app/db/migrations.py`, `scripts/migrate_db.py` | `0001_concept_tracker` creates both tables. `schema_migrations` records what was applied. It also runs on app start. |
 | Repository | `app/db/repositories/concept_tracker.py` | `record_attempt`, `mark_covered`, `get_mastery` |
-| Recording tests | `agent/concept_tracking.py`, `agent/nodes/assessment.py` | Every scored pre/post-test is recorded live. The backfill uses the same code. |
-| Backfill | `scripts/backfill_concept_tracker.py` | Records every stored pre/post-test. Idempotent. `--dry-run` shows the label mapping without writing anything. |
+| Recording tests | `agent/concept_tracking.py`, `agent/nodes/assessment.py` | Every scored warmup/wrapup test is recorded live. The backfill uses the same code. |
+| Backfill | `scripts/backfill_concept_tracker.py` | Records every stored warmup/wrapup test. Idempotent. `--dry-run` shows the label mapping without writing anything. |
 
 ## Mastery
 

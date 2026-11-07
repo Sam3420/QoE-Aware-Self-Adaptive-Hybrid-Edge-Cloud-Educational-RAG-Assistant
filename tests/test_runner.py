@@ -16,7 +16,7 @@ def test_full_session_through_runner(runner, learner, services):
     pause = out["interrupt"]
     assert pause["type"] == "ask_question" and pause["question_no"] == 1
     assert pause["video"]["title"] == "Fake video 1 about photosynthesis"
-    assert pause["next_steps"] == ["ask a doubt", "watch another video", "take the post-test"]
+    assert pause["next_steps"] == ["ask a doubt", "watch another video", "take the wrapup test"]
     out = runner.resume(tid, {"query": "How do leaves take in carbon dioxide?"})
     assert out["interrupt"]["question_no"] == 2
     out = runner.resume(tid, {"end": True})

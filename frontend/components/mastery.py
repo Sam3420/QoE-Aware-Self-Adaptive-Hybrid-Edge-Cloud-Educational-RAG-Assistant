@@ -7,12 +7,12 @@ import streamlit as st
 from frontend.clients import data_access
 from frontend.components.ui import badge
 
-MASTERY_HELP = ("mastery = (correct + 1) / (attempts + 2): 0.5 means no evidence yet, one right answer gives 0.67, "
-                "one wrong answer 0.33. Recorded from every pre-test and post-test answer.")
+MASTERY_HELP = ("mastery = (correct + 1) / (attempts + 2): it starts at 0.5 (shown blank as \"not tested yet\"), one "
+                "right answer gives 0.67, one wrong answer 0.33. Recorded from every warmup test and wrapup test answer.")
 
 
 def _evidence(row: dict[str, Any]) -> str:
-    return f"{row['correct']} / {row['attempts']} correct" if row["attempts"] else "no evidence yet"
+    return f"{row['correct']} / {row['attempts']} correct" if row["attempts"] else "not tested yet"
 
 
 def _marks(results: list[bool] | None) -> str:
@@ -38,9 +38,9 @@ def mastery_panel(learner_id: str, topic_id: str, *, session_id: str | None = No
     results = data_access.session_concept_results(learner_id, topic_id, session_id) if session_id else {}
     table = pd.DataFrame([{
         "Concept": r["concept"] + ("" if r["in_vocabulary"] else " (no longer in the list)"),
-        "Mastery": r["mastery"],
-        **({"Pre-test": _marks(results.get(r["concept_id"], {}).get("pre-test")),
-            "Post-test": _marks(results.get(r["concept_id"], {}).get("post-test"))} if session_id else {}),
+        "Mastery": r["mastery"] if r["attempts"] else None,  # the 0.5 prior is not a measurement
+        **({"Warmup test": _marks(results.get(r["concept_id"], {}).get("pre-test")),
+            "Wrapup test": _marks(results.get(r["concept_id"], {}).get("post-test"))} if session_id else {}),
         "Evidence": _evidence(r),
         "Covered": r["covered"],
         "What it is": r["description"],

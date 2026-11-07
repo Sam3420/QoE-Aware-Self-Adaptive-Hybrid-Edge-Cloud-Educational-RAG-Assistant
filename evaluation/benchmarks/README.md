@@ -122,7 +122,7 @@ Run every command from the repo root. All of them can be stopped and re-run: fin
 .venv\Scripts\python -m evaluation.benchmarks.run_answer_matrix --kinds post --variants P1 P2 P3 P4 P5 RAG-local LLM-local --wait-daily
 ```
 
-- **What it does:** each post-test question (15 per topic, 75 in all) is answered once by each variant through the
+- **What it does:** each wrapup test question (15 per topic, 75 in all) is answered once by each variant through the
   agent's real QA nodes:
 
   | Variant | What it is |
@@ -170,7 +170,7 @@ Run every command from the repo root. All of them can be stopped and re-run: fin
 .venv\Scripts\python -m evaluation.benchmarks.coach_costs --no-llm   # local steps only
 ```
 
-- **Local steps:** timings for planning, coach decisions, picking formative items and scoring the post-test.
+- **Local steps:** timings for planning, coach decisions, picking formative items and scoring the wrapup test.
 - **Scaffold experiment:** the 30 doubts answered by P1 and P3 in three styles (plain, step-by-step, and
   step-by-step with a hint first), comparing latency, tokens and answer length.
 - **Output:** `evaluation/results/coach/`.
@@ -321,7 +321,7 @@ If results come from two laptops, copy the other laptop's `doubts_matrix.csv` an
   answer, timing and resource figure is real; the network model only adds what a profile does to the cloud calls.
   The model has not yet been checked against live injected delays; until it is, call it a limitation.
 - **Benchmark network:** the matrix was measured with a 28.8 ms median RTT to Groq (`benchmark-base`).
-- **Question set:** 75 post-test items (15 per topic, balanced). The extra pre-test items are additional data.
+- **Question set:** 75 wrapup test items (15 per topic, balanced). The extra warmup test items are additional data.
 - **Content status:**
   - the items were AI-generated from the NCERT text and are human-review **pending**;
   - 28 of the 60 review flags are still open (result 8).

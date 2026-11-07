@@ -16,7 +16,7 @@ from app.services.mcq import normalize_answer, question_key
 from knowledge_prep.catalog import search_text
 from knowledge_prep.concepts import ConceptMatcher, Vocabulary
 
-MISSED = "missed in this pre-test"
+MISSED = "missed in this warmup test"
 
 
 class Goal(BaseModel):

@@ -24,14 +24,14 @@ LANGFUSE_ENVIRONMENT=development
 
 | Trace name | Unit of work | Root input → output |
 |---|---|---|
-| `start-learning-session` | session start → topic choice or pre-test shown | topic → next prompt |
-| `choose-topic` | learner picks a topic → pre-test shown | topic id → next prompt |
-| `submit-pretest` | pre-test scored → videos recommended (`recommend-videos` nested) | answers → video choices |
+| `start-learning-session` | session start → topic choice or warmup test shown | topic → next prompt |
+| `choose-topic` | learner picks a topic → warmup test shown | topic id → next prompt |
+| `submit-pretest` | warmup test scored → videos recommended (`recommend-videos` nested) | answers → video choices |
 | `choose-video` / `refresh-videos` / `end-session` | video picked and its transcript indexed → context, policy selected | item id → next prompt |
 | `answer-question` | one question through CRAG and the LLM | **the question → the answer** |
 | `watch-another-video` | learner asks for another video after their doubts | `{"more_videos": true}` → video list (already-watched videos marked) |
-| `end-questions` | learner finishes asking and takes the post-test | `{"end": true}` → post-test prompt |
-| `submit-posttest` | post-test, evaluation, experience stored | answers, rating, comment → QoE/SRE/reward |
+| `end-questions` | learner finishes asking and takes the wrapup test | `{"end": true}` → wrapup test prompt |
+| `submit-posttest` | wrapup test, evaluation, experience stored | answers, rating, comment → QoE/SRE/reward |
 | `recommend-videos` | one YouTube recommendation request from the API or the recommendations page (inside a session it is a child of `submit-pretest`) | topic/objective → ranked videos |
 
 **Correlation fields:**
@@ -66,8 +66,8 @@ Inputs and outputs are short, readable summaries, never the whole agent state.
 
 | Score | Level | Type | Source |
 |---|---|---|---|
-| `session_rating` | session | numeric 1–5 | learner rating with the post-test |
-| `posttest_score` | session | numeric 0–1 | post-test |
+| `session_rating` | session | numeric 1–5 | learner rating with the wrapup test |
+| `posttest_score` | session | numeric 0–1 | wrapup test |
 | `learning_gain` | session | numeric 0–1 | normalised Hake gain (only when defined) |
 | `session_qoe`, `session_sre`, `adaptation_reward` | session | numeric | `metrics/` evaluation |
 | `video_opened`, `video_marked_helpful`, `video_marked_not_relevant`, `video_completed_self_reported` | trace (`recommend-videos`) | boolean | learner buttons. Opening is not watching, and completion is self-reported |

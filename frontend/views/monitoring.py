@@ -102,4 +102,4 @@ def render(backend: AgentBackend) -> None:
                                         **{f"{k} eff.": v for k, v in (ev.get("sre_components") or {}).items()}}]),
                          hide_index=True, width="stretch", alt="QoE, SRE, utility and reward of the session")
         else:
-            st.caption("QoE and SRE are computed when a learning session finishes (after the post-test).")
+            st.caption("QoE and SRE are computed when a learning session finishes (after the wrapup test).")
